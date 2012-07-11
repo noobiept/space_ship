@@ -1,4 +1,4 @@
-/*global Shape, Bullets*/
+/*global Shape, Bullets, STAGE, CANVAS*/
 /*jslint vars: true, white: true*/
 
 "use strict";
@@ -6,7 +6,7 @@
 (function(window)
 {
 
-function Bullets( shipObject, stageObject )
+function Bullets( shipObject )
 {
 var bullet = new Shape();
 
@@ -24,10 +24,8 @@ g.moveTo(-1, 0);
 g.lineTo(1, 0);
 g.closePath();
 
-stageObject.addChild( bullet );
+STAGE.addChild( bullet );
 
-
-Bullets.stageObject = stageObject;
 
 Bullets.all.push( bullet );
 }
@@ -48,6 +46,7 @@ var rotation;
 
 var i;
 
+
 for (i = 0 ; i < all.length ; i++)
     {
     bulletObject = all[i];
@@ -58,14 +57,40 @@ for (i = 0 ; i < all.length ; i++)
     
     bulletObject.x += Math.sin( rotation * (Math.PI/-180) ) * Bullets.speed;
     bulletObject.y += Math.cos( rotation * (Math.PI/-180) ) * Bullets.speed;
+    
+        // remove the bullets that are out of the canvas
+    if ( Bullets.reachedLimits( bulletObject ) )
+        {
+        Bullets.remove( i );
+        
+            // since we removed one element, the index shifted one position
+        i--;
+        }
     }
+};
+
+
+
+
+Bullets.reachedLimits = function( bulletObject )
+{
+var x = bulletObject.x;
+var y = bulletObject.y;
+
+    
+if (x < 0 || x > CANVAS.width || y < 0 || y > CANVAS.height)
+    {
+    return true;
+    }
+
+return false;
 };
 
 
 
 Bullets.remove = function( position )
 {
-Bullets.stageObject.removeChild( Bullets.all[ position ] );
+STAGE.removeChild( Bullets.all[ position ] );
 
 Bullets.all.splice( position, 1 );
 };
