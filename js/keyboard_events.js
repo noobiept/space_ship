@@ -162,5 +162,6 @@ window.handleKeyDown = handleKeyDown;
 window.handleKeyUp = handleKeyUp;
 
 window.KEYS_HELD = KEYS_HELD;
+window.EVENT_KEY = EVENT_KEY;
 
 }(window));

@@ -7,6 +7,7 @@
     // the namespace: "new Graphics()" instead of "new createjs.Graphics()"
 var createjs = window;
 
+
     // global variables
 var STAGE;
 var CANVAS;    
@@ -16,13 +17,60 @@ var SCORE_TEXT;
 
 var ENERGY = 100;
 var ENERGY_TEXT;
+
+
+var PRELOAD;
+var LOADING_INTERVAL = 0;
     
-function init() {
+var LOADING_MESSAGE;
+    
+    
+    
+function initialLoad()
+{
+PRELOAD = new PreloadJS();
+
+var manifest = [
+    { id:"game_music", src: "sound/scumm_bar.ogg" }    // just testing
+    ];
+
+PRELOAD.onComplete = mainMenu;
+PRELOAD.installPlugin(SoundJS);
+PRELOAD.loadManifest(manifest);
+
     // get a reference to the canvas we'll be working with
 CANVAS = document.querySelector( "#mainCanvas" );
 
     // create a stage object to work with the canvas. This is the top level node in the display list
 STAGE = new Stage( CANVAS );
+
+LOADING_MESSAGE = new Text("Loading", "bold 20px Arial", "rgb(255, 255, 255)");
+
+LOADING_MESSAGE.maxWidth = 500;
+LOADING_MESSAGE.textAlign = "center";
+LOADING_MESSAGE.x = CANVAS.width / 2;
+LOADING_MESSAGE.y = CANVAS.height / 2;
+
+STAGE.addChild( LOADING_MESSAGE );
+STAGE.update();
+
+LOADING_INTERVAL = setInterval(updateLoading, 200);
+}
+    
+
+function updateLoading() 
+{
+LOADING_MESSAGE.text = "Loading " + (PRELOAD.progress*100|0) + "%"
+
+STAGE.update();
+}
+    
+
+    
+    
+function startGame() 
+{
+STAGE.removeAllChildren();
 
 
 SCORE_TEXT = new Text("Enemies killed: " + SCORE, "16px Arial", "#777");
@@ -76,6 +124,8 @@ document.onkeyup = handleKeyUp;
 
 STAGE.onMouseMove = function(event) { handleMouseMove(event, ship); };
 STAGE.onMouseDown = function(event) { handleClick(event, ship); };
+
+SoundJS.play("game_music", SoundJS.INTERRUPT_NONE ,0 ,0, -1);
 }
 
 
