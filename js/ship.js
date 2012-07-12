@@ -11,6 +11,9 @@ function Ship()
 this.initialize();
 }
 
+Ship.all = [];
+
+
 var p = Ship.prototype = new Container();
 
 var VELOCITY = 5;
@@ -31,6 +34,8 @@ this.shipBody = new Shape();
 this.addChild( this.shipBody );
 
 this.makeShape();
+
+Ship.all.push( this );
 };
 
 
@@ -97,7 +102,63 @@ return false;
 };
  
      
+Ship.checkIfCollidedWithEnemies = function()
+{
+var i, k;
+var enemies = EnemyShip.all;
+
+
+
+var ship;
+var enemy;
+
+var shipLeftSide, shipRightSide, shipUpSide, shipDownSide;
+var enemyLeftSide, enemyRightSide, enemyUpSide, enemyDownSide;
+
+for (k = 0 ; k < Ship.all.length ; k++)
+    {
+    ship = Ship.all[k];
     
+    shipLeftSide = ship.x - 5;
+    shipRightSide = ship.x + 5;
+    shipUpSide = ship.y - 5;
+    shipDownSide = ship.y + 5;
+    
+    for (i = 0 ; i < enemies.length ; i++)
+        {
+        enemy = enemies[i];
+            
+            // we'll assume a square of the impact area
+        enemyLeftSide = enemy.x - 10;
+        enemyRightSide = enemy.x + 10;
+        enemyUpSide = enemy.y - 10;
+        enemyDownSide = enemy.y + 10;
+        
+            // check if they collide
+        if ( !(shipRightSide < enemyLeftSide || shipLeftSide > enemyRightSide || shipDownSide < enemyUpSide || shipUpSide > enemyDownSide) )
+            {
+            Ship.tookDamage( enemy.damageGiven() );
+
+                // if so, remove the enemy, and reduce the energy
+            enemy.remove( i );
+            
+                // the array changed in length (since we removed one element. Update the index)
+            i--;
+            }
+        }
+    }
+
+};
+
+
+Ship.tookDamage = function( damage )
+{
+ENERGY -= damage;
+
+ENERGY_TEXT.text = "Energy: " + ENERGY;
+};
+    
+
     
 p.tick = function()
 {
@@ -215,6 +276,9 @@ else if (KEYS_HELD.down)
         this.y = nextY;
         }
     }
+
+    
+Ship.checkIfCollidedWithEnemies();    
 };
     
 window.Ship = Ship;

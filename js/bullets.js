@@ -33,7 +33,7 @@ Bullets.all.push( bullet );
 
 Bullets.all = [];
 
-Bullets.speed = 5;
+Bullets.speed = 8;
 
 
 
@@ -77,7 +77,6 @@ Bullets.reachedLimits = function( bulletObject )
 var x = bulletObject.x;
 var y = bulletObject.y;
 
-    
 if (x < 0 || x > CANVAS.width || y < 0 || y > CANVAS.height)
     {
     return true;

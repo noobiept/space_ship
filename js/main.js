@@ -14,6 +14,8 @@ var CANVAS;
 var SCORE = 0;
 var SCORE_TEXT;
 
+var ENERGY = 100;
+var ENERGY_TEXT;
     
 function init() {
     // get a reference to the canvas we'll be working with
@@ -23,7 +25,7 @@ CANVAS = document.querySelector( "#mainCanvas" );
 STAGE = new Stage( CANVAS );
 
 
-SCORE_TEXT = new Text("Enemies killed: 0", "16px Arial", "#777");
+SCORE_TEXT = new Text("Enemies killed: " + SCORE, "16px Arial", "#777");
 
 
     // add the text as a child of the stage. This means it will be drawn any time the stage is updated
@@ -33,6 +35,14 @@ STAGE.addChild( SCORE_TEXT );
     // position the text on screen, relative to the stage coordinates
 SCORE_TEXT.x = CANVAS.width - 150;
 SCORE_TEXT.y = 40;
+
+
+ENERGY_TEXT = new Text("Energy: " + ENERGY, "16px Arial", "#777");
+
+STAGE.addChild( ENERGY_TEXT );
+
+ENERGY_TEXT.x = SCORE_TEXT.x;
+ENERGY_TEXT.y = SCORE_TEXT.y + 30;
 
 
 var ship = new Ship();
@@ -70,7 +80,7 @@ STAGE.onMouseDown = function(event) { handleClick(event, ship); };
 
 
     // from how many ticks, until next enemy
-var NEXT_ENEMY_TICKS = 100;
+var NEXT_ENEMY_TICKS = 60;
 
 var COUNT_TICKS_NEXT_ENEMY = NEXT_ENEMY_TICKS;
 

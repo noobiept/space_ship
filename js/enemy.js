@@ -16,6 +16,16 @@ this.initialize();
 }
 
 
+EnemyShip.all = [];
+
+var VELOCITY = 1;
+
+
+    // damage given by this ship when it hits
+EnemyShip.damage = 10;
+
+
+
 var p = EnemyShip.prototype = new Container();
 
 
@@ -32,6 +42,8 @@ this.shipBody = new Shape();
 this.addChild( this.shipBody );
 
 this.makeShape();
+
+EnemyShip.all.push( this );
 };
 
 
@@ -65,31 +77,50 @@ var bulletX, bulletY;
 
 var i;
 
+var bulletLeftSide, bulletRightSide, bulletUpSide, bulletDownSide;
+var enemyLeftSide, enemyRightSide, enemyUpSide, enemyDownSide;
+
+
 for (i = 0 ; i < bullets.length ; i++)
     {
     bulletX = bullets[i].x;
     bulletY = bullets[i].y;
     
-        // check if it hits the EnemyShip (the x part)
-    if ((bulletX > this.x - 10) && (bulletX < this.x + 10))
+    
+        // a bullet is a two pixel line
+        // to simplify, lets use a square for the collision detection
+    bulletLeftSide = bulletX - 1;
+    bulletRightSide = bulletX + 1;
+    bulletUpSide = bulletY - 1;
+    bulletDownSide = bulletY + 1;
+    
+        // same for the enemy
+    enemyLeftSide = this.x - 10;
+    enemyRightSide = this.x + 10;
+    enemyUpSide = this.y - 10;
+    enemyDownSide = this.y + 10;
+
+        // check if it hits the EnemyShip
+    if ( !(bulletRightSide < enemyLeftSide || bulletLeftSide > enemyRightSide || bulletDownSide < enemyUpSide || bulletUpSide > enemyDownSide) )
         {
-            // now the y part
-        if ((bulletY > this.y - 10) && (bulletY < this.y + 10))
-            {
-                // remove the bullet
-            Bullets.remove( i );
-            
-                // remove the EnemyShip
-            this.remove();
-            
-            return;
-            }
+            // remove the bullet
+        Bullets.remove( i );
+        
+            // remove the EnemyShip
+        this.remove( i );
+        
+        return;   
         }
     }
 };
 
 
-var VELOCITY = 6;
+
+EnemyShip.prototype.damageGiven = function()
+{
+return EnemyShip.damage;
+};
+
 
 p.tick = function()
 {
@@ -122,11 +153,13 @@ else if (this.x > width)
 
 
 
-p.remove = function()
+p.remove = function( position )
 {
 STAGE.removeChild( this );
 
 Ticker.removeListener( this );
+
+EnemyShip.all.splice( position, 1 );
 
 SCORE++;
 
