@@ -124,10 +124,13 @@ else if (this.x > width)
 
 p.remove = function()
 {
-STAGE.removeChild( this.shipBody );
 STAGE.removeChild( this );
 
 Ticker.removeListener( this );
+
+SCORE++;
+
+SCORE_TEXT.text = "Enemies killed: " + SCORE;
 };
 
 
