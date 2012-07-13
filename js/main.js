@@ -72,6 +72,11 @@ function startGame()
 {
 STAGE.removeAllChildren();
 
+Ticker.removeAllListeners();
+
+SCORE = 0;
+ENERGY = 100;
+
 
 SCORE_TEXT = new Text("Enemies killed: " + SCORE, "16px Arial", "#777");
 
@@ -97,6 +102,7 @@ var ship = new Ship();
 
 ship.x = CANVAS.width / 2;
 ship.y = CANVAS.height / 2;
+
 
 
 STAGE.addChild( ship );
@@ -130,7 +136,7 @@ SoundJS.play("game_music", SoundJS.INTERRUPT_NONE ,0 ,0, -1);
 
 
     // from how many ticks, until next enemy
-var NEXT_ENEMY_TICKS = 60;
+var NEXT_ENEMY_TICKS = 30;
 
 var COUNT_TICKS_NEXT_ENEMY = NEXT_ENEMY_TICKS;
 

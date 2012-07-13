@@ -137,7 +137,7 @@ for (k = 0 ; k < Ship.all.length ; k++)
             // check if they collide
         if ( !(shipRightSide < enemyLeftSide || shipLeftSide > enemyRightSide || shipDownSide < enemyUpSide || shipUpSide > enemyDownSide) )
             {
-            Ship.tookDamage( enemy.damageGiven() );
+            ship.tookDamage( enemy.damageGiven() );
 
                 // if so, remove the enemy, and reduce the energy
             enemy.remove( i );
@@ -151,11 +151,39 @@ for (k = 0 ; k < Ship.all.length ; k++)
 };
 
 
-Ship.tookDamage = function( damage )
+Ship.prototype.tookDamage = function( damage )
 {
 ENERGY -= damage;
 
 ENERGY_TEXT.text = "Energy: " + ENERGY;
+
+    // you loose
+if (ENERGY <= 0)
+    {
+    STAGE.removeChild( this );
+    
+    Ticker.removeAllListeners();
+    
+    $( document).bind( "keyup", function(event) 
+        {
+        if (event.keyCode == EVENT_KEY.enter) 
+            {
+            startGame();
+            }
+        });
+    
+    
+    var gameOver = new Text("Game Over: Press enter to restart", "16px Arial", "rgb(255, 255, 255)");
+    
+    gameOver.textAlign = "center";
+    
+    gameOver.x = CANVAS.width / 2;
+    gameOver.y = CANVAS.height / 2;
+    
+    STAGE.addChild( gameOver );
+    
+    STAGE.update();
+    }
 };
     
 
