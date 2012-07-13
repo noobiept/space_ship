@@ -1,4 +1,4 @@
-/*global Container, Shape, CANVAS, KEYS_HELD*/
+/*global Container, Shape, CANVAS, KEYS_HELD, EnemyShip, ENERGY: true, ENERGY_TEXT, STAGE, $, Ticker, EVENT_KEY, startGame, Text*/
 /*jslint vars: true, white: true*/
 
 "use strict";
@@ -166,7 +166,7 @@ if (ENERGY <= 0)
     
     $( document).bind( "keyup", function(event) 
         {
-        if (event.keyCode == EVENT_KEY.enter) 
+        if (event.keyCode === EVENT_KEY.enter) 
             {
             startGame();
             }

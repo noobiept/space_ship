@@ -1,3 +1,5 @@
+/*global LOADING_INTERVAL, STAGE, Text, CANVAS, $, EVENT_KEY, startGame*/
+/*jslint vars: true, white: true*/
 
 "use strict";
 
@@ -40,7 +42,7 @@ function keyboardEvents( event )
 var key = event.keyCode;
 
     // start the game
-if (key == EVENT_KEY.enter)
+if (key === EVENT_KEY.enter)
     {
     $( document ).unbind( "keyup" );
     

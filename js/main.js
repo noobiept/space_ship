@@ -1,4 +1,4 @@
-/*global Stage, Text, Ship, EnemyShip, Ticker, Bullets, handleClick, handleKeyDown, handleKeyUp, handleMouseMove*/
+/*global Stage, Text, Ship, EnemyShip, Ticker, Bullets, handleClick, handleKeyDown, handleKeyUp, handleMouseMove, PreloadJS, mainMenu, SoundJS, EnemyRotateAround*/
 /*jslint vars: true, white: true*/
     
 "use strict";    
@@ -24,6 +24,8 @@ var LOADING_INTERVAL = 0;
     
 var LOADING_MESSAGE;
     
+    
+var MAIN_SHIP;
     
     
 function initialLoad()
@@ -60,7 +62,7 @@ LOADING_INTERVAL = setInterval(updateLoading, 200);
 
 function updateLoading() 
 {
-LOADING_MESSAGE.text = "Loading " + (PRELOAD.progress*100|0) + "%"
+LOADING_MESSAGE.text = "Loading " + (PRELOAD.progress*100|0) + "%";
 
 STAGE.update();
 }
@@ -98,25 +100,19 @@ ENERGY_TEXT.x = SCORE_TEXT.x;
 ENERGY_TEXT.y = SCORE_TEXT.y + 30;
 
 
-var ship = new Ship();
+MAIN_SHIP = new Ship();
 
-ship.x = CANVAS.width / 2;
-ship.y = CANVAS.height / 2;
+MAIN_SHIP.x = CANVAS.width / 2;
+MAIN_SHIP.y = CANVAS.height / 2;
 
 
 
-STAGE.addChild( ship );
+STAGE.addChild( MAIN_SHIP );
 
-var enemyShip = new EnemyShip();
 
-enemyShip.x = 50;
-enemyShip.y = 100;
-
-STAGE.addChild( enemyShip );
 
     // so that .tick() of EnemyShip/Ship/... is called automatically
-Ticker.addListener( enemyShip );
-Ticker.addListener( ship );
+Ticker.addListener( MAIN_SHIP );
 Ticker.addListener( window );
 
     // call update on the stage to make it render the current display list to the canvas
@@ -128,8 +124,8 @@ document.onkeydown = handleKeyDown;
 document.onkeyup = handleKeyUp;
 
 
-STAGE.onMouseMove = function(event) { handleMouseMove(event, ship); };
-STAGE.onMouseDown = function(event) { handleClick(event, ship); };
+STAGE.onMouseMove = function(event) { handleMouseMove(event, MAIN_SHIP); };
+STAGE.onMouseDown = function(event) { handleClick(event, MAIN_SHIP); };
 
 SoundJS.play("game_music", SoundJS.INTERRUPT_NONE ,0 ,0, -1);
 }
@@ -138,13 +134,9 @@ SoundJS.play("game_music", SoundJS.INTERRUPT_NONE ,0 ,0, -1);
     // from how many ticks, until next enemy
 var NEXT_ENEMY_TICKS = 30;
 
-var COUNT_TICKS_NEXT_ENEMY = NEXT_ENEMY_TICKS;
+var COUNT_TICKS_NEXT_ENEMY = 0;
 
 
-function getRandomInt (min, max) 
-{
-return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 
 function tick()
@@ -157,7 +149,10 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     {
     COUNT_TICKS_NEXT_ENEMY = NEXT_ENEMY_TICKS;
     
-    var enemy = new EnemyShip();
+    var enemyTypes = [ EnemyShip, EnemyRotateAround ];
+    
+    //var enemy = new EnemyShip();
+    var enemy = new enemyTypes[ getRandomInt(0, enemyTypes.length - 1 ) ]();
     
     enemy.x = getRandomInt( 0, CANVAS.width );
     enemy.y = getRandomInt( 0, CANVAS.height );
@@ -168,5 +163,8 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
 
 STAGE.update();
 }
+
+
+
 
 

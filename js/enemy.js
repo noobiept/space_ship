@@ -1,4 +1,4 @@
-/*global Container, Shape, Bullets, CANVAS, STAGE, Ticker*/
+/*global Container, Shape, Bullets, CANVAS, STAGE, Ticker, SCORE, SCORE_TEXT*/
 /*jslint vars: true, white: true*/
 
 "use strict";
@@ -13,16 +13,15 @@
 function EnemyShip()
 {
 this.initialize();
+
+    // damage given by this ship when it hits
+this.damage = 10;
+
+this.velocity = 1;
 }
 
 
 EnemyShip.all = [];
-
-var VELOCITY = 1;
-
-
-    // damage given by this ship when it hits
-EnemyShip.damage = 10;
 
 
 
@@ -55,6 +54,9 @@ var g = this.shipBody.graphics;
 g.clear();
 
 g.beginStroke( "rgb(255, 0, 0)" );
+
+this.width = 20;
+this.height = 20;
 
 g.moveTo( -10, -10 );
 g.lineTo( 10, -10 );
@@ -94,11 +96,15 @@ for (i = 0 ; i < bullets.length ; i++)
     bulletUpSide = bulletY - 1;
     bulletDownSide = bulletY + 1;
     
+        // the ship is centered on 0
+    var halfWidth = this.width / 2;
+    var halfHeight = this.height / 2; 
+    
         // same for the enemy
-    enemyLeftSide = this.x - 10;
-    enemyRightSide = this.x + 10;
-    enemyUpSide = this.y - 10;
-    enemyDownSide = this.y + 10;
+    enemyLeftSide = this.x - halfWidth;
+    enemyRightSide = this.x + halfWidth;
+    enemyUpSide = this.y - halfHeight;
+    enemyDownSide = this.y + halfHeight;
 
         // check if it hits the EnemyShip
     if ( !(bulletRightSide < enemyLeftSide || bulletLeftSide > enemyRightSide || bulletDownSide < enemyUpSide || bulletUpSide > enemyDownSide) )
@@ -118,13 +124,19 @@ for (i = 0 ; i < bullets.length ; i++)
 
 EnemyShip.prototype.damageGiven = function()
 {
-return EnemyShip.damage;
+return this.damage;
+};
+
+
+EnemyShip.prototype.shipBehaviour = function()
+{
+this.x += this.velocity;
 };
 
 
 p.tick = function()
 {
-this.x += VELOCITY;
+this.shipBehaviour();
 
     // check if it was hit
 this.wasHit();
@@ -148,6 +160,16 @@ if (this.x < 0)
 else if (this.x > width)
     {
     this.x = 0;
+    }
+
+else if (this.y < 0)
+    {
+    this.y = height;
+    }
+
+else if (this.y > height)
+    {
+    this.y = 0;
     }
 };
 
