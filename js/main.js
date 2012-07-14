@@ -128,16 +128,14 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     
     var enemyTypes = [ EnemyShip, EnemyRotateAround ];
     
-    //var enemy = new EnemyShip();
     var enemy = new enemyTypes[ getRandomInt(0, enemyTypes.length - 1 ) ]();
     
-    var enemyShip = enemy.getShipElement();
     
-    enemyShip.x = getRandomInt( 0, CANVAS.width );
-    enemyShip.y = getRandomInt( 0, CANVAS.height );
+    enemy.x = getRandomInt( 0, CANVAS.width );
+    enemy.y = getRandomInt( 0, CANVAS.height );
 
 
-    STAGE.addChild( enemyShip );
+    STAGE.addChild( enemy );
     Ticker.addListener( enemy );
     }
 

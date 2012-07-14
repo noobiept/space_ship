@@ -9,6 +9,7 @@ function EnemyRotateAround()
     // inherits from the Enemy class
 EnemyShip.call( this );
 
+this.shipBody = null;
 }
 
 
@@ -17,14 +18,13 @@ INHERIT_PROTOTYPE( EnemyRotateAround, EnemyShip);
 
 
 
-EnemyRotateAround.prototype.getShipElement = function()
-{
-return this.spriteEnemy;
-};
 
 
 EnemyRotateAround.prototype.makeShape = function()
 {
+this.width = 20;
+this.height = 20;
+
 var spriteSheet = {
 
     animations: {
@@ -56,24 +56,7 @@ ss.getAnimation("rotate").next = "rotate";
 
 enemy.gotoAndPlay("rotate");
 
-this.spriteEnemy = enemy;
-/*
-var g = this.shipBody.graphics;
-
-g.clear();
-
-g.beginStroke( "rgb(200, 100, 0)" );
-
-g.moveTo( -5, -10 );
-g.lineTo( 5, -10 );
-g.lineTo( 10, -5 );
-g.lineTo( 10, 5 );
-g.lineTo( 5, 10 );
-g.lineTo( -5, 10 );
-g.lineTo( -10, 5 );
-g.lineTo( -10, -5 );
-
-g.closePath();*/
+this.shipBody = enemy;
 };
 
 
@@ -81,13 +64,9 @@ g.closePath();*/
 
 EnemyRotateAround.prototype.shipBehaviour = function()
 {
-var shipElement = this.getShipElement();
-
-
-
     // make a triangle from the position the ship is in, relative to the enemy position
-var triangleOppositeSide = MAIN_SHIP.y - shipElement.y;
-var triangleAdjacentSide = shipElement.x - MAIN_SHIP.x;
+var triangleOppositeSide = MAIN_SHIP.y - this.y;
+var triangleAdjacentSide = this.x - MAIN_SHIP.x;
 
 
 
@@ -95,8 +74,6 @@ var triangleAdjacentSide = shipElement.x - MAIN_SHIP.x;
 var angleRadians = Math.atan2( triangleOppositeSide, triangleAdjacentSide );
 
 
-shipElement.x += Math.sin( angleRadians ) * shipElement.velocity;
-shipElement.y += Math.cos( angleRadians ) * shipElement.velocity;
-
-
+this.x += Math.sin( angleRadians ) * this.velocity;
+this.y += Math.cos( angleRadians ) * this.velocity;
 };

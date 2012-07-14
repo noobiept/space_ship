@@ -37,10 +37,14 @@ this.Container_initialize();
 
 this.shipBody = new Shape();
 
+    // draw the shape
+this.makeShape();
 
+
+    // add to Container()
 this.addChild( this.shipBody );
 
-this.makeShape();
+
 
 EnemyShip.all.push( this );
 
@@ -70,11 +74,6 @@ g.lineTo( -10, -10 );
 g.closePath();
 };
 
-
-p.getShipElement = function()
-{
-return this;
-};
 
 
 /*
