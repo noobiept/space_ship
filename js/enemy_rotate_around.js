@@ -1,4 +1,4 @@
-/*global EnemyShip, INHERIT_PROTOTYPE, MAIN_SHIP*/
+/*global EnemyShip, INHERIT_PROTOTYPE, MAIN_SHIP, SpriteSheet, BitmapAnimation*/
 /*jslint vars: true, white: true*/
 
 "use strict";
@@ -10,6 +10,12 @@ function EnemyRotateAround()
 EnemyShip.call( this );
 
 this.shipBody = null;
+
+this.damage = 10;
+this.velocity = 1;
+
+this.width = 20;
+this.height = 20;
 }
 
 
@@ -22,9 +28,6 @@ INHERIT_PROTOTYPE( EnemyRotateAround, EnemyShip);
 
 EnemyRotateAround.prototype.makeShape = function()
 {
-this.width = 20;
-this.height = 20;
-
 var spriteSheet = {
 
     animations: {

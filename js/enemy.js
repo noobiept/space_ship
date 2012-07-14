@@ -10,14 +10,37 @@
 (function(window)
 {
 
+/*
+    Don't use directly, use as a base class, and write these functions:
+    
+        .makeShape()
+        .shipBehaviour()
+        
+    and change these properties:
+    
+        .damage
+        .velocity
+        .width
+        .height
+        
+    Add reference of the drawn element to:
+    
+        .shipBody
+ */
+
 function EnemyShip()
 {
 this.initialize();
+
+this.shipBody = null;
 
     // damage given by this ship when it hits
 this.damage = 10;
 
 this.velocity = 1;
+
+this.width = 20;
+this.height = 20;
 }
 
 
@@ -56,22 +79,7 @@ GameStatistics.updateNumberOfEnemies( GameStatistics.getNumberOfEnemies() + 1 );
 
 p.makeShape = function()
 {
-var g = this.shipBody.graphics;
-
-g.clear();
-
-g.beginStroke( "rgb(255, 0, 0)" );
-
-this.width = 20;
-this.height = 20;
-
-g.moveTo( -10, -10 );
-g.lineTo( 10, -10 );
-g.lineTo( 10, 10 );
-g.lineTo( -10, 10 );
-g.lineTo( -10, -10 );
-
-g.closePath();
+    // do this
 };
 
 
@@ -139,7 +147,7 @@ return this.damage;
 
 EnemyShip.prototype.shipBehaviour = function()
 {
-this.x += this.velocity;
+    // do this
 };
 
 
@@ -193,8 +201,7 @@ Ticker.removeListener( this );
 EnemyShip.all.splice( position, 1 );
 
 
-GameStatistics.updateNumberOfEnemies( GameStatistics.getNumberOfEnemies
-() - 1 );
+GameStatistics.updateNumberOfEnemies( GameStatistics.getNumberOfEnemies() - 1 );
 
 GameStatistics.updateScore( GameStatistics.getScore() + 1 );
 };

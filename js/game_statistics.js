@@ -1,3 +1,5 @@
+/*global Text, STAGE, CANVAS*/
+/*jslint vars: true, white: true*/
 
 "use strict";
 
@@ -117,4 +119,4 @@ g.energy_text.text = "Energy: " + g.energy;
 window.GameStatistics = GameStatistics;
 
 
-})(window);
+}(window));

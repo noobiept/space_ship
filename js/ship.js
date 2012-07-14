@@ -1,4 +1,4 @@
-/*global Container, Shape, CANVAS, KEYS_HELD, EnemyShip, ENERGY: true, ENERGY_TEXT, STAGE, $, Ticker, EVENT_KEY, startGame, Text*/
+/*global Container, Shape, CANVAS, KEYS_HELD, EnemyShip, ENERGY: true, ENERGY_TEXT, STAGE, $, Ticker, EVENT_KEY, startGame, Text, GameStatistics*/
 /*jslint vars: true, white: true*/
 
 "use strict";

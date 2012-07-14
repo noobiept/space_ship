@@ -1,4 +1,4 @@
-/*global Stage, Text, Ship, EnemyShip, Ticker, Bullets, handleClick, handleKeyDown, handleKeyUp, handleMouseMove, PreloadJS, mainMenu, SoundJS, EnemyRotateAround*/
+/*global Stage, Text, Ship, EnemyMoveHorizontally, Ticker, Bullets, handleClick, handleKeyDown, handleKeyUp, handleMouseMove, PreloadJS, mainMenu, SoundJS, EnemyRotateAround, GameStatistics, GameMenu, getRandomInt, updateLoading*/
 /*jslint vars: true, white: true*/
     
 "use strict";    
@@ -126,7 +126,7 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     {
     COUNT_TICKS_NEXT_ENEMY = NEXT_ENEMY_TICKS;
     
-    var enemyTypes = [ EnemyShip, EnemyRotateAround ];
+    var enemyTypes = [ EnemyMoveHorizontally, EnemyRotateAround ];
     
     var enemy = new enemyTypes[ getRandomInt(0, enemyTypes.length - 1 ) ]();
     

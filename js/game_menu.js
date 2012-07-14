@@ -1,4 +1,8 @@
+/*global Text, STAGE, Ticker, CANVAS, Shape, SoundJS*/
+/*jslint vars: true, white: true*/
 
+
+"use strict";
 
 function GameMenu()
 {
