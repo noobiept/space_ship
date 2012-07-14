@@ -14,15 +14,11 @@ bullet.x = shipObject.x;
 bullet.y = shipObject.y;
 bullet.rotation = shipObject.rotation;
 
+this.shape = bullet;
+
     // draw the bullet
-    
-var g = bullet.graphics;
+this.drawShape();
 
-g.beginStroke("rgb(255, 255, 255)");
-
-g.moveTo(-1, 0);
-g.lineTo(1, 0);
-g.closePath();
 
 STAGE.addChild( bullet );
 
@@ -34,6 +30,18 @@ Bullets.all.push( bullet );
 Bullets.all = [];
 
 Bullets.speed = 8;
+
+
+Bullets.prototype.drawShape = function()
+{
+var g = this.shape.graphics;
+
+g.beginStroke("rgb(255, 255, 255)");
+
+g.moveTo(-1, 0);
+g.lineTo(1, 0);
+g.closePath();
+};
 
 
 

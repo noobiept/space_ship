@@ -12,12 +12,6 @@ var createjs = window;
 var STAGE;
 var CANVAS;    
 
-var SCORE = 0;
-var SCORE_TEXT;
-
-var ENERGY = 100;
-var ENERGY_TEXT;
-
 
 var PRELOAD;
 var LOADING_INTERVAL = 0;
@@ -76,28 +70,11 @@ STAGE.removeAllChildren();
 
 Ticker.removeAllListeners();
 
-SCORE = 0;
-ENERGY = 100;
 
 
-SCORE_TEXT = new Text("Enemies killed: " + SCORE, "16px Arial", "#777");
 
+GameStatistics.start();
 
-    // add the text as a child of the stage. This means it will be drawn any time the stage is updated
-    // and that it's transformations will be relative to the stage coordinates
-STAGE.addChild( SCORE_TEXT );
-
-    // position the text on screen, relative to the stage coordinates
-SCORE_TEXT.x = CANVAS.width - 150;
-SCORE_TEXT.y = 40;
-
-
-ENERGY_TEXT = new Text("Energy: " + ENERGY, "16px Arial", "#777");
-
-STAGE.addChild( ENERGY_TEXT );
-
-ENERGY_TEXT.x = SCORE_TEXT.x;
-ENERGY_TEXT.y = SCORE_TEXT.y + 30;
 
 
 MAIN_SHIP = new Ship();
@@ -106,14 +83,14 @@ MAIN_SHIP.x = CANVAS.width / 2;
 MAIN_SHIP.y = CANVAS.height / 2;
 
 
-
 STAGE.addChild( MAIN_SHIP );
-
 
 
     // so that .tick() of EnemyShip/Ship/... is called automatically
 Ticker.addListener( MAIN_SHIP );
 Ticker.addListener( window );
+Ticker.addListener( Bullets );
+
 
     // call update on the stage to make it render the current display list to the canvas
 STAGE.update();
@@ -128,6 +105,8 @@ STAGE.onMouseMove = function(event) { handleMouseMove(event, MAIN_SHIP); };
 STAGE.onMouseDown = function(event) { handleClick(event, MAIN_SHIP); };
 
 SoundJS.play("game_music", SoundJS.INTERRUPT_NONE ,0 ,0, -1);
+
+GameMenu();
 }
 
 
@@ -141,8 +120,6 @@ var COUNT_TICKS_NEXT_ENEMY = 0;
 
 function tick()
 {
-Bullets.tick();
-
 COUNT_TICKS_NEXT_ENEMY--;
 
 if (COUNT_TICKS_NEXT_ENEMY < 0)
@@ -154,10 +131,13 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     //var enemy = new EnemyShip();
     var enemy = new enemyTypes[ getRandomInt(0, enemyTypes.length - 1 ) ]();
     
-    enemy.x = getRandomInt( 0, CANVAS.width );
-    enemy.y = getRandomInt( 0, CANVAS.height );
+    var enemyShip = enemy.getShipElement();
     
-    STAGE.addChild( enemy );
+    enemyShip.x = getRandomInt( 0, CANVAS.width );
+    enemyShip.y = getRandomInt( 0, CANVAS.height );
+
+
+    STAGE.addChild( enemyShip );
     Ticker.addListener( enemy );
     }
 

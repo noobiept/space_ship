@@ -153,12 +153,13 @@ for (k = 0 ; k < Ship.all.length ; k++)
 
 Ship.prototype.tookDamage = function( damage )
 {
-ENERGY -= damage;
+var energy = GameStatistics.getShipEnergy() - damage;
 
-ENERGY_TEXT.text = "Energy: " + ENERGY;
+GameStatistics.updateShipEnergy( energy );
+
 
     // you loose
-if (ENERGY <= 0)
+if (energy <= 0)
     {
     STAGE.removeChild( this );
     

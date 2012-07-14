@@ -1,4 +1,4 @@
-/*global Container, Shape, Bullets, CANVAS, STAGE, Ticker, SCORE, SCORE_TEXT*/
+/*global Container, Shape, Bullets, CANVAS, STAGE, Ticker, GameStatistics*/
 /*jslint vars: true, white: true*/
 
 "use strict";
@@ -43,6 +43,9 @@ this.addChild( this.shipBody );
 this.makeShape();
 
 EnemyShip.all.push( this );
+
+
+GameStatistics.updateNumberOfEnemies( GameStatistics.getNumberOfEnemies() + 1 );
 };
 
 
@@ -66,6 +69,13 @@ g.lineTo( -10, -10 );
 
 g.closePath();
 };
+
+
+p.getShipElement = function()
+{
+return this;
+};
+
 
 /*
     See if it was hit by the bullets
@@ -183,9 +193,11 @@ Ticker.removeListener( this );
 
 EnemyShip.all.splice( position, 1 );
 
-SCORE++;
 
-SCORE_TEXT.text = "Enemies killed: " + SCORE;
+GameStatistics.updateNumberOfEnemies( GameStatistics.getNumberOfEnemies
+() - 1 );
+
+GameStatistics.updateScore( GameStatistics.getScore() + 1 );
 };
 
 
