@@ -30,7 +30,7 @@ g.energy = 100;
 g.numberOfEnemies = 0;
 
 
-g.score_text = new Text("Enemies killed: " + g.score, "16px Arial", "#777");
+g.score_text = new Text("Score: " + g.score, "16px Arial", "#777");
 
 
     // add the text as a child of the stage. This means it will be drawn any time the stage is updated
@@ -76,7 +76,7 @@ GameStatistics.updateScore = function( newScore )
 {
 GameStatistics.score = newScore;
 
-GameStatistics.score_text.text = "Enemies killed: " + newScore;    
+GameStatistics.score_text.text = "Score: " + newScore;    
 };
 
 

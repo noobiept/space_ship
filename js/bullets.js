@@ -6,41 +6,50 @@
 (function(window)
 {
 
+/*
+    Use as base class for the weapons
+    
+    Functions to write (in derived class):
+    
+        .drawBullet()
+
+    Properties:
+    
+        .speed
+        
+    Add reference of the drawn element to:
+    
+        .shape
+        
+ */
+
 function Bullets( shipObject )
 {
-var bullet = new Shape();
+this.shape = null;
 
-bullet.x = shipObject.x;
-bullet.y = shipObject.y;
-bullet.rotation = shipObject.rotation;
+this.shipObject = shipObject;
 
-this.shape = bullet;
+this.speed = 8;
 
     // draw the bullet
-this.drawShape();
+this.drawBullet();
 
 
-STAGE.addChild( bullet );
+STAGE.addChild( this.shape );
 
 
-Bullets.all.push( bullet );
+Bullets.all.push( this );
 }
 
 
 Bullets.all = [];
 
-Bullets.speed = 8;
 
 
-Bullets.prototype.drawShape = function()
+
+Bullets.prototype.drawBullet = function()
 {
-var g = this.shape.graphics;
-
-g.beginStroke("rgb(255, 255, 255)");
-
-g.moveTo(-1, 0);
-g.lineTo(1, 0);
-g.closePath();
+    // do this
 };
 
 
@@ -49,7 +58,7 @@ Bullets.moveForwardBullets = function()
 {
 var all = Bullets.all;
 
-var bulletObject;
+var bulletObject, shape;
 var rotation;
 
 var i;
@@ -59,12 +68,14 @@ for (i = 0 ; i < all.length ; i++)
     {
     bulletObject = all[i];
     
+    shape = bulletObject.shape;
+    
     
         //HERE
-    rotation = bulletObject.rotation - 90;
+    rotation = shape.rotation - 90;
     
-    bulletObject.x += Math.sin( rotation * (Math.PI/-180) ) * Bullets.speed;
-    bulletObject.y += Math.cos( rotation * (Math.PI/-180) ) * Bullets.speed;
+    shape.x += Math.sin( rotation * (Math.PI/-180) ) * bulletObject.speed;
+    shape.y += Math.cos( rotation * (Math.PI/-180) ) * bulletObject.speed;
     
         // remove the bullets that are out of the canvas
     if ( Bullets.reachedLimits( bulletObject ) )
@@ -82,8 +93,8 @@ for (i = 0 ; i < all.length ; i++)
 
 Bullets.reachedLimits = function( bulletObject )
 {
-var x = bulletObject.x;
-var y = bulletObject.y;
+var x = bulletObject.shape.x;
+var y = bulletObject.shape.y;
 
 if (x < 0 || x > CANVAS.width || y < 0 || y > CANVAS.height)
     {
@@ -97,7 +108,7 @@ return false;
 
 Bullets.remove = function( position )
 {
-STAGE.removeChild( Bullets.all[ position ] );
+STAGE.removeChild( Bullets.all[ position ].shape );
 
 Bullets.all.splice( position, 1 );
 };

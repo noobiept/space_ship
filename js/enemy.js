@@ -30,10 +30,6 @@
 
 function EnemyShip()
 {
-this.initialize();
-
-this.shipBody = null;
-
     // damage given by this ship when it hits
 this.damage = 10;
 
@@ -41,6 +37,10 @@ this.velocity = 1;
 
 this.width = 20;
 this.height = 20;
+
+this.shipBody = null;
+
+this.initialize();
 }
 
 
@@ -102,8 +102,8 @@ var enemyLeftSide, enemyRightSide, enemyUpSide, enemyDownSide;
 
 for (i = 0 ; i < bullets.length ; i++)
     {
-    bulletX = bullets[i].x;
-    bulletY = bullets[i].y;
+    bulletX = bullets[i].shape.x;
+    bulletY = bullets[i].shape.y;
     
     
         // a bullet is a two pixel line

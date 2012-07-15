@@ -35,6 +35,8 @@ this.addChild( this.shipBody );
 
 this.makeShape();
 
+this.weaponSelected = 1;
+
 Ship.all.push( this );
 };
 
@@ -187,7 +189,65 @@ if (energy <= 0)
     }
 };
     
+    
+Ship.prototype.selectWeapon = function( weaponNumber )
+{
+this.weaponSelected = weaponNumber;
+};
+    
 
+/*
+    Arguments:
+    
+        event : (MouseEvent -- easelJS)
+        ship  : (Ship object)
+ */
+    
+Ship.prototype.handleMouseMove = function( event )
+{
+if ( !event )
+    {
+    event = window.event;
+    }
+
+
+
+    // make a triangle from the position the ship is in, relative to the mouse position
+var triangleOppositeSide = this.y - event.stageY;
+var triangleAdjacentSide = event.stageX - this.x;
+
+
+    // find the angle, given the two sides (of a right triangle)
+var angleRadians = Math.atan2( triangleOppositeSide, triangleAdjacentSide );
+
+    // convert to degrees
+var angleDegrees = angleRadians * 180 / Math.PI;
+
+
+
+    // we multiply by -1 because the .rotation property seems to have the angles in the other direction
+this.rotation = -1 * angleDegrees;  
+};
+    
+    
+    
+Ship.prototype.handleClick = function( event )  
+{
+if ( !event )
+    {
+    event = window.event;
+    }
+
+
+var weapons = [ Weapon1_laser, Weapon2_sniper, Weapon3_rocket ];
+
+
+new weapons[ this.weaponSelected - 1 ]( this );
+//new Weapon3_rocket( this ); 
+//new Weapon1_laser( this );
+};
+    
+    
     
 p.tick = function()
 {

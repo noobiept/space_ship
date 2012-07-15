@@ -1,4 +1,4 @@
-/*global Stage, Text, Ship, EnemyMoveHorizontally, Ticker, Bullets, handleClick, handleKeyDown, handleKeyUp, handleMouseMove, PreloadJS, mainMenu, SoundJS, EnemyRotateAround, GameStatistics, GameMenu, getRandomInt, updateLoading*/
+/*global Stage, Text, Ship, EnemyMoveHorizontally, Ticker, Bullets, handleKeyDown, handleKeyUp, PreloadJS, mainMenu, SoundJS, EnemyRotateAround, GameStatistics, GameMenu, getRandomInt, updateLoading*/
 /*jslint vars: true, white: true*/
     
 "use strict";    
@@ -101,8 +101,9 @@ document.onkeydown = handleKeyDown;
 document.onkeyup = handleKeyUp;
 
 
-STAGE.onMouseMove = function(event) { handleMouseMove(event, MAIN_SHIP); };
-STAGE.onMouseDown = function(event) { handleClick(event, MAIN_SHIP); };
+STAGE.onMouseMove = function( event ) { MAIN_SHIP.handleMouseMove( event ); };
+STAGE.onMouseDown = function( event ) { MAIN_SHIP.handleClick( event ); };
+
 
 SoundJS.play("game_music", SoundJS.INTERRUPT_NONE ,0 ,0, -1);
 

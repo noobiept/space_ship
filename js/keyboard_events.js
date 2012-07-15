@@ -25,6 +25,17 @@ var EVENT_KEY = {
     downArrow  : 40,
     del        : 46,
    
+    "0" : 48,
+    "1" : 49,
+    "2" : 50,
+    "3" : 51,
+    "4" : 52,
+    "5" : 53,
+    "6" : 54,
+    "7" : 55,
+    "8" : 56,
+    "9" : 57,
+    
     a : 65,
     b : 66,
     c : 67,
@@ -108,16 +119,14 @@ switch(event.keyCode)
     
         KEYS_HELD.down = true;
         return false;
-        
     }
 }
 
 
 
 
-function handleKeyUp( event ) 
+function handleKeyUp( event )
 {
-
 if ( !event )
     {
     event = window.event; 
@@ -152,6 +161,26 @@ switch(event.keyCode)
     case EVENT_KEY.downArrow:
     
         KEYS_HELD.down = false;
+        break;
+        
+    case EVENT_KEY["1"]:
+        
+        MAIN_SHIP.selectWeapon( 1 );
+        break;
+        
+    case EVENT_KEY["2"]:
+    
+        MAIN_SHIP.selectWeapon( 2 );
+        break;
+        
+    case EVENT_KEY["3"]:
+        
+        MAIN_SHIP.selectWeapon( 3 );
+        break;
+        
+    case EVENT_KEY["4"]:
+    
+        MAIN_SHIP.selectWeapon( 4 );
         break;
     }
 }
