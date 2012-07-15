@@ -239,7 +239,7 @@ if ( !event )
     }
 
 
-var weapons = [ Weapon1_laser, Weapon2_sniper, Weapon3_rocket ];
+var weapons = [ Weapon1_laser, Weapon2_sniper, Weapon3_rocket, Weapon4_mines ];
 
 
 new weapons[ this.weaponSelected - 1 ]( this );

@@ -48,7 +48,6 @@ var sprite = new SpriteSheet( rocketSprite );
     
 var rocket = new BitmapAnimation( sprite );
 
-//sprite.getAnimation("main").nex
 rocket.gotoAndPlay("main");
 
 

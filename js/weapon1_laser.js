@@ -19,22 +19,44 @@ INHERIT_PROTOTYPE( Weapon1_laser, Bullets );
 
 Weapon1_laser.prototype.drawBullet = function()
 {
+var laserSprite = {
+    
+    animations: {
+    
+        main :  { 
+            
+            frames: [ 0, 1 ],
+            next : "main",
+            frequency: 10
+            
+            }
+        },
+        
+    frames: {
+    
+        width: 4,
+        height: 2
+        
+        },
+        
+    images: [ "images/weapon1_laser.png" ]
+    
+    };
+
+var sprite = new SpriteSheet( laserSprite );
+
+var laser = new BitmapAnimation( sprite );
+
+laser.gotoAndPlay( "main" );
+    
+    
 var shipObject = this.shipObject;
 
-var bullet = new Shape();
 
-bullet.x = shipObject.x;
-bullet.y = shipObject.y;
-bullet.rotation = shipObject.rotation;
+laser.x = shipObject.x;
+laser.y = shipObject.y;
+laser.rotation = shipObject.rotation;
 
 
-var g = bullet.graphics;
-
-g.beginStroke("rgb(255, 255, 255)");
-
-g.moveTo(-1, 0);
-g.lineTo(1, 0);
-g.closePath();
-
-this.shape = bullet;
+this.shape = laser;
 };
