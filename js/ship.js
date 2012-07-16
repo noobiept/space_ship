@@ -193,6 +193,8 @@ if (energy <= 0)
 Ship.prototype.selectWeapon = function( weaponNumber )
 {
 this.weaponSelected = weaponNumber;
+
+GameMenu.selectWeapon( weaponNumber ); 
 };
     
 

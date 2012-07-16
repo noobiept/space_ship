@@ -6,8 +6,34 @@
 
 function GameMenu()
 {
-var menuButton = new Text("Menu", "14px Arial", "rgb(255, 255, 255)");
+GameMenu.addMenuButton();
+GameMenu.addWeaponsSelection();
+}
 
+
+
+GameMenu.addMenuButton = function()
+{
+var menuButtonSprite = {
+
+    animations: {
+        main: {
+            frames: [ 0 ],
+            next: "main"
+            }
+        },
+    frames: {
+        width: 50,
+        height: 20
+        },
+    images: [ "images/open_game_menu.png" ]
+    };
+    
+var menuButtonSprite = new SpriteSheet( menuButtonSprite );
+
+var menuButton = new BitmapAnimation( menuButtonSprite ); 
+
+menuButton.gotoAndPlay("main");
 
 menuButton.x = 50;
 menuButton.y = 50;
@@ -18,7 +44,79 @@ menuButton.onClick = function()
     };
 
 STAGE.addChild( menuButton );
-}
+};
+
+
+
+GameMenu.addWeaponsSelection = function()
+{
+var weaponsSprite = {
+
+    animations: {
+        weapon1: {
+            frames: [ 0 ],
+            next: "weapon1"
+            },
+        weapon2: {
+            frames: [ 1 ],
+            next: "weapon2"
+            },
+        weapon3: {
+            frames: [ 2 ],
+            next: "weapon3"
+            },
+        weapon4: {
+            frames: [ 3 ],
+            next: "weapon4"
+            }
+        },
+    frames: {
+        width: 400,
+        height: 40
+        },
+    images: [ "images/weapons_selection.png" ]
+    };
+    
+var sprite = new SpriteSheet( weaponsSprite );
+
+var weapons = new BitmapAnimation( sprite ); 
+
+weapons.gotoAndPlay("weapon1");
+
+weapons.x = 20;
+weapons.y = CANVAS.height - 50;
+
+
+GameMenu.weaponsBitmap = weapons;
+
+STAGE.addChild( weapons );
+};
+
+
+
+GameMenu.selectWeapon = function( number )
+{
+if ( number == 1 )
+    {
+    GameMenu.weaponsBitmap.gotoAndPlay("weapon1");
+    }
+
+else if ( number == 2 )
+    {
+    GameMenu.weaponsBitmap.gotoAndPlay("weapon2");
+    }
+
+else if ( number == 3 )
+    {
+    GameMenu.weaponsBitmap.gotoAndPlay("weapon3");
+    }
+
+else if ( number == 4 )
+    {
+    GameMenu.weaponsBitmap.gotoAndPlay("weapon4");
+    }
+};
+
 
 
 GameMenu.openMenu = function()

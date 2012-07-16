@@ -71,10 +71,7 @@ STAGE.removeAllChildren();
 Ticker.removeAllListeners();
 
 
-
-
 GameStatistics.start();
-
 
 
 MAIN_SHIP = new Ship();
