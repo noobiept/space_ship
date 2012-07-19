@@ -54,6 +54,8 @@ Bullets.prototype.drawBullet = function()
 
 
 
+
+
 Bullets.moveForwardBullets = function()
 {
 var all = Bullets.all;

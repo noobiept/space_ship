@@ -34,7 +34,7 @@ var spriteSheet = {
         rotate: {
             
             frames: [0, 1],
-            next: "rotate",
+            next: "rotate",    // set up looping
             frequency: 10
             
             }
@@ -54,8 +54,6 @@ var ss = new SpriteSheet( spriteSheet );
 
 var enemy = new BitmapAnimation( ss );
 
-    // set up looping
-ss.getAnimation("rotate").next = "rotate";
 
 enemy.gotoAndPlay("rotate");
 

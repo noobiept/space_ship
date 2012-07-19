@@ -27,20 +27,34 @@ INHERIT_PROTOTYPE( EnemyMoveHorizontally, EnemyShip);
 
 EnemyMoveHorizontally.prototype.makeShape = function()
 {
-var g = this.shipBody.graphics;
+var spriteSheet = {
 
-g.clear();
+    animations: {
+        main: {
+            
+            frames: [0],
+            next: "main"//,
+            //frequency: 10
+            }
+        },
+        
+    frames: {
+        
+        width: 20,
+        height: 20
+        },
+        
+    images: [ "images/enemy_move_horizontally.png" ]
+    };
+    
+var ss = new SpriteSheet( spriteSheet );
 
-g.beginStroke( "rgb(255, 0, 0)" );
+var enemy = new BitmapAnimation( ss );
 
 
-g.moveTo( -10, -10 );
-g.lineTo( 10, -10 );
-g.lineTo( 10, 10 );
-g.lineTo( -10, 10 );
-g.lineTo( -10, -10 );
+enemy.gotoAndPlay("main");
 
-g.closePath();
+this.shipBody = enemy;
 };
 
 

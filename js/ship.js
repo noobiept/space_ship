@@ -43,18 +43,28 @@ Ship.all.push( this );
 
 p.makeShape = function()
 {
-var g = this.shipBody.graphics;
+var spriteSheet = {
+    animations: {
+        main: {
+            frames: [ 0 ],
+            next: "main"
+            }
+        }
+    frames: {
+        width: 10,
+        height: 10
+        },
+    images: [ "images/ship.png" ]
+    };
 
-g.clear();
 
-g.beginStroke( "rgb(255, 255, 255)" );
+var ss = new SpriteSheet( spriteSheet );
 
-g.moveTo( -5, -5 );
-g.lineTo( -5, 5 );
-g.lineTo( 5, 0 );
-g.lineTo( -5, -5 );
+var ship = new BitmapAnimation( ss );
 
-g.closePath();
+ship.goAndPlay("main");
+
+this.shipBody = ship;
 };
  
  
@@ -244,6 +254,7 @@ if ( !event )
 var weapons = [ Weapon1_laser, Weapon2_sniper, Weapon3_rocket, Weapon4_mines ];
 
 
+    // .weaponSelected starts at 1 for the first element
 new weapons[ this.weaponSelected - 1 ]( this );
 //new Weapon3_rocket( this ); 
 //new Weapon1_laser( this );

@@ -2,6 +2,14 @@
 /*jslint vars: true, white: true*/
     
 "use strict";    
+
+/*
+    Issues:
+    
+        - when opening the menu, it is still possible to click the 'menu' button again..
+
+ */
+
     
     // this sets the namespace for CreateJS to the window object, so you can instantiate objects without specifying 
     // the namespace: "new Graphics()" instead of "new createjs.Graphics()"
@@ -102,7 +110,7 @@ STAGE.onMouseMove = function( event ) { MAIN_SHIP.handleMouseMove( event ); };
 STAGE.onMouseDown = function( event ) { MAIN_SHIP.handleClick( event ); };
 
 
-SoundJS.play("game_music", SoundJS.INTERRUPT_NONE ,0 ,0, -1);
+//SoundJS.play("game_music", SoundJS.INTERRUPT_NONE ,0 ,0, -1);
 
 GameMenu();
 }

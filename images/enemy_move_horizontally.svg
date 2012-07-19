@@ -9,27 +9,27 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="8"
-   height="2"
+   width="20"
+   height="20"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="weapon1_laser.svg"
-   inkscape:export-filename="C:\Users\drk\Dropbox\projects\space_ship_game\images\weapon1_laser.png"
+   sodipodi:docname="enemy_move_horizontally.svg"
+   inkscape:export-filename="C:\Users\drk\Dropbox\projects\space_ship_game\images\enemy_move_horizontally.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
      id="defs4" />
   <sodipodi:namedview
      id="base"
-     pagecolor="#000000"
+     pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="1"
+     inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="89.6"
-     inkscape:cx="3.5859375"
-     inkscape:cy="1.6105285"
+     inkscape:zoom="11.2"
+     inkscape:cx="0.39624556"
+     inkscape:cy="9.2640273"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -54,7 +54,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -62,16 +62,14 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-1050.3622)">
-    <path
-       style="fill:none;stroke:#ffffff;stroke-width:1.41421354px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 0,1051.3622 4,0"
-       id="path2987"
-       inkscape:connector-curvature="0" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path3757"
-       d="m 4,1051.3622 4,0"
-       style="fill:none;stroke:#ffccff;stroke-width:1.41421354px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+     transform="translate(0,-1032.3622)">
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#ff0000;stroke-opacity:1"
+       id="rect2987"
+       width="20"
+       height="20"
+       x="0"
+       y="0"
+       transform="translate(0,1032.3622)" />
   </g>
 </svg>

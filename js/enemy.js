@@ -84,6 +84,8 @@ p.makeShape = function()
 
 
 
+
+
 /*
     See if it was hit by the bullets
  */
@@ -106,7 +108,7 @@ for (i = 0 ; i < bullets.length ; i++)
     bulletY = bullets[i].shape.y;
     
     
-        // a bullet is a two pixel line
+        // a bullet is a two pixel line //HERE pode variar
         // to simplify, lets use a square for the collision detection
     bulletLeftSide = bulletX - 1;
     bulletRightSide = bulletX + 1;
@@ -125,6 +127,8 @@ for (i = 0 ; i < bullets.length ; i++)
 
         // check if it hits the EnemyShip
     if ( !(bulletRightSide < enemyLeftSide || bulletLeftSide > enemyRightSide || bulletDownSide < enemyUpSide || bulletUpSide > enemyDownSide) )
+        
+    //if ( this.hitTest(bulletX, bulletY) )
         {
             // remove the bullet
         Bullets.remove( i );

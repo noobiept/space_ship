@@ -8,7 +8,7 @@ function Weapon1_laser( shipObject )
     // inherit from the Bullets class
 Bullets.call( this, shipObject );
 
-this.speed = 8;
+this.speed = 8; //HERE pode dar problemas se houver inimigos + pequenos que o speed (pq o speed eh o step... ter k verificar antes do salto)
 }
 
 
