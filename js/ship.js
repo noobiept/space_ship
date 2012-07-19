@@ -28,12 +28,15 @@ p.initialize = function()
 {
 this.Container_initialize();
 
-this.shipBody = new Shape();
+this.shipBody = null;
 
+this.width = 10;
+this.height = 10;
+
+this.makeShape();
 
 this.addChild( this.shipBody );
 
-this.makeShape();
 
 this.weaponSelected = 1;
 
@@ -49,7 +52,7 @@ var spriteSheet = {
             frames: [ 0 ],
             next: "main"
             }
-        }
+        },
     frames: {
         width: 10,
         height: 10
@@ -62,7 +65,11 @@ var ss = new SpriteSheet( spriteSheet );
 
 var ship = new BitmapAnimation( ss );
 
-ship.goAndPlay("main");
+ship.gotoAndPlay("main");
+
+    // change the origin point to the middle, so that it rotates around the center (following the mouse)
+ship.regX = this.width / 2;
+ship.regY = this.height / 2;
 
 this.shipBody = ship;
 };
