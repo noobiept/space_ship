@@ -123,7 +123,6 @@ var COUNT_TICKS_NEXT_ENEMY = 0;
 
 
 
-
 function tick()
 {
 COUNT_TICKS_NEXT_ENEMY--;
@@ -144,8 +143,69 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     STAGE.addChild( enemy );
     Ticker.addListener( enemy );
     }
+    
+
+    // check if enemy bullets hit our ship
+checkIfBulletsHitAnything( [ MAIN_SHIP ], Bullets.enemies );
+
+    // check if our bullets hit the enemy
+checkIfBulletsHitAnything( EnemyShip.all, Bullets.allies );
 
 STAGE.update();
+}
+
+
+
+function checkIfBulletsHitAnything( ships, bullets )
+{
+var bulletX, bulletY;
+
+var bulletLeftSide, bulletRightSide, bulletUpSide, bulletDownSide;
+var enemyLeftSide, enemyRightSide, enemyUpSide, enemyDownSide;
+
+    // jquery 'equivalent'  of forEach()
+$( ships ).each(function( ship_index, ship )
+    {
+    $( bullets ).each(function( bullet_index, bullet )
+        {
+        bulletX = bullet.shape.x;
+        bulletY = bullet.shape.y;
+        
+        
+            // a bullet is a two pixel line //HERE pode variar
+            // to simplify, lets use a square for the collision detection
+        bulletLeftSide = bulletX - 1;
+        bulletRightSide = bulletX + 1;
+        bulletUpSide = bulletY - 1;
+        bulletDownSide = bulletY + 1;
+        
+            // the ship is centered on 0
+        var halfWidth = ship.width / 2;
+        var halfHeight = ship.height / 2; 
+        
+            // same for the enemy
+        enemyLeftSide = ship.x - halfWidth;
+        enemyRightSide = ship.x + halfWidth;
+        enemyUpSide = ship.y - halfHeight;
+        enemyDownSide = ship.y + halfHeight;
+
+            // check if it hits the EnemyShip
+        if ( !(bulletRightSide < enemyLeftSide || bulletLeftSide > enemyRightSide || bulletDownSide < enemyUpSide || bulletUpSide > enemyDownSide) )
+            
+        //if ( enemy.hitTest(bulletX, bulletY) )
+            {
+                // remove the bullet
+            bullet.remove( bullet_index );
+            
+                // remove the EnemyShip
+            ship.damageTaken( ship_index );
+            
+                // breaks this loop
+            return false;   
+            }
+        });
+    });
+
 }
 
 

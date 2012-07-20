@@ -7,7 +7,7 @@
 function EnemyRotateAround()
 {
     // inherits from the Enemy class
-EnemyShip.call( this );
+EnemyShip.call( this, this.tick_rotateAround );
 
 this.shipBody = null;
 
@@ -16,6 +16,11 @@ this.velocity = 1;
 
 this.width = 20;
 this.height = 20;
+
+
+this.ticksUntilNextBullet = 50;
+
+this.countTicks = 0;
 }
 
 
@@ -77,4 +82,25 @@ var angleRadians = Math.atan2( triangleOppositeSide, triangleAdjacentSide );
 
 this.x += Math.sin( angleRadians ) * this.velocity;
 this.y += Math.cos( angleRadians ) * this.velocity;
+};
+
+
+
+/*
+    Gets called in the base class .tick() function
+    
+    Shoots the bullets
+ */
+
+EnemyRotateAround.prototype.tick_rotateAround = function()
+{
+this.countTicks++;
+
+    // fire a new bullet
+if (this.countTicks >= this.ticksUntilNextBullet)
+    {
+    this.countTicks = 0;
+    
+    new Weapon1_laser( this );
+    }
 };

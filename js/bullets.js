@@ -34,16 +34,26 @@ this.speed = 8;
     // draw the bullet
 this.drawBullet();
 
+this.isEnemy = shipObject.isEnemy;
 
 STAGE.addChild( this.shape );
 
+if ( this.isEnemy )
+    {
+    Bullets.enemies.push( this );
+    }
 
-Bullets.all.push( this );
+else
+    {
+    Bullets.allies.push( this );
+    }
 }
 
+    // all the bullets from the enemies
+Bullets.enemies = [];
 
-Bullets.all = [];
-
+    // all the bullets from the allies
+Bullets.allies = [];
 
 
 
@@ -56,10 +66,8 @@ Bullets.prototype.drawBullet = function()
 
 
 
-Bullets.moveForwardBullets = function()
+Bullets.moveForwardBullets = function( all )
 {
-var all = Bullets.all;
-
 var bulletObject, shape;
 var rotation;
 
@@ -82,7 +90,7 @@ for (i = 0 ; i < all.length ; i++)
         // remove the bullets that are out of the canvas
     if ( Bullets.reachedLimits( bulletObject ) )
         {
-        Bullets.remove( i );
+        bulletObject.remove( i );
         
             // since we removed one element, the index shifted one position
         i--;
@@ -108,18 +116,31 @@ return false;
 
 
 
-Bullets.remove = function( position )
+Bullets.prototype.remove = function( position )
 {
-STAGE.removeChild( Bullets.all[ position ].shape );
+var all;
 
-Bullets.all.splice( position, 1 );
+if ( this.isEnemy )
+    {
+    all = Bullets.enemies;
+    }
+    
+else
+    {
+    all = Bullets.allies;
+    }
+    
+STAGE.removeChild( all[ position ].shape );
+
+all.splice( position, 1 );
 };
 
 
 
 Bullets.tick = function()
 {
-Bullets.moveForwardBullets();
+Bullets.moveForwardBullets( Bullets.enemies );
+Bullets.moveForwardBullets( Bullets.allies );
 };
 
 

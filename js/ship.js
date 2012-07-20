@@ -8,6 +8,9 @@
 
 function Ship()
 {
+    // to distinguish the bullets (from enemies or from the main ship)
+this.isEnemy = false;
+
 this.initialize();
 }
 
@@ -167,6 +170,14 @@ for (k = 0 ; k < Ship.all.length ; k++)
         }
     }
 
+};
+
+
+Ship.prototype.damageTaken = function( position )
+{
+//HERE
+
+this.tookDamage( 10 );
 };
 
 

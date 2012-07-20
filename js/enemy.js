@@ -26,9 +26,13 @@
     Add reference of the drawn element to:
     
         .shipBody
+        
+    Arguments:
+    
+        tick_function : reference to a function, that gets called in the .tick() function
  */
 
-function EnemyShip()
+function EnemyShip( tick_function )
 {
     // damage given by this ship when it hits
 this.damage = 10;
@@ -39,6 +43,20 @@ this.width = 20;
 this.height = 20;
 
 this.shipBody = null;
+
+    // to distinguish the bullets (from enemies or from the main ship)
+this.isEnemy = true;
+
+if (typeof tick_function == "undefined")
+    {
+    this.tick_function = null;
+    }
+
+else
+    {
+    this.tick_function = tick_function;
+    }
+
 
 this.initialize();
 }
@@ -86,62 +104,6 @@ p.makeShape = function()
 
 
 
-/*
-    See if it was hit by the bullets
- */
-
-p.wasHit = function()
-{
-var bullets = Bullets.all;
-
-var bulletX, bulletY;
-
-var i;
-
-var bulletLeftSide, bulletRightSide, bulletUpSide, bulletDownSide;
-var enemyLeftSide, enemyRightSide, enemyUpSide, enemyDownSide;
-
-
-for (i = 0 ; i < bullets.length ; i++)
-    {
-    bulletX = bullets[i].shape.x;
-    bulletY = bullets[i].shape.y;
-    
-    
-        // a bullet is a two pixel line //HERE pode variar
-        // to simplify, lets use a square for the collision detection
-    bulletLeftSide = bulletX - 1;
-    bulletRightSide = bulletX + 1;
-    bulletUpSide = bulletY - 1;
-    bulletDownSide = bulletY + 1;
-    
-        // the ship is centered on 0
-    var halfWidth = this.width / 2;
-    var halfHeight = this.height / 2; 
-    
-        // same for the enemy
-    enemyLeftSide = this.x - halfWidth;
-    enemyRightSide = this.x + halfWidth;
-    enemyUpSide = this.y - halfHeight;
-    enemyDownSide = this.y + halfHeight;
-
-        // check if it hits the EnemyShip
-    if ( !(bulletRightSide < enemyLeftSide || bulletLeftSide > enemyRightSide || bulletDownSide < enemyUpSide || bulletUpSide > enemyDownSide) )
-        
-    //if ( this.hitTest(bulletX, bulletY) )
-        {
-            // remove the bullet
-        Bullets.remove( i );
-        
-            // remove the EnemyShip
-        this.remove( i );
-        
-        return;   
-        }
-    }
-};
-
-
 
 EnemyShip.prototype.damageGiven = function()
 {
@@ -155,16 +117,12 @@ EnemyShip.prototype.shipBehaviour = function()
 };
 
 
-p.tick = function()
+EnemyShip.prototype.damageTaken = function( position )
 {
-this.shipBehaviour();
-
-    // check if it was hit
-this.wasHit();
-
-    // the limits of the canvas
-this.checkLimits();
+    //HERE for now just remove it
+this.remove( position );
 };
+
 
 
 p.checkLimits = function()
@@ -208,6 +166,22 @@ EnemyShip.all.splice( position, 1 );
 GameStatistics.updateNumberOfEnemies( GameStatistics.getNumberOfEnemies() - 1 );
 
 GameStatistics.updateScore( GameStatistics.getScore() + 1 );
+};
+
+
+
+p.tick = function()
+{
+this.shipBehaviour();
+
+
+    // the limits of the canvas
+this.checkLimits();
+
+if (this.tick_function !== null)
+    {
+    this.tick_function();
+    }
 };
 
 
