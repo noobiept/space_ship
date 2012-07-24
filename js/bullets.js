@@ -21,9 +21,13 @@
     
         .shape
         
+    Arguments:
+    
+        shipObject    : of the ship which fired the bullet
+        angleRotation : of the bullet
  */
 
-function Bullets( shipObject )
+function Bullets( shipObject, angleRotation )
 {
 this.shape = null;
 
@@ -32,7 +36,7 @@ this.shipObject = shipObject;
 this.speed = 8;
 
     // draw the bullet
-this.drawBullet();
+this.drawBullet( angleRotation );
 
 this.isEnemy = shipObject.isEnemy;
 
@@ -57,7 +61,7 @@ Bullets.allies = [];
 
 
 
-Bullets.prototype.drawBullet = function()
+Bullets.prototype.drawBullet = function( angleRotation )
 {
     // do this
 };

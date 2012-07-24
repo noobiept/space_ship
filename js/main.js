@@ -39,6 +39,18 @@ var ENEMY_TYPES = [
 
     ];
     
+
+
+    // from how many ticks, until next enemy
+var NEXT_ENEMY_TICKS = 50;
+
+var COUNT_TICKS_NEXT_ENEMY = 0;
+
+
+    // number of ticks until we increase the difficulty 
+var INCREASE_DIFFICULTY_TICKS = 200;
+var COUNT_INCREASE_DIFFICULTY_TICKS = 0;
+
     
 function initialLoad()
 {
@@ -126,15 +138,6 @@ GameMenu();
 }
 
 
-    // from how many ticks, until next enemy
-var NEXT_ENEMY_TICKS = 30;
-
-var COUNT_TICKS_NEXT_ENEMY = 0;
-
-
-    // number of ticks until we increase the difficulty 
-var INCREASE_DIFFICULTY_TICKS = 100;
-var COUNT_INCREASE_DIFFICULTY_TICKS = 0;
 
 
 function tick()
@@ -146,13 +149,13 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     COUNT_TICKS_NEXT_ENEMY = NEXT_ENEMY_TICKS;
     
   
-    //var enemy = new ENEMY_TYPES[ getRandomInt(0, ENEMY_TYPES.length - 1 ) ]();
+    var enemy = new ENEMY_TYPES[ getRandomInt(0, ENEMY_TYPES.length - 1 ) ]();
     
     var x = getRandomInt( 0, CANVAS.width );
     var y = getRandomInt( 0, CANVAS.height );
     
    
-    var enemy = new EnemyRotateAround();
+    //var enemy = new EnemyRotateAround();
     
     enemy.x = x;
     enemy.y = y;

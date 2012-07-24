@@ -3,10 +3,10 @@
 
 "use strict";
 
-function Weapon1_laser( shipObject )
+function Weapon1_laser( shipObject, angleRotation )
 {
     // inherit from the Bullets class
-Bullets.call( this, shipObject );
+Bullets.call( this, shipObject, angleRotation );
 
 this.speed = 8; //HERE pode dar problemas se houver inimigos + pequenos que o speed (pq o speed eh o step... ter k verificar antes do salto)
 }
@@ -17,7 +17,7 @@ this.speed = 8; //HERE pode dar problemas se houver inimigos + pequenos que o sp
 INHERIT_PROTOTYPE( Weapon1_laser, Bullets );
 
 
-Weapon1_laser.prototype.drawBullet = function()
+Weapon1_laser.prototype.drawBullet = function( angleRotation )
 {
 var laserSprite = {
     
@@ -55,7 +55,16 @@ var shipObject = this.shipObject;
 
 laser.x = shipObject.x;
 laser.y = shipObject.y;
-laser.rotation = shipObject.rotation;
+
+if ( $.isNumeric( angleRotation ) )
+    {
+    laser.rotation = angleRotation;
+    }
+
+else
+    {
+    laser.rotation = shipObject.rotation;
+    }
 
 
 this.shape = laser;

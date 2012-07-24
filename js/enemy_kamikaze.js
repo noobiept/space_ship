@@ -49,6 +49,10 @@ var ss = new SpriteSheet( spriteSheet );
 
 var enemy = new BitmapAnimation( ss );
 
+    // origin in the middle of the image
+enemy.regX = this.width / 2;
+enemy.regY = this.height / 2;
+
 enemy.gotoAndPlay("main");
 
 this.shipBody = enemy;

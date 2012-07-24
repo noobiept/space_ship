@@ -63,6 +63,9 @@ var ss = new SpriteSheet( spriteSheet );
 
 var enemy = new BitmapAnimation( ss );
 
+    // origin in the middle of the image
+enemy.regX = this.width / 2;
+enemy.regY = this.height / 2;
 
 enemy.gotoAndPlay("rotate");
 
@@ -105,6 +108,16 @@ if (this.countTicks >= this.ticksUntilNextBullet)
     {
     this.countTicks = 0;
     
-    new Weapon1_laser( this );
+    var angleRotation = this.calculateAngleBetweenShip();
+    
+    
+        //HERE align the image
+    angleRotation += 180;
+       
+    
+        // we multiply by -1 because the .rotation property seems to have the angles in the other direction
+    angleRotation *= -1;
+      
+    new Weapon1_laser( this, angleRotation );
     }
 };
