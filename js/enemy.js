@@ -57,6 +57,13 @@ else
     this.tick_function = tick_function;
     }
 
+    
+    // the number of ticks it takes until the enemy can start moving/firing/being killed
+this.spawnTicks_int = 20;
+
+    // make the tick function deal with spawning the enemy
+this.tick = this.spawningTick;
+
 
 this.initialize();
 }
@@ -85,7 +92,7 @@ this.makeShape();
 this.addChild( this.shipBody );
 
 
-EnemyShip.all.push( this );
+//EnemyShip.all.push( this );
 
 
 GameStatistics.updateNumberOfEnemies( GameStatistics.getNumberOfEnemies() + 1 );
@@ -198,8 +205,28 @@ GameStatistics.updateScore( GameStatistics.getScore() + 1 );
 };
 
 
+/*
+    The idea here is to have a time when the enemy ship can't do damage (or receive), since its still spawning.
+    This prevents problems like a ship spawning right under the main ship (and so taking damage without any chance to prevent it)
+ */
 
-p.tick = function()
+p.spawningTick = function()
+{
+this.spawnTicks_int--;
+
+if (this.spawnTicks_int < 0)
+    {
+        // only add now to the enemies list (so, only from now on will the bullets be able to kill it, etc)
+    EnemyShip.all.push( this );
+    
+        // now execute the normal tick function
+    this.tick = this.normalTick;
+    
+    }
+}
+
+
+p.normalTick = function()
 {
 this.shipBehaviour();
 
@@ -211,6 +238,12 @@ if (this.tick_function !== null)
     {
     this.tick_function();
     }
+};
+
+
+p.tick = function()
+{
+    // this will point to spawningTick() or normalTick()
 };
 
 
