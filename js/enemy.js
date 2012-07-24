@@ -76,7 +76,6 @@ p.initialize = function()
 {
 this.Container_initialize();
 
-this.shipBody = new Shape();
 
     // draw the shape
 this.makeShape();
@@ -84,7 +83,6 @@ this.makeShape();
 
     // add to Container()
 this.addChild( this.shipBody );
-
 
 
 EnemyShip.all.push( this );
@@ -115,6 +113,16 @@ EnemyShip.prototype.shipBehaviour = function()
 {
     // do this
 };
+
+
+/*
+    Its called right before the enemy is added to the Stage
+ */
+
+EnemyShip.prototype.beforeAddToStage = function()
+{
+    // do this
+}
 
 
 EnemyShip.prototype.damageTaken = function( position )
@@ -150,6 +158,27 @@ else if (this.y > height)
     {
     this.y = 0;
     }
+};
+
+
+/*
+    Calculates the angle in degrees between the enemy ship and the main ship
+ */
+
+p.calculateAngleBetweenShip = function()
+{
+    // make a triangle from the position the ship is in, relative to the enemy position
+var triangleOppositeSide = MAIN_SHIP.y - this.y;
+var triangleAdjacentSide = this.x - MAIN_SHIP.x;
+
+
+    // find the angle, given the two sides (of a right triangle)
+var angleRadians = Math.atan2( triangleOppositeSide, triangleAdjacentSide );
+    
+    // convert to degrees
+var angleDegrees = angleRadians * 180 / Math.PI;
+
+return angleDegrees;
 };
 
 

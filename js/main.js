@@ -7,6 +7,7 @@
     Issues:
     
         - when opening the menu, it is still possible to click the 'menu' button again..
+        - sometimes, one of the enemies can't be killed...
 
  */
 
@@ -131,15 +132,21 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     {
     COUNT_TICKS_NEXT_ENEMY = NEXT_ENEMY_TICKS;
     
-    var enemyTypes = [ EnemyMoveHorizontally, EnemyRotateAround ];
+    var enemyTypes = [ EnemyMoveHorizontally, EnemyRotateAround, EnemyKamikaze ];
     
-    var enemy = new enemyTypes[ getRandomInt(0, enemyTypes.length - 1 ) ]();
+    //var enemy = new enemyTypes[ getRandomInt(0, enemyTypes.length - 1 ) ]();
     
+    var x = getRandomInt( 0, CANVAS.width );
+    var y = getRandomInt( 0, CANVAS.height );
     
-    enemy.x = getRandomInt( 0, CANVAS.width );
-    enemy.y = getRandomInt( 0, CANVAS.height );
-
-
+   
+    var enemy = new EnemyKamikaze();
+    
+    enemy.x = x;
+    enemy.y = y;
+    
+    enemy.beforeAddToStage();
+          
     STAGE.addChild( enemy );
     Ticker.addListener( enemy );
     }
