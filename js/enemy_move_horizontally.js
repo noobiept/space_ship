@@ -12,8 +12,8 @@ EnemyShip.call( this );
 
 this.shipBody = null;
 
-this.damage = 10;
-this.velocity = 1;
+this.damage = EnemyMoveHorizontally.damage;
+this.velocity = EnemyMoveHorizontally.velocity;
 
 this.width = 20;
 this.height = 20;
@@ -23,6 +23,9 @@ this.height = 20;
     //inherit the member functions
 INHERIT_PROTOTYPE( EnemyMoveHorizontally, EnemyShip);
 
+
+EnemyMoveHorizontally.damage = 10;
+EnemyMoveHorizontally.velocity = 1;
 
 
 EnemyMoveHorizontally.prototype.makeShape = function()

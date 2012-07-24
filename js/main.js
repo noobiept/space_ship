@@ -31,6 +31,15 @@ var LOADING_MESSAGE;
 var MAIN_SHIP;
     
     
+var ENEMY_TYPES = [
+
+    EnemyMoveHorizontally,
+    EnemyRotateAround,
+    EnemyKamikaze
+
+    ];
+    
+    
 function initialLoad()
 {
 PRELOAD = new PreloadJS();
@@ -123,6 +132,10 @@ var NEXT_ENEMY_TICKS = 30;
 var COUNT_TICKS_NEXT_ENEMY = 0;
 
 
+    // number of ticks until we increase the difficulty 
+var INCREASE_DIFFICULTY_TICKS = 100;
+var COUNT_INCREASE_DIFFICULTY_TICKS = 0;
+
 
 function tick()
 {
@@ -132,15 +145,14 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     {
     COUNT_TICKS_NEXT_ENEMY = NEXT_ENEMY_TICKS;
     
-    var enemyTypes = [ EnemyMoveHorizontally, EnemyRotateAround, EnemyKamikaze ];
-    
-    //var enemy = new enemyTypes[ getRandomInt(0, enemyTypes.length - 1 ) ]();
+  
+    //var enemy = new ENEMY_TYPES[ getRandomInt(0, ENEMY_TYPES.length - 1 ) ]();
     
     var x = getRandomInt( 0, CANVAS.width );
     var y = getRandomInt( 0, CANVAS.height );
     
    
-    var enemy = new EnemyKamikaze();
+    var enemy = new EnemyRotateAround();
     
     enemy.x = x;
     enemy.y = y;
@@ -157,6 +169,22 @@ checkIfBulletsHitAnything( [ MAIN_SHIP ], Bullets.enemies );
 
     // check if our bullets hit the enemy
 checkIfBulletsHitAnything( EnemyShip.all, Bullets.allies );
+
+
+    // deal with increasing the difficulty of the game
+COUNT_INCREASE_DIFFICULTY_TICKS--;
+
+if (COUNT_INCREASE_DIFFICULTY_TICKS < 0)
+    {
+    COUNT_INCREASE_DIFFICULTY_TICKS = INCREASE_DIFFICULTY_TICKS;
+    
+        // increase velocity and damage
+    $( ENEMY_TYPES ).each(function(index, enemyType)
+        {
+        enemyType.damage++;
+        enemyType.velocity++;
+        });
+    }
 
 STAGE.update();
 }

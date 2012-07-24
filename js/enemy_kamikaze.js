@@ -11,8 +11,8 @@ EnemyShip.call( this );
 
 this.shipBody = null;
 
-this.damage = 10;
-this.velocity = 2;
+this.damage = EnemyKamikaze.damage;
+this.velocity = EnemyKamikaze.velocity;
 
 this.width = 20;
 this.height = 20;
@@ -21,6 +21,10 @@ this.height = 20;
 
     //inherit the member functions
 INHERIT_PROTOTYPE( EnemyKamikaze, EnemyShip);
+
+
+EnemyKamikaze.damage = 10;
+EnemyKamikaze.velocity = 2;
 
 
 
@@ -143,3 +147,8 @@ this.rotation = -1 * angleDegrees;
 };
 
 
+
+EnemyKamikaze.prototype.spawnTick_function = function()
+{
+this.updateRotation();
+};

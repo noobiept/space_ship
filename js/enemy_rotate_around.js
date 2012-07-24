@@ -7,12 +7,12 @@
 function EnemyRotateAround()
 {
     // inherits from the Enemy class
-EnemyShip.call( this, this.tick_rotateAround );
+EnemyShip.call( this );
 
 this.shipBody = null;
 
-this.damage = 10;
-this.velocity = 1;
+this.damage = EnemyRotateAround.damage;
+this.velocity = EnemyRotateAround.velocity;
 
 this.width = 20;
 this.height = 20;
@@ -27,6 +27,10 @@ this.countTicks = 0;
     //inherit the member functions
 INHERIT_PROTOTYPE( EnemyRotateAround, EnemyShip);
 
+
+
+EnemyRotateAround.damage = 10;
+EnemyRotateAround.velocity = 1;
 
 
 
@@ -92,7 +96,7 @@ this.y += Math.cos( angleRadians ) * this.velocity;
     Shoots the bullets
  */
 
-EnemyRotateAround.prototype.tick_rotateAround = function()
+EnemyRotateAround.prototype.tick_function = function()
 {
 this.countTicks++;
 

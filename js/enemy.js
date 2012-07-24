@@ -27,12 +27,14 @@
     
         .shipBody
         
-    Arguments:
+    Possible properties:
     
-        tick_function : reference to a function, that gets called in the .tick() function
+        .spawnTick_function : reference to a function that is called in the .tick() during the spawn of the enemy
+        .tick_function      : reference to a function that is called in the .tick() after the spawn (in the normal behaviour)
+        
  */
 
-function EnemyShip( tick_function )
+function EnemyShip()
 {
     // damage given by this ship when it hits
 this.damage = 10;
@@ -47,17 +49,7 @@ this.shipBody = null;
     // to distinguish the bullets (from enemies or from the main ship)
 this.isEnemy = true;
 
-if (typeof tick_function == "undefined")
-    {
-    this.tick_function = null;
-    }
-
-else
-    {
-    this.tick_function = tick_function;
-    }
-
-    
+   
     // the number of ticks it takes until the enemy can start moving/firing/being killed
 this.spawnTicks_int = 20;
 
@@ -90,9 +82,6 @@ this.makeShape();
 
     // add to Container()
 this.addChild( this.shipBody );
-
-
-//EnemyShip.all.push( this );
 
 
 GameStatistics.updateNumberOfEnemies( GameStatistics.getNumberOfEnemies() + 1 );
@@ -190,6 +179,10 @@ return angleDegrees;
 
 
 
+/*
+    Remove the enemy ship, and update the game statistics
+ */
+
 p.remove = function( position )
 {
 STAGE.removeChild( this );
@@ -221,7 +214,11 @@ if (this.spawnTicks_int < 0)
     
         // now execute the normal tick function
     this.tick = this.normalTick;
+    }
     
+if (typeof this.spawnTick_function != "undefined" && this.spawnTick_function !== null)
+    {
+    this.spawnTick_function();
     }
 }
 
@@ -234,7 +231,7 @@ this.shipBehaviour();
     // the limits of the canvas
 this.checkLimits();
 
-if (this.tick_function !== null)
+if (typeof this.tick_function != "undefined" && this.tick_function !== null)
     {
     this.tick_function();
     }
