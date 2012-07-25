@@ -116,8 +116,6 @@ STAGE.addChild( MAIN_SHIP );
     // so that .tick() of EnemyShip/Ship/... is called automatically
 Ticker.addListener( MAIN_SHIP );
 Ticker.addListener( window );
-Ticker.addListener( Bullets );
-
 
     // call update on the stage to make it render the current display list to the canvas
 STAGE.update();

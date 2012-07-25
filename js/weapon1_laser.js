@@ -51,7 +51,6 @@ var sprite = new SpriteSheet( laserSprite );
 var laser = new BitmapAnimation( sprite );
 
     // origin in the middle of the image
-laser.regX = this.width / 2;
 laser.regY = this.height / 2;
 
 

@@ -42,7 +42,7 @@ this.drawBullet( angleRotation );
 this.isEnemy = shipObject.isEnemy;
 
 STAGE.addChild( this.shape );
-
+Ticker.addListener( this );
 
 
 if ( this.isEnemy )
@@ -73,45 +73,34 @@ Bullets.prototype.drawBullet = function( angleRotation )
 
 
 
-Bullets.moveForwardBullets = function( all )
+Bullets.prototype.moveForwardBullet = function()
 {
-var bulletObject, shape;
-var rotation;
-
-var i;
+var shape = this.shape;
 
 
-for (i = 0 ; i < all.length ; i++)
+    //HERE
+var rotation = shape.rotation - 90;
+
+shape.x += Math.sin( rotation * (Math.PI/-180) ) * this.speed;
+shape.y += Math.cos( rotation * (Math.PI/-180) ) * this.speed;
+
+    // remove the bullets that are out of the canvas
+if ( this.reachedLimits() )
     {
-    bulletObject = all[i];
-    
-    shape = bulletObject.shape;
-    
-    
-        //HERE
-    rotation = shape.rotation - 90;
-    
-    shape.x += Math.sin( rotation * (Math.PI/-180) ) * bulletObject.speed;
-    shape.y += Math.cos( rotation * (Math.PI/-180) ) * bulletObject.speed;
-    
-        // remove the bullets that are out of the canvas
-    if ( Bullets.reachedLimits( bulletObject ) )
-        {
-        bulletObject.remove( i );
-        
-            // since we removed one element, the index shifted one position
-        i--;
-        }
+    this.remove();
     }
 };
 
 
 
+/*
+    Tells if a bullet has reached the canvas limits
+ */
 
-Bullets.reachedLimits = function( bulletObject )
+Bullets.prototype.reachedLimits = function()
 {
-var x = bulletObject.shape.x;
-var y = bulletObject.shape.y;
+var x = this.shape.x;
+var y = this.shape.y;
 
 if (x < 0 || x > CANVAS.width || y < 0 || y > CANVAS.height)
     {
@@ -122,8 +111,11 @@ return false;
 };
 
 
+/*
+    Remove the bullet from the stage
+ */
 
-Bullets.prototype.remove = function( position )
+Bullets.prototype.remove = function()
 {
 var all;
 
@@ -137,18 +129,29 @@ else
     all = Bullets.allies;
     }
     
-STAGE.removeChild( all[ position ].shape );
+STAGE.removeChild( this.shape );
+Ticker.removeListener( this );
+
+var position = all.indexOf( this );
 
 all.splice( position, 1 );
 };
 
 
 
-Bullets.tick = function()
+
+Bullets.prototype.tick = function()
 {
-Bullets.moveForwardBullets( Bullets.enemies );
-Bullets.moveForwardBullets( Bullets.allies );
+this.moveForwardBullet();
+
+
+if (typeof this.tick_function != "undefined" && this.tick_function !== null)
+    {
+    this.tick_function();
+    }
 };
+
+
 
 
     // public stuff

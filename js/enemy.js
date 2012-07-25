@@ -53,6 +53,7 @@ this.isEnemy = true;
     // the number of ticks it takes until the enemy can start moving/firing/being killed
 this.spawnTicks_int = 20;
 
+
     // make the tick function deal with spawning the enemy
 this.tick = this.spawningTick;
 

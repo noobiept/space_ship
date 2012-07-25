@@ -273,8 +273,6 @@ var weapons = [ Weapon1_laser, Weapon2_sniper, Weapon3_rocket, Weapon4_mines ];
 
     // .weaponSelected starts at 1 for the first element
 new weapons[ this.weaponSelected - 1 ]( this );
-//new Weapon3_rocket( this ); 
-//new Weapon1_laser( this );
 };
     
     

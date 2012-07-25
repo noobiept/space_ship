@@ -6,7 +6,7 @@
 
 function Weapon2_sniper( shipObject )
 {
-this.width = 6;
+this.width = 1000;
 this.height = 2;
 
     // inherit from the Bullets class
@@ -14,8 +14,13 @@ Bullets.call( this, shipObject );
 
 this.speed = 0; //HERE ser instantaneo?...
 
+this.countTicks = Weapon2_sniper.numberTicksAnimation;
+
 Weapon2_sniper.findIfIntercept( shipObject );
 } 
+
+    // number of ticks of the duration of the bullet animation, before removing it from the stage
+Weapon2_sniper.numberTicksAnimation = 30;
 
 
     // inherit the member functions
@@ -30,13 +35,13 @@ var sniperSprite = {
     
         main :  { 
             frames: [ 0 ],
-            next : "main"//,
-            //frequency: 10
+            next : "main",
+            frequency: 10
             }
         },
         
     frames: {
-        width: 6,
+        width: 1000,
         height: 2
         },
         
@@ -48,7 +53,6 @@ var sprite = new SpriteSheet( sniperSprite );
 var sniper = new BitmapAnimation( sprite );
 
     // origin in the middle of the image
-sniper.regX = this.width / 2;
 sniper.regY = this.height / 2;
 
 sniper.gotoAndPlay( "main" );
@@ -102,10 +106,20 @@ for (i = 0 ; i < enemies.length ; i++)
         //HERE tem k abranger uma area..
     if ( enemyY >= aa - 20 && enemyY <= aa + 20)
         {
-        console.log("sniper hit");
         enemies[i].remove();
         
         i--;
         }
+    }
+};
+
+
+Weapon2_sniper.prototype.tick_function = function()
+{
+this.countTicks--;
+
+if (this.countTicks <= 0)
+    {
+    this.remove();
     }
 };

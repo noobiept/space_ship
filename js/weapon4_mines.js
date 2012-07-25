@@ -52,7 +52,6 @@ var sprite = new SpriteSheet( minesSprite );
 var mine = new BitmapAnimation( sprite );
 
     // origin in the middle of the image
-mine.regX = this.width / 2;
 mine.regY = this.height / 2;
 
 mine.gotoAndPlay( "main" );
@@ -65,3 +64,4 @@ mine.y = shipObject.y;
 
 this.shape = mine;
 };
+
