@@ -6,16 +6,17 @@
 
 function EnemyKamikaze()
 {
+this.shipBody = null;
+
     // inherits from the Enemy class
 EnemyShip.call( this );
 
-this.shipBody = null;
 
 this.damage = EnemyKamikaze.damage;
 this.velocity = EnemyKamikaze.velocity;
 
-this.width = 20;
-this.height = 20;
+this.width = 14;
+this.height = 14;
 }
 
 
@@ -32,15 +33,21 @@ EnemyKamikaze.prototype.makeShape = function()
 {
 var spriteSheet = {
     animations: {
+        
+        spawn: {
+            frames: [ 0, 1, 2 ],
+            next: "spawn",
+            frequency: 10
+            },
         main: {
-            frames: [ 0 ],
+            frames: [ 3 ],
             next: "main",
             frequency: 10
             }
         },
     frames: {
-        width: 20,
-        height: 20
+        width: 14,
+        height: 14
         },
     images: [ "images/enemy_kamikaze.png" ]
     };
@@ -53,7 +60,7 @@ var enemy = new BitmapAnimation( ss );
 enemy.regX = this.width / 2;
 enemy.regY = this.height / 2;
 
-enemy.gotoAndPlay("main");
+enemy.gotoAndPlay("spawn");
 
 this.shipBody = enemy;
 };
@@ -109,12 +116,12 @@ var limit = newEnemyY - enemyY;
     // slow down the y variation
 if (limit > this.velocity)
     {
-    newEnemyY = enemyY + this.velocity;
+    newEnemyY = enemyY + this.velocity - 1;
     }
 
 else if (limit < -this.velocity )
     {
-    newEnemyY = enemyY - this.velocity;
+    newEnemyY = enemyY - this.velocity - 1;
     }
 
     

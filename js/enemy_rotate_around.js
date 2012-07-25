@@ -6,10 +6,11 @@
 
 function EnemyRotateAround()
 {
+this.shipBody = null;
+
     // inherits from the Enemy class
 EnemyShip.call( this );
 
-this.shipBody = null;
 
 this.damage = EnemyRotateAround.damage;
 this.velocity = EnemyRotateAround.velocity;
@@ -40,12 +41,17 @@ EnemyRotateAround.prototype.makeShape = function()
 var spriteSheet = {
 
     animations: {
-        rotate: {
-            
-            frames: [0, 1],
-            next: "rotate",    // set up looping
+        
+        spawn: {
+            frames: [0, 1, 2],
+            next: "spawn",
             frequency: 10
-            
+            },
+
+        main: {   
+            frames: [3, 4],
+            next: "main",    // set up looping
+            frequency: 10
             }
         },
         
@@ -67,7 +73,7 @@ var enemy = new BitmapAnimation( ss );
 enemy.regX = this.width / 2;
 enemy.regY = this.height / 2;
 
-enemy.gotoAndPlay("rotate");
+enemy.gotoAndPlay("spawn");
 
 this.shipBody = enemy;
 };

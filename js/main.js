@@ -155,7 +155,7 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     var y = getRandomInt( 0, CANVAS.height );
     
    
-    //var enemy = new EnemyRotateAround();
+    //var enemy = new EnemyMoveHorizontally();
     
     enemy.x = x;
     enemy.y = y;

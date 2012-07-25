@@ -76,7 +76,7 @@ p.initialize = function()
 this.Container_initialize();
 
 
-    // draw the shape
+    // draw the shape (spawn phase animation first)
 this.makeShape();
 
 
@@ -86,6 +86,7 @@ this.addChild( this.shipBody );
 
 GameStatistics.updateNumberOfEnemies( GameStatistics.getNumberOfEnemies() + 1 );
 };
+
 
 
 
@@ -198,17 +199,24 @@ GameStatistics.updateScore( GameStatistics.getScore() + 1 );
 };
 
 
+
+
+
 /*
     The idea here is to have a time when the enemy ship can't do damage (or receive), since its still spawning.
     This prevents problems like a ship spawning right under the main ship (and so taking damage without any chance to prevent it)
  */
 
-p.spawningTick = function()
+EnemyShip.prototype.spawningTick = function()
 {
 this.spawnTicks_int--;
 
+
 if (this.spawnTicks_int < 0)
-    {
+    {  
+        // play the main animation
+    this.shipBody.gotoAndPlay("main");
+    
         // only add now to the enemies list (so, only from now on will the bullets be able to kill it, etc)
     EnemyShip.all.push( this );
     
@@ -217,7 +225,7 @@ if (this.spawnTicks_int < 0)
     }
     
 if (typeof this.spawnTick_function != "undefined" && this.spawnTick_function !== null)
-    {
+    {  
     this.spawnTick_function();
     }
 }
