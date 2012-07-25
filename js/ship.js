@@ -241,7 +241,6 @@ if ( !event )
     }
 
 
-
     // make a triangle from the position the ship is in, relative to the mouse position
 var triangleOppositeSide = this.y - event.stageY;
 var triangleAdjacentSide = event.stageX - this.x;

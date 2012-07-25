@@ -6,6 +6,9 @@
 
 function Weapon2_sniper( shipObject )
 {
+this.width = 6;
+this.height = 2;
+
     // inherit from the Bullets class
 Bullets.call( this, shipObject );
 
@@ -43,6 +46,10 @@ var sniperSprite = {
 var sprite = new SpriteSheet( sniperSprite );
 
 var sniper = new BitmapAnimation( sprite );
+
+    // origin in the middle of the image
+sniper.regX = this.width / 2;
+sniper.regY = this.height / 2;
 
 sniper.gotoAndPlay( "main" );
     

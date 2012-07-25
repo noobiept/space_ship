@@ -16,6 +16,8 @@
     Properties:
     
         .speed
+        .width
+        .height
         
     Add reference of the drawn element to:
     
@@ -33,7 +35,6 @@ this.shape = null;
 
 this.shipObject = shipObject;
 
-this.speed = 8;
 
     // draw the bullet
 this.drawBullet( angleRotation );
@@ -41,6 +42,8 @@ this.drawBullet( angleRotation );
 this.isEnemy = shipObject.isEnemy;
 
 STAGE.addChild( this.shape );
+
+
 
 if ( this.isEnemy )
     {

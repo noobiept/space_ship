@@ -149,13 +149,13 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     COUNT_TICKS_NEXT_ENEMY = NEXT_ENEMY_TICKS;
     
   
-    var enemy = new ENEMY_TYPES[ getRandomInt(0, ENEMY_TYPES.length - 1 ) ]();
+    //var enemy = new ENEMY_TYPES[ getRandomInt(0, ENEMY_TYPES.length - 1 ) ]();
     
     var x = getRandomInt( 0, CANVAS.width );
     var y = getRandomInt( 0, CANVAS.height );
     
    
-    //var enemy = new EnemyMoveHorizontally();
+    var enemy = new EnemyMoveHorizontally();
     
     enemy.x = x;
     enemy.y = y;
@@ -209,13 +209,15 @@ $( ships ).each(function( ship_index, ship )
         bulletX = bullet.shape.x;
         bulletY = bullet.shape.y;
         
+        var bulletHalfWidth = bullet.width / 2;
+        var bulletHalfHeight = bullet.height / 2;
         
-            // a bullet is a two pixel line //HERE pode variar
-            // to simplify, lets use a square for the collision detection
-        bulletLeftSide = bulletX - 1;
-        bulletRightSide = bulletX + 1;
-        bulletUpSide = bulletY - 1;
-        bulletDownSide = bulletY + 1;
+        
+            // to simplify, lets use a rectangle for the collision detection (each type of bullet/weapon has a width/height property to tell the bullet dimensions)
+        bulletLeftSide = bulletX - bulletHalfWidth;
+        bulletRightSide = bulletX + bulletHalfWidth;
+        bulletUpSide = bulletY - bulletHalfHeight;
+        bulletDownSide = bulletY + bulletHalfHeight;
         
             // the ship is centered on 0
         var halfWidth = ship.width / 2;

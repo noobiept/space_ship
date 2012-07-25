@@ -5,6 +5,9 @@
 
 function Weapon4_mines( shipObject )
 {
+this.width = 15;
+this.height = 15;
+
     // inherit from the Bullets class
 Bullets.call( this, shipObject );
 
@@ -47,6 +50,10 @@ var minesSprite = {
 var sprite = new SpriteSheet( minesSprite );
 
 var mine = new BitmapAnimation( sprite );
+
+    // origin in the middle of the image
+mine.regX = this.width / 2;
+mine.regY = this.height / 2;
 
 mine.gotoAndPlay( "main" );
 

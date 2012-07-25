@@ -5,6 +5,9 @@
 
 function Weapon1_laser( shipObject, angleRotation )
 {
+this.width = 4;
+this.height = 2;
+
     // inherit from the Bullets class
 Bullets.call( this, shipObject, angleRotation );
 
@@ -46,6 +49,11 @@ var laserSprite = {
 var sprite = new SpriteSheet( laserSprite );
 
 var laser = new BitmapAnimation( sprite );
+
+    // origin in the middle of the image
+laser.regX = this.width / 2;
+laser.regY = this.height / 2;
+
 
 laser.gotoAndPlay( "main" );
     

@@ -6,6 +6,9 @@
 
 function Weapon3_rocket( shipObject )
 {
+this.width = 15;
+this.height = 7;
+
     // inherit from the Bullets class
 Bullets.call( this, shipObject );
 
@@ -47,6 +50,10 @@ var rocketSprite = {
 var sprite = new SpriteSheet( rocketSprite );
     
 var rocket = new BitmapAnimation( sprite );
+
+    // origin in the middle of the image
+rocket.regX = this.width / 2;
+rocket.regY = this.height / 2;
 
 rocket.gotoAndPlay("main");
 
