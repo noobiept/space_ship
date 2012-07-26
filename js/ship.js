@@ -103,7 +103,7 @@ return false;
 
 Ship.inRightLimit = function( x )
 {
-if (x > CANVAS.width)
+if (x > GAME_WIDTH)
     {
     return true;
     }
@@ -115,7 +115,7 @@ return false;
 
 Ship.inBottomLimit = function( y )
 {
-if (y > CANVAS.height)
+if (y > GAME_HEIGHT)
     {
     return true;
     }

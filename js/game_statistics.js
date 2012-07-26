@@ -37,6 +37,9 @@ g.score_text = new Text("Score: " + g.score, "16px Arial", "#777");
     // and that it's transformations will be relative to the stage coordinates
 STAGE.addChild( g.score_text );
 
+    // we want this to always be drawn on top (of enemies, bullets, etc)
+ZIndex.add( g.score_text );
+
     // position the text on screen, relative to the stage coordinates
 g.score_text.x = CANVAS.width - 150;
 g.score_text.y = 40;
@@ -45,6 +48,9 @@ g.score_text.y = 40;
 g.energy_text = new Text("Energy: " + g.energy, "16px Arial", "#777");
 
 STAGE.addChild( g.energy_text );
+
+    // we want this to always be drawn on top (of enemies, bullets, etc)
+ZIndex.add( g.energy_text );
 
 g.energy_text.x = g.score_text.x;
 g.energy_text.y = g.score_text.y + 30;
@@ -55,9 +61,11 @@ g.numberOfEnemies_text = new Text("Enemies in map: " + g.numberOfEnemies, "16px 
 
 STAGE.addChild( g.numberOfEnemies_text );
 
+    // we want this to always be drawn on top (of enemies, bullets, etc)
+ZIndex.add( g.numberOfEnemies_text );
+
 g.numberOfEnemies_text.x = g.energy_text.x;
 g.numberOfEnemies_text.y = g.energy_text.y + 30;
-
 };
 
 

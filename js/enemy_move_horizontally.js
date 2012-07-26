@@ -80,7 +80,7 @@ this.shipBody = enemy;
 
 EnemyMoveHorizontally.prototype.shipBehaviour = function()
 {
-//this.x += this.velocity;
+this.x += this.velocity;
 };
 
 

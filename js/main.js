@@ -9,6 +9,10 @@
         - when opening the menu, it is still possible to click the 'menu' button again..
         - sometimes, one of the enemies can't be killed...
 
+    to doo:
+    
+        - ter um limite do numero de balas, e ir aumentando (contar o tick). de x em x ticks, somar +1 bala
+        
  */
 
     
@@ -21,6 +25,9 @@ var createjs = window;
 var STAGE;
 var CANVAS;    
 
+    // playable dimensions (the rest of the canvas is for menus/etc)
+var GAME_WIDTH;
+var GAME_HEIGHT;
 
 var PRELOAD;
 var LOADING_INTERVAL = 0;
@@ -100,18 +107,24 @@ STAGE.removeAllChildren();
 
 Ticker.removeAllListeners();
 
+ZIndex.clear();
 
 GameStatistics.start();
 
 
+GAME_WIDTH = CANVAS.width;
+GAME_HEIGHT = CANVAS.height - 60;
+
+
 MAIN_SHIP = new Ship();
 
-MAIN_SHIP.x = CANVAS.width / 2;
-MAIN_SHIP.y = CANVAS.height / 2;
+MAIN_SHIP.x = GAME_WIDTH / 2;
+MAIN_SHIP.y = GAME_HEIGHT / 2;
 
 
 STAGE.addChild( MAIN_SHIP );
 
+ZIndex.add( MAIN_SHIP );
 
     // so that .tick() of EnemyShip/Ship/... is called automatically
 Ticker.addListener( MAIN_SHIP );
@@ -149,8 +162,8 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
   
     //var enemy = new ENEMY_TYPES[ getRandomInt(0, ENEMY_TYPES.length - 1 ) ]();
     
-    var x = getRandomInt( 0, CANVAS.width );
-    var y = getRandomInt( 0, CANVAS.height );
+    var x = getRandomInt( 0, GAME_WIDTH );
+    var y = getRandomInt( 0, GAME_HEIGHT );
     
    
     var enemy = new EnemyMoveHorizontally();
@@ -161,6 +174,9 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     enemy.beforeAddToStage();
           
     STAGE.addChild( enemy );
+    
+    ZIndex.update();
+    
     Ticker.addListener( enemy );
     }
     

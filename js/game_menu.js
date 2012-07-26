@@ -35,8 +35,8 @@ var menuButton = new BitmapAnimation( menuButtonSprite );
 
 menuButton.gotoAndPlay("main");
 
-menuButton.x = 50;
-menuButton.y = 50;
+menuButton.x = CANVAS.width - 50;
+menuButton.y = CANVAS.height - 40;
 
 menuButton.onClick = function()
     {

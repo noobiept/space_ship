@@ -133,26 +133,22 @@ this.remove( position );
 
 p.checkLimits = function()
 {
-var width = CANVAS.width;
-var height = CANVAS.height;
-
-
 if (this.x < 0)    
     {
-    this.x = width;
+    this.x = GAME_WIDTH;
     }
 
-else if (this.x > width)
+else if (this.x > GAME_WIDTH)
     {
     this.x = 0;
     }
 
 else if (this.y < 0)
     {
-    this.y = height;
+    this.y = GAME_HEIGHT;
     }
 
-else if (this.y > height)
+else if (this.y > GAME_HEIGHT)
     {
     this.y = 0;
     }

@@ -42,6 +42,9 @@ this.drawBullet( angleRotation );
 this.isEnemy = shipObject.isEnemy;
 
 STAGE.addChild( this.shape );
+
+ZIndex.update();
+
 Ticker.addListener( this );
 
 
@@ -102,7 +105,7 @@ Bullets.prototype.reachedLimits = function()
 var x = this.shape.x;
 var y = this.shape.y;
 
-if (x < 0 || x > CANVAS.width || y < 0 || y > CANVAS.height)
+if (x < 0 || x > GAME_WIDTH || y < 0 || y > GAME_HEIGHT)
     {
     return true;
     }
@@ -131,6 +134,7 @@ else
     
 STAGE.removeChild( this.shape );
 Ticker.removeListener( this );
+
 
 var position = all.indexOf( this );
 
