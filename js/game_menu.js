@@ -1,4 +1,4 @@
-/*global Text, STAGE, Ticker, CANVAS, Shape, SoundJS*/
+/*global Text, STAGE, Ticker, CANVAS, Shape, SoundJS, SpriteSheet, BitmapAnimation*/
 /*jslint vars: true, white: true*/
 
 
@@ -14,7 +14,7 @@ GameMenu.addWeaponsSelection();
 
 GameMenu.addMenuButton = function()
 {
-var menuButtonSprite = {
+var spriteSheet = {
 
     animations: {
         main: {
@@ -29,7 +29,7 @@ var menuButtonSprite = {
     images: [ "images/open_game_menu.png" ]
     };
     
-var menuButtonSprite = new SpriteSheet( menuButtonSprite );
+var menuButtonSprite = new SpriteSheet( spriteSheet );
 
 var menuButton = new BitmapAnimation( menuButtonSprite ); 
 
@@ -96,22 +96,22 @@ STAGE.addChild( weapons );
 
 GameMenu.selectWeapon = function( number )
 {
-if ( number == 1 )
+if ( number === 1 )
     {
     GameMenu.weaponsBitmap.gotoAndPlay("weapon1");
     }
 
-else if ( number == 2 )
+else if ( number === 2 )
     {
     GameMenu.weaponsBitmap.gotoAndPlay("weapon2");
     }
 
-else if ( number == 3 )
+else if ( number === 3 )
     {
     GameMenu.weaponsBitmap.gotoAndPlay("weapon3");
     }
 
-else if ( number == 4 )
+else if ( number === 4 )
     {
     GameMenu.weaponsBitmap.gotoAndPlay("weapon4");
     }

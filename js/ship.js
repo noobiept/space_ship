@@ -1,4 +1,4 @@
-/*global Container, Shape, CANVAS, KEYS_HELD, EnemyShip, ENERGY: true, ENERGY_TEXT, STAGE, $, Ticker, EVENT_KEY, startGame, Text, GameStatistics*/
+/*global Container, Shape, CANVAS, KEYS_HELD, EnemyShip, ENERGY: true, ENERGY_TEXT, STAGE, $, Ticker, EVENT_KEY, startGame, Text, GameStatistics, SpriteSheet, GAME_WIDTH, GAME_HEIGHT, GameMenu, Weapon1_laser, Weapon2_sniper, Weapon3_rocket, Weapon4_mines, BitmapAnimation*/
 /*jslint vars: true, white: true*/
 
 "use strict";
@@ -20,6 +20,43 @@ Ship.all = [];
 var p = Ship.prototype = new Container();
 
 var VELOCITY = 5;
+
+
+    // ticks until we add + ammo to the weapons
+    // the weapon number corresponds to the position in the list (position 0 is the first weapon, etc)
+var AMMO_UPDATE_TICK = [
+    10,
+    50,
+    20,
+    25
+    ];
+
+    // and the correspondent counters
+var TICK_COUNT = [
+    AMMO_UPDATE_TICK[ 0 ],
+    AMMO_UPDATE_TICK[ 1 ],
+    AMMO_UPDATE_TICK[ 2 ],
+    AMMO_UPDATE_TICK[ 3 ]
+    ];
+    
+
+    // maximum number of bullets per weapon
+var MAX_AMMO = [
+        100,
+        10,
+        50,
+        20
+    ];
+
+
+    // current number of bullets
+var BULLETS_LEFT = [
+        MAX_AMMO[0] / 2,
+        MAX_AMMO[1] / 2,
+        MAX_AMMO[2] / 2,
+        MAX_AMMO[3] / 2
+    ];
+
 
 
     // unique to avoid overiding base class
@@ -270,9 +307,47 @@ if ( !event )
 
 var weapons = [ Weapon1_laser, Weapon2_sniper, Weapon3_rocket, Weapon4_mines ];
 
+    // .weaponSelected starts at 1 for the first element (but arrsys start at 0)
+var weaponSelected = this.weaponSelected - 1;
 
-    // .weaponSelected starts at 1 for the first element
-new weapons[ this.weaponSelected - 1 ]( this );
+
+if (BULLETS_LEFT[ weaponSelected ] > 0)
+    {
+    new weapons[ this.weaponSelected - 1 ]( this );
+    
+    BULLETS_LEFT[ weaponSelected ]--;
+    
+    GameStatistics.updateBulletsLeft( weaponSelected );
+    }
+};
+    
+
+    
+    
+    
+Ship.prototype.updateAmmo = function()
+{
+var i;
+
+for (i = 0 ; i < AMMO_UPDATE_TICK.length ; i++)
+    {
+    TICK_COUNT[ i ]--;
+    
+    if (TICK_COUNT[ i ] <= 0)
+        {
+            // reset the counter
+        TICK_COUNT[ i ] = AMMO_UPDATE_TICK[ i ];
+        
+            // if we still didn't reach the maximum value
+        if (BULLETS_LEFT[ i ] < MAX_AMMO[ i ])
+            {
+                // increase the number of bullets available
+            BULLETS_LEFT[ i ]++;
+            
+            GameStatistics.updateBulletsLeft( i );
+            }
+        }
+    }
 };
     
     
@@ -395,8 +470,13 @@ else if (KEYS_HELD.down)
     }
 
     
-Ship.checkIfCollidedWithEnemies();    
+Ship.checkIfCollidedWithEnemies();   
+
+this.updateAmmo(); 
 };
+    
+
+Ship.bulletsLeft = BULLETS_LEFT;
     
 window.Ship = Ship;
 

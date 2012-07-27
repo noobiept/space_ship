@@ -1,10 +1,17 @@
-/*global Text, STAGE, CANVAS*/
+/*global Text, STAGE, CANVAS, ZIndex, Ship*/
 /*jslint vars: true, white: true*/
 
 "use strict";
 
 (function(window) 
 {
+
+var BULLETS_LEFT_TEXT = [
+    null,
+    null,
+    null,
+    null
+    ];
 
 
 function GameStatistics()
@@ -66,9 +73,20 @@ ZIndex.add( g.numberOfEnemies_text );
 
 g.numberOfEnemies_text.x = g.energy_text.x;
 g.numberOfEnemies_text.y = g.energy_text.y + 30;
+
+
+var i;
+
+for (i = 0 ; i < BULLETS_LEFT_TEXT.length ; i++)
+    {
+    BULLETS_LEFT_TEXT[ i ] = new Text("Bullets: " + Ship.bulletsLeft[ i ], "14px Arial", "#777");
+    
+    BULLETS_LEFT_TEXT[ i ].x = 30 + i * 100;
+    BULLETS_LEFT_TEXT[ i ].y = CANVAS.height;
+    
+    STAGE.addChild( BULLETS_LEFT_TEXT[ i ] );
+    }
 };
-
-
 
 
 
@@ -118,6 +136,13 @@ var g = GameStatistics;
 g.energy = newEnergy;
 
 g.energy_text.text = "Energy: " + g.energy;
+};
+
+
+
+GameStatistics.updateBulletsLeft = function( weapon )
+{
+BULLETS_LEFT_TEXT[ weapon ].text = "Bullets " + Ship.bulletsLeft[ weapon ];
 };
 
 

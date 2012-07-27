@@ -1,4 +1,4 @@
-/*global */
+/*global MAIN_SHIP*/
 /*jslint vars: true, white: true*/
 
 "use strict";

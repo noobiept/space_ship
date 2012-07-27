@@ -1,4 +1,4 @@
-/*global EnemyShip, INHERIT_PROTOTYPE, BitmapAnimation*/
+/*global EnemyShip, INHERIT_PROTOTYPE, BitmapAnimation, SpriteSheet, MAIN_SHIP, $*/
 /*jslint vars:true, white: true*/
 
 "use strict";

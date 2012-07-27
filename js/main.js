@@ -1,4 +1,4 @@
-/*global Stage, Text, Ship, EnemyMoveHorizontally, Ticker, Bullets, handleKeyDown, handleKeyUp, PreloadJS, mainMenu, SoundJS, EnemyRotateAround, GameStatistics, GameMenu, getRandomInt, updateLoading*/
+/*global Stage, Text, Ship, EnemyMoveHorizontally, Ticker, Bullets, handleKeyDown, handleKeyUp, PreloadJS, mainMenu, SoundJS, EnemyRotateAround, GameStatistics, GameMenu, getRandomInt, updateLoading, EnemyKamikaze, ZIndex, EnemyShip, $*/
 /*jslint vars: true, white: true*/
     
 "use strict";    
@@ -11,8 +11,6 @@
 
     to doo:
     
-        - ter um limite do numero de balas, e ir aumentando (contar o tick). de x em x ticks, somar +1 bala
-        
  */
 
     
@@ -151,63 +149,6 @@ GameMenu();
 
 
 
-function tick()
-{
-COUNT_TICKS_NEXT_ENEMY--;
-
-if (COUNT_TICKS_NEXT_ENEMY < 0)
-    {
-    COUNT_TICKS_NEXT_ENEMY = NEXT_ENEMY_TICKS;
-    
-  
-    //var enemy = new ENEMY_TYPES[ getRandomInt(0, ENEMY_TYPES.length - 1 ) ]();
-    
-    var x = getRandomInt( 0, GAME_WIDTH );
-    var y = getRandomInt( 0, GAME_HEIGHT );
-    
-   
-    var enemy = new EnemyMoveHorizontally();
-    
-    enemy.x = x;
-    enemy.y = y;
-    
-    enemy.beforeAddToStage();
-          
-    STAGE.addChild( enemy );
-    
-    ZIndex.update();
-    
-    Ticker.addListener( enemy );
-    }
-    
-
-    // check if enemy bullets hit our ship
-checkIfBulletsHitAnything( [ MAIN_SHIP ], Bullets.enemies );
-
-    // check if our bullets hit the enemy
-checkIfBulletsHitAnything( EnemyShip.all, Bullets.allies );
-
-
-    // deal with increasing the difficulty of the game
-COUNT_INCREASE_DIFFICULTY_TICKS--;
-
-if (COUNT_INCREASE_DIFFICULTY_TICKS < 0)
-    {
-    COUNT_INCREASE_DIFFICULTY_TICKS = INCREASE_DIFFICULTY_TICKS;
-    
-        // increase velocity and damage
-    $( ENEMY_TYPES ).each(function(index, enemyType)
-        {
-        enemyType.damage++;
-        enemyType.velocity++;
-        });
-    }
-
-STAGE.update();
-}
-
-
-
 function checkIfBulletsHitAnything( ships, bullets )
 {
 var bulletX, bulletY;
@@ -264,5 +205,60 @@ $( ships ).each(function( ship_index, ship )
 
 
 
+
+function tick()
+{
+COUNT_TICKS_NEXT_ENEMY--;
+
+if (COUNT_TICKS_NEXT_ENEMY < 0)
+    {
+    COUNT_TICKS_NEXT_ENEMY = NEXT_ENEMY_TICKS;
+    
+  
+    //var enemy = new ENEMY_TYPES[ getRandomInt(0, ENEMY_TYPES.length - 1 ) ]();
+    
+    var x = getRandomInt( 0, GAME_WIDTH );
+    var y = getRandomInt( 0, GAME_HEIGHT );
+    
+   
+    var enemy = new EnemyMoveHorizontally();
+    
+    enemy.x = x;
+    enemy.y = y;
+    
+    enemy.beforeAddToStage();
+          
+    STAGE.addChild( enemy );
+    
+    ZIndex.update();
+    
+    Ticker.addListener( enemy );
+    }
+    
+
+    // check if enemy bullets hit our ship
+checkIfBulletsHitAnything( [ MAIN_SHIP ], Bullets.enemies );
+
+    // check if our bullets hit the enemy
+checkIfBulletsHitAnything( EnemyShip.all, Bullets.allies );
+
+
+    // deal with increasing the difficulty of the game
+COUNT_INCREASE_DIFFICULTY_TICKS--;
+
+if (COUNT_INCREASE_DIFFICULTY_TICKS < 0)
+    {
+    COUNT_INCREASE_DIFFICULTY_TICKS = INCREASE_DIFFICULTY_TICKS;
+    
+        // increase velocity and damage
+    $( ENEMY_TYPES ).each(function(index, enemyType)
+        {
+        enemyType.damage++;
+        enemyType.velocity++;
+        });
+    }
+
+STAGE.update();
+}
 
 

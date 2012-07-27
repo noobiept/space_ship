@@ -1,4 +1,4 @@
-/*global Container, Shape, Bullets, CANVAS, STAGE, Ticker, GameStatistics*/
+/*global Container, Shape, Bullets, CANVAS, STAGE, Ticker, GameStatistics, GAME_WIDTH, GAME_HEIGHT, MAIN_SHIP*/
 /*jslint vars: true, white: true*/
 
 "use strict";
@@ -120,7 +120,7 @@ EnemyShip.prototype.shipBehaviour = function()
 EnemyShip.prototype.beforeAddToStage = function()
 {
     // do this
-}
+};
 
 
 EnemyShip.prototype.damageTaken = function( position )
@@ -221,11 +221,11 @@ if (this.spawnTicks_int < 0)
     this.tick = this.normalTick;
     }
     
-if (typeof this.spawnTick_function != "undefined" && this.spawnTick_function !== null)
+if (typeof this.spawnTick_function !== "undefined" && this.spawnTick_function !== null)
     {  
     this.spawnTick_function();
     }
-}
+};
 
 
 p.normalTick = function()
@@ -236,7 +236,7 @@ this.shipBehaviour();
     // the limits of the canvas
 this.checkLimits();
 
-if (typeof this.tick_function != "undefined" && this.tick_function !== null)
+if (typeof this.tick_function !== "undefined" && this.tick_function !== null)
     {
     this.tick_function();
     }

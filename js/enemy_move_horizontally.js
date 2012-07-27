@@ -1,4 +1,4 @@
-/*global INHERIT_PROTOTYPE, EnemyShip*/
+/*global INHERIT_PROTOTYPE, EnemyShip, SpriteSheet, BitmapAnimation*/
 /*jslint vars: true, white: true*/
 
 "use strict";
@@ -48,7 +48,7 @@ var spriteSheet = {
             frames: [ 3 ],
             next: "main",
             frequency: 10
-            },
+            }
         
         },
         

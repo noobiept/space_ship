@@ -1,4 +1,4 @@
-/*global Bullets*/
+/*global Bullets, INHERIT_PROTOTYPE, SpriteSheet, BitmapAnimation*/
 /*jslint vars:true, white: true*/
 
 "use strict";

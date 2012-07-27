@@ -1,4 +1,4 @@
-/*global Shape, Bullets, STAGE, CANVAS*/
+/*global Shape, Bullets, STAGE, CANVAS, ZIndex, Ticker, GAME_WIDTH, GAME_HEIGHT*/
 /*jslint vars: true, white: true*/
 
 "use strict";
@@ -149,7 +149,7 @@ Bullets.prototype.tick = function()
 this.moveForwardBullet();
 
 
-if (typeof this.tick_function != "undefined" && this.tick_function !== null)
+if (typeof this.tick_function !== "undefined" && this.tick_function !== null)
     {
     this.tick_function();
     }

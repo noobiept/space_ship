@@ -1,3 +1,7 @@
+/*global $, STAGE*/
+/*jslint vars: true, white: true*/
+
+"use strict";
 
 /*
     Keep these elements on top (last ones being added to stage)
