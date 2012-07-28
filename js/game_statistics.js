@@ -81,7 +81,7 @@ for (i = 0 ; i < BULLETS_LEFT_TEXT.length ; i++)
     {
     BULLETS_LEFT_TEXT[ i ] = new Text("Bullets: " + Ship.bulletsLeft[ i ], "14px Arial", "#777");
     
-    BULLETS_LEFT_TEXT[ i ].x = 30 + i * 100;
+    BULLETS_LEFT_TEXT[ i ].x = 40 + i * 100;
     BULLETS_LEFT_TEXT[ i ].y = CANVAS.height;
     
     STAGE.addChild( BULLETS_LEFT_TEXT[ i ] );

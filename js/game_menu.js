@@ -4,11 +4,20 @@
 
 "use strict";
 
+(function(window)
+{
+
 function GameMenu()
 {
 GameMenu.addMenuButton();
 GameMenu.addWeaponsSelection();
+
+    // reset the variable
+IS_OPENED = false;
 }
+
+    // if the in game is opened or not
+var IS_OPENED = false;
 
 
 
@@ -20,11 +29,15 @@ var spriteSheet = {
         main: {
             frames: [ 0 ],
             next: "main"
+            },
+        onMouseOver: {
+            frames: [ 1 ],
+            next: "onMouseOver"
             }
         },
     frames: {
-        width: 50,
-        height: 20
+        width: 60,
+        height: 35
         },
     images: [ "images/open_game_menu.png" ]
     };
@@ -35,14 +48,28 @@ var menuButton = new BitmapAnimation( menuButtonSprite );
 
 menuButton.gotoAndPlay("main");
 
-menuButton.x = CANVAS.width - 50;
-menuButton.y = CANVAS.height - 40;
+menuButton.x = CANVAS.width - 60;
+menuButton.y = CANVAS.height - 50;
 
 menuButton.onClick = function()
     {
-    GameMenu.openMenu();
+    if ( IS_OPENED === false )
+        {
+        GameMenu.openMenu();    
+        }
     };
 
+menuButton.onMouseOver = function()
+    {
+    menuButton.gotoAndPlay("onMouseOver");
+    };
+    
+menuButton.onMouseOut = function()
+    {
+    menuButton.gotoAndPlay("main");
+    };
+    
+    
 STAGE.addChild( menuButton );
 };
 
@@ -72,7 +99,7 @@ var weaponsSprite = {
         },
     frames: {
         width: 400,
-        height: 40
+        height: 35
         },
     images: [ "images/weapons_selection.png" ]
     };
@@ -119,25 +146,44 @@ else if ( number === 4 )
 
 
 
+
+
+GameMenu.isOpened = function()
+{
+return IS_OPENED;
+};
+
+
+
+
+
 GameMenu.openMenu = function()
 {
+IS_OPENED = true;
+
     // stop the game
 Ticker.setPaused( true );
 
-var background = new Shape();
+    // :: Background :: //
 
-var g = background.graphics;
+var background = new Bitmap( 'images/game_menu/game_menu_background.png' );
 
-g.beginFill( "rgba(255, 0, 0, 0.5)" );
-g.rect( 40, 40, CANVAS.width - 40, CANVAS.height - 40 );
-
-g.endFill();
+background.x = 0;
+background.y = 0;
 
 
-var toggleMusic = new Text("Turn Off Music", "14px Arial", "rgb(255, 255, 255)");   //HERE por algo por tras do texto (ao clicar, tem k se acertar mm nas letras)
+    // useful for positioning the menu entries in the center of the canvas
+var entryHalfWidth = 140 / 2;
+
+    // will be the x for all entries
+var centeredX = CANVAS.width / 2 - entryHalfWidth;
+
+    // :: Toggle Music :: //
+
+var toggleMusic = new Bitmap( 'images/game_menu/game_menu_music_off.png' );
+
 
 var musicOn = true;
-
 
 toggleMusic.onClick = function()
     {
@@ -156,26 +202,75 @@ toggleMusic.onClick = function()
         }
     };
 
-toggleMusic.x = 50;
-toggleMusic.y = 50;
+toggleMusic.x = centeredX;
+toggleMusic.y = 90;
     
-var backToGame = new Text("Back to Game", "14px Arial", "rgb(255, 255, 255)");
+    
+    // :: Restart :: //
+
+var restart = new Bitmap( 'images/game_menu/game_menu_restart.png' );    
+
+restart.onClick = function()
+    {
+    Ticker.setPaused( false );
+    
+    IS_OPENED = false;
+    
+    startGame();
+    };
+
+restart.x = centeredX;
+restart.y = toggleMusic.y + 70;
+    
+    // :: Quit :: //
+    
+var quit = new Bitmap( 'images/game_menu/game_menu_quit.png' );
+
+quit.onClick = function()
+    {
+    Ticker.setPaused( false );
+    
+    IS_OPENED = false;
+    
+    mainMenu();
+    };
+
+quit.x = centeredX;
+quit.y = restart.y + 30;
+    
+   
+    // :: Back to the Game :: //
+    
+var backToGame = new Bitmap( 'images/game_menu/game_menu_back_to_game.png' );
 
 backToGame.onClick = function()
     {
     STAGE.removeChild( background );
     STAGE.removeChild( toggleMusic );
+    STAGE.removeChild( restart );
+    STAGE.removeChild( quit );
     STAGE.removeChild( backToGame );
     
     Ticker.setPaused( false );
+    
+    IS_OPENED = false;
     };
 
-backToGame.x = toggleMusic.x;
-backToGame.y = toggleMusic.y + 50;
+backToGame.x = centeredX;
+backToGame.y = quit.y + 70;
+    
     
 STAGE.addChild( background );
 STAGE.addChild( toggleMusic );
+STAGE.addChild( restart );
+STAGE.addChild( quit );
 STAGE.addChild( backToGame );
 
 STAGE.update();
 };
+
+
+
+window.GameMenu = GameMenu;
+
+}(window));

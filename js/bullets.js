@@ -142,6 +142,23 @@ all.splice( position, 1 );
 };
 
 
+/*
+    Remove all bullets 
+ */
+
+Bullets.removeAll = function()
+{
+$( Bullets.enemies ).each(function(index, enemy)
+    {
+    enemy.remove();
+    });
+    
+$( Bullets.allies ).each(function(index, enemy)
+    {
+    enemy.remove();
+    });
+};
+
 
 
 Bullets.prototype.tick = function()

@@ -10,7 +10,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="1600"
-   height="40"
+   height="35"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
@@ -27,9 +27,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
-     inkscape:cx="1439.888"
-     inkscape:cy="63.19581"
+     inkscape:zoom="5.6"
+     inkscape:cx="1510.7925"
+     inkscape:cy="32.707406"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -68,7 +68,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -76,12 +76,12 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-1012.3622)">
+     transform="translate(0,-1017.3622)">
     <rect
        ry="0"
-       y="1012.3622"
+       y="1017.3622"
        x="300"
-       height="39.999981"
+       height="34.999962"
        width="100"
        id="rect3777"
        style="fill:#000000;fill-opacity:1;stroke:none" />
@@ -89,15 +89,15 @@
        style="fill:#000000;fill-opacity:1;stroke:none"
        id="rect3775"
        width="100"
-       height="39.999981"
+       height="34.999962"
        x="200"
-       y="1012.3622"
+       y="1017.3622"
        ry="0" />
     <rect
        ry="0"
-       y="1012.3622"
+       y="1017.3622"
        x="100"
-       height="39.999981"
+       height="34.999962"
        width="100"
        id="rect3773"
        style="fill:#000000;fill-opacity:1;stroke:none" />
@@ -105,71 +105,71 @@
        style="fill:#ffffff;fill-opacity:1;stroke:none"
        id="rect3003"
        width="100"
-       height="39.999943"
+       height="34.999985"
        x="0"
-       y="1012.3622"
+       y="1017.3622"
        ry="0" />
     <text
        xml:space="preserve"
        style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="15"
-       y="1037.3622"
+       y="1042.3622"
        id="text2985"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan2987"
          x="15"
-         y="1037.3622"
+         y="1042.3622"
          style="font-size:18px;fill:#000000;fill-opacity:1">1 - Laser</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
        x="110"
-       y="1037.3622"
+       y="1042.3622"
        id="text2989"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan2991"
          x="110"
-         y="1037.3622"
+         y="1042.3622"
          style="font-size:18px;fill:#ffffff;fill-opacity:1">2 - Sniper</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
        x="205"
-       y="1037.3622"
+       y="1042.3622"
        id="text2993"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan2995"
          x="205"
-         y="1037.3622"
+         y="1042.3622"
          style="font-size:18px;fill:#ffffff;fill-opacity:1">3 - Rocket</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
        x="310"
-       y="1037.3622"
+       y="1042.3622"
        id="text2997"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan2999"
          x="310"
-         y="1037.3622"
+         y="1042.3622"
          style="font-size:18px;fill:#ffffff;fill-opacity:1">4 - Mines</tspan></text>
     <rect
        style="fill:#000000;fill-opacity:1;stroke:none"
        id="rect3781"
        width="100"
-       height="39.999981"
+       height="34.999962"
        x="700"
-       y="1012.3622"
+       y="1017.3622"
        ry="0" />
     <rect
        ry="0"
-       y="1012.3622"
+       y="1017.3622"
        x="600"
-       height="39.999981"
+       height="34.999962"
        width="100"
        id="rect3783"
        style="fill:#000000;fill-opacity:1;stroke:none" />
@@ -177,71 +177,71 @@
        style="fill:#ffffff;fill-opacity:1;stroke:none"
        id="rect3785"
        width="100"
-       height="39.999981"
+       height="34.999962"
        x="500"
-       y="1012.3622"
+       y="1017.3622"
        ry="0" />
     <rect
        ry="0"
-       y="1012.3622"
+       y="1017.3622"
        x="400"
-       height="39.999981"
+       height="34.999962"
        width="100"
        id="rect3787"
        style="fill:#000000;fill-opacity:1;stroke:none" />
     <text
        sodipodi:linespacing="125%"
        id="text3789"
-       y="1037.3622"
+       y="1042.3622"
        x="415"
        style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
        xml:space="preserve"><tspan
          style="font-size:18px;fill:#ffffff;fill-opacity:1"
-         y="1037.3622"
+         y="1042.3622"
          x="415"
          id="tspan3791"
          sodipodi:role="line">1 - Laser</tspan></text>
     <text
        sodipodi:linespacing="125%"
        id="text3793"
-       y="1037.3622"
+       y="1042.3622"
        x="510"
        style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        xml:space="preserve"><tspan
          style="font-size:18px;fill:#000000;fill-opacity:1"
-         y="1037.3622"
+         y="1042.3622"
          x="510"
          id="tspan3795"
          sodipodi:role="line">2 - Sniper</tspan></text>
     <text
        sodipodi:linespacing="125%"
        id="text3797"
-       y="1037.3622"
+       y="1042.3622"
        x="605"
        style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
        xml:space="preserve"><tspan
          style="font-size:18px;fill:#ffffff;fill-opacity:1"
-         y="1037.3622"
+         y="1042.3622"
          x="605"
          id="tspan3799"
          sodipodi:role="line">3 - Rocket</tspan></text>
     <text
        sodipodi:linespacing="125%"
        id="text3801"
-       y="1037.3622"
+       y="1042.3622"
        x="710"
        style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
        xml:space="preserve"><tspan
          style="font-size:18px;fill:#ffffff;fill-opacity:1"
-         y="1037.3622"
+         y="1042.3622"
          x="710"
          id="tspan3803"
          sodipodi:role="line">4 - Mines</tspan></text>
     <rect
        ry="0"
-       y="1012.3622"
+       y="1017.3622"
        x="1100"
-       height="39.999981"
+       height="34.999962"
        width="100"
        id="rect3807"
        style="fill:#000000;fill-opacity:1;stroke:none" />
@@ -249,15 +249,15 @@
        style="fill:#ffffff;fill-opacity:1;stroke:none"
        id="rect3809"
        width="100"
-       height="39.999981"
+       height="34.999962"
        x="1000"
-       y="1012.3622"
+       y="1017.3622"
        ry="0" />
     <rect
        ry="0"
-       y="1012.3622"
+       y="1017.3622"
        x="900"
-       height="39.999981"
+       height="34.999962"
        width="100"
        id="rect3811"
        style="fill:#000000;fill-opacity:1;stroke:none" />
@@ -265,71 +265,71 @@
        style="fill:#000000;fill-opacity:1;stroke:none"
        id="rect3813"
        width="100"
-       height="39.999981"
+       height="34.999962"
        x="800"
-       y="1012.3622"
+       y="1017.3622"
        ry="0" />
     <text
        xml:space="preserve"
        style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
        x="815"
-       y="1037.3622"
+       y="1042.3622"
        id="text3815"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3817"
          x="815"
-         y="1037.3622"
+         y="1042.3622"
          style="font-size:18px;fill:#ffffff;fill-opacity:1">1 - Laser</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
        x="910"
-       y="1037.3622"
+       y="1042.3622"
        id="text3819"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3821"
          x="910"
-         y="1037.3622"
+         y="1042.3622"
          style="font-size:18px;fill:#ffffff;fill-opacity:1">2 - Sniper</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="1005"
-       y="1037.3622"
+       y="1042.3622"
        id="text3823"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3825"
          x="1005"
-         y="1037.3622"
+         y="1042.3622"
          style="font-size:18px;fill:#000000;fill-opacity:1">3 - Rocket</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
        x="1110"
-       y="1037.3622"
+       y="1042.3622"
        id="text3827"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3829"
          x="1110"
-         y="1037.3622"
+         y="1042.3622"
          style="font-size:18px;fill:#ffffff;fill-opacity:1">4 - Mines</tspan></text>
     <rect
        style="fill:#ffffff;fill-opacity:1;stroke:none"
        id="rect3833"
        width="100"
-       height="39.999981"
+       height="34.999962"
        x="1500"
-       y="1012.3622"
+       y="1017.3622"
        ry="0" />
     <rect
        ry="0"
-       y="1012.3622"
+       y="1017.3622"
        x="1400"
-       height="39.999981"
+       height="34.999962"
        width="100"
        id="rect3835"
        style="fill:#000000;fill-opacity:1;stroke:none" />
@@ -337,63 +337,63 @@
        style="fill:#000000;fill-opacity:1;stroke:none"
        id="rect3837"
        width="100"
-       height="39.999981"
+       height="34.999962"
        x="1300"
-       y="1012.3622"
+       y="1017.3622"
        ry="0" />
     <rect
        ry="0"
-       y="1012.3622"
+       y="1017.3622"
        x="1200"
-       height="39.999981"
+       height="34.999962"
        width="100"
        id="rect3839"
        style="fill:#000000;fill-opacity:1;stroke:none" />
     <text
        sodipodi:linespacing="125%"
        id="text3841"
-       y="1037.3622"
+       y="1042.3622"
        x="1215"
        style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
        xml:space="preserve"><tspan
          style="font-size:18px;fill:#ffffff;fill-opacity:1"
-         y="1037.3622"
+         y="1042.3622"
          x="1215"
          id="tspan3843"
          sodipodi:role="line">1 - Laser</tspan></text>
     <text
        sodipodi:linespacing="125%"
        id="text3845"
-       y="1037.3622"
+       y="1042.3622"
        x="1310"
        style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
        xml:space="preserve"><tspan
          style="font-size:18px;fill:#ffffff;fill-opacity:1"
-         y="1037.3622"
+         y="1042.3622"
          x="1310"
          id="tspan3847"
          sodipodi:role="line">2 - Sniper</tspan></text>
     <text
        sodipodi:linespacing="125%"
        id="text3849"
-       y="1037.3622"
+       y="1042.3622"
        x="1405"
        style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
        xml:space="preserve"><tspan
          style="font-size:18px;fill:#ffffff;fill-opacity:1"
-         y="1037.3622"
+         y="1042.3622"
          x="1405"
          id="tspan3851"
          sodipodi:role="line">3 - Rocket</tspan></text>
     <text
        sodipodi:linespacing="125%"
        id="text3853"
-       y="1037.3622"
+       y="1042.3622"
        x="1510"
        style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        xml:space="preserve"><tspan
          style="font-size:18px;fill:#000000;fill-opacity:1"
-         y="1037.3622"
+         y="1042.3622"
          x="1510"
          id="tspan3855"
          sodipodi:role="line">4 - Mines</tspan></text>

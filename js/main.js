@@ -6,9 +6,9 @@
 /*
     Issues:
     
-        - when opening the menu, it is still possible to click the 'menu' button again..
         - sometimes, one of the enemies can't be killed...
-
+        - the game_menu entries have to have a background color, so that we can click in the entry (instead of the text)
+        
     to doo:
     
  */
@@ -97,15 +97,25 @@ STAGE.update();
 }
     
 
-    
-    
-function startGame() 
+function resetStuff()
 {
 STAGE.removeAllChildren();
 
 Ticker.removeAllListeners();
 
 ZIndex.clear();
+
+EnemyShip.removeAll();
+Bullets.removeAll();
+Ship.removeAll();
+}
+    
+    
+    
+    
+function startGame() 
+{
+resetStuff();
 
 GameStatistics.start();
 
@@ -127,6 +137,8 @@ ZIndex.add( MAIN_SHIP );
     // so that .tick() of EnemyShip/Ship/... is called automatically
 Ticker.addListener( MAIN_SHIP );
 Ticker.addListener( window );
+
+STAGE.enableMouseOver();
 
     // call update on the stage to make it render the current display list to the canvas
 STAGE.update();

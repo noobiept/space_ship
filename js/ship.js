@@ -228,8 +228,8 @@ GameStatistics.updateShipEnergy( energy );
     // you loose
 if (energy <= 0)
     {
-    STAGE.removeChild( this );
-    
+    this.remove();
+        
     Ticker.removeAllListeners();
     
     $( document).bind( "keyup", function(event) 
@@ -304,6 +304,12 @@ if ( !event )
     event = window.event;
     }
 
+    
+    // don't do anything when the menu is opened
+if ( GameMenu.isOpened() )
+    {
+    return;
+    }
 
 var weapons = [ Weapon1_laser, Weapon2_sniper, Weapon3_rocket, Weapon4_mines ];
 
@@ -350,6 +356,37 @@ for (i = 0 ; i < AMMO_UPDATE_TICK.length ; i++)
     }
 };
     
+    
+    
+/* 
+    Remove this ship
+ */
+    
+p.remove = function()
+{
+Ticker.removeListener( this );
+STAGE.removeChild( this );
+
+var position = Ship.all.indexOf( this );
+
+Ship.all.splice( position, 1 );
+};
+
+
+/*
+    Remove all the ships
+ */
+
+Ship.removeAll = function()
+{
+$( Ship.all ).each(function(index, value)
+    {
+    value.remove();
+    });
+};
+ 
+ 
+
     
     
 p.tick = function()

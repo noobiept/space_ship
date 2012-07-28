@@ -11,7 +11,7 @@ function mainMenu()
 {
 clearInterval( LOADING_INTERVAL );
 
-STAGE.removeAllChildren();
+resetStuff();
 
 var menuMessage = new Text("Menu", "20px Arial", "rgb(255, 255, 255)");
 

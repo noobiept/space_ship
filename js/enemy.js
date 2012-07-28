@@ -197,6 +197,18 @@ GameStatistics.updateScore( GameStatistics.getScore() + 1 );
 
 
 
+/*
+    Remove everything
+ */
+
+EnemyShip.removeAll = function()
+{
+$( EnemyShip.all ).each(function(index, ship)
+    {
+    ship.remove( index );
+    });
+};
+
 
 
 /*

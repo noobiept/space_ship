@@ -132,6 +132,12 @@ if ( !event )
     event = window.event; 
     }
     
+    // don't do anything when the menu is opened
+if ( GameMenu.isOpened() )
+    {
+    return;
+    }
+    
 switch(event.keyCode) 
     {
     case EVENT_KEY.space:	
