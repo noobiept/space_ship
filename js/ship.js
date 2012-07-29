@@ -199,7 +199,7 @@ for (k = 0 ; k < Ship.all.length ; k++)
             ship.tookDamage( enemy.damageGiven() );
 
                 // if so, remove the enemy, and reduce the energy
-            enemy.remove( i );
+            enemy.damageTaken();
             
                 // the array changed in length (since we removed one element. Update the index)
             i--;
@@ -210,7 +210,7 @@ for (k = 0 ; k < Ship.all.length ; k++)
 };
 
 
-Ship.prototype.damageTaken = function( position )
+Ship.prototype.damageTaken = function()
 {
 //HERE
 

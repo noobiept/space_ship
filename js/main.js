@@ -206,7 +206,7 @@ $( ships ).each(function( ship_index, ship )
             bullet.remove( bullet_index );
             
                 // remove the EnemyShip
-            ship.damageTaken( ship_index );
+            ship.damageTaken();
             
                 // breaks this loop
             return false;   
@@ -214,6 +214,20 @@ $( ships ).each(function( ship_index, ship )
         });
     });
 
+}
+
+
+
+
+function addNewEnemy( enemyObject )
+{
+enemyObject.beforeAddToStage();
+      
+STAGE.addChild( enemyObject );
+
+ZIndex.update();
+
+Ticker.addListener( enemyObject );
 }
 
 
@@ -240,13 +254,7 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     enemy.x = x;
     enemy.y = y;
     
-    enemy.beforeAddToStage();
-          
-    STAGE.addChild( enemy );
-    
-    ZIndex.update();
-    
-    Ticker.addListener( enemy );
+    addNewEnemy( enemy );
     }
     
 

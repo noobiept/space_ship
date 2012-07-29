@@ -3,8 +3,13 @@
 
 "use strict";
 
+/*
+    Arguments:
+    
+        scale: scale the original image (1 -> 100%, no scaling)
+ */
 
-function EnemyRocks()
+function EnemyRocks( scale )
 {
 this.shape = null;
 
@@ -13,6 +18,16 @@ this.velocity = EnemyRocks.velocity;
 
 this.width = 50;
 this.height = 50;
+
+if (typeof scale != "undefined" && $.isNumeric( scale ))
+    {
+    this.scale = scale;
+    }
+
+else
+    {
+    this.scale = 1;
+    }
 
     // inherits from the EnemyShip class
 EnemyShip.call( this );
@@ -58,6 +73,13 @@ var rock = new BitmapAnimation( sprite );
 rock.regX = this.width / 2;
 rock.regY = this.height / 2;
 
+rock.scaleX = this.scale;
+rock.scaleY = this.scale;
+
+    // don't update these variables before the scaling (they're are used in the config above, and the scaling is applied later)
+this.width *= this.scale;
+this.height *= this.scale;
+
     // it moves 
 this.angleRadians = getRandomFloat( 0, 2 * Math.PI );
 
@@ -75,7 +97,30 @@ this.y += Math.cos( this.angleRadians ) * this.velocity;
 };
 
 
+/*
+    When it takes damage, create new smaller rocks
+ */
 
+EnemyRocks.prototype.damageTaken = function()
+{
+if (this.width >= 50)
+    {
+    var i;
+    
+    for (i = 0 ; i < 3 ; i++)
+        {
+        var rock = new EnemyRocks( 0.5 );
+        
+            // spawn from the current position
+        rock.x = this.x;
+        rock.y = this.y;
+        
+        addNewEnemy( rock );
+        }
+    }
+
+this.remove();
+};
 
 
 

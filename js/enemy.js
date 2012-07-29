@@ -32,6 +32,10 @@
         .spawnTick_function : reference to a function that is called in the .tick() during the spawn of the enemy
         .tick_function      : reference to a function that is called in the .tick() after the spawn (in the normal behaviour)
         
+    Override is necessary:
+    
+        .damageTaken()
+        
  */
 
 function EnemyShip()
@@ -113,10 +117,10 @@ EnemyShip.prototype.beforeAddToStage = function()
 };
 
 
-EnemyShip.prototype.damageTaken = function( position )
+EnemyShip.prototype.damageTaken = function()
 {
-    //HERE for now just remove it
-this.remove( position );
+    // just remove it (override this for something different)
+this.remove();
 };
 
 
@@ -171,11 +175,13 @@ return angleDegrees;
     Remove the enemy ship, and update the game statistics
  */
 
-p.remove = function( position )
+p.remove = function()
 {
 STAGE.removeChild( this );
 
 Ticker.removeListener( this );
+
+var position = EnemyShip.all.indexOf( this );
 
 EnemyShip.all.splice( position, 1 );
 
