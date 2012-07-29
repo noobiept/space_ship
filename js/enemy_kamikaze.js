@@ -1,27 +1,26 @@
 /*global EnemyShip, INHERIT_PROTOTYPE, BitmapAnimation, SpriteSheet, MAIN_SHIP, $*/
-/*jslint vars:true, white: true*/
+/*jslint vars: true, white: true*/
 
 "use strict";
 
 
 function EnemyKamikaze()
 {
-this.shipBody = null;
-
-    // inherits from the Enemy class
-EnemyShip.call( this );
-
+this.shape = null;
 
 this.damage = EnemyKamikaze.damage;
 this.velocity = EnemyKamikaze.velocity;
 
 this.width = 14;
 this.height = 14;
+
+    // inherits from the Enemy class
+EnemyShip.call( this );
 }
 
 
     //inherit the member functions
-INHERIT_PROTOTYPE( EnemyKamikaze, EnemyShip);
+INHERIT_PROTOTYPE( EnemyKamikaze, EnemyShip );
 
 
 EnemyKamikaze.damage = 10;
@@ -46,8 +45,8 @@ var spriteSheet = {
             }
         },
     frames: {
-        width: 14,
-        height: 14
+        width: this.width,
+        height: this.height
         },
     images: [ "images/enemy_kamikaze.png" ]
     };
@@ -62,7 +61,7 @@ enemy.regY = this.height / 2;
 
 enemy.gotoAndPlay("spawn");
 
-this.shipBody = enemy;
+this.shape = enemy;
 };
 
 

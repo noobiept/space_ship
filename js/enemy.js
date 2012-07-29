@@ -25,7 +25,7 @@
         
     Add reference of the drawn element to:
     
-        .shipBody
+        .shape
         
     Possible properties:
     
@@ -36,16 +36,6 @@
 
 function EnemyShip()
 {
-    // damage given by this ship when it hits
-this.damage = 10;
-
-this.velocity = 1;
-
-this.width = 20;
-this.height = 20;
-
-this.shipBody = null;
-
     // to distinguish the bullets (from enemies or from the main ship)
 this.isEnemy = true;
 
@@ -82,7 +72,7 @@ this.makeShape();
 
 
     // add to Container()
-this.addChild( this.shipBody );
+this.addChild( this.shape );
 
 
 GameStatistics.updateNumberOfEnemies( GameStatistics.getNumberOfEnemies() + 1 );
@@ -224,7 +214,7 @@ this.spawnTicks_int--;
 if (this.spawnTicks_int < 0)
     {  
         // play the main animation
-    this.shipBody.gotoAndPlay("main");
+    this.shape.gotoAndPlay("main");
     
         // only add now to the enemies list (so, only from now on will the bullets be able to kill it, etc)
     EnemyShip.all.push( this );

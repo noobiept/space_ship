@@ -7,17 +7,16 @@
 
 function EnemyMoveHorizontally()
 {
-this.shipBody = null;
-
-    // inhirit from EnemyShip class
-EnemyShip.call( this );
-
+this.shape = null;
 
 this.damage = EnemyMoveHorizontally.damage;
 this.velocity = EnemyMoveHorizontally.velocity;
 
 this.width = 20;
 this.height = 20;
+
+    // inhirit from EnemyShip class
+EnemyShip.call( this );
 }
 
 
@@ -54,8 +53,8 @@ var spriteSheet = {
         
     frames: {
         
-        width: 20,
-        height: 20
+        width: this.width,
+        height: this.height
         },
         
     images: [ "images/enemy_move_horizontally.png" ]
@@ -72,7 +71,7 @@ enemy.regY = this.height / 2;
 
 enemy.gotoAndPlay("spawn");
 
-this.shipBody = enemy;
+this.shape = enemy;
 };
 
 

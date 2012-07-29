@@ -40,7 +40,8 @@ var ENEMY_TYPES = [
 
     EnemyMoveHorizontally,
     EnemyRotateAround,
-    EnemyKamikaze
+    EnemyKamikaze,
+    EnemyRocks
 
     ];
     
@@ -233,7 +234,8 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     var y = getRandomInt( 0, GAME_HEIGHT );
     
    
-    var enemy = new EnemyMoveHorizontally();
+    //var enemy = new EnemyMoveHorizontally();
+    var enemy = new EnemyRocks();
     
     enemy.x = x;
     enemy.y = y;
@@ -268,6 +270,9 @@ if (COUNT_INCREASE_DIFFICULTY_TICKS < 0)
         enemyType.damage++;
         enemyType.velocity++;
         });
+    
+        // reduce the time it takes until a new enemy is added
+    NEXT_ENEMY_TICKS--;
     }
 
 STAGE.update();
