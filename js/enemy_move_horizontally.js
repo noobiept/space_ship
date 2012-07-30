@@ -37,14 +37,14 @@ var spriteSheet = {
     animations: {
         
         spawn: {
-            frames: [0, 1, 2],
+            frames: [ 0, 1, 2 ],
             next: "spawn",
             frequency: 10
             },
         
         main: {
             
-            frames: [ 3 ],
+            frames: [ 3, 4 ],
             next: "main",
             frequency: 10
             }

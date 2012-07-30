@@ -8,6 +8,7 @@
     
         - sometimes, one of the enemies can't be killed...
         - the game_menu entries have to have a background color, so that we can click in the entry (instead of the text)
+        - the game_menu sometimes doesn't load (the images?..)
         
     to doo:
     
@@ -248,8 +249,8 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     var y = getRandomInt( 0, GAME_HEIGHT );
     
    
-    //var enemy = new EnemyMoveHorizontally();
-    var enemy = new EnemyRocks();
+    var enemy = new EnemyMoveHorizontally();
+    //var enemy = new EnemyRocks();
     
     enemy.x = x;
     enemy.y = y;

@@ -9,12 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="80"
+   width="100"
    height="20"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="enemy_move_horizontally.svg"
+   sodipodi:docname="enemy_move_horizontally2.svg"
    inkscape:export-filename="C:\Users\drk\Dropbox\projects\space_ship_game\images\enemy_move_horizontally.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
@@ -27,9 +27,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="7.919596"
-     inkscape:cx="36.779088"
-     inkscape:cy="17.329031"
+     inkscape:zoom="8"
+     inkscape:cx="103.0637"
+     inkscape:cy="10.866772"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -46,7 +46,9 @@
        empspacing="5"
        visible="true"
        enabled="true"
-       snapvisiblegridlinesonly="true" />
+       snapvisiblegridlinesonly="true"
+       spacingx="0.1px"
+       spacingy="0.1px" />
     <sodipodi:guide
        orientation="1,0"
        position="20,35"
@@ -59,6 +61,10 @@
        orientation="1,0"
        position="60,20"
        id="guide3805" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="80,17.5"
+       id="guide3820" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -68,7 +74,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -77,62 +83,6 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-1032.3622)">
-    <rect
-       style="fill:#ff0000;fill-opacity:0.34920636;stroke:none"
-       id="rect2987-1"
-       width="20.003479"
-       height="19.996094"
-       x="0"
-       y="1032.3622" />
-    <rect
-       style="fill:#000000;fill-opacity:1;stroke:none"
-       id="rect3769"
-       width="18"
-       height="18"
-       x="1"
-       y="1033.3622" />
-    <rect
-       y="1032.3622"
-       x="20"
-       height="19.996094"
-       width="20.003479"
-       id="rect3775"
-       style="fill:#ff0000;fill-opacity:0.52910055;stroke:none" />
-    <rect
-       y="1033.3622"
-       x="21"
-       height="18"
-       width="18"
-       id="rect3777"
-       style="fill:#000000;fill-opacity:1;stroke:none" />
-    <rect
-       style="fill:#ff0000;fill-opacity:0.7248677;stroke:none"
-       id="rect3786"
-       width="20.003479"
-       height="19.996094"
-       x="40"
-       y="1032.3622" />
-    <rect
-       style="fill:#000000;fill-opacity:1;stroke:none"
-       id="rect3788"
-       width="18"
-       height="18"
-       x="41"
-       y="1033.3622" />
-    <rect
-       y="1032.3661"
-       x="60"
-       height="19.996094"
-       width="20.003479"
-       id="rect3023"
-       style="fill:#ff0000;fill-opacity:1;stroke:none" />
-    <rect
-       y="1033.3622"
-       x="61"
-       height="18"
-       width="18"
-       id="rect3025"
-       style="fill:#000000;fill-opacity:1;stroke:none" />
     <text
        xml:space="preserve"
        style="font-size:8px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -166,5 +116,31 @@
          id="tspan3811"
          x="5"
          y="1022.3622">Spawn state</tspan></text>
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 70,1032.8622 c 0,0 -3.5,0 -6.5,0 -3,0 -3,4 -3,4 l 0,14.5 2.5,-3.5 3.5,3.5 3.5,-3.5 3.5,3.5 3.5,-3.5 2.5,3.5 0,-8 0,-6.5 c 0,0 0,-4 -3,-4 z"
+       id="path3778"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3814"
+       d="m 50,1032.8622 c 0,0 -3.5,0 -6.5,0 -3,0 -3,4 -3,4 l 0,14.5 2.5,-3.5 3.5,3.5 3.5,-3.5 3.5,3.5 3.5,-3.5 2.5,3.5 0,-8 0,-6.5 c 0,0 0,-4 -3,-4 z"
+       style="fill:none;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.75132273" />
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.50264551"
+       d="m 30,1032.8622 c 0,0 -3.5,0 -6.5,0 -3,0 -3,4 -3,4 l 0,14.5 2.5,-3.5 3.5,3.5 3.5,-3.5 3.5,3.5 3.5,-3.5 2.5,3.5 0,-8 0,-6.5 c 0,0 0,-4 -3,-4 z"
+       id="path3816"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3818"
+       d="m 10,1032.8622 c 0,0 -3.5,0 -6.5,0 -3,0 -3,4 -3,4 l 0,14.5 2.5,-3.5 3.5,3.5 3.5,-3.5 3.5,3.5 3.5,-3.5 2.5,3.5 0,-8 0,-6.5 c 0,0 0,-4 -3,-4 z"
+       style="fill:none;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.25925927" />
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 80.5,19 4.7,-3.5 0,3.5 4.8,-3.5 0,3.5 4.7,-3.5 0,3.5 4.8,-3.5 0,-12.5 c 0,0 0,-2.5 -3,-2.5 -3,0 -11,0 -11,0 0,0 -4.911299,0.23398041 -5,6 -0.0887,5.76602 0,12.5 0,12.5"
+       id="path3830"
+       inkscape:connector-curvature="0"
+       transform="translate(0,1032.3622)" />
   </g>
 </svg>
