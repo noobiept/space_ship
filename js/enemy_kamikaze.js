@@ -42,8 +42,11 @@ EnemyShip.call( this );
 INHERIT_PROTOTYPE( EnemyKamikaze, EnemyShip );
 
 
-EnemyKamikaze.damage = 10;
-EnemyKamikaze.velocity = 2;
+EnemyKamikaze.damage_default = 10;
+EnemyKamikaze.velocity_default = 2;
+
+EnemyKamikaze.damage = EnemyKamikaze.damage_default;
+EnemyKamikaze.velocity = EnemyKamikaze.velocity_default;
 
 
 
@@ -175,6 +178,20 @@ angleDegrees += 90;
 this.rotation = -1 * angleDegrees; 
 };
 
+
+
+EnemyKamikaze.increaseDifficulty = function()
+{
+EnemyKamikaze.damage++;
+EnemyKamikaze.velocity++;
+};
+
+
+EnemyKamikaze.reset = function()
+{
+EnemyKamikaze.damage = EnemyKamikaze.damage_default;
+EnemyKamikaze.velocity = EnemyKamikaze.velocity_default;
+};
 
 
 EnemyKamikaze.prototype.spawnTick_function = function()

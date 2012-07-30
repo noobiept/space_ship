@@ -57,8 +57,11 @@ EnemyShip.call( this );
 INHERIT_PROTOTYPE( EnemyRocks, EnemyShip );
 
 
-EnemyRocks.damage = 5;
-EnemyRocks.velocity = 1;
+EnemyRocks.damage_default = 5;
+EnemyRocks.velocity_default = 1;
+
+EnemyRocks.damage = EnemyRocks.damage_default;
+EnemyRocks.velocity = EnemyRocks.velocity_default;
 
 
 
@@ -113,6 +116,8 @@ EnemyRocks.prototype.shipBehaviour = function()
 {
 this.x += Math.sin( this.angleRadians ) * this.velocity;
 this.y += Math.cos( this.angleRadians ) * this.velocity;
+
+this.rotation++;
 };
 
 
@@ -140,6 +145,21 @@ if (this.width >= 50)
 
 this.remove();
 };
+
+
+EnemyRocks.increaseDifficulty = function()
+{
+EnemyRocks.damage++;
+EnemyRocks.velocity++;
+};
+
+
+EnemyRocks.reset = function()
+{
+EnemyRocks.damage = EnemyRocks.damage_default;
+EnemyRocks.velocity = EnemyRocks.velocity_default;
+};
+
 
 
 

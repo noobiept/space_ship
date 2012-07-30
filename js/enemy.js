@@ -32,9 +32,20 @@
 /*
     Don't use directly, use as a base class, and write these functions:
     
+    --- to the prototype ---
+    
         .makeShape()
         .shipBehaviour()
+        .damageTaken()          (optional)
+        .beforeAddToStage()     (optional)
+        .spawnTick_function()   (optional)
+        .tick_function()        (optional)
         
+    --- to the class ---
+
+        .increaseDifficulty()
+        .reset()
+    
     and change these properties:
     
         .damage
@@ -45,15 +56,6 @@
     Add reference of the drawn element to:
     
         .shape
-        
-    Possible properties:
-    
-        .spawnTick_function : reference to a function that is called in the .tick() during the spawn of the enemy
-        .tick_function      : reference to a function that is called in the .tick() after the spawn (in the normal behaviour)
-        
-    Override is necessary:
-    
-        .damageTaken()
         
  */
 

@@ -125,7 +125,7 @@ for (i = 0 ; i < enemies.length ; i++)
         //HERE tem k abranger uma area..
     if ( enemyY >= aa - 20 && enemyY <= aa + 20)
         {
-        enemies[i].remove();
+        enemies[i].damageTaken();
         
         i--;
         }

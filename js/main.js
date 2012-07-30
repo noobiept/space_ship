@@ -129,6 +129,12 @@ ZIndex.clear();
 EnemyShip.removeAll();
 Bullets.removeAll();
 Ship.removeAll();
+
+    // reset the velocity and damage
+$( ENEMY_TYPES ).each(function(index, enemyType)
+    {
+    enemyType.reset();
+    });
 }
     
     
@@ -262,13 +268,13 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     COUNT_TICKS_NEXT_ENEMY = NEXT_ENEMY_TICKS;
     
   
-    //var enemy = new ENEMY_TYPES[ getRandomInt(0, ENEMY_TYPES.length - 1 ) ]();
+    var enemy = new ENEMY_TYPES[ getRandomInt(0, ENEMY_TYPES.length - 1 ) ]();
     
     var x = getRandomInt( 0, GAME_WIDTH );
     var y = getRandomInt( 0, GAME_HEIGHT );
     
    
-    var enemy = new EnemyMoveHorizontally();
+    //var enemy = new EnemyMoveHorizontally();
     //var enemy = new EnemyRocks();
     
     enemy.x = x;
@@ -292,11 +298,10 @@ if (COUNT_INCREASE_DIFFICULTY_TICKS < 0)
     {
     COUNT_INCREASE_DIFFICULTY_TICKS = INCREASE_DIFFICULTY_TICKS;
     
-        // increase velocity and damage
+        // increase the difficulty of the game
     $( ENEMY_TYPES ).each(function(index, enemyType)
         {
-        enemyType.damage++;
-        enemyType.velocity++;
+        enemyType.increaseDifficulty();
         });
     
         // reduce the time it takes until a new enemy is added

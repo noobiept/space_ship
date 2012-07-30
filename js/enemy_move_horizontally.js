@@ -43,8 +43,11 @@ EnemyShip.call( this );
 INHERIT_PROTOTYPE( EnemyMoveHorizontally, EnemyShip);
 
 
-EnemyMoveHorizontally.damage = 10;
-EnemyMoveHorizontally.velocity = 1;
+EnemyMoveHorizontally.damage_default = 10;
+EnemyMoveHorizontally.velocity_default = 1;
+
+EnemyMoveHorizontally.damage = EnemyMoveHorizontally.damage_default;
+EnemyMoveHorizontally.velocity = EnemyMoveHorizontally.velocity_default;
 
 
 
@@ -102,3 +105,15 @@ this.x += this.velocity;
 };
 
 
+EnemyMoveHorizontally.increaseDifficulty = function()
+{
+EnemyMoveHorizontally.damage++;
+EnemyMoveHorizontally.velocity++;
+};
+
+
+EnemyMoveHorizontally.reset = function()
+{
+EnemyMoveHorizontally.damage = EnemyMoveHorizontally.damage_default;
+EnemyMoveHorizontally.velocity = EnemyMoveHorizontally.velocity_default;
+};

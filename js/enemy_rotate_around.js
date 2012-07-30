@@ -47,9 +47,11 @@ this.countTicks = 0;
 INHERIT_PROTOTYPE( EnemyRotateAround, EnemyShip);
 
 
+EnemyRotateAround.damage_default = 10;
+EnemyRotateAround.velocity_default = 1;
 
-EnemyRotateAround.damage = 10;
-EnemyRotateAround.velocity = 1;
+EnemyRotateAround.damage = EnemyRotateAround.damage_default;
+EnemyRotateAround.velocity = EnemyRotateAround.velocity_default;
 
 
 
@@ -114,6 +116,22 @@ var angleRadians = Math.atan2( triangleOppositeSide, triangleAdjacentSide );
 this.x += Math.sin( angleRadians ) * this.velocity;
 this.y += Math.cos( angleRadians ) * this.velocity;
 };
+
+
+
+EnemyRotateAround.increaseDifficulty = function()
+{
+EnemyRotateAround.damage++;
+EnemyRotateAround.velocity++;
+};
+
+
+EnemyRotateAround.reset = function()
+{
+EnemyRotateAround.damage = EnemyRotateAround.damage_default;
+EnemyRotateAround.velocity = EnemyRotateAround.velocity_default;
+};
+
 
 
 
