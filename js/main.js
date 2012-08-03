@@ -17,7 +17,7 @@
     along with space_ship_game.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*global Stage, Text, Ship, EnemyMoveHorizontally, Ticker, Bullets, handleKeyDown, handleKeyUp, PreloadJS, mainMenu, SoundJS, EnemyRotateAround, GameStatistics, GameMenu, getRandomInt, updateLoading, EnemyKamikaze, ZIndex, EnemyShip, $*/
+/*global Stage, Text, Ship, EnemyMoveHorizontally, Ticker, Weapons, handleKeyDown, handleKeyUp, PreloadJS, mainMenu, SoundJS, EnemyRotateAround, GameStatistics, GameMenu, getRandomInt, updateLoading, EnemyKamikaze, ZIndex, EnemyShip, $*/
 /*jslint vars: true, white: true*/
     
 "use strict";    
@@ -127,7 +127,7 @@ Ticker.removeAllListeners();
 ZIndex.clear();
 
 EnemyShip.removeAll();
-Bullets.removeAll();
+Weapons.removeAllBullets();
 Ship.removeAll();
 
     // reset the velocity and damage
@@ -200,8 +200,8 @@ $( ships ).each(function( ship_index, ship )
     {
     $( bullets ).each(function( bullet_index, bullet )
         {
-        bulletX = bullet.shape.x;
-        bulletY = bullet.shape.y;
+        bulletX = bullet.bulletShape.x;
+        bulletY = bullet.bulletShape.y;
         
         var bulletHalfWidth = bullet.width / 2;
         var bulletHalfHeight = bullet.height / 2;
@@ -285,10 +285,10 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     
 
     // check if enemy bullets hit our ship
-checkIfBulletsHitAnything( [ MAIN_SHIP ], Bullets.enemies );
+checkIfBulletsHitAnything( [ MAIN_SHIP ], Weapons.enemyBullets );
 
     // check if our bullets hit the enemy
-checkIfBulletsHitAnything( EnemyShip.all, Bullets.allies );
+checkIfBulletsHitAnything( EnemyShip.all, Weapons.allyBullets );
 
 
     // deal with increasing the difficulty of the game

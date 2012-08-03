@@ -17,7 +17,7 @@
     along with space_ship_game.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*global Bullets, INHERIT_PROTOTYPE, SpriteSheet, BitmapAnimation, STAGE, EnemyShip*/
+/*global Weapons, INHERIT_PROTOTYPE, SpriteSheet, BitmapAnimation, STAGE, EnemyShip*/
 /*jslint vars:true, white: true*/
 
 "use strict";
@@ -28,8 +28,8 @@ function Weapon2_sniper( shipObject )
 this.width = 1000;
 this.height = 2;
 
-    // inherit from the Bullets class
-Bullets.call( this, shipObject );
+    // inherit from the Weapons class
+Weapons.call( this, shipObject );
 
 this.speed = 0; //HERE ser instantaneo?...
 
@@ -43,7 +43,7 @@ Weapon2_sniper.numberTicksAnimation = 30;
 
 
     // inherit the member functions
-INHERIT_PROTOTYPE( Weapon2_sniper, Bullets );
+INHERIT_PROTOTYPE( Weapon2_sniper, Weapons );
 
 
 Weapon2_sniper.prototype.drawBullet = function()
@@ -84,7 +84,7 @@ sniper.y = shipObject.y;
 sniper.rotation = shipObject.rotation;
 
 
-this.shape = sniper;
+this.bulletShape = sniper;
 };
 
 

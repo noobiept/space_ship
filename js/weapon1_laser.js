@@ -17,7 +17,7 @@
     along with space_ship_game.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*global Bullets, INHERIT_PROTOTYPE, $, SpriteSheet, BitmapAnimation*/
+/*global Weapons, INHERIT_PROTOTYPE, $, SpriteSheet, BitmapAnimation*/
 /*jslint vars:true, white: true*/
 
 "use strict";
@@ -27,8 +27,8 @@ function Weapon1_laser( shipObject, angleRotation )
 this.width = 4;
 this.height = 2;
 
-    // inherit from the Bullets class
-Bullets.call( this, shipObject, angleRotation );
+    // inherit from the Weapons class
+Weapons.call( this, shipObject, angleRotation );
 
 this.speed = 8; //HERE pode dar problemas se houver inimigos + pequenos que o speed (pq o speed eh o step... ter k verificar antes do salto)
 }
@@ -36,7 +36,7 @@ this.speed = 8; //HERE pode dar problemas se houver inimigos + pequenos que o sp
 
 
     // inherit the member functions
-INHERIT_PROTOTYPE( Weapon1_laser, Bullets );
+INHERIT_PROTOTYPE( Weapon1_laser, Weapons );
 
 
 Weapon1_laser.prototype.drawBullet = function( angleRotation )
@@ -93,5 +93,5 @@ else
     }
 
 
-this.shape = laser;
+this.bulletShape = laser;
 };

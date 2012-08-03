@@ -17,7 +17,7 @@
     along with space_ship_game.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*global Bullets, INHERIT_PROTOTYPE, SpriteSheet, BitmapAnimation*/
+/*global Weapons, INHERIT_PROTOTYPE, SpriteSheet, BitmapAnimation*/
 /*jslint vars:true, white: true*/
 
 "use strict";
@@ -27,15 +27,15 @@ function Weapon4_mines( shipObject )
 this.width = 15;
 this.height = 15;
 
-    // inherit from the Bullets class
-Bullets.call( this, shipObject );
+    // inherit from the Weapons class
+Weapons.call( this, shipObject );
 
 this.speed = 0;
 }
 
 
     // inherit the member functions
-INHERIT_PROTOTYPE( Weapon4_mines, Bullets );
+INHERIT_PROTOTYPE( Weapon4_mines, Weapons );
 
 
 
@@ -81,6 +81,6 @@ mine.x = shipObject.x;
 mine.y = shipObject.y;
 //mine.rotation = shipObject.rotation; //HERE nao precisa
 
-this.shape = mine;
+this.bulletShape = mine;
 };
 

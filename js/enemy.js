@@ -17,7 +17,7 @@
     along with space_ship_game.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*global Container, Shape, Bullets, CANVAS, STAGE, Ticker, GameStatistics, GAME_WIDTH, GAME_HEIGHT, MAIN_SHIP*/
+/*global Container, Shape, CANVAS, STAGE, Ticker, GameStatistics, GAME_WIDTH, GAME_HEIGHT, MAIN_SHIP*/
 /*jslint vars: true, white: true*/
 
 "use strict";

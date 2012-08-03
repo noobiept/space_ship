@@ -17,7 +17,7 @@
     along with space_ship_game.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*global Shape, Bullets, STAGE, CANVAS, ZIndex, Ticker, GAME_WIDTH, GAME_HEIGHT*/
+/*global Shape, STAGE, CANVAS, ZIndex, Ticker, GAME_WIDTH, GAME_HEIGHT*/
 /*jslint vars: true, white: true*/
 
 "use strict";
@@ -40,7 +40,7 @@
         
     Add reference of the drawn element to:
     
-        .shape
+        .bulletShape
         
     Arguments:
     
@@ -48,9 +48,9 @@
         angleRotation : of the bullet
  */
 
-function Bullets( shipObject, angleRotation )
+function Weapons( shipObject, angleRotation )
 {
-this.shape = null;
+this.bulletShape = null;
 
 this.shipObject = shipObject;
 
@@ -60,7 +60,7 @@ this.drawBullet( angleRotation );
 
 this.isEnemy = shipObject.isEnemy;
 
-STAGE.addChild( this.shape );
+STAGE.addChild( this.bulletShape );
 
 ZIndex.update();
 
@@ -69,24 +69,24 @@ Ticker.addListener( this );
 
 if ( this.isEnemy )
     {
-    Bullets.enemies.push( this );
+    Weapons.enemyBullets.push( this );
     }
 
 else
     {
-    Bullets.allies.push( this );
+    Weapons.allyBullets.push( this );
     }
 }
 
     // all the bullets from the enemies
-Bullets.enemies = [];
+Weapons.enemyBullets = [];
 
     // all the bullets from the allies
-Bullets.allies = [];
+Weapons.allyBullets = [];
 
 
 
-Bullets.prototype.drawBullet = function( angleRotation )
+Weapons.prototype.drawBullet = function( angleRotation )
 {
     // do this
 };
@@ -95,9 +95,9 @@ Bullets.prototype.drawBullet = function( angleRotation )
 
 
 
-Bullets.prototype.moveForwardBullet = function()
+Weapons.prototype.moveForwardBullet = function()
 {
-var shape = this.shape;
+var shape = this.bulletShape;
 
 
     //HERE
@@ -119,10 +119,10 @@ if ( this.reachedLimits() )
     Tells if a bullet has reached the canvas limits
  */
 
-Bullets.prototype.reachedLimits = function()
+Weapons.prototype.reachedLimits = function()
 {
-var x = this.shape.x;
-var y = this.shape.y;
+var x = this.bulletShape.x;
+var y = this.bulletShape.y;
 
 if (x < 0 || x > GAME_WIDTH || y < 0 || y > GAME_HEIGHT)
     {
@@ -137,21 +137,21 @@ return false;
     Remove the bullet from the stage
  */
 
-Bullets.prototype.remove = function()
+Weapons.prototype.remove = function()
 {
 var all;
 
 if ( this.isEnemy )
     {
-    all = Bullets.enemies;
+    all = Weapons.enemyBullets;
     }
     
 else
     {
-    all = Bullets.allies;
+    all = Weapons.allyBullets;
     }
     
-STAGE.removeChild( this.shape );
+STAGE.removeChild( this.bulletShape );
 Ticker.removeListener( this );
 
 
@@ -165,22 +165,22 @@ all.splice( position, 1 );
     Remove all bullets 
  */
 
-Bullets.removeAll = function()
+Weapons.removeAllBullets = function()
 {
-$( Bullets.enemies ).each(function(index, enemy)
+$( Weapons.enemyBullets ).each(function(index, enemy)
     {
     enemy.remove();
     });
     
-$( Bullets.allies ).each(function(index, enemy)
+$( Weapons.allyBullets ).each(function(index, ally)
     {
-    enemy.remove();
+    ally.remove();
     });
 };
 
 
 
-Bullets.prototype.tick = function()
+Weapons.prototype.tick = function()
 {
 this.moveForwardBullet();
 
@@ -195,6 +195,6 @@ if (typeof this.tick_function !== "undefined" && this.tick_function !== null)
 
 
     // public stuff
-window.Bullets = Bullets;
+window.Weapons = Weapons;
 
 }(window));
