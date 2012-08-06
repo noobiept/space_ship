@@ -180,9 +180,6 @@ GameMenu.openMenu = function()
 {
 IS_OPENED = true;
 
-    // stop the game
-Ticker.setPaused( true );
-
     // :: Background :: //
 
 var background = new Bitmap( 'images/game_menu/game_menu_background.png' );
@@ -286,6 +283,18 @@ STAGE.addChild( quit );
 STAGE.addChild( backToGame );
 
 STAGE.update();
+
+clearKeysHeld();
+
+    // fix problem when the game menu isn't shown the first time it is opened
+setTimeout( function() 
+    { 
+    //Ticker.setPaused( true ); 
+    STAGE.update();
+    }, 50 );
+
+    // stop the game
+Ticker.setPaused( true );
 };
 
 

@@ -27,16 +27,12 @@
     
         - sometimes, one of the enemies can't be killed...
         - the game_menu entries have to have a background color, so that we can click in the entry (instead of the text)
-        - the game_menu sometimes doesn't load (the images?..)
+        - the EnemyKamikaze doesn't work too well
+        - when returning from the game_menu with two keys held, top and left arrow for example, it doesn't continue going to the top left corner, but to the left only
         
     to doo:
     
  */
-
-    
-    // this sets the namespace for CreateJS to the window object, so you can instantiate objects without specifying 
-    // the namespace: "new Graphics()" instead of "new createjs.Graphics()"
-var createjs = window;
 
 
     // global variables
@@ -135,6 +131,8 @@ $( ENEMY_TYPES ).each(function(index, enemyType)
     {
     enemyType.reset();
     });
+    
+clearKeysHeld();
 }
     
     

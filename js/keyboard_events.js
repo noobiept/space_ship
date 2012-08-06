@@ -100,12 +100,28 @@ var KEYS_HELD = {
 
 var shootHeld;  //HERE
     
+    
+function clearKeysHeld()
+{
+KEYS_HELD.left = false;
+KEYS_HELD.right = false;
+KEYS_HELD.up = false;
+KEYS_HELD.down = false;
+}
+    
 
 function handleKeyDown( event ) 
 {
 if( !event )
     {
     event = window.event; 
+    }
+    
+    
+    // don't do anything when the menu is opened
+if ( GameMenu.isOpened() )
+    {
+    return;
     }
     
 switch(event.keyCode) 
@@ -214,6 +230,7 @@ switch(event.keyCode)
     // make functions available outside
 window.handleKeyDown = handleKeyDown;
 window.handleKeyUp = handleKeyUp;
+window.clearKeysHeld = clearKeysHeld;
 
 window.KEYS_HELD = KEYS_HELD;
 window.EVENT_KEY = EVENT_KEY;
