@@ -17,7 +17,7 @@
     along with space_ship_game.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*global LOADING_INTERVAL, STAGE, Text, CANVAS, $, EVENT_KEY, startGame*/
+/*global LOADING_INTERVAL, STAGE, Text, CANVAS, $, EVENT_KEY, GAME_MODE*/
 /*jslint vars: true, white: true*/
 
 "use strict";
@@ -49,8 +49,8 @@ STAGE.update();
     // holds references to functions that get called when an entry is selected
 var ENTRIES = [ 
 
-    startGame,
-    startEndlessMode
+    StartGame,
+    EndlessMode
 
     ];
 

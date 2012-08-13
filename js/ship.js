@@ -255,7 +255,7 @@ if (energy <= 0)
         {
         if (event.keyCode === EVENT_KEY.enter) 
             {
-            startGame();
+            GAME_MODE();
             }
         });
     
@@ -313,6 +313,7 @@ var angleDegrees = angleRadians * 180 / Math.PI;
     // we multiply by -1 because the .rotation property seems to have the angles in the other direction
 this.rotation = -1 * angleDegrees;  
 };
+    
     
     
     
@@ -389,6 +390,8 @@ STAGE.removeChild( this );
 var position = Ship.all.indexOf( this );
 
 Ship.all.splice( position, 1 );
+
+$( this ).unbind();
 };
 
 

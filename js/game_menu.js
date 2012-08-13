@@ -232,7 +232,7 @@ restart.onClick = function()
     
     IS_OPENED = false;
     
-    startGame();
+    GAME_MODE();
     };
 
 restart.x = centeredX;
