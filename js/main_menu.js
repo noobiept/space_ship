@@ -60,11 +60,9 @@ var CURRENT_ENTRY_SELECTED = 0;
     // number of entries in the menu
 var NUMBER_OF_ENTRIES = 2;
 
-    // the name of the animations (order matters)
-var ENTRY_ANIMATIONS = [ 'startGame', 'endlessMode' ];
 
-    // reference to the BitmapAnimation of the menu
-var MENU_ANIMATION;
+    // reference to the BitmapAnimation of the menu entries
+var ENTRY_ANIMATIONS = [];
 
 
 
@@ -74,41 +72,145 @@ var MENU_ANIMATION;
 
 MainMenu.loadAnimation = function()
 {
-var spriteConfig = {
+    // :: Background :: //
+    
+var backgroundConfig = {
     animations: {
         
-        startGame: {
+        main: {
             frames: [ 0 ],
-            next: 'startGame',
-            frequency: 10
-            },
-        
-        endlessMode: {
-            frames: [ 1 ],
-            next: 'endlessMode',
-            frequency: 10
+            next: 'main',
+            frequency: 100
             }
+        
         },
     frames: {
         width: 800,
         height: 400
         },
-    images: [ 'images/main_menu/main_menu.png' ]
+    images: [ 'images/main_menu/background.png' ]
     };
 
 
-var sprite = new SpriteSheet( spriteConfig );
+var backgroundSprite = new SpriteSheet( backgroundConfig );
 
-var menu = new BitmapAnimation( sprite );
+var background = new BitmapAnimation( backgroundSprite );
 
-menu.x = 0;
-menu.y = 0;
+background.x = 0;
+background.y = 0;
 
-menu.gotoAndPlay('startGame');
+background.gotoAndPlay('main');
 
-MENU_ANIMATION = menu;
+STAGE.addChild( background );
 
-STAGE.addChild( menu );
+
+    // :: Menu Text :: //
+      
+var menuMessage = new Text("Menu", "32px Arial", "rgb(255, 255, 255)");
+
+menuMessage.textAlign = "center";
+
+menuMessage.x = CANVAS.width / 2;
+menuMessage.y = 100;
+
+STAGE.addChild( menuMessage );
+
+    // :: Start game :: //
+    
+var entryWidth = 240;
+var entryHeight = 60;
+    
+var startGameConfig = {
+    animations: {
+        
+        selected: {
+            frames: [ 0 ],
+            next: 'selected',
+            frequency: 100
+            },
+            
+        unselected: {
+            frames: [ 1 ],
+            next: 'unselected',
+            frequency: 100
+            }
+        
+        },
+    frames: {
+        width: entryWidth,
+        height: entryHeight
+        },
+    images: [ 'images/main_menu/start_game.png' ]
+    };
+
+
+var startGameSprite = new SpriteSheet( startGameConfig );
+
+var startGame = new BitmapAnimation( startGameSprite );
+
+startGame.x = CANVAS.width / 2 - entryWidth / 2;
+startGame.y = 150;
+
+startGame.gotoAndPlay('selected');
+
+STAGE.addChild( startGame );
+
+startGame.onClick = function()
+    {
+    MainMenu.cleanUp();
+    
+    StartGame();
+    };
+
+
+    // :: Endless Mode :: //
+    
+    
+var endlessConfig = {
+    animations: {
+        
+        selected: {
+            frames: [ 0 ],
+            next: 'seletect',
+            frequency: 100
+            },
+            
+        unselected: {
+            frames: [ 1 ],
+            next: 'unselected',
+            frequency: 100
+            }
+        
+        },
+    frames: {
+        width: entryWidth,
+        height: entryHeight
+        },
+    images: [ 'images/main_menu/endless_mode.png' ]
+    };
+
+
+var endlessSprite = new SpriteSheet( endlessConfig );
+
+var endless = new BitmapAnimation( endlessSprite );
+
+endless.x = CANVAS.width / 2 - entryWidth / 2;
+endless.y = startGame.y + 60;
+
+endless.gotoAndPlay('unselected');
+
+STAGE.addChild( endless );
+
+endless.onClick = function()
+    {
+    MainMenu.cleanUp();
+    
+    EndlessMode();
+    };
+
+
+    // keep a reference to change the animation later
+ENTRY_ANIMATIONS = [ startGame, endless ];
 };
 
 
@@ -121,7 +223,7 @@ var key = event.keyCode;
     // start the game
 if (key === EVENT_KEY.enter)
     {
-    $( document ).unbind( "keyup" );
+    MainMenu.cleanUp();
 
     ENTRIES[ CURRENT_ENTRY_SELECTED ]();
     }
@@ -145,6 +247,8 @@ else if (key == EVENT_KEY.upArrow)
 
 MainMenu.selectNextEntry = function()
 {
+var previousEntry = CURRENT_ENTRY_SELECTED;
+
 CURRENT_ENTRY_SELECTED++;
 
 if (CURRENT_ENTRY_SELECTED + 1 > NUMBER_OF_ENTRIES)
@@ -152,8 +256,9 @@ if (CURRENT_ENTRY_SELECTED + 1 > NUMBER_OF_ENTRIES)
     CURRENT_ENTRY_SELECTED = 0;
     }
     
-MENU_ANIMATION.gotoAndPlay( ENTRY_ANIMATIONS[ CURRENT_ENTRY_SELECTED ] );
-}
+ENTRY_ANIMATIONS[ previousEntry ].gotoAndPlay( 'unselected' );
+ENTRY_ANIMATIONS[ CURRENT_ENTRY_SELECTED ].gotoAndPlay( 'selected' );
+};
 
 
 /*
@@ -162,6 +267,8 @@ MENU_ANIMATION.gotoAndPlay( ENTRY_ANIMATIONS[ CURRENT_ENTRY_SELECTED ] );
 
 MainMenu.selectPreviousEntry = function()
 {
+var previousEntry = CURRENT_ENTRY_SELECTED;
+
 CURRENT_ENTRY_SELECTED--;
 
 if (CURRENT_ENTRY_SELECTED < 0)
@@ -169,9 +276,20 @@ if (CURRENT_ENTRY_SELECTED < 0)
     CURRENT_ENTRY_SELECTED = NUMBER_OF_ENTRIES - 1;
     }
 
-MENU_ANIMATION.gotoAndPlay( ENTRY_ANIMATIONS[ CURRENT_ENTRY_SELECTED ] );    
+ENTRY_ANIMATIONS[ previousEntry ].gotoAndPlay( 'unselected' );
+ENTRY_ANIMATIONS[ CURRENT_ENTRY_SELECTED ].gotoAndPlay( 'selected' ); 
 };
 
+
+
+/*
+    Call when moving away from the MainMenu
+ */
+
+MainMenu.cleanUp = function()
+{
+$( document ).unbind( "keyup" );
+};
 
 
 
