@@ -17,7 +17,7 @@
     along with space_ship_game.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*global Stage, Text, Ship, EnemyMoveHorizontally, Ticker, Weapons, handleKeyDown, handleKeyUp, PreloadJS, mainMenu, SoundJS, EnemyRotateAround, GameStatistics, GameMenu, getRandomInt, updateLoading, EnemyKamikaze, ZIndex, EnemyShip, $*/
+/*global Stage, Text, Ship, EnemyMoveHorizontally, Ticker, Weapons, handleKeyDown, handleKeyUp, PreloadJS, MainMenu, SoundJS, EnemyRotateAround, GameStatistics, GameMenu, getRandomInt, updateLoading, EnemyKamikaze, ZIndex, EnemyShip, $*/
 /*jslint vars: true, white: true*/
     
 "use strict";    
@@ -82,7 +82,7 @@ var manifest = [
     { id:"game_music", src: "sound/scumm_bar.ogg" }    // just testing
     ];
 
-PRELOAD.onComplete = mainMenu;
+PRELOAD.onComplete = MainMenu;
 PRELOAD.installPlugin(SoundJS);
 PRELOAD.loadManifest(manifest);
 
@@ -182,6 +182,21 @@ STAGE.onMouseDown = function( event ) { MAIN_SHIP.handleClick( event ); };
 
 GameMenu();
 }
+
+
+
+/*
+    Doesn't have levels/maps
+    
+    Difficulty increases with time
+ */
+
+function startEndlessMode()
+{
+
+}
+
+
 
 
 

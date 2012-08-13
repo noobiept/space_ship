@@ -248,7 +248,7 @@ quit.onClick = function()
     
     IS_OPENED = false;
     
-    mainMenu();
+    MainMenu();
     };
 
 quit.x = centeredX;
