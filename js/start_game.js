@@ -9,7 +9,13 @@
 
 function StartGame() 
 {
+GAME_MODE = StartGame;
 
+initGame();
+
+Maps();
+
+Ticker.addListener( Maps.tick );
 }
 
 

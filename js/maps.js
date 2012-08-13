@@ -43,11 +43,25 @@ for (var i = 0 ; i < NUMBER_OF_LEVELS ; i++)
     {
     filePath = 'maps/level' + i + '.json';
    
-    $.ajax(filePath , function(data)
-        {
-        LEVELS.push( JSON.parse( data ) );
+    $.ajax({
+        url: filePath, 
+        dataType: 'json',
+        beforeSend: function(xhr)
+            {
+            if (xhr.overrideMimeType)
+                {
+                xhr.overrideMimeType("application/json");
+                }
+            },
+        success: function(data)
+            {
+            LEVELS.push( data );
+            }
         });
     }
+
+
+
 }
 
 
@@ -55,6 +69,9 @@ for (var i = 0 ; i < NUMBER_OF_LEVELS ; i++)
 var LEVELS = [];
 
 var NUMBER_OF_LEVELS = 1;
+
+
+var CURRENT_LEVEL = 0;
 
 
 var COUNT_TICKS = 0;
@@ -81,55 +98,77 @@ Maps.tick = function()
 {
 COUNT_TICKS++;
 
-var phase = LEVELS[ LEVEL_PHASE ];
+var currentLevel = LEVELS[ CURRENT_LEVEL ];
+  
+    
+var phase = currentLevel[ LEVEL_PHASE ];
+
+
 
 if ( !ENDING_LEVEL && COUNT_TICKS >= phase.tick)
     {
     var enemyType = window[ phase.enemyType ];
     
-    var enemy = new enemyType();
+    var i;
+    var howMany = parseInt( phase.howMany );
     
-        // random x position
-    if (phase.x < 0)
+    for (i = 0 ; i < howMany ; i++)
         {
-        enemy.x = getRandomInt( 0, GAME_WIDTH );
+        var enemy = new enemyType();
+        
+            // random x position
+        if (phase.x < 0)
+            {
+            enemy.x = getRandomInt( 0, GAME_WIDTH );
+            }
+        
+        else
+            {
+            enemy.x = phase.x;
+            }
+        
+            // random y position
+        if (phase.y < 0)
+            {
+            enemy.y = getRandomInt( 0, GAME_HEIGHT );
+            }
+        
+        else
+            {
+            enemy.y = phase.y;
+            }
+        
+        addNewEnemy( enemy );
         }
     
-    else
-        {
-        enemy.x = phase.x;
-        }
-    
-        // random y position
-    if (phase.y < 0)
-        {
-        enemy.y = getRandomInt( 0, GAME_HEIGHT );
-        }
-    
-    else
-        {
-        enemy.y = phase.y;
-        }
-    
-    addNewEnemy( enemy );
+
     
         // advance to the next phase of the level
     LEVEL_PHASE++;
     
+        // no more phases of the level
         // game ends when there aren't more enemies
-    if (LEVEL_PHASE + 1 >= NUMBER_OF_LEVELS)
+    if (LEVEL_PHASE + 1 >= currentLevel.length)
         {
         ENDING_LEVEL = true;
+        
+            // we're gonna count a bit more, before checking for the ENDING_LEVEL variable, to give time for the Enemies to spawn
+        COUNT_TICKS = 0;
         }
     }
 
     
     // the level ended
-if ( ENDING_LEVEL === true && EnemyShip.all.length === 0 )
+if ( ENDING_LEVEL === true &&  COUNT_TICKS >= 100 && EnemyShip.all.length === 0 )
     {
     MainMenu(); //HERE for now
     }
 };
+
+Maps.LEVELS = LEVELS;
+
+
+window.Maps = Maps;
 
 
 }(window));

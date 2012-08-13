@@ -1,9 +1,9 @@
 [
     {
-    tick      : 20,
-    enemyType : "EnemyMoveHorizontally",
-    howMany   : 5,
-    x         : -1,
-    y         : -1
+    "tick"      : 20,
+    "enemyType" : "EnemyMoveHorizontally",
+    "howMany"   : 5,
+    "x"         : -1,
+    "y"         : -1
     }
 ]

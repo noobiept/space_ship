@@ -23,49 +23,9 @@ var COUNT_INCREASE_DIFFICULTY_TICKS = 0;
 
 function EndlessMode()
 {
-resetStuff();
-
-GameStatistics.start();
-
 GAME_MODE = EndlessMode;
 
-
-GAME_WIDTH = CANVAS.width;
-GAME_HEIGHT = CANVAS.height - 60;
-
-
-MAIN_SHIP = new Ship();
-
-MAIN_SHIP.x = GAME_WIDTH / 2;
-MAIN_SHIP.y = GAME_HEIGHT / 2;
-
-
-STAGE.addChild( MAIN_SHIP );
-
-ZIndex.add( MAIN_SHIP );
-
-    // so that .tick() of EnemyShip/Ship/... is called automatically
-Ticker.addListener( MAIN_SHIP );
-Ticker.addListener( window );
-
-STAGE.enableMouseOver();
-
-    // call update on the stage to make it render the current display list to the canvas
-STAGE.update();
-
-
-    //register key functions
-document.onkeydown = handleKeyDown;
-document.onkeyup = handleKeyUp;
-
-
-STAGE.onMouseMove = function( event ) { MAIN_SHIP.handleMouseMove( event ); };
-STAGE.onMouseDown = function( event ) { MAIN_SHIP.handleClick( event ); };
-
-
-//SoundJS.play("game_music", SoundJS.INTERRUPT_NONE ,0 ,0, -1);
-
-GameMenu();
+initGame();
 }
 
 
