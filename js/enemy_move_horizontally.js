@@ -93,6 +93,9 @@ enemy.regY = this.height / 2;
 
 enemy.gotoAndPlay("spawn");
 
+Tween.get( enemy, { loop: true } ).to( { alpha: 0.4 }, 200, Ease.get(1) )
+                                  .to( { alpha: 1   }, 200, Ease.get(1) );  //HERE 
+
 this.shape = enemy;
 };
 

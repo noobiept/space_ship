@@ -30,6 +30,23 @@
 
 (function(window)
 {
+    // has the levels configurations
+var LEVELS = [];
+
+var NUMBER_OF_LEVELS = 1;
+
+
+var CURRENT_LEVEL = 0;
+
+
+var COUNT_TICKS = 0;
+
+
+var LEVEL_PHASE = 0;
+
+
+var ENDING_LEVEL = false;
+
 
 
 function Maps()
@@ -79,28 +96,36 @@ $.ajax({
         {
         LEVELS.push( data );
         
+        Maps.loadMap( 0 );
+        
         Ticker.addListener( Maps.tick );
         }
     });
 }
 
 
-    // has the levels configurations
-var LEVELS = [];
+/*
+    Arguments:
+    
+        level (int) : which map/level to load (if not provided, load the next map)
+ */
 
-var NUMBER_OF_LEVELS = 1;
+Maps.loadMap = function( level )
+{
+    // load next map
+if (typeof level == 'undefined')
+    {
+    CURRENT_LEVEL++;
+    }
 
+else
+    {
+    CURRENT_LEVEL = 0;
+    }
 
-var CURRENT_LEVEL = 0;
+Maps.greetingMessage( CURRENT_LEVEL );
+};
 
-
-var COUNT_TICKS = 0;
-
-
-var LEVEL_PHASE = 0;
-
-
-var ENDING_LEVEL = false;
 
 
 
@@ -109,6 +134,30 @@ Maps.reset = function()
 COUNT_TICKS = 0;
 LEVEL_PHASE = 0;
 ENDING_LEVEL = false;
+};
+
+
+
+
+/*
+    A message in the beginning of each level
+ */
+
+Maps.greetingMessage = function( levelNumber )
+{
+var message = new Text("Level " + levelNumber, "30px Arial", "rgb(255, 255, 255)");
+
+message.textAlign = 'center';
+
+message.x = CANVAS.width / 2;
+message.y = CANVAS.height / 2;
+
+Tween.get( message ).to( { alpha: 0 }, 100, Ease.get( 1 ) );    //HERE doesnt work...
+
+STAGE.addChild( message );
+
+
+setTimeout( function() { STAGE.removeChild( message ); }, 2000 );
 };
 
 
@@ -123,7 +172,7 @@ var currentLevel = LEVELS[ CURRENT_LEVEL ];
     
 var phase = currentLevel[ LEVEL_PHASE ];
 
-
+	
 
 if ( !ENDING_LEVEL && COUNT_TICKS >= phase.tick)
     {
