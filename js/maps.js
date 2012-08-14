@@ -39,7 +39,8 @@ Maps.reset();
 var level;
 var filePath;
 
-for (var i = 0 ; i < NUMBER_OF_LEVELS ; i++)
+    // load all but the last one
+for (var i = 0 ; i < NUMBER_OF_LEVELS - 1 ; i++)
     {
     filePath = 'maps/level' + i + '.json';
    
@@ -60,8 +61,27 @@ for (var i = 0 ; i < NUMBER_OF_LEVELS ; i++)
         });
     }
 
+    
+    // load the last one separately to add to the Ticker once everything is loaded
+filePath = 'maps/level' + i + '.json';
 
-
+$.ajax({
+    url: filePath, 
+    dataType: 'json',
+    beforeSend: function(xhr)
+        {
+        if (xhr.overrideMimeType)
+            {
+            xhr.overrideMimeType("application/json");
+            }
+        },
+    success: function(data)
+        {
+        LEVELS.push( data );
+        
+        Ticker.addListener( Maps.tick );
+        }
+    });
 }
 
 
@@ -95,7 +115,7 @@ ENDING_LEVEL = false;
 
 
 Maps.tick = function()
-{
+{  
 COUNT_TICKS++;
 
 var currentLevel = LEVELS[ CURRENT_LEVEL ];
