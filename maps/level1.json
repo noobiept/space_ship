@@ -1,0 +1,33 @@
+[
+    {
+    "tick"      : 20,
+    "enemyType" : "EnemyRocks",
+    "howMany"   : 10,
+    "x"         : -1,
+    "y"         : -1
+    },
+    
+    {
+    "tick"      : 60,
+    "enemyType" : "EnemyRocks",
+    "howMany"   : 10,
+    "x"         : -1,
+    "y"         : -1
+    },
+    
+    {
+    "tick"      : 140,
+    "enemyType" : "EnemyKamikaze",
+    "howMany"   : 10,
+    "x"         : -1,
+    "y"         : -1
+    },
+    
+    {
+    "tick"      : 200,
+    "enemyType" : "EnemyRocks",
+    "howMany"   : 15,
+    "x"         : -1,
+    "y"         : -1
+    }    
+]

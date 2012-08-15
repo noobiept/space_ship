@@ -29,8 +29,14 @@
         - the game_menu entries have to have a background color, so that we can click in the entry (instead of the text)
         - the EnemyKamikaze doesn't work too well
         - when returning from the game_menu with two keys held, top and left arrow for example, it doesn't continue going to the top left corner, but to the left only
+        - tweenjs not working
+        - weapon2-sniper sometimes doesnt appear the image
+        
+        
         
     to doo:
+    
+        - mines should go away after some time
     
  */
 

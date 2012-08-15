@@ -33,7 +33,7 @@
     // has the levels configurations
 var LEVELS = [];
 
-var NUMBER_OF_LEVELS = 1;
+var NUMBER_OF_LEVELS = 2;
 
 
 var CURRENT_LEVEL = 0;
@@ -56,8 +56,10 @@ Maps.reset();
 var level;
 var filePath;
 
+var i = 0;
+
     // load all but the last one
-for (var i = 0 ; i < NUMBER_OF_LEVELS - 1 ; i++)
+for (i = 0 ; i < NUMBER_OF_LEVELS - 1 ; i++)
     {
     filePath = 'maps/level' + i + '.json';
    
@@ -74,6 +76,11 @@ for (var i = 0 ; i < NUMBER_OF_LEVELS - 1 ; i++)
         success: function(data)
             {
             LEVELS.push( data );
+            },
+            
+        error: function(jqXHR, textStatus, errorThrown)
+            {
+            console.log(jqXHR, textStatus, errorThrown);
             }
         });
     }
@@ -99,6 +106,11 @@ $.ajax({
         Maps.loadMap( 0 );
         
         Ticker.addListener( Maps.tick );
+        },
+        
+    error: function(jqXHR, textStatus, errorThrown)
+        {
+        console.log(jqXHR, textStatus, errorThrown);
         }
     });
 }
@@ -123,7 +135,20 @@ else
     CURRENT_LEVEL = 0;
     }
 
-Maps.greetingMessage( CURRENT_LEVEL );
+    // no more levels
+if (CURRENT_LEVEL >= NUMBER_OF_LEVELS)
+    {
+    Maps.noMoreLevels();
+    }
+
+else
+    {
+    COUNT_TICKS = 0;
+    LEVEL_PHASE = 0;
+    ENDING_LEVEL = false;
+    
+    Maps.showMessage( "Level " + CURRENT_LEVEL, 2000 );
+    }
 };
 
 
@@ -134,18 +159,27 @@ Maps.reset = function()
 COUNT_TICKS = 0;
 LEVEL_PHASE = 0;
 ENDING_LEVEL = false;
+LEVELS.length = 0;
+CURRENT_LEVEL = 0;
+Ticker.removeListener( Maps.tick );
 };
 
 
 
 
 /*
-    A message in the beginning of each level
+    Shows a message in the middle of the canvas for a period of time
+    
+    Arguments:
+    
+        - text : the actual message
+        - timeout : duration of the message (in miliseconds)
+        - timeout_function : executes when the timeout ends (optional)
  */
 
-Maps.greetingMessage = function( levelNumber )
+Maps.showMessage = function( text, timeout, timeout_function )
 {
-var message = new Text("Level " + levelNumber, "30px Arial", "rgb(255, 255, 255)");
+var message = new Text(text, "30px Arial", "rgb(255, 255, 255)");
 
 message.textAlign = 'center';
 
@@ -157,9 +191,32 @@ Tween.get( message ).to( { alpha: 0 }, 100, Ease.get( 1 ) );    //HERE doesnt wo
 STAGE.addChild( message );
 
 
-setTimeout( function() { STAGE.removeChild( message ); }, 2000 );
+setTimeout( function() 
+    {
+    STAGE.removeChild( message ); 
+    
+    if (typeof timeout_function != 'undefined' && timeout_function != null)
+        {
+        timeout_function();
+        }
+    
+    }, timeout );
 };
 
+
+
+
+
+/*
+    All levels completed, show a message and then go to the MainMenu
+ */
+
+Maps.noMoreLevels = function()
+{
+Maps.reset();
+
+Maps.showMessage("Congratulations, you finished the game!\nToo easy huh?", 4000, function() { MainMenu(); } );
+};
 
 
 
@@ -172,10 +229,10 @@ var currentLevel = LEVELS[ CURRENT_LEVEL ];
     
 var phase = currentLevel[ LEVEL_PHASE ];
 
-	
+
 
 if ( !ENDING_LEVEL && COUNT_TICKS >= phase.tick)
-    {
+    {   
     var enemyType = window[ phase.enemyType ];
     
     var i;
@@ -217,7 +274,7 @@ if ( !ENDING_LEVEL && COUNT_TICKS >= phase.tick)
     
         // no more phases of the level
         // game ends when there aren't more enemies
-    if (LEVEL_PHASE + 1 >= currentLevel.length)
+    if (LEVEL_PHASE >= currentLevel.length)
         {
         ENDING_LEVEL = true;
         
@@ -230,7 +287,7 @@ if ( !ENDING_LEVEL && COUNT_TICKS >= phase.tick)
     // the level ended
 if ( ENDING_LEVEL === true &&  COUNT_TICKS >= 100 && EnemyShip.all.length === 0 )
     {
-    MainMenu(); //HERE for now
+    Maps.loadMap();
     }
 };
 
