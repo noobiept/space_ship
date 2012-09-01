@@ -87,9 +87,9 @@ var spriteConfig = {
     images: [ "images/enemy_rocks.png" ]
     };
 
-var sprite = new SpriteSheet( spriteConfig );
+var sprite = new createjs.SpriteSheet( spriteConfig );
     
-var rock = new BitmapAnimation( sprite );
+var rock = new createjs.BitmapAnimation( sprite );
 
     // origin in the middle of the image
 rock.regX = this.width / 2;

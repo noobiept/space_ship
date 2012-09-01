@@ -67,9 +67,9 @@ var sniperSprite = {
     images: [ "images/weapon2_sniper.png" ]
     };
 
-var sprite = new SpriteSheet( sniperSprite );
+var sprite = new createjs.SpriteSheet( sniperSprite );
 
-var sniper = new BitmapAnimation( sprite );
+var sniper = new createjs.BitmapAnimation( sprite );
 
     // origin in the middle of the image
 sniper.regY = this.height / 2;

@@ -56,7 +56,7 @@ g.energy = 100;
 g.numberOfEnemies = 0;
 
 
-g.score_text = new Text("Score: " + g.score, "16px Arial", "#777");
+g.score_text = new createjs.Text("Score: " + g.score, "16px Arial", "#777");
 
 
     // add the text as a child of the stage. This means it will be drawn any time the stage is updated
@@ -71,7 +71,7 @@ g.score_text.x = CANVAS.width - 150;
 g.score_text.y = 40;
 
 
-g.energy_text = new Text("Energy: " + g.energy, "16px Arial", "#777");
+g.energy_text = new createjs.Text("Energy: " + g.energy, "16px Arial", "#777");
 
 STAGE.addChild( g.energy_text );
 
@@ -82,7 +82,7 @@ g.energy_text.x = g.score_text.x;
 g.energy_text.y = g.score_text.y + 30;
 
 
-g.numberOfEnemies_text = new Text("Enemies in map: " + g.numberOfEnemies, "16px Arial", "#777");
+g.numberOfEnemies_text = new createjs.Text("Enemies in map: " + g.numberOfEnemies, "16px Arial", "#777");
 
 
 STAGE.addChild( g.numberOfEnemies_text );
@@ -98,7 +98,7 @@ var i;
 
 for (i = 0 ; i < BULLETS_LEFT_TEXT.length ; i++)
     {
-    BULLETS_LEFT_TEXT[ i ] = new Text("Bullets: " + Ship.bulletsLeft[ i ], "14px Arial", "#777");
+    BULLETS_LEFT_TEXT[ i ] = new createjs.Text("Bullets: " + Ship.bulletsLeft[ i ], "14px Arial", "#777");
     
     BULLETS_LEFT_TEXT[ i ].x = 40 + i * 100;
     BULLETS_LEFT_TEXT[ i ].y = CANVAS.height;

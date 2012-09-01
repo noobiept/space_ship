@@ -61,9 +61,9 @@ var spriteSheet = {
     images: [ "images/open_game_menu.png" ]
     };
     
-var menuButtonSprite = new SpriteSheet( spriteSheet );
+var menuButtonSprite = new createjs.SpriteSheet( spriteSheet );
 
-var menuButton = new BitmapAnimation( menuButtonSprite ); 
+var menuButton = new createjs.BitmapAnimation( menuButtonSprite ); 
 
 menuButton.gotoAndPlay("main");
 
@@ -123,9 +123,9 @@ var weaponsSprite = {
     images: [ "images/weapons_selection.png" ]
     };
     
-var sprite = new SpriteSheet( weaponsSprite );
+var sprite = new createjs.SpriteSheet( weaponsSprite );
 
-var weapons = new BitmapAnimation( sprite ); 
+var weapons = new createjs.BitmapAnimation( sprite ); 
 
 weapons.gotoAndPlay("weapon1");
 
@@ -182,7 +182,7 @@ IS_OPENED = true;
 
     // :: Background :: //
 
-var background = new Bitmap( 'images/game_menu/game_menu_background.png' );
+var background = new createjs.Bitmap( 'images/game_menu/game_menu_background.png' );
 
 background.x = 0;
 background.y = 0;
@@ -196,7 +196,7 @@ var centeredX = CANVAS.width / 2 - entryHalfWidth;
 
     // :: Toggle Music :: //
 
-var toggleMusic = new Bitmap( 'images/game_menu/game_menu_music_off.png' );
+var toggleMusic = new createjs.Bitmap( 'images/game_menu/game_menu_music_off.png' );
 
 
 var musicOn = true;
@@ -207,14 +207,14 @@ toggleMusic.onClick = function()
         {
         musicOn = false;
         
-        SoundJS.pause();
+        createjs.SoundJS.pause();
         }
     
     else
         {
         musicOn = true;
         
-        SoundJS.resume();
+        createjs.SoundJS.resume();
         }
     };
 
@@ -224,11 +224,11 @@ toggleMusic.y = 90;
     
     // :: Restart :: //
 
-var restart = new Bitmap( 'images/game_menu/game_menu_restart.png' );    
+var restart = new createjs.Bitmap( 'images/game_menu/game_menu_restart.png' );    
 
 restart.onClick = function()
     {
-    Ticker.setPaused( false );
+    createjs.Ticker.setPaused( false );
     
     IS_OPENED = false;
     
@@ -240,11 +240,11 @@ restart.y = toggleMusic.y + 70;
     
     // :: Quit :: //
     
-var quit = new Bitmap( 'images/game_menu/game_menu_quit.png' );
+var quit = new createjs.Bitmap( 'images/game_menu/game_menu_quit.png' );
 
 quit.onClick = function()
     {
-    Ticker.setPaused( false );
+    createjs.Ticker.setPaused( false );
     
     IS_OPENED = false;
     
@@ -257,7 +257,7 @@ quit.y = restart.y + 30;
    
     // :: Back to the Game :: //
     
-var backToGame = new Bitmap( 'images/game_menu/game_menu_back_to_game.png' );
+var backToGame = new createjs.Bitmap( 'images/game_menu/game_menu_back_to_game.png' );
 
 backToGame.onClick = function()
     {
@@ -267,7 +267,7 @@ backToGame.onClick = function()
     STAGE.removeChild( quit );
     STAGE.removeChild( backToGame );
     
-    Ticker.setPaused( false );
+    createjs.Ticker.setPaused( false );
     
     IS_OPENED = false;
     };
@@ -294,7 +294,7 @@ setTimeout( function()
     }, 50 );
 
     // stop the game
-Ticker.setPaused( true );
+createjs.Ticker.setPaused( true );
 };
 
 

@@ -66,9 +66,9 @@ var rocketSprite = {
     images: [ "images/weapon3_rocket.png" ]
     };
 
-var sprite = new SpriteSheet( rocketSprite );
+var sprite = new createjs.SpriteSheet( rocketSprite );
     
-var rocket = new BitmapAnimation( sprite );
+var rocket = new createjs.BitmapAnimation( sprite );
 
     // origin in the middle of the image
 rocket.regY = this.height / 2;

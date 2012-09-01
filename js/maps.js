@@ -105,7 +105,7 @@ $.ajax({
         
         Maps.loadMap( 0 );
         
-        Ticker.addListener( Maps.tick );
+        createjs.Ticker.addListener( Maps.tick );
         },
         
     error: function(jqXHR, textStatus, errorThrown)
@@ -161,7 +161,7 @@ LEVEL_PHASE = 0;
 ENDING_LEVEL = false;
 LEVELS.length = 0;
 CURRENT_LEVEL = 0;
-Ticker.removeListener( Maps.tick );
+createjs.Ticker.removeListener( Maps.tick );
 };
 
 
@@ -179,14 +179,14 @@ Ticker.removeListener( Maps.tick );
 
 Maps.showMessage = function( text, timeout, timeout_function )
 {
-var message = new Text(text, "30px Arial", "rgb(255, 255, 255)");
+var message = new createjs.Text(text, "30px Arial", "rgb(255, 255, 255)");
 
 message.textAlign = 'center';
 
 message.x = CANVAS.width / 2;
 message.y = CANVAS.height / 2;
 
-Tween.get( message ).to( { alpha: 0 }, 100, Ease.get( 1 ) );    //HERE doesnt work...
+createjs.Tween.get( message ).to( { alpha: 0 }, 100, createjs.Ease.get( 1 ) );    //HERE doesnt work...
 
 STAGE.addChild( message );
 

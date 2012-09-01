@@ -74,23 +74,23 @@ var GAME_MODE = null;
     
 function initialLoad()
 {
-PRELOAD = new PreloadJS();
+PRELOAD = new createjs.PreloadJS();
 
 var manifest = [
     { id:"game_music", src: "sound/scumm_bar.ogg" }    // just testing
     ];
 
 PRELOAD.onComplete = MainMenu;
-PRELOAD.installPlugin(SoundJS);
-PRELOAD.loadManifest(manifest);
+PRELOAD.installPlugin( createjs.SoundJS );
+PRELOAD.loadManifest( manifest );
 
     // get a reference to the canvas we'll be working with
 CANVAS = document.querySelector( "#mainCanvas" );
 
     // create a stage object to work with the canvas. This is the top level node in the display list
-STAGE = new Stage( CANVAS );
+STAGE = new createjs.Stage( CANVAS );
 
-LOADING_MESSAGE = new Text("Loading", "bold 20px Arial", "rgb(255, 255, 255)");
+LOADING_MESSAGE = new createjs.Text("Loading", "bold 20px Arial", "rgb(255, 255, 255)");
 
 LOADING_MESSAGE.maxWidth = 500;
 LOADING_MESSAGE.textAlign = "center";
@@ -139,8 +139,8 @@ STAGE.addChild( MAIN_SHIP );
 ZIndex.add( MAIN_SHIP );
 
     // so that .tick() of EnemyShip/Ship/... is called automatically
-Ticker.addListener( MAIN_SHIP );
-Ticker.addListener( window );
+createjs.Ticker.addListener( MAIN_SHIP );
+createjs.Ticker.addListener( window );
 
 STAGE.enableMouseOver();
 
@@ -157,7 +157,7 @@ STAGE.onMouseMove = function( event ) { MAIN_SHIP.handleMouseMove( event ); };
 STAGE.onMouseDown = function( event ) { MAIN_SHIP.handleClick( event ); };
 
 
-//SoundJS.play("game_music", SoundJS.INTERRUPT_NONE ,0 ,0, -1);
+//createjs.SoundJS.play("game_music", SoundJS.INTERRUPT_NONE ,0 ,0, -1);
 
 GameMenu();
 }
@@ -176,7 +176,7 @@ STAGE.removeAllChildren();
     // unbind the event
 STAGE.onMouseDown = null;
 
-Ticker.removeAllListeners();
+createjs.Ticker.removeAllListeners();
 
 ZIndex.clear();
 
@@ -263,7 +263,7 @@ STAGE.addChild( enemyObject );
 
 ZIndex.update();
 
-Ticker.addListener( enemyObject );
+createjs.Ticker.addListener( enemyObject );
 }
 
 

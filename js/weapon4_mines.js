@@ -66,9 +66,9 @@ var minesSprite = {
     };
     
 
-var sprite = new SpriteSheet( minesSprite );
+var sprite = new createjs.SpriteSheet( minesSprite );
 
-var mine = new BitmapAnimation( sprite );
+var mine = new createjs.BitmapAnimation( sprite );
 
     // origin in the middle of the image
 mine.regY = this.height / 2;

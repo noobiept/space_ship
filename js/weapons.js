@@ -64,7 +64,7 @@ STAGE.addChild( this.bulletShape );
 
 ZIndex.update();
 
-Ticker.addListener( this );
+createjs.Ticker.addListener( this );
 
 
 if ( this.isEnemy )
@@ -152,7 +152,7 @@ else
     }
     
 STAGE.removeChild( this.bulletShape );
-Ticker.removeListener( this );
+createjs.Ticker.removeListener( this );
 
 
 var position = all.indexOf( this );

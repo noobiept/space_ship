@@ -81,7 +81,7 @@ EnemyShip.all = [];
 
 
 
-var p = EnemyShip.prototype = new Container();
+var p = EnemyShip.prototype = new createjs.Container();
 
 
 p.Container_initialize = p.initialize;
@@ -200,7 +200,7 @@ p.remove = function()
 {
 STAGE.removeChild( this );
 
-Ticker.removeListener( this );
+createjs.Ticker.removeListener( this );
 
 var position = EnemyShip.all.indexOf( this );
 

@@ -65,9 +65,9 @@ var laserSprite = {
     
     };
 
-var sprite = new SpriteSheet( laserSprite );
+var sprite = new createjs.SpriteSheet( laserSprite );
 
-var laser = new BitmapAnimation( sprite );
+var laser = new createjs.BitmapAnimation( sprite );
 
     // origin in the middle of the image
 laser.regY = this.height / 2;

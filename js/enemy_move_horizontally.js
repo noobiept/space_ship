@@ -82,9 +82,9 @@ var spriteSheet = {
     images: [ "images/enemy_move_horizontally.png" ]
     };
     
-var ss = new SpriteSheet( spriteSheet );
+var ss = new createjs.SpriteSheet( spriteSheet );
 
-var enemy = new BitmapAnimation( ss );
+var enemy = new createjs.BitmapAnimation( ss );
 
 
     // origin in the middle of the image
@@ -93,8 +93,8 @@ enemy.regY = this.height / 2;
 
 enemy.gotoAndPlay("spawn");
 
-Tween.get( enemy, { loop: true } ).to( { alpha: 0.4 }, 200, Ease.get(1) )
-                                  .to( { alpha: 1   }, 200, Ease.get(1) );  //HERE 
+createjs.Tween.get( enemy, { loop: true } ).to( { alpha: 0.4 }, 200, createjs.Ease.get(1) )
+                                  .to( { alpha: 1   }, 200, createjs.Ease.get(1) );  //HERE 
 
 this.shape = enemy;
 };

@@ -36,7 +36,7 @@ this.initialize();
 Ship.all = [];
 
 
-var p = Ship.prototype = new Container();
+var p = Ship.prototype = new createjs.Container();
 
 var VELOCITY = 5;
 
@@ -120,9 +120,9 @@ var spriteSheet = {
     };
 
 
-var ss = new SpriteSheet( spriteSheet );
+var ss = new createjs.SpriteSheet( spriteSheet );
 
-var ship = new BitmapAnimation( ss );
+var ship = new createjs.BitmapAnimation( ss );
 
 ship.gotoAndPlay("main");
 
@@ -249,7 +249,7 @@ if (energy <= 0)
     {
     this.remove();
         
-    Ticker.removeAllListeners();
+    createjs.Ticker.removeAllListeners();
     
     $( document).bind( "keyup", function(event) 
         {
@@ -260,7 +260,7 @@ if (energy <= 0)
         });
     
     
-    var gameOver = new Text("Game Over: Press enter to restart", "16px Arial", "rgb(255, 255, 255)");
+    var gameOver = new createjs.Text("Game Over: Press enter to restart", "16px Arial", "rgb(255, 255, 255)");
     
     gameOver.textAlign = "center";
     
@@ -384,7 +384,7 @@ for (i = 0 ; i < AMMO_UPDATE_TICK.length ; i++)
     
 p.remove = function()
 {
-Ticker.removeListener( this );
+createjs.Ticker.removeListener( this );
 STAGE.removeChild( this );
 
 var position = Ship.all.indexOf( this );

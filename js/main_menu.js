@@ -40,7 +40,7 @@ MainMenu.loadAnimation();
 
 $( document ).bind( "keyup", keyboardEvents );
 
-Ticker.addListener( MainMenu.tick );
+createjs.Ticker.addListener( MainMenu.tick );
 
 STAGE.update();
 }
@@ -92,9 +92,9 @@ var backgroundConfig = {
     };
 
 
-var backgroundSprite = new SpriteSheet( backgroundConfig );
+var backgroundSprite = new createjs.SpriteSheet( backgroundConfig );
 
-var background = new BitmapAnimation( backgroundSprite );
+var background = new createjs.BitmapAnimation( backgroundSprite );
 
 background.x = 0;
 background.y = 0;
@@ -106,7 +106,7 @@ STAGE.addChild( background );
 
     // :: Menu Text :: //
       
-var menuMessage = new Text("Menu", "32px Arial", "rgb(255, 255, 255)");
+var menuMessage = new createjs.Text("Menu", "32px Arial", "rgb(255, 255, 255)");
 
 menuMessage.textAlign = "center";
 
@@ -144,9 +144,9 @@ var startGameConfig = {
     };
 
 
-var startGameSprite = new SpriteSheet( startGameConfig );
+var startGameSprite = new createjs.SpriteSheet( startGameConfig );
 
-var startGame = new BitmapAnimation( startGameSprite );
+var startGame = new createjs.BitmapAnimation( startGameSprite );
 
 startGame.x = CANVAS.width / 2 - entryWidth / 2;
 startGame.y = 150;
@@ -190,9 +190,9 @@ var endlessConfig = {
     };
 
 
-var endlessSprite = new SpriteSheet( endlessConfig );
+var endlessSprite = new createjs.SpriteSheet( endlessConfig );
 
-var endless = new BitmapAnimation( endlessSprite );
+var endless = new createjs.BitmapAnimation( endlessSprite );
 
 endless.x = CANVAS.width / 2 - entryWidth / 2;
 endless.y = startGame.y + 60;
