@@ -72,7 +72,8 @@ var ENEMY_TYPES = [
 var GAME_MODE = null;
     
     
-function initialLoad()
+    
+window.onload = function()
 {
 PRELOAD = new createjs.PreloadJS();
 
@@ -101,7 +102,7 @@ STAGE.addChild( LOADING_MESSAGE );
 STAGE.update();
 
 LOADING_INTERVAL = setInterval(updateLoading, 200);
-}
+};
     
 
 function updateLoading() 
