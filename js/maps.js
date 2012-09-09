@@ -5,7 +5,7 @@
     
     Weapons:
         - que armas se pode usar
-        - qts tiros comeca no inicio\
+        - qts tiros comeca no inicio
         - a velocidade k os tiros adicionam
         
     Enemies:
@@ -56,10 +56,13 @@ Maps.reset();
 var level;
 var filePath;
 
+    // to determine the last map (so we can run some code then)
+var countLoadedMaps = 0;
+
 var i = 0;
 
-    // load all but the last one
-for (i = 0 ; i < NUMBER_OF_LEVELS - 1 ; i++)
+
+for (i = 0 ; i < NUMBER_OF_LEVELS ; i++)
     {
     filePath = 'maps/level' + i + '.json';
    
@@ -76,6 +79,16 @@ for (i = 0 ; i < NUMBER_OF_LEVELS - 1 ; i++)
         success: function(data)
             {
             LEVELS.push( data );
+            
+            countLoadedMaps++;
+            
+                // all loaded
+            if (countLoadedMaps >= NUMBER_OF_LEVELS)
+                {
+                Maps.loadMap( 0 );
+        
+                createjs.Ticker.addListener( Maps.tick );
+                }
             },
             
         error: function(jqXHR, textStatus, errorThrown)
@@ -84,35 +97,6 @@ for (i = 0 ; i < NUMBER_OF_LEVELS - 1 ; i++)
             }
         });
     }
-
-    
-    // load the last one separately to add to the Ticker once everything is loaded
-filePath = 'maps/level' + i + '.json';
-
-$.ajax({
-    url: filePath, 
-    dataType: 'json',
-    beforeSend: function(xhr)
-        {
-        if (xhr.overrideMimeType)
-            {
-            xhr.overrideMimeType("application/json");
-            }
-        },
-    success: function(data)
-        {
-        LEVELS.push( data );
-        
-        Maps.loadMap( 0 );
-        
-        createjs.Ticker.addListener( Maps.tick );
-        },
-        
-    error: function(jqXHR, textStatus, errorThrown)
-        {
-        console.log(jqXHR, textStatus, errorThrown);
-        }
-    });
 }
 
 

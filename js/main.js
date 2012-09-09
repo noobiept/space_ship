@@ -17,7 +17,7 @@
     along with space_ship_game.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*global Stage, Text, Ship, EnemyMoveHorizontally, Ticker, Weapons, handleKeyDown, handleKeyUp, PreloadJS, MainMenu, SoundJS, EnemyRotateAround, GameStatistics, GameMenu, getRandomInt, updateLoading, EnemyKamikaze, ZIndex, EnemyShip, $*/
+/*global createjs, Ship, EnemyMoveHorizontally, Weapons, handleKeyDown, handleKeyUp, MainMenu, EnemyRotateAround, GameStatistics, GameMenu, getRandomInt, updateLoading, EnemyKamikaze, ZIndex, EnemyShip, $, clearKeysHeld, EnemyRocks*/
 /*jslint vars: true, white: true*/
     
 "use strict";    
