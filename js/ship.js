@@ -30,13 +30,29 @@ function Ship()
     // to distinguish the bullets (from enemies or from the main ship)
 this.isEnemy = false;
 
-this.initialize();
+this.shape = null;
+
+this.width = 10;
+this.height = 10;
+
+this.makeShape();
+
+this.setupPhysics();
+
+
+this.weaponSelected = 1;
+
+Ship.all.push( this );
+
+this.position( GAME_WIDTH / 2, GAME_HEIGHT / 2 );
+
+STAGE.addChild( this.shape );
+
+ZIndex.add( this.shape );
 }
 
 Ship.all = [];
 
-
-var p = Ship.prototype = new createjs.Container();
 
 var VELOCITY = 5;
 
@@ -78,32 +94,7 @@ var BULLETS_LEFT = [
 
 
 
-    // unique to avoid overiding base class
-p.Container_initialize = p.initialize;
-
-
-
-p.initialize = function()
-{
-this.Container_initialize();
-
-this.shipBody = null;
-
-this.width = 10;
-this.height = 10;
-
-this.makeShape();
-
-this.addChild( this.shipBody );
-
-
-this.weaponSelected = 1;
-
-Ship.all.push( this );
-};
-
-
-p.makeShape = function()
+Ship.prototype.makeShape = function()
 {
 var spriteSheet = {
     animations: {
@@ -130,10 +121,73 @@ ship.gotoAndPlay("main");
 ship.regX = this.width / 2;
 ship.regY = this.height / 2;
 
-this.shipBody = ship;
+this.shape = ship;
 };
  
- 
+
+Ship.prototype.setupPhysics = function()
+{
+var width = this.width;
+var height = this.height;
+
+    // physics
+var fixDef = new b2FixtureDef;
+
+fixDef.density = 1;
+fixDef.friction = 0.5;
+fixDef.restitution = 0.2;
+
+var bodyDef = new b2BodyDef;
+
+bodyDef.type = b2Body.b2_dynamicBody;
+
+bodyDef.position.x = 0;
+bodyDef.position.y = 0;
+
+fixDef.shape = new b2CircleShape( width / 2 / SCALE );
+
+//fixDef.shape
+
+//fixDef.shape.SetAsOrientedBox( width/2 / SCALE, height/2 / SCALE, new b2Vec2( width/2 / SCALE , height/2 / SCALE ) );
+
+
+var body = WORLD.CreateBody( bodyDef );
+
+body.CreateFixture( fixDef );
+
+this.body = body;
+
+//body.SetUserData( MainCharacter );
+
+//MainCharacter.actorObject = new ActorObject( body, MainCharacter.shape );
+
+//return body;
+};
+
+/*
+    Updates the shape position to match the physic body
+ */
+
+Ship.prototype.updateShape = function()
+{
+this.shape.rotation = this.body.GetAngle() * (180 / Math.PI);
+
+this.shape.x = this.body.GetWorldCenter().x * SCALE;
+this.shape.y = this.body.GetWorldCenter().y * SCALE;
+};
+
+
+Ship.prototype.position = function( x, y )
+{
+//this.shape.x = x;
+//this.shape.y = y;
+
+var position = new b2Vec2(x / SCALE, y / SCALE);
+
+this.body.SetPosition( position );
+};
+
+
 Ship.inTopLimit = function( y )
 {
 if (y < 0)
@@ -197,10 +251,10 @@ for (k = 0 ; k < Ship.all.length ; k++)
     {
     ship = Ship.all[k];
     
-    shipLeftSide = ship.x - 5;
-    shipRightSide = ship.x + 5;
-    shipUpSide = ship.y - 5;
-    shipDownSide = ship.y + 5;
+    shipLeftSide = ship.shape.x - 5;
+    shipRightSide = ship.shape.x + 5;
+    shipUpSide = ship.shape.y - 5;
+    shipDownSide = ship.shape.y + 5;
     
     for (i = 0 ; i < enemies.length ; i++)
         {
@@ -298,8 +352,8 @@ if ( !event )
 
 
     // make a triangle from the position the ship is in, relative to the mouse position
-var triangleOppositeSide = this.y - event.stageY;
-var triangleAdjacentSide = event.stageX - this.x;
+var triangleOppositeSide = this.shape.y - event.stageY;
+var triangleAdjacentSide = event.stageX - this.shape.x;
 
 
     // find the angle, given the two sides (of a right triangle)
@@ -311,7 +365,8 @@ var angleDegrees = angleRadians * 180 / Math.PI;
 
 
     // we multiply by -1 because the .rotation property seems to have the angles in the other direction
-this.rotation = -1 * angleDegrees;  
+//this.rotation = -1 * angleDegrees;
+this.body.SetAngle( -1 * angleDegrees );
 };
     
     
@@ -382,10 +437,12 @@ for (i = 0 ; i < AMMO_UPDATE_TICK.length ; i++)
     Remove this ship
  */
     
-p.remove = function()
+Ship.prototype.remove = function()
 {
 createjs.Ticker.removeListener( this );
-STAGE.removeChild( this );
+STAGE.removeChild( this.shape );
+
+WORLD.DestroyBody( this.body );
 
 var position = Ship.all.indexOf( this );
 
@@ -411,125 +468,143 @@ $( Ship.all ).each(function(index, value)
 
     
     
-p.tick = function()
+Ship.prototype.tick = function()
 {
 var nextX, nextY;
 
     // top left
 if (KEYS_HELD.left && KEYS_HELD.up)
     {
-    nextX = this.x - VELOCITY;
-    nextY = this.y - VELOCITY;
-    
-    if ( !Ship.inTopLimit( nextY ) )
+    nextX = this.shape.x - VELOCITY;
+    nextY = this.shape.y - VELOCITY;
+
+    if ( Ship.inTopLimit( nextY ) )
         {
-        this.y = nextY;
+        nextY = this.shape.y;
         }
     
-    if ( !Ship.inLeftLimit( nextX ) )
+    if ( Ship.inLeftLimit( nextX ) )
         {
-        this.x = nextX;
+        nextX = this.shape.x;
         }
+
+    this.position( nextX, nextY );
     }
     
     // bottom left
 else if (KEYS_HELD.left && KEYS_HELD.down)
     {
-    nextX = this.x - VELOCITY;
-    nextY = this.y + VELOCITY;
+    nextX = this.shape.x - VELOCITY;
+    nextY = this.shape.y + VELOCITY;
     
-    if ( !Ship.inLeftLimit( nextX ) )
+    if ( Ship.inLeftLimit( nextX ) )
         {
-        this.x = nextX;
+        nextX = this.shape.x;
         }
         
-    if ( !Ship.inBottomLimit( nextY ) )
+    if ( Ship.inBottomLimit( nextY ) )
         {
-        this.y = nextY;
+        nextY = this.shape.y;
         }
+
+    this.position( nextX, nextY );
     }
     
     // top right
 else if (KEYS_HELD.right && KEYS_HELD.up)
     {
-    nextX = this.x + VELOCITY;
-    nextY = this.y - VELOCITY;
+    nextX = this.shape.x + VELOCITY;
+    nextY = this.shape.y - VELOCITY;
     
-    if ( !Ship.inRightLimit( nextX ) )
+    if ( Ship.inRightLimit( nextX ) )
         {
-        this.x = nextX;
+        nextX = this.shape.x;
         }
         
-    if ( !Ship.inTopLimit( nextY ) )
+    if ( Ship.inTopLimit( nextY ) )
         {
-        this.y = nextY;
+        nextY = this.shape.y;
         }
+
+    this.position( nextX, nextY );
     }
     
     // bottom right
 else if (KEYS_HELD.right && KEYS_HELD.down)
     {
-    nextX = this.x + VELOCITY;
-    nextY = this.y + VELOCITY;
+    nextX = this.shape.x + VELOCITY;
+    nextY = this.shape.y + VELOCITY;
     
-    if ( !Ship.inRightLimit( nextX ) )
+    if ( Ship.inRightLimit( nextX ) )
         {
-        this.x = nextX;
+        nextX = this.shape.x;
         }
         
-    if ( !Ship.inBottomLimit( nextY ) )
+    if ( Ship.inBottomLimit( nextY ) )
         {
-        this.y = nextY;
+        nextY = this.shape.y;
         }
+
+    this.position( nextX, nextY );
     }
 
     // left
 else if(KEYS_HELD.left)
     {
-    nextX = this.x - VELOCITY;
+    nextX = this.shape.x - VELOCITY;
     
-    if ( !Ship.inLeftLimit( nextX ) )
+    if ( Ship.inLeftLimit( nextX ) )
         {
-        this.x = nextX;
+        nextX = this.shape.x;
         }
+
+    this.position( nextX, this.shape.y );
     }
     
     // right
 else if (KEYS_HELD.right)
     {
-    nextX = this.x + VELOCITY;
+    nextX = this.shape.x + VELOCITY;
     
-    if ( !Ship.inRightLimit( nextX ) )
+    if ( Ship.inRightLimit( nextX ) )
         {
-        this.x = nextX;
+        nextX = this.shape.x;
         }
+
+    this.position( nextX, this.shape.y );
     }
     
     // top
 else if (KEYS_HELD.up)
     {
-    nextY = this.y - VELOCITY;
+    nextY = this.shape.y - VELOCITY;
     
         // check if is within the canvas (in bounds)
-    if ( !Ship.inTopLimit( nextY ) )
+    if ( Ship.inTopLimit( nextY ) )
         {
-        this.y = nextY;
+        nextY = this.shape.y;
         }
+
+    this.position( this.shape.x, nextY );
     }
     
     // bottom
 else if (KEYS_HELD.down)
     {
-    nextY = this.y + VELOCITY;
+    nextY = this.shape.y + VELOCITY;
     
-    if ( !Ship.inBottomLimit( nextY ) )
+    if ( Ship.inBottomLimit( nextY ) )
         {
-        this.y = nextY;
+        nextY = this.shape.y;
         }
+
+    this.position( this.shape.x, nextY );
     }
 
     
-Ship.checkIfCollidedWithEnemies();   
+//Ship.checkIfCollidedWithEnemies();
+
+this.updateShape();
 
 this.updateAmmo(); 
 };

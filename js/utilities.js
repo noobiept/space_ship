@@ -64,3 +64,18 @@ derivedClass.prototype = prototype;
 
 
 
+/*
+ Applies an impulse to a body (box2d)
+ */
+
+function applyImpulse( body, degrees, power )
+{
+var impulse = new b2Vec2( Math.cos(degrees * (Math.PI / 180)) * power,
+    Math.sin(degrees * (Math.PI / 180)) * power );
+
+var point = body.GetWorldCenter();
+
+body.ApplyImpulse(impulse, point );
+}
+
+

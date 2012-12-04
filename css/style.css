@@ -2,3 +2,29 @@ body
     {
     background-color: black;
     }
+
+
+#mainCanvas, #debugCanvas
+    {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    }
+
+#debugCanvas
+    {
+    display: none;
+    }
+
+
+    /* z-index */
+
+#mainCanvas
+    {
+    z-index: 50;
+    }
+
+#debugCanvas
+    {
+    z-index: 100;
+    }

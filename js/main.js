@@ -42,14 +42,42 @@
 
 
     // global variables
+
+var CANVAS;
+var CANVAS_DEBUG;
+
+var DEBUG = true;
+
+
+    // createjs
+
 var STAGE;
-var CANVAS;    
+var PRELOAD;
+
+    // box2d physics
+
+var b2Vec2 = Box2D.Common.Math.b2Vec2;
+var b2BodyDef = Box2D.Dynamics.b2BodyDef;
+var b2Body = Box2D.Dynamics.b2Body;
+var b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
+var b2Fixture = Box2D.Dynamics.b2Fixture;
+var b2World = Box2D.Dynamics.b2World;
+var b2MassData = Box2D.Collision.Shapes.b2MassData;
+var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
+var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
+var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
+var b2ContactListener = Box2D.Dynamics.b2ContactListener;
+
+    // scale from meters/kilograms/seconds into pixels
+var SCALE = 30;
+
+var WORLD = null;
 
     // playable dimensions (the rest of the canvas is for menus/etc)
 var GAME_WIDTH;
 var GAME_HEIGHT;
 
-var PRELOAD;
+
 var LOADING_INTERVAL = 0;
     
 var LOADING_MESSAGE;
@@ -83,13 +111,23 @@ var manifest = [
 
 PRELOAD.onComplete = MainMenu;
 PRELOAD.installPlugin( createjs.SoundJS );
-PRELOAD.loadManifest( manifest );
+PRELOAD.loadManifest( manifest, true );
 
     // get a reference to the canvas we'll be working with
 CANVAS = document.querySelector( "#mainCanvas" );
 
+    // canvas for debugging the physics
+CANVAS_DEBUG = document.querySelector( '#debugCanvas' );
+
+
     // create a stage object to work with the canvas. This is the top level node in the display list
 STAGE = new createjs.Stage( CANVAS );
+
+
+WORLD = new b2World(
+    new b2Vec2(0, 0),   // gravity
+    true                // allow sleep
+    );
 
 LOADING_MESSAGE = new createjs.Text("Loading", "bold 20px Arial", "rgb(255, 255, 255)");
 
@@ -131,13 +169,24 @@ GAME_HEIGHT = CANVAS.height - 60;
 
 MAIN_SHIP = new Ship();
 
-MAIN_SHIP.x = GAME_WIDTH / 2;
-MAIN_SHIP.y = GAME_HEIGHT / 2;
 
+if ( DEBUG )
+    {
+    $( CANVAS_DEBUG ).css('display', 'block');
 
-STAGE.addChild( MAIN_SHIP );
+    // setup debug draw
 
-ZIndex.add( MAIN_SHIP );
+    var debugDraw = new b2DebugDraw();
+
+    debugDraw.SetSprite( CANVAS_DEBUG.getContext('2d') );
+    debugDraw.SetDrawScale( SCALE );
+    debugDraw.SetFillAlpha(0.4);
+    debugDraw.SetLineThickness(1);
+    debugDraw.SetFlags( b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit );
+
+    WORLD.SetDebugDraw( debugDraw );
+    }
+
 
     // so that .tick() of EnemyShip/Ship/... is called automatically
 createjs.Ticker.addListener( MAIN_SHIP );
@@ -280,6 +329,17 @@ checkIfBulletsHitAnything( EnemyShip.all, Weapons.allyBullets );
 
     // call the tick() of the current game mode
 GAME_MODE.tick();
+
+
+WORLD.Step(
+    1 / 60,     // frame-rate
+    10,         // velocity iterations
+    10          // position iterations
+    );
+
+WORLD.DrawDebugData();
+WORLD.ClearForces();
+
 
 STAGE.update();
 }

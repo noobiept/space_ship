@@ -104,8 +104,8 @@ this.shape = enemy;
 EnemyRotateAround.prototype.shipBehaviour = function()
 {
     // make a triangle from the position the ship is in, relative to the enemy position
-var triangleOppositeSide = MAIN_SHIP.y - this.y;
-var triangleAdjacentSide = this.x - MAIN_SHIP.x;
+var triangleOppositeSide = MAIN_SHIP.shape.y - this.y;
+var triangleAdjacentSide = this.x - MAIN_SHIP.shape.x;
 
 
 
