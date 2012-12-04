@@ -44,7 +44,7 @@ this.weaponSelected = 1;
 
 Ship.all.push( this );
 
-this.position( GAME_WIDTH / 2, GAME_HEIGHT / 2 );
+this.moveTo( GAME_WIDTH / 2, GAME_HEIGHT / 2 );
 
 STAGE.addChild( this.shape );
 
@@ -146,10 +146,7 @@ bodyDef.position.y = 0;
 
 fixDef.shape = new b2CircleShape( width / 2 / SCALE );
 
-//fixDef.shape
-
 //fixDef.shape.SetAsOrientedBox( width/2 / SCALE, height/2 / SCALE, new b2Vec2( width/2 / SCALE , height/2 / SCALE ) );
-
 
 var body = WORLD.CreateBody( bodyDef );
 
@@ -157,11 +154,7 @@ body.CreateFixture( fixDef );
 
 this.body = body;
 
-//body.SetUserData( MainCharacter );
-
-//MainCharacter.actorObject = new ActorObject( body, MainCharacter.shape );
-
-//return body;
+body.SetUserData( this );
 };
 
 /*
@@ -177,7 +170,7 @@ this.shape.y = this.body.GetWorldCenter().y * SCALE;
 };
 
 
-Ship.prototype.position = function( x, y )
+Ship.prototype.moveTo = function( x, y )
 {
 //this.shape.x = x;
 //this.shape.y = y;
@@ -488,7 +481,7 @@ if (KEYS_HELD.left && KEYS_HELD.up)
         nextX = this.shape.x;
         }
 
-    this.position( nextX, nextY );
+    this.moveTo( nextX, nextY );
     }
     
     // bottom left
@@ -507,7 +500,7 @@ else if (KEYS_HELD.left && KEYS_HELD.down)
         nextY = this.shape.y;
         }
 
-    this.position( nextX, nextY );
+    this.moveTo( nextX, nextY );
     }
     
     // top right
@@ -526,7 +519,7 @@ else if (KEYS_HELD.right && KEYS_HELD.up)
         nextY = this.shape.y;
         }
 
-    this.position( nextX, nextY );
+    this.moveTo( nextX, nextY );
     }
     
     // bottom right
@@ -545,7 +538,7 @@ else if (KEYS_HELD.right && KEYS_HELD.down)
         nextY = this.shape.y;
         }
 
-    this.position( nextX, nextY );
+    this.moveTo( nextX, nextY );
     }
 
     // left
@@ -558,7 +551,7 @@ else if(KEYS_HELD.left)
         nextX = this.shape.x;
         }
 
-    this.position( nextX, this.shape.y );
+    this.moveTo( nextX, this.shape.y );
     }
     
     // right
@@ -571,7 +564,7 @@ else if (KEYS_HELD.right)
         nextX = this.shape.x;
         }
 
-    this.position( nextX, this.shape.y );
+    this.moveTo( nextX, this.shape.y );
     }
     
     // top
@@ -585,7 +578,7 @@ else if (KEYS_HELD.up)
         nextY = this.shape.y;
         }
 
-    this.position( this.shape.x, nextY );
+    this.moveTo( this.shape.x, nextY );
     }
     
     // bottom
@@ -598,7 +591,7 @@ else if (KEYS_HELD.down)
         nextY = this.shape.y;
         }
 
-    this.position( this.shape.x, nextY );
+    this.moveTo( this.shape.x, nextY );
     }
 
     

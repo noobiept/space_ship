@@ -101,10 +101,50 @@ this.shape = enemy;
 
 
 
+EnemyMoveHorizontally.prototype.setupPhysics = function()
+{
+var width = this.width;
+var height = this.height;
+
+    // physics
+var fixDef = new b2FixtureDef;
+
+fixDef.density = 1;
+fixDef.friction = 0.5;
+fixDef.restitution = 0.2;
+
+var bodyDef = new b2BodyDef;
+
+bodyDef.type = b2Body.b2_dynamicBody;
+
+bodyDef.position.x = 0;
+bodyDef.position.y = 0;
+
+fixDef.shape = new b2PolygonShape;
+
+    // arguments: half width, half height
+fixDef.shape.SetAsBox( width / 2 / SCALE, height / 2 / SCALE );
+
+var body = WORLD.CreateBody( bodyDef );
+
+body.CreateFixture( fixDef );
+
+
+body.SetUserData( this );
+
+this.body = body;
+};
+
+
+
+
 
 EnemyMoveHorizontally.prototype.shipBehaviour = function()
 {
-this.x += this.velocity;
+var nextX = this.shape.x + this.velocity;
+var nextY = this.shape.y;
+
+this.moveTo( nextX, nextY );
 };
 
 

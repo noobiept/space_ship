@@ -35,7 +35,9 @@
     --- to the prototype ---
     
         .makeShape()
+        .setupPhysics()
         .shipBehaviour()
+        .updateShape()          (optional)
         .damageTaken()          (optional)
         .beforeAddToStage()     (optional)
         .spawnTick_function()   (optional)
@@ -56,6 +58,10 @@
     Add reference of the drawn element to:
     
         .shape
+
+    Physics body
+
+        .body
         
  */
 
@@ -95,6 +101,7 @@ this.Container_initialize();
     // draw the shape (spawn phase animation first)
 this.makeShape();
 
+this.setupPhysics();
 
     // add to Container()
 this.addChild( this.shape );
@@ -112,6 +119,35 @@ p.makeShape = function()
 };
 
 
+
+p.setupPhysics = function()
+{
+    // do this
+};
+
+
+/*
+    Updates the shape position to match the physic body
+ */
+
+p.updateShape = function()
+{
+this.shape.rotation = this.body.GetAngle() * (180 / Math.PI);
+
+this.shape.x = this.body.GetWorldCenter().x * SCALE;
+this.shape.y = this.body.GetWorldCenter().y * SCALE;
+};
+
+
+p.moveTo = function( x, y )
+{
+this.shape.x = x;
+this.shape.y = y;
+
+var position = new b2Vec2(x / SCALE, y / SCALE);
+
+this.body.SetPosition( position );
+};
 
 
 
@@ -261,6 +297,7 @@ p.normalTick = function()
 {
 this.shipBehaviour();
 
+this.updateShape();
 
     // the limits of the canvas
 this.checkLimits();

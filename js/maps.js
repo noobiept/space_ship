@@ -221,7 +221,9 @@ if ( !ENDING_LEVEL && COUNT_TICKS >= phase.tick)
     
     var i;
     var howMany = parseInt( phase.howMany );
-    
+
+    var x, y;
+
     for (i = 0 ; i < howMany ; i++)
         {
         var enemy = new enemyType();
@@ -229,28 +231,29 @@ if ( !ENDING_LEVEL && COUNT_TICKS >= phase.tick)
             // random x position
         if (phase.x < 0)
             {
-            enemy.x = getRandomInt( 0, GAME_WIDTH );
+            x = getRandomInt( 0, GAME_WIDTH );
             }
         
         else
             {
-            enemy.x = phase.x;
+            x = phase.x;
             }
         
             // random y position
         if (phase.y < 0)
             {
-            enemy.y = getRandomInt( 0, GAME_HEIGHT );
+            y = getRandomInt( 0, GAME_HEIGHT );
             }
         
         else
             {
-            enemy.y = phase.y;
+            y = phase.y;
             }
+
+        enemy.moveTo( x, y );
         
         addNewEnemy( enemy );
         }
-    
 
     
         // advance to the next phase of the level

@@ -45,18 +45,18 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     COUNT_TICKS_NEXT_ENEMY = NEXT_ENEMY_TICKS;
     
   
-    var enemy = new ENEMY_TYPES[ getRandomInt(0, ENEMY_TYPES.length - 1 ) ]();
-    
+    //var enemy = new ENEMY_TYPES[ getRandomInt(0, ENEMY_TYPES.length - 1 ) ]();
+    var enemy = new EnemyMoveHorizontally();
+
     var x = getRandomInt( 0, GAME_WIDTH );
     var y = getRandomInt( 0, GAME_HEIGHT );
     
    
     //var enemy = new EnemyMoveHorizontally();
     //var enemy = new EnemyRocks();
-    
-    enemy.x = x;
-    enemy.y = y;
-    
+
+    enemy.moveTo( x, y );
+
     addNewEnemy( enemy );
     }
 
