@@ -34,8 +34,7 @@
         .setupPhysics()         (optional -- the default is a rectangle from the width/height properties)
 
     Properties:
-    
-        .speed
+
         .width
         .height
         
@@ -49,11 +48,16 @@
         angleRotation : of the bullet
  */
 
-function Weapons( shipObject, angleRotation )
+function Weapons( shipObject, angleRotation, x, y )
 {
 this.shape = null;
 
 this.shipObject = shipObject;
+
+if ( !$.isNumeric( angleRotation ) )
+    {
+    angleRotation = shipObject.getRotation();
+    }
 
 
     // draw the bullet
@@ -79,6 +83,16 @@ else
     {
     Weapons.allyBullets.push( this );
     }
+
+
+
+if ( typeof x == 'undefined')
+    {
+    x = shipObject.getX();
+    y = shipObject.getY();
+    }
+
+this.moveTo( x, y );
 }
 
     // all the bullets from the enemies
@@ -130,32 +144,6 @@ this.body = body;
 };
 
 
-
-
-Weapons.prototype.moveForwardBullet = function()
-{
-var shape = this.shape;
-
-
-    //HERE
-var rotation = shape.rotation - 90;
-
-var currentX = shape.x;
-var currentY = shape.y;
-
-var x = currentX + Math.sin( rotation * (Math.PI/-180) ) * this.speed;
-var y = currentY + Math.cos( rotation * (Math.PI/-180) ) * this.speed;
-
-
-this.moveTo( x, y );
-
-
-    // remove the bullets that are out of the canvas
-if ( this.reachedLimits() )
-    {
-    this.remove();
-    }
-};
 
 
 Weapons.prototype.getX = function()
@@ -259,8 +247,6 @@ $( Weapons.allyBullets ).each(function(index, ally)
 
 Weapons.prototype.tick = function()
 {
-this.moveForwardBullet();
-
 this.updateShape();
 
 if (typeof this.tick_function !== "undefined" && this.tick_function !== null)

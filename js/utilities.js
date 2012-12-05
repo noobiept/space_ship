@@ -70,12 +70,16 @@ derivedClass.prototype = prototype;
 
 function applyImpulse( body, degrees, power )
 {
-var impulse = new b2Vec2( Math.cos(degrees * (Math.PI / 180)) * power,
-    Math.sin(degrees * (Math.PI / 180)) * power );
+var rads = degrees * Math.PI / 180;
+
+//console.log(degrees);
+
+var impulse = new b2Vec2( Math.cos( rads ) * power,
+    Math.sin( rads ) * power );
 
 var point = body.GetWorldCenter();
 
-body.ApplyImpulse(impulse, point );
+body.ApplyImpulse( impulse, point );
 }
 
 

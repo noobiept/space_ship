@@ -139,14 +139,13 @@ fixDef.restitution = 0.2;
 
 var bodyDef = new b2BodyDef;
 
-bodyDef.type = b2Body.b2_dynamicBody;
+//bodyDef.type = b2Body.b2_dynamicBody;
+bodyDef.type = b2Body.b2_staticBody;
 
 bodyDef.position.x = 0;
 bodyDef.position.y = 0;
 
 fixDef.shape = new b2CircleShape( width / 2 / SCALE );
-
-//fixDef.shape.SetAsOrientedBox( width/2 / SCALE, height/2 / SCALE, new b2Vec2( width/2 / SCALE , height/2 / SCALE ) );
 
 var body = WORLD.CreateBody( bodyDef );
 

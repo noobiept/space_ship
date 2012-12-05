@@ -37,6 +37,11 @@
     to doo:
     
         - mines should go away after some time
+
+        collisions:
+
+            - remove bullets when out of bounds and hit stuff
+            - cant shoot bullets to all directions
     
  */
 

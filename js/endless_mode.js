@@ -3,13 +3,13 @@
 {
 
     // from how many ticks, until next enemy
-var NEXT_ENEMY_TICKS = 50;
+var NEXT_ENEMY_TICKS = 100;
 
 var COUNT_TICKS_NEXT_ENEMY = 0;
 
 
     // number of ticks until we increase the difficulty 
-var INCREASE_DIFFICULTY_TICKS = 200;
+var INCREASE_DIFFICULTY_TICKS = 500;
 var COUNT_INCREASE_DIFFICULTY_TICKS = 0;
 
 

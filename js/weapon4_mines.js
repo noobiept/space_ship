@@ -29,8 +29,6 @@ this.height = 15;
 
     // inherit from the Weapons class
 Weapons.call( this, shipObject );
-
-this.speed = 0;
 }
 
 
@@ -67,6 +65,7 @@ var sprite = new createjs.SpriteSheet( minesSprite );
 var mine = new createjs.BitmapAnimation( sprite );
 
     // origin in the middle of the image
+mine.regX = this.height / 2;
 mine.regY = this.height / 2;
 
 mine.gotoAndPlay( "main" );

@@ -27,10 +27,17 @@ function Weapon1_laser( shipObject, angleRotation )
 this.width = 4;
 this.height = 2;
 
+
+if ( !$.isNumeric( angleRotation ) )
+    {
+    angleRotation = shipObject.getRotation();
+    }
+
+
     // inherit from the Weapons class
 Weapons.call( this, shipObject, angleRotation );
 
-this.speed = 8; //HERE pode dar problemas se houver inimigos + pequenos que o speed (pq o speed eh o step... ter k verificar antes do salto)
+applyImpulse( this.body, angleRotation, 0.2 );
 }
 
 
@@ -68,26 +75,10 @@ var laser = new createjs.BitmapAnimation( sprite );
     // origin in the middle of the image
 laser.regY = this.height / 2;
 
-
 laser.gotoAndPlay( "main" );
     
-    
-var shipObject = this.shipObject;
 
-
-laser.x = shipObject.getX();
-laser.y = shipObject.getY();
-
-if ( $.isNumeric( angleRotation ) )
-    {
-    laser.rotation = angleRotation;
-    }
-
-else
-    {
-    laser.rotation = shipObject.getRotation();
-    }
-
+laser.rotation = angleRotation;
 
 this.shape = laser;
 };

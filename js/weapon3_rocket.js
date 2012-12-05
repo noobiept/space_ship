@@ -31,7 +31,7 @@ this.height = 7;
     // inherit from the Weapons class
 Weapons.call( this, shipObject );
 
-this.speed = 4;
+applyImpulse( this.body, shipObject.getRotation(), 0.6 );
 }
 
 

@@ -25,18 +25,18 @@
 
 function Weapon2_sniper( shipObject )
 {
-this.width = 1000;
+this.width = 10;
 this.height = 2;
 
     // inherit from the Weapons class
 Weapons.call( this, shipObject );
 
-this.speed = 0; //HERE ser instantaneo?...
+//this.countTicks = Weapon2_sniper.numberTicksAnimation;
 
-this.countTicks = Weapon2_sniper.numberTicksAnimation;
+//Weapon2_sniper.findIfIntercept( shipObject );
 
-Weapon2_sniper.findIfIntercept( shipObject );
-} 
+applyImpulse( this.body, shipObject.getRotation(), 2 );
+}
 
     // number of ticks of the duration of the bullet animation, before removing it from the stage
 Weapon2_sniper.numberTicksAnimation = 30;
@@ -60,7 +60,7 @@ var sniperSprite = {
         },
         
     frames: {
-        width: 1000,
+        width: 10,
         height: 2
         },
         
@@ -79,8 +79,6 @@ sniper.gotoAndPlay( "main" );
     
 var shipObject = this.shipObject;
 
-sniper.x = shipObject.getX();
-sniper.y = shipObject.getY();
 sniper.rotation = shipObject.getRotation();
 
 
