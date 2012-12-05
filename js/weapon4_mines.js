@@ -46,19 +46,15 @@ var minesSprite = {
     animations: {
     
         main: {
-            
             frames: [ 0, 1, 2, 3 ],
             next: "main",
             frequency: 10
-        
             }
         },
         
     frames: {
-    
         width: 15,
         height: 15
-    
         },
         
     images: [ "images/weapon4_mines.png" ]
@@ -77,10 +73,10 @@ mine.gotoAndPlay( "main" );
 
 var shipObject = this.shipObject;
 
-mine.x = shipObject.x;
-mine.y = shipObject.y;
-//mine.rotation = shipObject.rotation; //HERE nao precisa
+mine.x = shipObject.getX();
+mine.y = shipObject.getY();
+//mine.rotation = shipObject.getRotation(); //HERE nao precisa
 
-this.bulletShape = mine;
+this.shape = mine;
 };
 

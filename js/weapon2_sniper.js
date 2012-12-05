@@ -79,12 +79,12 @@ sniper.gotoAndPlay( "main" );
     
 var shipObject = this.shipObject;
 
-sniper.x = shipObject.x;
-sniper.y = shipObject.y;
-sniper.rotation = shipObject.rotation;
+sniper.x = shipObject.getX();
+sniper.y = shipObject.getY();
+sniper.rotation = shipObject.getRotation();
 
 
-this.bulletShape = sniper;
+this.shape = sniper;
 };
 
 
@@ -96,8 +96,8 @@ Weapon2_sniper.findIfIntercept = function(ship)
 var mouseX = STAGE.mouseX;
 var mouseY = STAGE.mouseY;
 
-var shipX = ship.x;
-var shipY = ship.y;
+var shipX = ship.getX();
+var shipY = ship.getY();
 
     // find the line equation: y = slope * x + b
 var slope = (mouseY - shipY) / (mouseX - shipX);

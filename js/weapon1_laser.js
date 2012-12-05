@@ -46,19 +46,15 @@ var laserSprite = {
     animations: {
     
         main :  { 
-            
             frames: [ 0, 1 ],
             next : "main",
             frequency: 10
-            
             }
         },
         
     frames: {
-    
         width: 4,
         height: 2
-        
         },
         
     images: [ "images/weapon1_laser.png" ]
@@ -79,8 +75,8 @@ laser.gotoAndPlay( "main" );
 var shipObject = this.shipObject;
 
 
-laser.x = shipObject.x;
-laser.y = shipObject.y;
+laser.x = shipObject.getX();
+laser.y = shipObject.getY();
 
 if ( $.isNumeric( angleRotation ) )
     {
@@ -89,9 +85,9 @@ if ( $.isNumeric( angleRotation ) )
 
 else
     {
-    laser.rotation = shipObject.rotation;
+    laser.rotation = shipObject.getRotation();
     }
 
 
-this.bulletShape = laser;
+this.shape = laser;
 };

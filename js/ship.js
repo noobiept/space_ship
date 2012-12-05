@@ -172,12 +172,30 @@ this.shape.y = this.body.GetWorldCenter().y * SCALE;
 
 Ship.prototype.moveTo = function( x, y )
 {
-//this.shape.x = x;
-//this.shape.y = y;
+this.shape.x = x;
+this.shape.y = y;
 
 var position = new b2Vec2(x / SCALE, y / SCALE);
 
 this.body.SetPosition( position );
+};
+
+
+Ship.prototype.getX = function()
+{
+return this.shape.x;
+};
+
+
+Ship.prototype.getY = function()
+{
+return this.shape.y;
+};
+
+
+Ship.prototype.getRotation = function()
+{
+return this.shape.rotation;
 };
 
 

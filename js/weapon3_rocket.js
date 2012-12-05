@@ -48,19 +48,14 @@ var rocketSprite = {
     animations: {
     
         main: {
-        
             frames: [ 0, 1 ],
             next: "main"
-            
             }
-        
         },
         
     frames: {
-    
         width: 15,
         height: 7
-    
         },
         
     images: [ "images/weapon3_rocket.png" ]
@@ -78,9 +73,9 @@ rocket.gotoAndPlay("main");
 
 var shipObject = this.shipObject;
 
-rocket.x = shipObject.x;
-rocket.y = shipObject.y;
-rocket.rotation = shipObject.rotation;
+rocket.x = shipObject.getX();
+rocket.y = shipObject.getY();
+rocket.rotation = shipObject.getRotation();
 
-this.bulletShape = rocket;
+this.shape = rocket;
 };  

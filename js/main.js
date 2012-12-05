@@ -260,8 +260,8 @@ $( ships ).each(function( ship_index, ship )
     {
     $( bullets ).each(function( bullet_index, bullet )
         {
-        bulletX = bullet.bulletShape.x;
-        bulletY = bullet.bulletShape.y;
+        bulletX = bullet.shape.x;
+        bulletY = bullet.shape.y;
         
         var bulletHalfWidth = bullet.width / 2;
         var bulletHalfHeight = bullet.height / 2;
