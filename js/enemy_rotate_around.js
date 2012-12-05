@@ -100,21 +100,59 @@ this.shape = enemy;
 
 
 
+EnemyRotateAround.prototype.setupPhysics = function()
+{
+var width = this.width;
+var height = this.height;
+
+    // physics
+var fixDef = new b2FixtureDef;
+
+fixDef.density = 1;
+fixDef.friction = 0.5;
+fixDef.restitution = 0.2;
+
+var bodyDef = new b2BodyDef;
+
+bodyDef.type = b2Body.b2_dynamicBody;
+
+bodyDef.position.x = 0;
+bodyDef.position.y = 0;
+
+fixDef.shape = new b2CircleShape( width / 2 / SCALE );
+
+// arguments: half width, half height
+//fixDef.shape.SetAsBox( width / 2 / SCALE, height / 2 / SCALE );
+
+var body = WORLD.CreateBody( bodyDef );
+
+body.CreateFixture( fixDef );
+
+
+body.SetUserData( this );
+
+this.body = body;
+};
+
 
 EnemyRotateAround.prototype.shipBehaviour = function()
 {
+var currentX = this.shape.x;
+var currentY = this.shape.y;
+
     // make a triangle from the position the ship is in, relative to the enemy position
-var triangleOppositeSide = MAIN_SHIP.shape.y - this.y;
-var triangleAdjacentSide = this.x - MAIN_SHIP.shape.x;
+var triangleOppositeSide = MAIN_SHIP.shape.y - currentY;
+var triangleAdjacentSide = currentX - MAIN_SHIP.shape.x;
 
 
 
     // find the angle, given the two sides (of a right triangle)
 var angleRadians = Math.atan2( triangleOppositeSide, triangleAdjacentSide );
 
+var x = currentX + Math.sin( angleRadians ) * this.velocity;
+var y = currentY + Math.cos( angleRadians ) * this.velocity;
 
-this.x += Math.sin( angleRadians ) * this.velocity;
-this.y += Math.cos( angleRadians ) * this.velocity;
+this.moveTo( x, y );
 };
 
 

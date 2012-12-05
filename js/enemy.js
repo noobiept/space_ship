@@ -139,6 +139,26 @@ this.shape.y = this.body.GetWorldCenter().y * SCALE;
 };
 
 
+p.getPosition = function()
+{
+return {
+    x: this.shape.x,
+    y: this.shape.y
+    };
+};
+
+p.getX = function()
+{
+return this.shape.x;
+};
+
+
+p.getY = function()
+{
+return this.shape.y;
+};
+
+
 p.moveTo = function( x, y )
 {
 this.shape.x = x;
@@ -149,6 +169,14 @@ var position = new b2Vec2(x / SCALE, y / SCALE);
 this.body.SetPosition( position );
 };
 
+
+
+p.rotate = function( degrees )
+{
+this.shape.rotation = degrees;
+
+this.body.SetAngle( degrees * Math.PI / 180 );
+};
 
 
 
@@ -184,24 +212,27 @@ this.remove();
 
 p.checkLimits = function()
 {
-if (this.x < 0)    
+var x = this.getX();
+var y = this.getY();
+
+if (x < 0)
     {
-    this.x = GAME_WIDTH;
+    this.moveTo( GAME_WIDTH, y );
     }
 
-else if (this.x > GAME_WIDTH)
+else if (x > GAME_WIDTH)
     {
-    this.x = 0;
+    this.moveTo( 0, y );
     }
 
-else if (this.y < 0)
+else if (y < 0)
     {
-    this.y = GAME_HEIGHT;
+    this.moveTo( x, GAME_HEIGHT );
     }
 
-else if (this.y > GAME_HEIGHT)
+else if (y > GAME_HEIGHT)
     {
-    this.y = 0;
+    this.moveTo( x, 0 );
     }
 };
 
@@ -237,6 +268,9 @@ p.remove = function()
 STAGE.removeChild( this );
 
 createjs.Ticker.removeListener( this );
+
+
+WORLD.DestroyBody( this.body );
 
 var position = EnemyShip.all.indexOf( this );
 

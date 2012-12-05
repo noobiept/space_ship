@@ -111,13 +111,54 @@ this.shape = rock;
 };
 
 
+EnemyRocks.prototype.setupPhysics = function()
+{
+var width = this.width;
+var height = this.height;
+
+    // physics
+var fixDef = new b2FixtureDef;
+
+fixDef.density = 1;
+fixDef.friction = 0.5;
+fixDef.restitution = 0.2;
+
+var bodyDef = new b2BodyDef;
+
+bodyDef.type = b2Body.b2_dynamicBody;
+
+bodyDef.position.x = 0;
+bodyDef.position.y = 0;
+
+fixDef.shape = new b2PolygonShape;
+
+    // arguments: half width, half height
+fixDef.shape.SetAsBox( width / 2 / SCALE, height / 2 / SCALE );
+
+var body = WORLD.CreateBody( bodyDef );
+
+body.CreateFixture( fixDef );
+
+
+body.SetUserData( this );
+
+this.body = body;
+};
+
+
+
 //HERE mudar o nome para enemyBehaviour ou shapeBehaviour
 EnemyRocks.prototype.shipBehaviour = function()
 {
-this.x += Math.sin( this.angleRadians ) * this.velocity;
-this.y += Math.cos( this.angleRadians ) * this.velocity;
+var currentX = this.shape.x;
+var currentY = this.shape.y;
 
-this.rotation++;
+var x = currentX + Math.sin( this.angleRadians ) * this.velocity;
+var y = currentY + Math.cos( this.angleRadians ) * this.velocity;
+
+this.moveTo( x, y );
+
+this.rotate( this.shape.rotation + 1 );
 };
 
 
@@ -136,9 +177,8 @@ if (this.width >= 50)
         var rock = new EnemyRocks( 0.5 );
         
             // spawn from the current position
-        rock.x = this.x;
-        rock.y = this.y;
-        
+        rock.moveTo( this.shape.x, this.shape.y );
+
         addNewEnemy( rock );
         }
     }
