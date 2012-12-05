@@ -355,15 +355,19 @@ var angleRadians = Math.atan2( triangleOppositeSide, triangleAdjacentSide );
     // convert to degrees
 var angleDegrees = angleRadians * 180 / Math.PI;
 
-
-
     // we multiply by -1 because the .rotation property seems to have the angles in the other direction
-//this.rotation = -1 * angleDegrees;
-this.body.SetAngle( -1 * angleDegrees );
+this.rotate( -1 * angleDegrees );
 };
     
     
-    
+Ship.prototype.rotate = function( degrees )
+{
+this.shape.rotation = degrees;
+
+this.body.SetAngle( degrees * Math.PI / 180 );
+};
+
+
     
 Ship.prototype.handleClick = function( event )  
 {
