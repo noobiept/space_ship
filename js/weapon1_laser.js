@@ -28,18 +28,12 @@ this.width = 4;
 this.height = 2;
 
 
-if ( !$.isNumeric( angleRotation ) )
-    {
-    angleRotation = shipObject.getRotation();
-    }
-
-
     // inherit from the Weapons class
 Weapons.call( this, shipObject, angleRotation );
 
 this.damage = 10;
 
-applyImpulse( this.body, angleRotation, 10 * this.body.GetMass() );
+applyImpulse( this.body, this.angleRotation, 10 * this.body.GetMass() );
 }
 
 

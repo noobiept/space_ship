@@ -57,9 +57,12 @@ this.shipObject = shipObject;
 
 if ( !$.isNumeric( angleRotation ) )
     {
-    angleRotation = shipObject.getRotation();
+    angleRotation = calculateAngleBetweenObjects2( MAIN_SHIP.getX(), MAIN_SHIP.getY(), STAGE.mouseX, STAGE.mouseY );
     }
 
+angleRotation = -1 * angleRotation; //HERE
+
+this.angleRotation = angleRotation;
 
 this.type = TYPE_BULLET;
 
@@ -91,13 +94,23 @@ else
 
 
 
-if ( typeof x == 'undefined')
+if ( typeof x === 'undefined')
     {
     x = shipObject.getX();
     y = shipObject.getY();
     }
 
-this.moveTo( x, y );
+    // fire from outside the main ship radius (so it doesn't collide immediately with it)
+var shipRadius = MAIN_SHIP.width / 2;
+
+var angle = this.angleRotation;
+
+var radians = toRadians( angle );
+
+var addX = Math.cos( radians ) * shipRadius;
+var addY = Math.sin( radians ) * shipRadius;
+
+this.moveTo( x + addX, y + addY );
 }
 
     // all the bullets from the enemies

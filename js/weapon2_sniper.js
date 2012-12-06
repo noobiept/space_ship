@@ -33,8 +33,6 @@ Weapons.call( this, shipObject );
 
 //this.countTicks = Weapon2_sniper.numberTicksAnimation;
 
-//Weapon2_sniper.findIfIntercept( shipObject );
-
 this.damage = 40;
 
 applyImpulse( this.body, shipObject.getRotation(), 40 * this.body.GetMass() );

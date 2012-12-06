@@ -83,3 +83,49 @@ body.ApplyImpulse( impulse, point );
 }
 
 
+/*
+    objectA and objectB has to have a .getX() and .getY() method
+ */
+
+function calculateAngleBetweenObjects( objectA, objectB )
+{
+var aX = objectA.getX();
+var aY = objectA.getY();
+
+var bX = objectB.getX();
+var bY = objectB.getY();
+
+calculateAngleBetweenObjects2( aX, aY, bX, bY );
+}
+
+/*
+    Called with the x/y directly
+ */
+
+function calculateAngleBetweenObjects2( aX, aY, bX, bY )
+{
+    // make a triangle from the position the objectA is in, relative to the objectB position
+var triangleOppositeSide = aY - bY;
+var triangleAdjacentSide = bX - aX;
+
+    // find the angle, given the two sides (of a right triangle)
+var angleRadians = Math.atan2( triangleOppositeSide, triangleAdjacentSide );
+
+    // convert to degrees
+var angleDegrees = angleRadians * 180 / Math.PI;
+
+return angleDegrees;
+}
+
+
+
+function toRadians( degrees )
+{
+return degrees * Math.PI / 180;
+}
+
+
+function toDegrees( radians )
+{
+return radians * 180 / Math.PI;
+}

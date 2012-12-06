@@ -41,7 +41,6 @@
         collisions:
 
             - remove bullets when out of bounds and hit stuff
-            - cant shoot bullets to all directions
     
  */
 

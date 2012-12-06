@@ -188,7 +188,7 @@ if (this.countTicks >= this.ticksUntilNextBullet)
     {
     this.countTicks = 0;
     
-    var angleRotation = this.calculateAngleBetweenShip();
+    var angleRotation = calculateAngleBetweenObjects( MAIN_SHIP, this );
     
     
         //HERE align the image

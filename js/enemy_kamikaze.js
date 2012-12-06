@@ -169,7 +169,7 @@ this.updateRotation();
 EnemyKamikaze.prototype.updateRotation = function()
 {
     // calculate the angle between the enemy and the ship  
-var angleDegrees = this.calculateAngleBetweenShip();
+var angleDegrees = calculateAngleBetweenObjects( MAIN_SHIP, this );
 
     //HERE align the image
 angleDegrees += 90;

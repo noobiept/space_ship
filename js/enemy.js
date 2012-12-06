@@ -241,26 +241,6 @@ else if (y > GAME_HEIGHT)
 };
 
 
-/*
-    Calculates the angle in degrees between the enemy ship and the main ship
- */
-
-p.calculateAngleBetweenShip = function()
-{
-    // make a triangle from the position the ship is in, relative to the enemy position
-var triangleOppositeSide = MAIN_SHIP.shape.y - this.y;
-var triangleAdjacentSide = this.x - MAIN_SHIP.shape.x;
-
-
-    // find the angle, given the two sides (of a right triangle)
-var angleRadians = Math.atan2( triangleOppositeSide, triangleAdjacentSide );
-    
-    // convert to degrees
-var angleDegrees = angleRadians * 180 / Math.PI;
-
-return angleDegrees;
-};
-
 
 
 /*
