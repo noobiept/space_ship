@@ -385,65 +385,6 @@ clearKeysHeld();
 }
     
     
-    
-    
-
-
-function checkIfBulletsHitAnything( ships, bullets )
-{
-var bulletX, bulletY;
-
-var bulletLeftSide, bulletRightSide, bulletUpSide, bulletDownSide;
-var enemyLeftSide, enemyRightSide, enemyUpSide, enemyDownSide;
-
-    // jquery 'equivalent'  of forEach()
-$( ships ).each(function( ship_index, ship )
-    {
-    $( bullets ).each(function( bullet_index, bullet )
-        {
-        bulletX = bullet.shape.x;
-        bulletY = bullet.shape.y;
-        
-        var bulletHalfWidth = bullet.width / 2;
-        var bulletHalfHeight = bullet.height / 2;
-        
-        
-            // to simplify, lets use a rectangle for the collision detection (each type of bullet/weapon has a width/height property to tell the bullet dimensions)
-        bulletLeftSide = bulletX - bulletHalfWidth;
-        bulletRightSide = bulletX + bulletHalfWidth;
-        bulletUpSide = bulletY - bulletHalfHeight;
-        bulletDownSide = bulletY + bulletHalfHeight;
-        
-            // the ship is centered on 0
-        var halfWidth = ship.width / 2;
-        var halfHeight = ship.height / 2; 
-        
-            // same for the enemy
-        enemyLeftSide = ship.x - halfWidth;
-        enemyRightSide = ship.x + halfWidth;
-        enemyUpSide = ship.y - halfHeight;
-        enemyDownSide = ship.y + halfHeight;
-
-            // check if it hits the EnemyShip
-        if ( !(bulletRightSide < enemyLeftSide || bulletLeftSide > enemyRightSide || bulletDownSide < enemyUpSide || bulletUpSide > enemyDownSide) )
-            
-        //if ( enemy.hitTest(bulletX, bulletY) )
-            {
-                // remove the bullet
-            bullet.remove( bullet_index );
-            
-                // remove the EnemyShip
-            ship.tookDamage();
-            
-                // breaks this loop
-            return false;   
-            }
-        });
-    });
-
-}
-
-
 
 
 function addNewEnemy( enemyObject )
@@ -474,11 +415,6 @@ for (var i = 0 ; i < COLLISION_F.length ; i++)
     i--;
     }
 
-    // check if enemy bullets hit our ship
-//checkIfBulletsHitAnything( [ MAIN_SHIP ], Weapons.enemyBullets );
-
-    // check if our bullets hit the enemy
-//checkIfBulletsHitAnything( EnemyShip.all, Weapons.allyBullets );
 
     // call the tick() of the current game mode
 GAME_MODE.tick();

@@ -244,55 +244,6 @@ if (y > GAME_HEIGHT)
 
 return false;
 };
- 
-     
-Ship.checkIfCollidedWithEnemies = function()
-{
-var i, k;
-var enemies = EnemyShip.all;
-
-
-
-var ship;
-var enemy;
-
-var shipLeftSide, shipRightSide, shipUpSide, shipDownSide;
-var enemyLeftSide, enemyRightSide, enemyUpSide, enemyDownSide;
-
-for (k = 0 ; k < Ship.all.length ; k++)
-    {
-    ship = Ship.all[k];
-    
-    shipLeftSide = ship.shape.x - 5;
-    shipRightSide = ship.shape.x + 5;
-    shipUpSide = ship.shape.y - 5;
-    shipDownSide = ship.shape.y + 5;
-    
-    for (i = 0 ; i < enemies.length ; i++)
-        {
-        enemy = enemies[i];
-            
-            // we'll assume a square of the impact area
-        enemyLeftSide = enemy.x - 10;
-        enemyRightSide = enemy.x + 10;
-        enemyUpSide = enemy.y - 10;
-        enemyDownSide = enemy.y + 10;
-        
-            // check if they collide
-        if ( !(shipRightSide < enemyLeftSide || shipLeftSide > enemyRightSide || shipDownSide < enemyUpSide || shipUpSide > enemyDownSide) )
-            {
-            ship.tookDamage( enemy.damageGiven() );
-
-                // if so, remove the enemy, and reduce the energy
-            enemy.tookDamage();
-            
-                // the array changed in length (since we removed one element. Update the index)
-            i--;
-            }
-        }
-    }
-
-};
 
 
 
@@ -611,8 +562,6 @@ else if (KEYS_HELD.down)
     }
 
     
-//Ship.checkIfCollidedWithEnemies();
-
 this.updateShape();
 
 this.updateAmmo(); 
