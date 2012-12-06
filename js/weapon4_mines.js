@@ -29,6 +29,8 @@ this.height = 15;
 
     // inherit from the Weapons class
 Weapons.call( this, shipObject );
+
+this.damage = 50;
 }
 
 

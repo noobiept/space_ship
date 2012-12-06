@@ -166,7 +166,7 @@ this.rotate( this.shape.rotation + 1 );
     When it takes damage, create new smaller rocks
  */
 
-EnemyRocks.prototype.damageTaken = function()
+EnemyRocks.prototype.tookDamage = function()
 {
 if (this.width >= 50)
     {

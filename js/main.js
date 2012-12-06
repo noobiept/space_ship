@@ -104,7 +104,17 @@ var ENEMY_TYPES = [
     
 var GAME_MODE = null;
     
-    
+
+    // :: Collision Detection :: //
+
+    // objects identification (for the collision detection)
+var TYPE_SHIP = 0;
+var TYPE_ENEMY = 1;
+var TYPE_BULLET = 2;
+
+    // has functions to be called later (related to a collision). Have to remove the elements after executing the function
+var COLLISION_F = [];
+
     
 window.onload = function()
 {
@@ -130,7 +140,7 @@ STAGE = new createjs.Stage( CANVAS );
 
 
 WORLD = new b2World(
-    new b2Vec2(0, 0),   // gravity
+    new b2Vec2(0, 0),   // zero-gravity
     true                // allow sleep
     );
 
@@ -203,6 +213,14 @@ STAGE.enableMouseOver();
 STAGE.update();
 
 
+    // set up collision detection
+var listener = new b2ContactListener;
+
+listener.BeginContact = collisionDetection;
+
+WORLD.SetContactListener( listener );
+
+
     //register key functions
 document.onkeydown = handleKeyDown;
 document.onkeyup = handleKeyUp;
@@ -217,8 +235,126 @@ STAGE.onMouseDown = function( event ) { MAIN_SHIP.handleClick( event ); };
 GameMenu();
 }
    
-    
-    
+
+/*
+    Called on 'BeginContact' between box2d bodies
+
+    Warning: You cannot create/destroy Box2D entities inside these callbacks.
+ */
+
+function collisionDetection( contact )
+{
+var objectA = contact.GetFixtureA().GetBody().GetUserData();
+var objectB = contact.GetFixtureB().GetBody().GetUserData();
+
+var typeA = objectA.type;
+var typeB = objectB.type;
+
+var shipObject;
+var enemyObject;
+var bulletObject;
+
+    // collision between the main ship and an enemy
+if ( (typeA === TYPE_SHIP && typeB === TYPE_ENEMY) ||
+     (typeB === TYPE_SHIP && typeA === TYPE_ENEMY) )
+    {
+        // determine which one is which
+    if ( typeA === TYPE_SHIP )
+        {
+        shipObject = objectA;
+        enemyObject = objectB;
+        }
+
+    else
+        {
+        shipObject = objectB;
+        enemyObject = objectA;
+        }
+
+
+    COLLISION_F.push(
+        function()
+            {
+            shipObject.tookDamage( enemyObject.damageGiven() );
+
+            enemyObject.tookDamage();
+            }
+        );
+    }
+
+    // collision between the main ship and a bullet
+else if ( (typeA === TYPE_SHIP && typeB === TYPE_BULLET) ||
+          (typeB === TYPE_SHIP && typeA === TYPE_BULLET) )
+    {
+        // determine which one is which
+    if ( typeA === TYPE_SHIP )
+        {
+        shipObject = objectA;
+        bulletObject = objectB;
+        }
+
+    else
+        {
+        shipObject = objectB;
+        bulletObject = objectA;
+        }
+
+        //HERE -- poder levar dano das proprias balas?..
+    if ( !bulletObject.isEnemy )
+        {
+        return;
+        }
+
+    COLLISION_F.push(
+        function()
+            {
+                // remove the bullet
+            bulletObject.remove();
+
+                // remove the EnemyShip
+            shipObject.tookDamage( bulletObject.damageGiven() );
+            }
+        );
+    }
+
+    // collision between a bullet and an enemy
+else if ( (typeA === TYPE_BULLET && typeB === TYPE_ENEMY) ||
+          (typeB === TYPE_BULLET && typeA === TYPE_ENEMY) )
+    {
+        // determine which one is which
+    if ( typeA === TYPE_BULLET )
+        {
+        bulletObject = objectA;
+        enemyObject = objectB;
+        }
+
+    else
+        {
+        bulletObject = objectB;
+        enemyObject = objectA;
+        }
+
+        //HERE -- poder levar dano das proprias balas?..
+    if ( bulletObject.isEnemy )
+        {
+        return;
+        }
+
+    COLLISION_F.push(
+        function()
+            {
+                // remove the bullet
+            bulletObject.remove();
+
+                // remove the EnemyShip
+            enemyObject.tookDamage( bulletObject.damageGiven() );
+            }
+        );
+    }
+}
+
+
+
     
 /*
     Resets the configurations (for when restarting the game)
@@ -297,7 +433,7 @@ $( ships ).each(function( ship_index, ship )
             bullet.remove( bullet_index );
             
                 // remove the EnemyShip
-            ship.damageTaken();
+            ship.tookDamage();
             
                 // breaks this loop
             return false;   
@@ -326,11 +462,23 @@ createjs.Ticker.addListener( enemyObject );
 
 function tick()
 {
+    // check if there's collisions to deal with
+for (var i = 0 ; i < COLLISION_F.length ; i++)
+    {
+        // call the function
+    COLLISION_F[ i ]();
+
+        // and remove it from array
+    COLLISION_F.splice( i, 1 );
+
+    i--;
+    }
+
     // check if enemy bullets hit our ship
-checkIfBulletsHitAnything( [ MAIN_SHIP ], Weapons.enemyBullets );
+//checkIfBulletsHitAnything( [ MAIN_SHIP ], Weapons.enemyBullets );
 
     // check if our bullets hit the enemy
-checkIfBulletsHitAnything( EnemyShip.all, Weapons.allyBullets );
+//checkIfBulletsHitAnything( EnemyShip.all, Weapons.allyBullets );
 
     // call the tick() of the current game mode
 GAME_MODE.tick();

@@ -38,7 +38,7 @@
         .setupPhysics()
         .shipBehaviour()
         .updateShape()          (optional)
-        .damageTaken()          (optional)
+        .tookDamage()           (optional)
         .beforeAddToStage()     (optional)
         .spawnTick_function()   (optional)
         .tick_function()        (optional)
@@ -70,6 +70,8 @@ function EnemyShip()
     // to distinguish the bullets (from enemies or from the main ship)
 this.isEnemy = true;
 
+
+this.type = TYPE_ENEMY;
    
     // the number of ticks it takes until the enemy can start moving/firing/being killed
 this.spawnTicks_int = 20;
@@ -84,7 +86,6 @@ this.initialize();
 
 
 EnemyShip.all = [];
-
 
 
 var p = EnemyShip.prototype = new createjs.Container();
@@ -186,6 +187,15 @@ return this.damage;
 };
 
 
+EnemyShip.prototype.tookDamage = function()
+{
+    // do this
+
+    // just remove it (override this for something different)
+this.remove();
+};
+
+
 EnemyShip.prototype.shipBehaviour = function()
 {
     // do this
@@ -201,12 +211,6 @@ EnemyShip.prototype.beforeAddToStage = function()
     // do this
 };
 
-
-EnemyShip.prototype.damageTaken = function()
-{
-    // just remove it (override this for something different)
-this.remove();
-};
 
 
 

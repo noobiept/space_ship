@@ -37,10 +37,11 @@
 
         .width
         .height
+        .damage
         
     Add reference of the drawn element to:
     
-        .bulletShape
+        .shape
         
     Arguments:
     
@@ -59,6 +60,10 @@ if ( !$.isNumeric( angleRotation ) )
     angleRotation = shipObject.getRotation();
     }
 
+
+this.type = TYPE_BULLET;
+
+this.damage = 10;
 
     // draw the bullet
 this.drawBullet( angleRotation );
@@ -193,6 +198,16 @@ if (x < 0 || x > GAME_WIDTH || y < 0 || y > GAME_HEIGHT)
     }
 
 return false;
+};
+
+
+/*
+    How much damage the bullets gives to the ship when it hits
+ */
+
+Weapons.prototype.damageGiven = function()
+{
+return this.damage;
 };
 
 

@@ -37,7 +37,9 @@ if ( !$.isNumeric( angleRotation ) )
     // inherit from the Weapons class
 Weapons.call( this, shipObject, angleRotation );
 
-applyImpulse( this.body, angleRotation, 0.2 );
+this.damage = 10;
+
+applyImpulse( this.body, angleRotation, 10 * this.body.GetMass() );
 }
 
 

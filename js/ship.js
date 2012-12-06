@@ -35,6 +35,8 @@ this.shape = null;
 this.width = 10;
 this.height = 10;
 
+this.type = TYPE_SHIP;
+
 this.makeShape();
 
 this.setupPhysics();
@@ -282,7 +284,7 @@ for (k = 0 ; k < Ship.all.length ; k++)
             ship.tookDamage( enemy.damageGiven() );
 
                 // if so, remove the enemy, and reduce the energy
-            enemy.damageTaken();
+            enemy.tookDamage();
             
                 // the array changed in length (since we removed one element. Update the index)
             i--;
@@ -292,13 +294,6 @@ for (k = 0 ; k < Ship.all.length ; k++)
 
 };
 
-
-Ship.prototype.damageTaken = function()
-{
-//HERE
-
-this.tookDamage( 10 );
-};
 
 
 Ship.prototype.tookDamage = function( damage )

@@ -35,7 +35,9 @@ Weapons.call( this, shipObject );
 
 //Weapon2_sniper.findIfIntercept( shipObject );
 
-applyImpulse( this.body, shipObject.getRotation(), 2 );
+this.damage = 40;
+
+applyImpulse( this.body, shipObject.getRotation(), 40 * this.body.GetMass() );
 }
 
     // number of ticks of the duration of the bullet animation, before removing it from the stage
@@ -123,7 +125,7 @@ for (i = 0 ; i < enemies.length ; i++)
         //HERE tem k abranger uma area..
     if ( enemyY >= aa - 20 && enemyY <= aa + 20)
         {
-        enemies[i].damageTaken();
+        enemies[i].tookDamage();
         
         i--;
         }
