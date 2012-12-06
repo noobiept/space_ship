@@ -98,12 +98,14 @@ var i;
 
 for (i = 0 ; i < BULLETS_LEFT_TEXT.length ; i++)
     {
-    BULLETS_LEFT_TEXT[ i ] = new createjs.Text("Bullets: " + Ship.bulletsLeft[ i ], "14px Arial", "#777");
+    BULLETS_LEFT_TEXT[ i ] = new createjs.Text( Ship.bulletsLeft[ i ] + " Bullets", "14px Arial", "#777");
     
     BULLETS_LEFT_TEXT[ i ].x = 40 + i * 100;
-    BULLETS_LEFT_TEXT[ i ].y = CANVAS.height;
+    BULLETS_LEFT_TEXT[ i ].y = CANVAS.height - 13;
     
     STAGE.addChild( BULLETS_LEFT_TEXT[ i ] );
+
+    ZIndex.add( BULLETS_LEFT_TEXT[ i ] );
     }
 };
 
@@ -161,7 +163,7 @@ g.energy_text.text = "Energy: " + g.energy;
 
 GameStatistics.updateBulletsLeft = function( weapon )
 {
-BULLETS_LEFT_TEXT[ weapon ].text = "Bullets " + Ship.bulletsLeft[ weapon ];
+BULLETS_LEFT_TEXT[ weapon ].text = Ship.bulletsLeft[ weapon ] + " Bullets";
 };
 
 

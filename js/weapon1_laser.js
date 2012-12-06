@@ -32,8 +32,9 @@ this.height = 2;
 Weapons.call( this, shipObject, angleRotation );
 
 this.damage = 10;
+this.speed = 12;
 
-applyImpulse( this.body, this.angleRotation, 10 * this.body.GetMass() );
+applyImpulse( this.body, this.angleRotation, this.speed * this.body.GetMass() );
 }
 
 

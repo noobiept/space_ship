@@ -35,7 +35,9 @@ Weapons.call( this, shipObject );
 
 this.damage = 40;
 
-applyImpulse( this.body, shipObject.getRotation(), 40 * this.body.GetMass() );
+this.speed = 40;
+
+applyImpulse( this.body, shipObject.getRotation(), this.speed * this.body.GetMass() );
 }
 
     // number of ticks of the duration of the bullet animation, before removing it from the stage

@@ -38,6 +38,7 @@
         .width
         .height
         .damage
+        .speed
         
     Add reference of the drawn element to:
     
