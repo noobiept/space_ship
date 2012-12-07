@@ -87,69 +87,52 @@ this.shape = enemy;
 };
 
 
+EnemyKamikaze.prototype.setupPhysics = function()
+{
+var width = this.width;
+var height = this.height;
+
+    // physics
+var fixDef = new b2FixtureDef;
+
+fixDef.density = 1;
+fixDef.friction = 0.5;
+fixDef.restitution = 0.2;
+
+var bodyDef = new b2BodyDef;
+
+bodyDef.type = b2Body.b2_dynamicBody;
+
+bodyDef.position.x = 0;
+bodyDef.position.y = 0;
+
+fixDef.shape = new b2CircleShape( width / 2 / SCALE );
+
+var body = WORLD.CreateBody( bodyDef );
+
+body.CreateFixture( fixDef );
+
+body.SetUserData( this );
+
+this.body = body;
+};
+
+
 EnemyKamikaze.prototype.shipBehaviour = function()
 {
-var shipX = MAIN_SHIP.x;
-var shipY = MAIN_SHIP.y;
+var angle = calculateAngleBetweenObjects( this, MAIN_SHIP );
 
-var enemyX = this.x;
-var enemyY = this.y;
+angle *= -1;    //HERE
 
-    // sometimes enemyY is NaN.. don't know why, so just return when that happens
-if (isNaN(enemyY) === true)
-    {
-    return;
-    }
+var radians = toRadians( angle );
 
+var velocity = EnemyKamikaze.velocity;
 
-    // y = slope * x + b
-var slope = (enemyY - shipY) / (enemyX - shipX);
-    
-    // sometimes you don't get a number (the division)
-if ( $.isNumeric( slope ) === false )
-    {
-    return;
-    }
+var x = Math.cos( radians ) * velocity;
+var y = Math.sin( radians ) * velocity;
 
-    
-var b = enemyY - slope * enemyX;
-    
-var newEnemyX;
-    
-if ( (enemyX - shipX) > 0 )
-    {
-    newEnemyX = enemyX - this.velocity;
-    }
+this.body.SetLinearVelocity( new b2Vec2(x, y) );
 
-else
-    {
-    newEnemyX = enemyX + this.velocity;
-    }
-
-
-    
-var newEnemyY = slope * newEnemyX + b;
-
-
-
-var limit = newEnemyY - enemyY;
-
-    // slow down the y variation
-if (limit > this.velocity)
-    {
-    newEnemyY = enemyY + this.velocity - 1;
-    }
-
-else if (limit < -this.velocity )
-    {
-    newEnemyY = enemyY - this.velocity - 1;
-    }
-
-    
-this.x = newEnemyX;
-this.y = newEnemyY;
-    
-    
 this.updateRotation();
 };
 
@@ -171,11 +154,12 @@ EnemyKamikaze.prototype.updateRotation = function()
     // calculate the angle between the enemy and the ship  
 var angleDegrees = calculateAngleBetweenObjects( MAIN_SHIP, this );
 
+
     //HERE align the image
 angleDegrees += 90;
 
     // we multiply by -1 because the .rotation property seems to have the angles in the other direction
-this.rotation = -1 * angleDegrees; 
+this.rotate( -1 * angleDegrees );
 };
 
 

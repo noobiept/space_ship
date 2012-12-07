@@ -70,9 +70,7 @@ derivedClass.prototype = prototype;
 
 function applyImpulse( body, degrees, power )
 {
-var rads = degrees * Math.PI / 180;
-
-//console.log(degrees);
+var rads = toRadians( degrees );
 
 var impulse = new b2Vec2( Math.cos( rads ) * power,
     Math.sin( rads ) * power );
@@ -81,6 +79,22 @@ var point = body.GetWorldCenter();
 
 body.ApplyImpulse( impulse, point );
 }
+
+/*
+    Applies a force to a body (box2d)
+ */
+
+function applyForce( body, degrees, power )
+{
+var rads = toRadians( degrees );
+
+var impulse = new b2Vec2( Math.cos( rads ) * power, Math.sin( rads ) * power );
+
+var point = body.GetWorldCenter();
+
+body.ApplyForce( impulse, point );
+}
+
 
 
 /*
@@ -95,7 +109,7 @@ var aY = objectA.getY();
 var bX = objectB.getX();
 var bY = objectB.getY();
 
-calculateAngleBetweenObjects2( aX, aY, bX, bY );
+return calculateAngleBetweenObjects2( aX, aY, bX, bY );
 }
 
 /*

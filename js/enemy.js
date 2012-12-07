@@ -42,7 +42,7 @@
         .beforeAddToStage()     (optional)
         .spawnTick_function()   (optional)
         .tick_function()        (optional)
-        
+
     --- to the class ---
 
         .increaseDifficulty()
@@ -299,7 +299,7 @@ if (this.spawnTicks_int < 0)
     
         // only add now to the enemies list (so, only from now on will the bullets be able to kill it, etc)
     EnemyShip.all.push( this );
-    
+
         // now execute the normal tick function
     this.tick = this.normalTick;
     }

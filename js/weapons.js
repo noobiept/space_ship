@@ -156,6 +156,7 @@ fixDef.shape.SetAsBox( width / 2 / SCALE, height / 2 / SCALE );
 var body = WORLD.CreateBody( bodyDef );
 
 body.CreateFixture( fixDef );
+body.SetBullet( true );
 
 body.SetUserData( this );
 
