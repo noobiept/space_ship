@@ -111,6 +111,7 @@ var radians = toRadians( angle );
 var addX = Math.cos( radians ) * shipRadius;
 var addY = Math.sin( radians ) * shipRadius;
 
+this.rotate( angle );
 this.moveTo( x + addX, y + addY );
 }
 
@@ -191,7 +192,7 @@ this.body.SetPosition( position );
 
 Weapons.prototype.updateShape = function()
 {
-//this.shape.rotation = this.body.GetAngle() * (180 / Math.PI);
+this.shape.rotation = this.body.GetAngle() * (180 / Math.PI);
 
 this.shape.x = this.body.GetWorldCenter().x * SCALE;
 this.shape.y = this.body.GetWorldCenter().y * SCALE;
@@ -225,6 +226,14 @@ Weapons.prototype.damageGiven = function()
 return this.damage;
 };
 
+
+
+Weapons.prototype.rotate = function( degrees )
+{
+this.shape.rotation = degrees;
+
+this.body.SetAngle( degrees * Math.PI / 180 );
+};
 
 /*
     Remove the bullet from the stage

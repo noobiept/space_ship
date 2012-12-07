@@ -196,7 +196,7 @@ if (this.countTicks >= this.ticksUntilNextBullet)
        
     
         // we multiply by -1 because the .rotation property seems to have the angles in the other direction
-    angleRotation *= -1;
+    //angleRotation *= -1;
       
     new Weapon1_laser( this, angleRotation );
     }
