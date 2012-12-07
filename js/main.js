@@ -38,9 +38,9 @@
 
         collisions:
 
-            - remove bullets when out of bounds and hit stuff
             - you can outrun the bullets (and collide with them)
             - sniper bullet is too fast for the shape/body to be synced
+            - cant fire if mouse is outside of canvas
 
  */
 

@@ -143,3 +143,20 @@ function toDegrees( radians )
 {
 return radians * 180 / Math.PI;
 }
+
+
+function outOfBounds( object )
+{
+var width = CANVAS.width;
+var height = CANVAS.height;
+
+var x = object.getX();
+var y = object.getY();
+
+if ( x < 0 || x > width || y < 0 || y > height )
+    {
+    return true;
+    }
+
+return false;
+}

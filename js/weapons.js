@@ -283,6 +283,34 @@ if (typeof this.tick_function !== "undefined" && this.tick_function !== null)
     {
     this.tick_function();
     }
+
+var i;
+var bulletObject;
+
+    // check if the bullets are out of bounds (outside the canvas), and remove them if so
+for (i = 0 ; i < Weapons.allyBullets.length ; i++)
+    {
+    bulletObject = Weapons.allyBullets[ i ];
+
+    if ( outOfBounds( bulletObject ) )
+        {
+        bulletObject.remove();
+
+        i--;
+        }
+    }
+
+for (i = 0 ; i < Weapons.enemyBullets.length ; i++)
+    {
+    bulletObject = Weapons.enemyBullets[ i ];
+
+    if ( outOfBounds( bulletObject ) )
+        {
+        bulletObject.remove();
+
+        i--;
+        }
+    }
 };
 
 
