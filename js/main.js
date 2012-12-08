@@ -32,8 +32,6 @@
         
         
     to doo:
-    
-        - mines should go away after some time
 
         collisions:
 
@@ -41,7 +39,7 @@
             - sniper bullet is too fast for the shape/body to be synced
             - cant fire if mouse is outside of canvas
 
-        - use html/css for the menus
+        - use html/css for the in game menu
  */
 
 

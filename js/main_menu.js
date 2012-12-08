@@ -17,227 +17,116 @@
     along with space_ship_game.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*global LOADING_INTERVAL, STAGE, Text, CANVAS, $, EVENT_KEY, GAME_MODE*/
+/*global LOADING_INTERVAL, CANVAS, $, EVENT_KEY, GAME_MODE*/
 /*jslint vars: true, white: true*/
 
 "use strict";
 
 (function(window)
 {
+var MENU_CONTAINER;
+
+var ENTRY_SELECTED = 0;
+
+    // has the functions to call when choosing an entry
+var ENTRIES = [];
+
+    // has the html elements of the entries
+var ENTRIES_ELEMENTS = [];
 
     
 function MainMenu()
 {
-CURRENT_ENTRY_SELECTED = 0;
-
 clearInterval( LOADING_INTERVAL );
 
 resetStuff();
 
 
-MainMenu.loadAnimation();
+MENU_CONTAINER = document.querySelector( '#MainMenu' );
+
+var startGame = MENU_CONTAINER.querySelector( '#MainMenu-startGame' );
+var endlessMode = MENU_CONTAINER.querySelector( '#MainMenu-endlessMode' );
+
+ENTRIES.push( MainMenu.startGame, MainMenu.endlessMode );
+
+ENTRIES_ELEMENTS.push( startGame, endlessMode );
+
+centerHtmlElement( MENU_CONTAINER, 90 );
+
+$( MENU_CONTAINER ).css( 'display', 'block' );
+
+startGame.onclick = MainMenu.startGame;
+endlessMode.onclick = MainMenu.endlessMode;
 
 
-$( document ).bind( "keyup", keyboardEvents );
+$( document ).bind( "keyup", MainMenu.keyboardEvents );
 
-createjs.Ticker.addListener( MainMenu.tick );
 
 STAGE.update();
 }
 
 
-    // holds references to functions that get called when an entry is selected
-var ENTRIES = [ 
-
-    StartGame,
-    EndlessMode
-
-    ];
-
-    // of the ENTRIES above
-var CURRENT_ENTRY_SELECTED = 0;
-
-    // number of entries in the menu
-var NUMBER_OF_ENTRIES = 2;
 
 
-    // reference to the BitmapAnimation of the menu entries
-var ENTRY_ANIMATIONS = [];
-
-
-
-/*
-    Load the images/animations of the menu
- */
-
-MainMenu.loadAnimation = function()
+MainMenu.startGame = function()
 {
-    // :: Background :: //
-    
-var backgroundConfig = {
-    animations: {
-        
-        main: {
-            frames: [ 0 ],
-            next: 'main',
-            frequency: 100
-            }
-        
-        },
-    frames: {
-        width: 800,
-        height: 400
-        },
-    images: [ 'images/main_menu/background.png' ]
-    };
+console.log('startgame');
+MainMenu.cleanUp();
+
+StartGame();
+};
 
 
-var backgroundSprite = new createjs.SpriteSheet( backgroundConfig );
+MainMenu.endlessMode = function()
+{
+MainMenu.cleanUp();
 
-var background = new createjs.BitmapAnimation( backgroundSprite );
-
-background.x = 0;
-background.y = 0;
-
-background.gotoAndPlay('main');
-
-STAGE.addChild( background );
-
-
-    // :: Menu Text :: //
-      
-var menuMessage = new createjs.Text("Menu", "32px Arial", "rgb(255, 255, 255)");
-
-menuMessage.textAlign = "center";
-
-menuMessage.x = CANVAS.width / 2;
-menuMessage.y = 100;
-
-STAGE.addChild( menuMessage );
-
-    // :: Start game :: //
-    
-var entryWidth = 240;
-var entryHeight = 60;
-    
-var startGameConfig = {
-    animations: {
-        
-        selected: {
-            frames: [ 0 ],
-            next: 'selected',
-            frequency: 100
-            },
-            
-        unselected: {
-            frames: [ 1 ],
-            next: 'unselected',
-            frequency: 100
-            }
-        
-        },
-    frames: {
-        width: entryWidth,
-        height: entryHeight
-        },
-    images: [ 'images/main_menu/start_game.png' ]
-    };
-
-
-var startGameSprite = new createjs.SpriteSheet( startGameConfig );
-
-var startGame = new createjs.BitmapAnimation( startGameSprite );
-
-startGame.x = CANVAS.width / 2 - entryWidth / 2;
-startGame.y = 150;
-
-startGame.gotoAndPlay('selected');
-
-STAGE.addChild( startGame );
-
-startGame.onClick = function()
-    {
-    MainMenu.cleanUp();
-    
-    StartGame();
-    };
-
-
-    // :: Endless Mode :: //
-    
-    
-var endlessConfig = {
-    animations: {
-        
-        selected: {
-            frames: [ 0 ],
-            next: 'seletect',
-            frequency: 100
-            },
-            
-        unselected: {
-            frames: [ 1 ],
-            next: 'unselected',
-            frequency: 100
-            }
-        
-        },
-    frames: {
-        width: entryWidth,
-        height: entryHeight
-        },
-    images: [ 'images/main_menu/endless_mode.png' ]
-    };
-
-
-var endlessSprite = new createjs.SpriteSheet( endlessConfig );
-
-var endless = new createjs.BitmapAnimation( endlessSprite );
-
-endless.x = CANVAS.width / 2 - entryWidth / 2;
-endless.y = startGame.y + 60;
-
-endless.gotoAndPlay('unselected');
-
-STAGE.addChild( endless );
-
-endless.onClick = function()
-    {
-    MainMenu.cleanUp();
-    
-    EndlessMode();
-    };
-
-
-    // keep a reference to change the animation later
-ENTRY_ANIMATIONS = [ startGame, endless ];
+EndlessMode();
 };
 
 
 
+/*
+    Calculates the top/left values to be able to position an html element x-centered, and with a provided y (counting from the beginning of the canvas)
+ */
 
-function keyboardEvents( event )
+function centerHtmlElement( element, yPosition )
+{
+var canvasPosition = $( CANVAS ).position();
+
+    // center the instructions (center of canvas, minus half the data width, plus the possible offset in the canvas)
+var left = CANVAS.width / 2 - $(element).width() / 2 + canvasPosition.left;
+
+var top = yPosition + canvasPosition.top;
+
+$( element ).css({
+    'top'     : top + 'px',
+    'left'    : left + 'px'
+    });
+}
+
+
+
+MainMenu.keyboardEvents = function( event )
 {
 var key = event.keyCode;
 
     // start the game
 if (key === EVENT_KEY.enter)
     {
-    MainMenu.cleanUp();
-
-    ENTRIES[ CURRENT_ENTRY_SELECTED ]();
+    ENTRIES[ ENTRY_SELECTED ]();
     }
 
-else if (key == EVENT_KEY.downArrow)
+else if (key === EVENT_KEY.downArrow)
     {
     MainMenu.selectNextEntry();
     }
     
-else if (key == EVENT_KEY.upArrow)
+else if (key === EVENT_KEY.upArrow)
     {
     MainMenu.selectPreviousEntry();
     }
-}
+};
 
 
 
@@ -247,17 +136,18 @@ else if (key == EVENT_KEY.upArrow)
 
 MainMenu.selectNextEntry = function()
 {
-var previousEntry = CURRENT_ENTRY_SELECTED;
+var previousEntry = ENTRY_SELECTED;
 
-CURRENT_ENTRY_SELECTED++;
+ENTRY_SELECTED++;
 
-if (CURRENT_ENTRY_SELECTED + 1 > NUMBER_OF_ENTRIES)
+if (ENTRY_SELECTED + 1 > ENTRIES.length)
     {
-    CURRENT_ENTRY_SELECTED = 0;
+    ENTRY_SELECTED = 0;
     }
-    
-ENTRY_ANIMATIONS[ previousEntry ].gotoAndPlay( 'unselected' );
-ENTRY_ANIMATIONS[ CURRENT_ENTRY_SELECTED ].gotoAndPlay( 'selected' );
+
+$( ENTRIES_ELEMENTS[ previousEntry ] ).removeClass( 'MainMenu-entrySelected' );
+
+$( ENTRIES_ELEMENTS[ ENTRY_SELECTED ] ).addClass( 'MainMenu-entrySelected' );
 };
 
 
@@ -267,17 +157,18 @@ ENTRY_ANIMATIONS[ CURRENT_ENTRY_SELECTED ].gotoAndPlay( 'selected' );
 
 MainMenu.selectPreviousEntry = function()
 {
-var previousEntry = CURRENT_ENTRY_SELECTED;
+var previousEntry = ENTRY_SELECTED;
 
-CURRENT_ENTRY_SELECTED--;
+ENTRY_SELECTED--;
 
-if (CURRENT_ENTRY_SELECTED < 0)
+if (ENTRY_SELECTED < 0)
     {
-    CURRENT_ENTRY_SELECTED = NUMBER_OF_ENTRIES - 1;
+        ENTRY_SELECTED = ENTRIES.length - 1;
     }
 
-ENTRY_ANIMATIONS[ previousEntry ].gotoAndPlay( 'unselected' );
-ENTRY_ANIMATIONS[ CURRENT_ENTRY_SELECTED ].gotoAndPlay( 'selected' ); 
+$( ENTRIES_ELEMENTS[ previousEntry ] ).removeClass( 'MainMenu-entrySelected' );
+
+$( ENTRIES_ELEMENTS[ ENTRY_SELECTED ] ).addClass( 'MainMenu-entrySelected' );
 };
 
 
@@ -288,16 +179,14 @@ ENTRY_ANIMATIONS[ CURRENT_ENTRY_SELECTED ].gotoAndPlay( 'selected' );
 
 MainMenu.cleanUp = function()
 {
+$( MENU_CONTAINER ).css( 'display', 'none' );
+
 $( document ).unbind( "keyup" );
+
+ENTRIES.length = 0;
+
+ENTRY_SELECTED = 0;
 };
-
-
-
-MainMenu.tick = function()
-{
-STAGE.update();
-};
-
 
 
 
