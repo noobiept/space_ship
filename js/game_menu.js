@@ -25,145 +25,116 @@
 
 (function(window)
 {
+var WEAPON_SELECTED = 0;
+
+var WEAPON_ELEMENTS = [];
+
+var BULLETS_LEFT_ELEMENTS = [];
+
 
 function GameMenu()
 {
-GameMenu.addMenuButton();
-GameMenu.addWeaponsSelection();
+GameMenu.clear();
 
-    // reset the variable
-IS_OPENED = false;
+var inGameBar = document.querySelector( '#InGameBar' );
+
+    // :: Weapons Selection :: //
+
+var weaponsContainer = inGameBar.querySelector( '#InGameBar-selectWeapon' );
+
+
+var weapon1 = weaponsContainer.querySelector( '#InGameBar-weapon1' );
+var weapon2 = weaponsContainer.querySelector( '#InGameBar-weapon2' );
+var weapon3 = weaponsContainer.querySelector( '#InGameBar-weapon3' );
+var weapon4 = weaponsContainer.querySelector( '#InGameBar-weapon4' );
+
+WEAPON_ELEMENTS.push( weapon1, weapon2, weapon3, weapon4 );
+
+WEAPON_SELECTED = 0;
+
+
+weapon1.onclick = function()
+    {
+    MAIN_SHIP.selectWeapon( 1 );
+    };
+
+weapon2.onclick = function()
+    {
+    MAIN_SHIP.selectWeapon( 2 );
+    };
+
+weapon3.onclick = function()
+    {
+    MAIN_SHIP.selectWeapon( 3 );
+    };
+
+weapon4.onclick = function()
+    {
+    MAIN_SHIP.selectWeapon( 4 );
+    };
+
+
+
+    // :: Bullets Left :: //
+
+var bulletsContainer = inGameBar.querySelector( '#InGameBar-bulletsLeft' );
+
+var bulletsLeft1 = bulletsContainer.querySelector( '#InGameBar-bullets1' );
+var bulletsLeft2 = bulletsContainer.querySelector( '#InGameBar-bullets2' );
+var bulletsLeft3 = bulletsContainer.querySelector( '#InGameBar-bullets3' );
+var bulletsLeft4 = bulletsContainer.querySelector( '#InGameBar-bullets4' );
+
+
+BULLETS_LEFT_ELEMENTS.push( bulletsLeft1, bulletsLeft2, bulletsLeft3, bulletsLeft4 );
+
+
+GameMenu.updateAllBulletsLeft();
+
+
+    // :: Open Menu :: //
+
+var openMenu = inGameBar.querySelector( '#InGameBar-openMenu' );
+
+positionHtmlElement( openMenu, CANVAS.width - 60, CANVAS.height - 45 );
+
+
+openMenu.onclick = function()
+    {
+    GameMenu.openMenu();
+    };
+
+
+    // :: Position the elements :: //
+
+positionHtmlElement( weaponsContainer, 20, CANVAS.height - 50 );
+
+positionHtmlElement( bulletsContainer, 20, CANVAS.height - 20 );
+
+$( '#InGameBar' ).css( 'display', 'block' );
 }
+
 
     // if the in game is opened or not
 var IS_OPENED = false;
 
 
-
-GameMenu.addMenuButton = function()
-{
-var spriteSheet = {
-
-    animations: {
-        main: {
-            frames: [ 0 ],
-            next: "main"
-            },
-        onMouseOver: {
-            frames: [ 1 ],
-            next: "onMouseOver"
-            }
-        },
-    frames: {
-        width: 60,
-        height: 35
-        },
-    images: [ "images/open_game_menu.png" ]
-    };
-    
-var menuButtonSprite = new createjs.SpriteSheet( spriteSheet );
-
-var menuButton = new createjs.BitmapAnimation( menuButtonSprite ); 
-
-menuButton.gotoAndPlay("main");
-
-menuButton.x = CANVAS.width - 60;
-menuButton.y = CANVAS.height - 50;
-
-menuButton.onClick = function()
-    {
-    if ( IS_OPENED === false )
-        {
-        GameMenu.openMenu();    
-        }
-    };
-
-menuButton.onMouseOver = function()
-    {
-    menuButton.gotoAndPlay("onMouseOver");
-    };
-    
-menuButton.onMouseOut = function()
-    {
-    menuButton.gotoAndPlay("main");
-    };
-    
-    
-STAGE.addChild( menuButton );
-};
-
-
-
-GameMenu.addWeaponsSelection = function()
-{
-var weaponsSprite = {
-
-    animations: {
-        weapon1: {
-            frames: [ 0 ],
-            next: "weapon1"
-            },
-        weapon2: {
-            frames: [ 1 ],
-            next: "weapon2"
-            },
-        weapon3: {
-            frames: [ 2 ],
-            next: "weapon3"
-            },
-        weapon4: {
-            frames: [ 3 ],
-            next: "weapon4"
-            }
-        },
-    frames: {
-        width: 400,
-        height: 35
-        },
-    images: [ "images/weapons_selection.png" ]
-    };
-    
-var sprite = new createjs.SpriteSheet( weaponsSprite );
-
-var weapons = new createjs.BitmapAnimation( sprite ); 
-
-weapons.gotoAndPlay("weapon1");
-
-weapons.x = 20;
-weapons.y = CANVAS.height - 50;
-
-
-GameMenu.weaponsBitmap = weapons;
-
-STAGE.addChild( weapons );
-};
-
-
+/*
+    number is zero-based
+ */
 
 GameMenu.selectWeapon = function( number )
 {
-if ( number === 1 )
+if ( number !== WEAPON_SELECTED )
     {
-    GameMenu.weaponsBitmap.gotoAndPlay("weapon1");
-    }
+        // remove the css class from the previous element
+    $( WEAPON_ELEMENTS[ WEAPON_SELECTED ] ).removeClass( 'WeaponsSelected' );
 
-else if ( number === 2 )
-    {
-    GameMenu.weaponsBitmap.gotoAndPlay("weapon2");
-    }
+    WEAPON_SELECTED = number;
 
-else if ( number === 3 )
-    {
-    GameMenu.weaponsBitmap.gotoAndPlay("weapon3");
-    }
-
-else if ( number === 4 )
-    {
-    GameMenu.weaponsBitmap.gotoAndPlay("weapon4");
+        // add to the new
+    $( WEAPON_ELEMENTS[ WEAPON_SELECTED ] ).addClass( 'WeaponsSelected' );
     }
 };
-
-
 
 
 
@@ -297,6 +268,36 @@ setTimeout( function()
 createjs.Ticker.setPaused( true );
 };
 
+
+/*
+    Updates the number of bullets left (zero-based)
+ */
+
+GameMenu.updateBulletsLeft = function( weapon, bulletsLeft )
+{
+var bulletsElement = BULLETS_LEFT_ELEMENTS[ weapon ];
+
+bulletsElement.innerText = bulletsLeft;
+};
+
+
+GameMenu.updateAllBulletsLeft = function()
+{
+for (var i = 0 ; i < BULLETS_LEFT_ELEMENTS.length ; i++)
+    {
+    GameMenu.updateBulletsLeft( i,MAIN_SHIP.getBulletsLeft( i ) );
+    }
+};
+
+
+GameMenu.clear = function()
+{
+WEAPON_ELEMENTS.length = 0;
+BULLETS_LEFT_ELEMENTS.length = 0;
+
+IS_OPENED = false;
+WEAPON_SELECTED = 0;
+};
 
 
 window.GameMenu = GameMenu;

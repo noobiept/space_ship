@@ -1,6 +1,8 @@
 body
     {
     background-color: black;
+
+    font-family: Arial, sans-serif;
     }
 
 
@@ -29,7 +31,7 @@ body
     z-index: 50;
     }
 
-#MainMenu
+#MainMenu, #InGameBar, #InGameBar-openMenu
     {
     z-index: 150;
     }
@@ -39,10 +41,10 @@ body
 
 #MainMenu
     {
+    display: none;
     color: rgb(120, 120, 120);
     text-align: center;
     font-size: 28px;
-    font-family: Arial, sans-serif;
 
     position: absolute;
 
@@ -71,3 +73,61 @@ body
     cursor: pointer;
     }
 
+
+    /* In Game Bar */
+
+#InGameBar
+    {
+    display: none;
+
+    user-select: none;
+    -webkit-user-select: none;
+
+    color: white;
+    }
+
+
+#InGameBar-selectWeapon, #InGameBar-bulletsLeft, #InGameBar-openMenu
+    {
+    position: absolute;
+    top: 0;
+    left: 0;
+    }
+
+#InGameBar-selectWeapon > *, #InGameBar-bulletsLeft > *
+    {
+    float: left;
+
+    text-align: center;
+    padding: 5px 0;
+    width: 100px;
+    }
+
+
+#InGameBar-selectWeapon > *
+    {
+    cursor: pointer;
+
+    color: white;
+    font-size: 18px;
+    }
+
+#InGameBar-bulletsLeft > *
+    {
+    color: rgb(120, 120, 120);
+    font-size: 14px;
+    }
+
+
+#InGameBar-selectWeapon .WeaponsSelected
+    {
+    color: black;
+    background-color: white;
+    }
+
+
+#InGameBar-openMenu
+    {
+    cursor: pointer;
+    font-size: 20px;
+    }

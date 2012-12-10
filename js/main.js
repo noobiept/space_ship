@@ -39,7 +39,7 @@
             - sniper bullet is too fast for the shape/body to be synced
             - cant fire if mouse is outside of canvas
 
-        - use html/css for the in game menu
+        - change the weapons variables in Ship to be zero-based ( this.weaponSelected )
  */
 
 

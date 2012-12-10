@@ -160,3 +160,43 @@ if ( x < 0 || x > width || y < 0 || y > height )
 
 return false;
 }
+
+
+/*
+    Calculates the top/left values to be able to position an html element x-centered, and with a provided y (counting from the beginning of the canvas)
+ */
+
+function centerHtmlElement( element, yPosition )
+{
+var canvasPosition = $( CANVAS ).position();
+
+    // center the instructions (center of canvas, minus half the data width, plus the possible offset in the canvas)
+var left = CANVAS.width / 2 - $(element).width() / 2 + canvasPosition.left;
+
+var top = yPosition + canvasPosition.top;
+
+$( element ).css({
+    'top'     : top + 'px',
+    'left'    : left + 'px'
+    });
+}
+
+
+/*
+    Positions an html element with top/left css properties, with x/y position of the canvas (like you were drawing in the canvas)
+ */
+
+function positionHtmlElement( element, x, y )
+{
+var canvasPosition = $( CANVAS ).position();
+
+    // the canvas may not be at the top/left of the window, so subtract the difference (so a coordinate is the same as with the canvas)
+var left = canvasPosition.left + x;
+
+var top = canvasPosition.top + y;
+
+    $( element ).css({
+        'top'     : top + 'px',
+        'left'    : left + 'px'
+    });
+}

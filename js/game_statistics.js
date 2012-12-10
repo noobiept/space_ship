@@ -24,15 +24,6 @@
 
 (function(window) 
 {
-
-var BULLETS_LEFT_TEXT = [
-    null,
-    null,
-    null,
-    null
-    ];
-
-
 function GameStatistics()
 {
 GameStatistics.score = 0;
@@ -55,6 +46,7 @@ g.score = 0;
 g.energy = 100;
 g.numberOfEnemies = 0;
 
+    // :: Score :: //
 
 g.score_text = new createjs.Text("Score: " + g.score, "16px Arial", "#777");
 
@@ -71,6 +63,8 @@ g.score_text.x = CANVAS.width - 150;
 g.score_text.y = 40;
 
 
+    // :: Energy :: //
+
 g.energy_text = new createjs.Text("Energy: " + g.energy, "16px Arial", "#777");
 
 STAGE.addChild( g.energy_text );
@@ -82,6 +76,8 @@ g.energy_text.x = g.score_text.x;
 g.energy_text.y = g.score_text.y + 30;
 
 
+    // :: Number of Enemies :: //
+
 g.numberOfEnemies_text = new createjs.Text("Enemies in map: " + g.numberOfEnemies, "16px Arial", "#777");
 
 
@@ -92,21 +88,6 @@ ZIndex.add( g.numberOfEnemies_text );
 
 g.numberOfEnemies_text.x = g.energy_text.x;
 g.numberOfEnemies_text.y = g.energy_text.y + 30;
-
-
-var i;
-
-for (i = 0 ; i < BULLETS_LEFT_TEXT.length ; i++)
-    {
-    BULLETS_LEFT_TEXT[ i ] = new createjs.Text( Ship.bulletsLeft[ i ] + " Bullets", "14px Arial", "#777");
-    
-    BULLETS_LEFT_TEXT[ i ].x = 40 + i * 100;
-    BULLETS_LEFT_TEXT[ i ].y = CANVAS.height - 13;
-    
-    STAGE.addChild( BULLETS_LEFT_TEXT[ i ] );
-
-    ZIndex.add( BULLETS_LEFT_TEXT[ i ] );
-    }
 };
 
 
@@ -160,10 +141,17 @@ g.energy_text.text = "Energy: " + g.energy;
 };
 
 
+/*
+    Arguments:
+
+        weapon (number) : zero-based weapon to update
+ */
 
 GameStatistics.updateBulletsLeft = function( weapon )
 {
-BULLETS_LEFT_TEXT[ weapon ].text = Ship.bulletsLeft[ weapon ] + " Bullets";
+var bulletsLeft = MAIN_SHIP.getBulletsLeft( weapon );
+
+GameMenu.updateBulletsLeft( weapon, bulletsLeft );
 };
 
 

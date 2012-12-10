@@ -70,7 +70,6 @@ STAGE.update();
 
 MainMenu.startGame = function()
 {
-console.log('startgame');
 MainMenu.cleanUp();
 
 StartGame();
@@ -84,26 +83,6 @@ MainMenu.cleanUp();
 EndlessMode();
 };
 
-
-
-/*
-    Calculates the top/left values to be able to position an html element x-centered, and with a provided y (counting from the beginning of the canvas)
- */
-
-function centerHtmlElement( element, yPosition )
-{
-var canvasPosition = $( CANVAS ).position();
-
-    // center the instructions (center of canvas, minus half the data width, plus the possible offset in the canvas)
-var left = CANVAS.width / 2 - $(element).width() / 2 + canvasPosition.left;
-
-var top = yPosition + canvasPosition.top;
-
-$( element ).css({
-    'top'     : top + 'px',
-    'left'    : left + 'px'
-    });
-}
 
 
 

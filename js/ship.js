@@ -288,7 +288,7 @@ Ship.prototype.selectWeapon = function( weaponNumber )
 {
 this.weaponSelected = weaponNumber;
 
-GameMenu.selectWeapon( weaponNumber ); 
+GameMenu.selectWeapon( weaponNumber - 1 );
 };
     
 
@@ -390,7 +390,15 @@ for (i = 0 ; i < AMMO_UPDATE_TICK.length ; i++)
         }
     }
 };
-    
+
+/*
+    Returns the number of bullets left from a particular weapon (zero-based)
+ */
+
+Ship.prototype.getBulletsLeft = function( weapon )
+{
+return BULLETS_LEFT[ weapon ];
+};
     
     
 /* 
@@ -566,9 +574,7 @@ this.updateShape();
 
 this.updateAmmo(); 
 };
-    
 
-Ship.bulletsLeft = BULLETS_LEFT;
     
 window.Ship = Ship;
 
