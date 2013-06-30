@@ -17,9 +17,6 @@
     along with space_ship_game.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*global LOADING_INTERVAL, CANVAS, $, EVENT_KEY, GAME_MODE*/
-/*jslint vars: true, white: true*/
-
 "use strict";
 
 (function(window)
@@ -37,7 +34,13 @@ var ENTRIES_ELEMENTS = [];
     
 function MainMenu()
 {
-clearInterval( LOADING_INTERVAL );
+if ( LOADING_MESSAGE )
+    {
+    LOADING_MESSAGE.remove();
+
+    LOADING_MESSAGE = null;
+    }
+
 
 resetStuff();
 

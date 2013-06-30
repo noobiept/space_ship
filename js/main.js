@@ -17,10 +17,7 @@
     along with space_ship_game.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*global createjs, Ship, EnemyMoveHorizontally, Weapons, handleKeyDown, handleKeyUp, MainMenu, EnemyRotateAround, GameStatistics, GameMenu, getRandomInt, updateLoading, EnemyKamikaze, ZIndex, EnemyShip, $, clearKeysHeld, EnemyRocks*/
-/*jslint vars: true, white: true*/
-    
-"use strict";    
+"use strict";
 
 /*
     Issues:
@@ -29,7 +26,7 @@
         - the EnemyKamikaze doesn't work too well
         - when returning from the game_menu with two keys held, top and left arrow for example, it doesn't continue going to the top left corner, but to the left only
         - tweenjs not working
-        
+        - its finishing the game while there are still some enemies (some bug)
         
     to doo:
 
@@ -40,6 +37,10 @@
             - cant fire if mouse is outside of canvas
 
         - change the weapons variables in Ship to be zero-based ( this.weaponSelected )
+        - add enemies with more energy (and maybe show above the unit how many more hitpoints it has)
+
+        - random maps (like 1 map, random 50 units.. with certain time between each new unit. map 2, more units etc...)
+        - center the game/canvas in the middle of the window
  */
 
 
@@ -79,15 +80,9 @@ var WORLD = null;
 var GAME_WIDTH;
 var GAME_HEIGHT;
 
-
-var LOADING_INTERVAL = 0;
-    
-var LOADING_MESSAGE;
-    
     
 var MAIN_SHIP;
-    
-    
+
 var ENEMY_TYPES = [
 
     EnemyMoveHorizontally,
@@ -112,54 +107,45 @@ var TYPE_BULLET = 2;
     // has functions to be called later (related to a collision). Have to remove the elements after executing the function
 var COLLISION_F = [];
 
+
+var LOADING_MESSAGE;
     
 window.onload = function()
 {
-PRELOAD = new createjs.PreloadJS();
-
-var manifest = [
-    { id:"game_music", src: "sound/scumm_bar.ogg" }    // just testing
-    ];
-
-PRELOAD.onComplete = MainMenu;
-PRELOAD.installPlugin( createjs.SoundJS );
-PRELOAD.loadManifest( manifest, true );
-
     // get a reference to the canvas we'll be working with
 CANVAS = document.querySelector( "#mainCanvas" );
 
     // canvas for debugging the physics
 CANVAS_DEBUG = document.querySelector( '#debugCanvas' );
 
-
     // create a stage object to work with the canvas. This is the top level node in the display list
 STAGE = new createjs.Stage( CANVAS );
-
 
 WORLD = new b2World(
     new b2Vec2(0, 0),   // zero-gravity
     true                // allow sleep
     );
 
-LOADING_MESSAGE = new createjs.Text("Loading", "bold 20px Arial", "rgb(255, 255, 255)");
 
-LOADING_MESSAGE.maxWidth = 500;
-LOADING_MESSAGE.textAlign = "center";
-LOADING_MESSAGE.x = CANVAS.width / 2;
-LOADING_MESSAGE.y = CANVAS.height / 2;
+PRELOAD = new createjs.LoadQueue();
 
-STAGE.addChild( LOADING_MESSAGE );
-STAGE.update();
+var manifest = [
+    { id: "game_music", src: "sound/scumm_bar.ogg" }    // just testing
+    ];
 
-LOADING_INTERVAL = setInterval(updateLoading, 200);
+
+LOADING_MESSAGE = new Message({ text: 'Loading' });
+
+PRELOAD.installPlugin( createjs.SoundJS );
+PRELOAD.addEventListener( 'progress', updateLoading );
+PRELOAD.addEventListener( 'complete', MainMenu );
+PRELOAD.loadManifest( manifest, true );
 };
     
 
-function updateLoading() 
+function updateLoading( event )
 {
-LOADING_MESSAGE.text = "Loading " + (PRELOAD.progress*100|0) + "%";
-
-STAGE.update();
+LOADING_MESSAGE.setText( "Loading " + ( event.progress*100 | 0 ) + "%" );
 }
     
     
@@ -227,7 +213,7 @@ STAGE.onMouseMove = function( event ) { MAIN_SHIP.handleMouseMove( event ); };
 STAGE.onMouseDown = function( event ) { MAIN_SHIP.handleClick( event ); };
 
 
-//createjs.SoundJS.play("game_music", SoundJS.INTERRUPT_NONE ,0 ,0, -1);
+//createjs.SoundJS.play("game_music", createjs.SoundJS.INTERRUPT_NONE ,0 ,0, -1);
 
 GameMenu();
 }
