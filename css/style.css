@@ -28,6 +28,19 @@ body
     }
 
 
+.button
+    {
+    cursor: pointer;
+    }
+
+
+.button:hover
+    {
+    color: black;
+    background-color: white;
+    }
+
+
     /* z-index */
 
 #mainCanvas
@@ -40,7 +53,7 @@ body
     z-index: 50;
     }
 
-#MainMenu, #InGameBar > *
+#MainMenu, #GameMenu
     {
     z-index: 150;
     }
@@ -83,10 +96,11 @@ body
     }
 
 
-    /* In Game Bar */
+    /* Game Menu */
 
-#InGameBar
+#GameMenu
     {
+    position: absolute;
     display: none;
 
     user-select: none;
@@ -96,16 +110,20 @@ body
     }
 
 
-#InGameBar-selectWeapon, #InGameBar-bulletsLeft, #InGameBar-openMenu
+
+#GameMenu-right, #GameMenu-left
     {
-    position: absolute;
-    top: 0;
-    left: 0;
+    display: inline-block;
     }
 
-#InGameBar-selectWeapon > *, #InGameBar-bulletsLeft > *
+#GameMenu-right
     {
-    float: left;
+    float: right;
+    }
+
+#GameMenu-selectWeapon > *, #GameMenu-bulletsLeft > *, #GameMenu-right > *
+    {
+    display: inline-block;
 
     text-align: center;
     padding: 5px 0;
@@ -113,7 +131,7 @@ body
     }
 
 
-#InGameBar-selectWeapon > *
+#GameMenu-selectWeapon > *
     {
     cursor: pointer;
 
@@ -121,22 +139,17 @@ body
     font-size: 18px;
     }
 
-#InGameBar-bulletsLeft > *
+#GameMenu-bulletsLeft > *
     {
     color: rgb(120, 120, 120);
     font-size: 14px;
     }
 
 
-#InGameBar-selectWeapon .WeaponsSelected
+#GameMenu-selectWeapon .WeaponsSelected
     {
     color: black;
     background-color: white;
     }
 
 
-#InGameBar-openMenu
-    {
-    cursor: pointer;
-    font-size: 20px;
-    }

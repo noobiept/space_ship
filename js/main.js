@@ -18,6 +18,7 @@
         - when returning from the game_menu with two keys held, top and left arrow for example, it doesn't continue going to the top left corner, but to the left only
         - tweenjs not working
         - its finishing the game while there are still some enemies (some bug)
+        - when the message appears telling the game ended (to press enter to restart), you can still fire the bullets
         
     to doo:
 
@@ -32,6 +33,7 @@
 
         - random maps (like 1 map, random 50 units.. with certain time between each new unit. map 2, more units etc...)
         - center the game/canvas in the middle of the window
+        - add options in main menu (turn music on/off)
  */
 
 
@@ -374,7 +376,7 @@ $( ENEMY_TYPES ).each(function(index, enemyType)
 clearKeysHeld();
 
 
-$( '#InGameBar' ).css( 'display', 'none' );
+$( '#GameMenu' ).css( 'display', 'none' );
 
 COLLISION_F.length = 0;
 

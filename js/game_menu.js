@@ -13,17 +13,17 @@ function GameMenu()
 {
 GameMenu.clear();
 
-var inGameBar = document.querySelector( '#InGameBar' );
+var menu = document.querySelector( '#GameMenu' );
 
     // :: Weapons Selection :: //
 
-var weaponsContainer = inGameBar.querySelector( '#InGameBar-selectWeapon' );
+var weaponsContainer = menu.querySelector( '#GameMenu-selectWeapon' );
 
 
-var weapon1 = weaponsContainer.querySelector( '#InGameBar-weapon1' );
-var weapon2 = weaponsContainer.querySelector( '#InGameBar-weapon2' );
-var weapon3 = weaponsContainer.querySelector( '#InGameBar-weapon3' );
-var weapon4 = weaponsContainer.querySelector( '#InGameBar-weapon4' );
+var weapon1 = weaponsContainer.querySelector( '#GameMenu-weapon1' );
+var weapon2 = weaponsContainer.querySelector( '#GameMenu-weapon2' );
+var weapon3 = weaponsContainer.querySelector( '#GameMenu-weapon3' );
+var weapon4 = weaponsContainer.querySelector( '#GameMenu-weapon4' );
 
 WEAPON_ELEMENTS.push( weapon1, weapon2, weapon3, weapon4 );
 
@@ -54,12 +54,12 @@ weapon4.onclick = function()
 
     // :: Bullets Left :: //
 
-var bulletsContainer = inGameBar.querySelector( '#InGameBar-bulletsLeft' );
+var bulletsContainer = menu.querySelector( '#GameMenu-bulletsLeft' );
 
-var bulletsLeft1 = bulletsContainer.querySelector( '#InGameBar-bullets1' );
-var bulletsLeft2 = bulletsContainer.querySelector( '#InGameBar-bullets2' );
-var bulletsLeft3 = bulletsContainer.querySelector( '#InGameBar-bullets3' );
-var bulletsLeft4 = bulletsContainer.querySelector( '#InGameBar-bullets4' );
+var bulletsLeft1 = bulletsContainer.querySelector( '#GameMenu-bullets1' );
+var bulletsLeft2 = bulletsContainer.querySelector( '#GameMenu-bullets2' );
+var bulletsLeft3 = bulletsContainer.querySelector( '#GameMenu-bullets3' );
+var bulletsLeft4 = bulletsContainer.querySelector( '#GameMenu-bullets4' );
 
 
 BULLETS_LEFT_ELEMENTS.push( bulletsLeft1, bulletsLeft2, bulletsLeft3, bulletsLeft4 );
@@ -68,31 +68,34 @@ BULLETS_LEFT_ELEMENTS.push( bulletsLeft1, bulletsLeft2, bulletsLeft3, bulletsLef
 GameMenu.updateAllBulletsLeft();
 
 
-    // :: Open Menu :: //
+    // :: Restart :: //
 
-var openMenu = inGameBar.querySelector( '#InGameBar-openMenu' );
+var restart = menu.querySelector( '#GameMenu-restart' );
 
-positionHtmlElement( openMenu, CANVAS.width - 60, CANVAS.height - 45 );
-
-
-openMenu.onclick = function()
+restart.onclick = function()
     {
-    GameMenu.openMenu();
+    GAME_MODE();
+    };
+
+    // :: Quit :: //
+
+var quit = menu.querySelector( '#GameMenu-quit' );
+
+quit.onclick = function()
+    {
+    MainMenu();
     };
 
 
-    // :: Position the elements :: //
+    // :: Position the menu :: //
 
-positionHtmlElement( weaponsContainer, 20, CANVAS.height - 50 );
+$( menu ).css( 'width', CANVAS.width + 'px' );
 
-positionHtmlElement( bulletsContainer, 20, CANVAS.height - 20 );
+positionHtmlElement( menu, 0, CANVAS.height - 50 );
 
-$( '#InGameBar' ).css( 'display', 'block' );
+
+$( '#GameMenu' ).css( 'display', 'block' );
 }
-
-
-    // if the in game is opened or not
-var IS_OPENED = false;
 
 
 /*
@@ -114,136 +117,6 @@ if ( number !== WEAPON_SELECTED )
 };
 
 
-
-GameMenu.isOpened = function()
-{
-return IS_OPENED;
-};
-
-
-
-
-
-GameMenu.openMenu = function()
-{
-IS_OPENED = true;
-
-    // :: Background :: //
-
-var background = new createjs.Bitmap( 'images/game_menu/game_menu_background.png' );
-
-background.x = 0;
-background.y = 0;
-
-
-    // useful for positioning the menu entries in the center of the canvas
-var entryHalfWidth = 140 / 2;
-
-    // will be the x for all entries
-var centeredX = CANVAS.width / 2 - entryHalfWidth;
-
-    // :: Toggle Music :: //
-
-var toggleMusic = new createjs.Bitmap( 'images/game_menu/game_menu_music_off.png' );
-
-
-var musicOn = true;
-
-toggleMusic.onClick = function()
-    {
-    if ( musicOn )
-        {
-        musicOn = false;
-        
-        createjs.SoundJS.pause();
-        }
-    
-    else
-        {
-        musicOn = true;
-        
-        createjs.SoundJS.resume();
-        }
-    };
-
-toggleMusic.x = centeredX;
-toggleMusic.y = 90;
-    
-    
-    // :: Restart :: //
-
-var restart = new createjs.Bitmap( 'images/game_menu/game_menu_restart.png' );    
-
-restart.onClick = function()
-    {
-    createjs.Ticker.setPaused( false );
-    
-    IS_OPENED = false;
-    
-    GAME_MODE();
-    };
-
-restart.x = centeredX;
-restart.y = toggleMusic.y + 70;
-    
-    // :: Quit :: //
-    
-var quit = new createjs.Bitmap( 'images/game_menu/game_menu_quit.png' );
-
-quit.onClick = function()
-    {
-    createjs.Ticker.setPaused( false );
-    
-    IS_OPENED = false;
-    
-    MainMenu();
-    };
-
-quit.x = centeredX;
-quit.y = restart.y + 30;
-    
-   
-    // :: Back to the Game :: //
-    
-var backToGame = new createjs.Bitmap( 'images/game_menu/game_menu_back_to_game.png' );
-
-backToGame.onClick = function()
-    {
-    STAGE.removeChild( background );
-    STAGE.removeChild( toggleMusic );
-    STAGE.removeChild( restart );
-    STAGE.removeChild( quit );
-    STAGE.removeChild( backToGame );
-    
-    createjs.Ticker.setPaused( false );
-    
-    IS_OPENED = false;
-    };
-
-backToGame.x = centeredX;
-backToGame.y = quit.y + 70;
-    
-    
-STAGE.addChild( background );
-STAGE.addChild( toggleMusic );
-STAGE.addChild( restart );
-STAGE.addChild( quit );
-STAGE.addChild( backToGame );
-
-STAGE.update();
-
-clearKeysHeld();
-
-    // fix problem when the game menu isn't shown the first time it is opened
-setTimeout( function() 
-    { 
-    //Ticker.setPaused( true ); 
-    STAGE.update();
-    }, 50 );
-
-    // stop the game
-createjs.Ticker.setPaused( true );
-};
 
 
 /*
@@ -272,7 +145,6 @@ GameMenu.clear = function()
 WEAPON_ELEMENTS.length = 0;
 BULLETS_LEFT_ELEMENTS.length = 0;
 
-IS_OPENED = false;
 WEAPON_SELECTED = 0;
 };
 
