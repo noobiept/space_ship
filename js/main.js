@@ -20,6 +20,16 @@
 "use strict";
 
 /*
+    Dependencies:
+
+        - jquery : 2.0
+        - createjs
+            - easeljs   : 0.6
+            - preloadjs : 0.3
+            - soundjs   : 0.4
+            - tweenjs   : 0.4
+        - box2dweb : 2.1.a
+
     Issues:
     
         - the game_menu entries have to have a background color, so that we can click in the entry (instead of the text)
@@ -117,6 +127,9 @@ CANVAS = document.querySelector( "#mainCanvas" );
 
     // canvas for debugging the physics
 CANVAS_DEBUG = document.querySelector( '#debugCanvas' );
+
+centerCanvas( CANVAS );
+centerCanvas( CANVAS_DEBUG );
 
     // create a stage object to work with the canvas. This is the top level node in the display list
 STAGE = new createjs.Stage( CANVAS );
@@ -337,8 +350,21 @@ else if ( (typeA === TYPE_BULLET && typeB === TYPE_ENEMY) ||
 }
 
 
+/*
+    center the canvas in the middle of window
+ */
 
-    
+function centerCanvas( canvasElement )
+{
+var left = window.innerWidth / 2 - canvasElement.width / 2;
+var top = window.innerHeight / 2 - canvasElement.height / 2;
+
+$( canvasElement ).css( 'left', left + 'px' );
+$( canvasElement ).css( 'top', top + 'px' );
+}
+
+
+
 /*
     Resets the configurations (for when restarting the game)
  */
@@ -365,6 +391,21 @@ $( ENEMY_TYPES ).each(function(index, enemyType)
     });
     
 clearKeysHeld();
+
+
+$( '#InGameBar' ).css( 'display', 'none' );
+
+COLLISION_F.length = 0;
+
+STAGE.update();
+WORLD.Step(
+    1 / 60,     // frame-rate
+    10,         // velocity iterations
+    10          // position iterations
+    );
+
+WORLD.DrawDebugData();
+WORLD.ClearForces();
 }
     
     

@@ -9,8 +9,11 @@ body
 #mainCanvas, #debugCanvas
     {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    }
+
+#mainCanvas
+    {
+    border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
 #debugCanvas
@@ -37,7 +40,7 @@ body
     z-index: 50;
     }
 
-#MainMenu, #InGameBar, #InGameBar-openMenu
+#MainMenu, #InGameBar > *
     {
     z-index: 150;
     }

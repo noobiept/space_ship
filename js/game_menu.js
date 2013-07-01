@@ -17,10 +17,6 @@
     along with space_ship_game.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*global Text, STAGE, Ticker, CANVAS, Shape, SoundJS, SpriteSheet, BitmapAnimation*/
-/*jslint vars: true, white: true*/
-
-
 "use strict";
 
 (function(window)
