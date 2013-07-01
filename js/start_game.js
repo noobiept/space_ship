@@ -1,13 +1,6 @@
-
-
-
 (function(window)
 {
-
-
-
-
-function StartGame() 
+function StartGame()
 {
 GAME_MODE = StartGame;
 
@@ -17,13 +10,10 @@ Maps();
 }
 
 
-
-
 StartGame.tick = function()
 {
 
 };
-
 
 
 window.StartGame = StartGame;
