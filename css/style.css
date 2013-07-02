@@ -3,6 +3,9 @@ body
     background-color: black;
     color: white;
     font-family: Arial, sans-serif;
+
+    -webkit-user-select: none;
+    user-select: none;
     }
 
 
@@ -31,6 +34,7 @@ body
 .button
     {
     cursor: pointer;
+    color: white;
     }
 
 
@@ -53,7 +57,7 @@ body
     z-index: 50;
     }
 
-#MainMenu, #GameMenu
+#MainMenu, #Options, #GameMenu
     {
     z-index: 150;
     }
@@ -61,7 +65,7 @@ body
 
     /* Main Menu */
 
-#MainMenu
+#MainMenu, #Options
     {
     display: none;
     color: rgb(120, 120, 120);
@@ -87,11 +91,18 @@ body
     padding: 12px 40px;
     }
 
-#MainMenu-startGame:hover, #MainMenu-endlessMode:hover, .MainMenu-entrySelected
+#MainMenu > *:hover, .MainMenu-entrySelected
     {
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
 
+    cursor: pointer;
+    }
+
+    /* Options Menu */
+
+#Options-music
+    {
     cursor: pointer;
     }
 

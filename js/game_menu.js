@@ -83,7 +83,7 @@ var quit = menu.querySelector( '#GameMenu-quit' );
 
 quit.onclick = function()
     {
-    MainMenu();
+    MainMenu.open();
     };
 
 

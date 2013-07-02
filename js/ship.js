@@ -318,12 +318,6 @@ if ( !event )
     }
 
     
-    // don't do anything when the menu is opened
-if ( GameMenu.isOpened() )
-    {
-    return;
-    }
-
 var weapons = [ Weapon1_laser, Weapon2_sniper, Weapon3_rocket, Weapon4_mines ];
 
     // .weaponSelected starts at 1 for the first element (but arrsys start at 0)

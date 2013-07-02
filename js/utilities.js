@@ -301,3 +301,18 @@ var value = this.getItem( key );
 
 return value && JSON.parse( value );
 };
+
+
+
+function boolToOnOff( value )
+{
+if ( value == true )
+    {
+    return 'On';
+    }
+
+else
+    {
+    return 'Off';
+    }
+}

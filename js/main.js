@@ -32,8 +32,6 @@
         - add enemies with more energy (and maybe show above the unit how many more hitpoints it has)
 
         - random maps (like 1 map, random 50 units.. with certain time between each new unit. map 2, more units etc...)
-        - center the game/canvas in the middle of the window
-        - add options in main menu (turn music on/off)
  */
 
 
@@ -88,7 +86,8 @@ var ENEMY_TYPES = [
 
     
 var GAME_MODE = null;
-    
+
+var MUSIC = null;
 
     // :: Collision Detection :: //
 
@@ -105,6 +104,8 @@ var LOADING_MESSAGE;
     
 window.onload = function()
 {
+Options.load();
+
     // get a reference to the canvas we'll be working with
 CANVAS = document.querySelector( "#mainCanvas" );
 
@@ -132,12 +133,18 @@ var manifest = [
 
 LOADING_MESSAGE = new Message({ text: 'Loading' });
 
-PRELOAD.installPlugin( createjs.SoundJS );
+PRELOAD.installPlugin( createjs.Sound );
 PRELOAD.addEventListener( 'progress', updateLoading );
-PRELOAD.addEventListener( 'complete', MainMenu );
+PRELOAD.addEventListener( 'complete', MainMenu.open );
 PRELOAD.loadManifest( manifest, true );
 };
     
+
+window.onunload = function()
+{
+Options.save();
+};
+
 
 function updateLoading( event )
 {
@@ -209,7 +216,10 @@ STAGE.onMouseMove = function( event ) { MAIN_SHIP.handleMouseMove( event ); };
 STAGE.onMouseDown = function( event ) { MAIN_SHIP.handleClick( event ); };
 
 
-//createjs.SoundJS.play("game_music", createjs.SoundJS.INTERRUPT_NONE ,0 ,0, -1);
+if ( Options.getMusic() )
+    {
+    MUSIC = createjs.Sound.play("game_music", createjs.Sound.INTERRUPT_NONE ,0 ,0, -1);
+    }
 
 GameMenu();
 }

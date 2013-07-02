@@ -199,7 +199,7 @@ Maps.noMoreLevels = function()
 {
 Maps.reset();
 
-Maps.showMessage("Congratulations, you finished the game!\nToo easy huh?", 4000, function() { MainMenu(); } );
+Maps.showMessage("Congratulations, you finished the game!\nToo easy huh?", 4000, function() { MainMenu.open(); } );
 };
 
 

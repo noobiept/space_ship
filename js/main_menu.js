@@ -2,8 +2,6 @@
 
 (function(window)
 {
-var MENU_CONTAINER;
-
 var ENTRY_SELECTED = 0;
 
     // has the functions to call when choosing an entry
@@ -12,8 +10,13 @@ var ENTRIES = [];
     // has the html elements of the entries
 var ENTRIES_ELEMENTS = [];
 
-    
 function MainMenu()
+{
+
+}
+
+    
+MainMenu.open = function()
 {
 if ( LOADING_MESSAGE )
     {
@@ -22,32 +25,44 @@ if ( LOADING_MESSAGE )
     LOADING_MESSAGE = null;
     }
 
+if ( MUSIC )
+    {
+    MUSIC.stop();
+
+    MUSIC = null;
+    }
+
 
 resetStuff();
+MainMenu.cleanUp();
 
 
-MENU_CONTAINER = document.querySelector( '#MainMenu' );
+var menu = document.querySelector( '#MainMenu' );
 
-var startGame = MENU_CONTAINER.querySelector( '#MainMenu-startGame' );
-var endlessMode = MENU_CONTAINER.querySelector( '#MainMenu-endlessMode' );
+var startGame = menu.querySelector( '#MainMenu-startGame' );
+var endlessMode = menu.querySelector( '#MainMenu-endlessMode' );
+var options = menu.querySelector( '#MainMenu-options' );
 
-ENTRIES.push( MainMenu.startGame, MainMenu.endlessMode );
+ENTRIES.push( MainMenu.startGame, MainMenu.endlessMode, MainMenu.openOptions );
 
-ENTRIES_ELEMENTS.push( startGame, endlessMode );
+ENTRIES_ELEMENTS.push( startGame, endlessMode, options );
 
-centerHtmlElement( MENU_CONTAINER, 90 );
+centerHtmlElement( menu, 90 );
 
-$( MENU_CONTAINER ).css( 'display', 'block' );
+$( menu ).css( 'display', 'block' );
 
 startGame.onclick = MainMenu.startGame;
 endlessMode.onclick = MainMenu.endlessMode;
+options.onclick = MainMenu.openOptions;
 
+ENTRY_SELECTED = 0;
+$( startGame ).addClass( 'MainMenu-entrySelected' );
 
 $( document ).bind( "keyup", MainMenu.keyboardEvents );
 
 
 STAGE.update();
-}
+};
 
 
 
@@ -67,6 +82,51 @@ MainMenu.cleanUp();
 EndlessMode();
 };
 
+
+MainMenu.openOptions = function()
+{
+MainMenu.cleanUp();
+
+var options = document.querySelector( '#Options' );
+
+
+    // :: Music :: //
+
+var music = options.querySelector( '#Options-music' );
+var musicValue = music.querySelector( 'span' );
+
+$( musicValue ).text( boolToOnOff( Options.getMusic() ) );
+
+music.onclick = function()
+    {
+    if ( $( musicValue ).text() == 'On' )
+        {
+        $( musicValue ).text( 'Off' );
+
+        Options.setMusic( false );
+        }
+
+    else
+        {
+        $( musicValue ).text( 'On' );
+
+        Options.setMusic( true );
+        }
+    };
+
+
+var back = options.querySelector( '#Options-back' );
+
+back.onclick = function()
+    {
+    MainMenu.open();
+    };
+
+
+$( options ).css( 'display', 'block' );
+
+centerElement( options );
+};
 
 
 
@@ -142,13 +202,17 @@ $( ENTRIES_ELEMENTS[ ENTRY_SELECTED ] ).addClass( 'MainMenu-entrySelected' );
 
 MainMenu.cleanUp = function()
 {
-$( MENU_CONTAINER ).css( 'display', 'none' );
+$( '#MainMenu' ).css( 'display', 'none' );
+$( '#Options' ).css( 'display', 'none' );
 
 $( document ).unbind( "keyup" );
 
-ENTRIES.length = 0;
+
+$( ENTRIES_ELEMENTS[ ENTRY_SELECTED ] ).removeClass( 'MainMenu-entrySelected' );
 
 ENTRY_SELECTED = 0;
+
+ENTRIES.length = 0;
 };
 
 
