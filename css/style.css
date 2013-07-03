@@ -91,12 +91,10 @@ body
     padding: 12px 40px;
     }
 
-#MainMenu > *:hover, .MainMenu-entrySelected
+.MainMenu-entrySelected
     {
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
-
-    cursor: pointer;
     }
 
     /* Options Menu */

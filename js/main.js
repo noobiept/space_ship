@@ -13,11 +13,9 @@
 
     Issues:
     
-        - the game_menu entries have to have a background color, so that we can click in the entry (instead of the text)
         - the EnemyKamikaze doesn't work too well
         - when returning from the game_menu with two keys held, top and left arrow for example, it doesn't continue going to the top left corner, but to the left only
         - tweenjs not working
-        - its finishing the game while there are still some enemies (the body part, in the debug canvas, the shape is removed)
         - when the message appears telling the game ended (to press enter to restart), you can still fire the bullets
         
     to doo:
@@ -57,7 +55,6 @@ var b2Body = Box2D.Dynamics.b2Body;
 var b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
 var b2Fixture = Box2D.Dynamics.b2Fixture;
 var b2World = Box2D.Dynamics.b2World;
-var b2MassData = Box2D.Collision.Shapes.b2MassData;
 var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
 var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
 var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
@@ -68,8 +65,6 @@ var SCALE = 30;
 
 var WORLD = null;
 
-    // draws the bodies of the elements, in a separate canvas
-var DEBUG_DRAW = null;
 
     // playable dimensions (the rest of the canvas is for menus/etc)
 var GAME_WIDTH;
@@ -143,8 +138,6 @@ if ( DEBUG )
     debugDraw.SetFlags( b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit );
 
     WORLD.SetDebugDraw( debugDraw );
-
-    DEBUG_DRAW = debugDraw;
     }
 
 
@@ -398,7 +391,20 @@ $( '#GameMenu' ).css( 'display', 'none' );
 
 COLLISION_F.length = 0;
 
-//DEBUG_DRAW.m_sprite.graphics.clear(); //HERE doesnt remove
+
+    // clear any bodies that for whatever reason aren't removed
+var nextBody = WORLD.GetBodyList();
+
+while ( nextBody )
+    {
+    var body = nextBody;
+
+    nextBody = body.GetNext();
+
+    WORLD.DestroyBody( body );
+    }
+
+WORLD.DrawDebugData();
 
 STAGE.update();
 }
