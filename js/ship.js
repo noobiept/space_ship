@@ -22,6 +22,23 @@ this.setupPhysics();
 
 this.weaponSelected = 1;
 
+    // counter, until it can add a new ammo to the weapon
+this.tick_count = [
+    AMMO_UPDATE_TICK[ 0 ],
+    AMMO_UPDATE_TICK[ 1 ],
+    AMMO_UPDATE_TICK[ 2 ],
+    AMMO_UPDATE_TICK[ 3 ]
+    ];
+
+    // current number of bullets left
+this.bullets_left = [
+        MAX_AMMO[ 0 ] / 2,
+        MAX_AMMO[ 1 ] / 2,
+        MAX_AMMO[ 2 ] / 2,
+        MAX_AMMO[ 3 ] / 2
+    ];
+
+
 Ship.all.push( this );
 
 this.moveTo( GAME_WIDTH / 2, GAME_HEIGHT / 2 );
@@ -46,14 +63,6 @@ var AMMO_UPDATE_TICK = [
     25
     ];
 
-    // and the correspondent counters
-var TICK_COUNT = [
-    AMMO_UPDATE_TICK[ 0 ],
-    AMMO_UPDATE_TICK[ 1 ],
-    AMMO_UPDATE_TICK[ 2 ],
-    AMMO_UPDATE_TICK[ 3 ]
-    ];
-    
 
     // maximum number of bullets per weapon
 var MAX_AMMO = [
@@ -63,14 +72,6 @@ var MAX_AMMO = [
         20
     ];
 
-
-    // current number of bullets
-var BULLETS_LEFT = [
-        MAX_AMMO[0] / 2,
-        MAX_AMMO[1] / 2,
-        MAX_AMMO[2] / 2,
-        MAX_AMMO[3] / 2
-    ];
 
 
 
@@ -322,13 +323,14 @@ var weapons = [ Weapon1_laser, Weapon2_sniper, Weapon3_rocket, Weapon4_mines ];
 
     // .weaponSelected starts at 1 for the first element (but arrsys start at 0)
 var weaponSelected = this.weaponSelected - 1;
+var bulletsLeft = this.bullets_left;
 
 
-if (BULLETS_LEFT[ weaponSelected ] > 0)
+if (bulletsLeft[ weaponSelected ] > 0)
     {
     new weapons[ this.weaponSelected - 1 ]( this );
     
-    BULLETS_LEFT[ weaponSelected ]--;
+    bulletsLeft[ weaponSelected ]--;
     
     GameStatistics.updateBulletsLeft( weaponSelected );
     }
@@ -341,21 +343,23 @@ if (BULLETS_LEFT[ weaponSelected ] > 0)
 Ship.prototype.updateAmmo = function()
 {
 var i;
+var tickCount = this.tick_count;
+var bulletsLeft = this.bullets_left;
 
 for (i = 0 ; i < AMMO_UPDATE_TICK.length ; i++)
     {
-    TICK_COUNT[ i ]--;
+    tickCount[ i ]--;
     
-    if (TICK_COUNT[ i ] <= 0)
+    if (tickCount[ i ] <= 0)
         {
             // reset the counter
-        TICK_COUNT[ i ] = AMMO_UPDATE_TICK[ i ];
+        tickCount[ i ] = AMMO_UPDATE_TICK[ i ];
         
             // if we still didn't reach the maximum value
-        if (BULLETS_LEFT[ i ] < MAX_AMMO[ i ])
+        if (bulletsLeft[ i ] < MAX_AMMO[ i ])
             {
                 // increase the number of bullets available
-            BULLETS_LEFT[ i ]++;
+            bulletsLeft[ i ]++;
             
             GameStatistics.updateBulletsLeft( i );
             }
@@ -369,7 +373,7 @@ for (i = 0 ; i < AMMO_UPDATE_TICK.length ; i++)
 
 Ship.prototype.getBulletsLeft = function( weapon )
 {
-return BULLETS_LEFT[ weapon ];
+return this.bullets_left[ weapon ];
 };
     
     

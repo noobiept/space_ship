@@ -17,7 +17,7 @@
         - the EnemyKamikaze doesn't work too well
         - when returning from the game_menu with two keys held, top and left arrow for example, it doesn't continue going to the top left corner, but to the left only
         - tweenjs not working
-        - its finishing the game while there are still some enemies (some bug)
+        - its finishing the game while there are still some enemies (the body part, in the debug canvas, the shape is removed)
         - when the message appears telling the game ended (to press enter to restart), you can still fire the bullets
         
     to doo:
@@ -32,6 +32,7 @@
         - add enemies with more energy (and maybe show above the unit how many more hitpoints it has)
 
         - random maps (like 1 map, random 50 units.. with certain time between each new unit. map 2, more units etc...)
+        - add volume control to the music
  */
 
 
@@ -66,6 +67,9 @@ var b2ContactListener = Box2D.Dynamics.b2ContactListener;
 var SCALE = 30;
 
 var WORLD = null;
+
+    // draws the bodies of the elements, in a separate canvas
+var DEBUG_DRAW = null;
 
     // playable dimensions (the rest of the canvas is for menus/etc)
 var GAME_WIDTH;
@@ -124,6 +128,26 @@ WORLD = new b2World(
     );
 
 
+if ( DEBUG )
+    {
+    $( CANVAS_DEBUG ).css('display', 'block');
+
+        // setup debug draw
+
+    var debugDraw = new b2DebugDraw();
+
+    debugDraw.SetSprite( CANVAS_DEBUG.getContext('2d') );
+    debugDraw.SetDrawScale( SCALE );
+    debugDraw.SetFillAlpha(0.4);
+    debugDraw.SetLineThickness(1);
+    debugDraw.SetFlags( b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit );
+
+    WORLD.SetDebugDraw( debugDraw );
+
+    DEBUG_DRAW = debugDraw;
+    }
+
+
 PRELOAD = new createjs.LoadQueue();
 
 var manifest = [
@@ -171,23 +195,6 @@ GAME_HEIGHT = CANVAS.height - 60;
 MAIN_SHIP = new Ship();
 
 
-if ( DEBUG )
-    {
-    $( CANVAS_DEBUG ).css('display', 'block');
-
-    // setup debug draw
-
-    var debugDraw = new b2DebugDraw();
-
-    debugDraw.SetSprite( CANVAS_DEBUG.getContext('2d') );
-    debugDraw.SetDrawScale( SCALE );
-    debugDraw.SetFillAlpha(0.4);
-    debugDraw.SetLineThickness(1);
-    debugDraw.SetFlags( b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit );
-
-    WORLD.SetDebugDraw( debugDraw );
-    }
-
 
     // so that .tick() of EnemyShip/Ship/... is called automatically
 createjs.Ticker.addListener( MAIN_SHIP );
@@ -223,7 +230,8 @@ if ( Options.getMusic() )
 
 GameMenu();
 }
-   
+
+
 
 /*
     Called on 'BeginContact' between box2d bodies
@@ -390,15 +398,9 @@ $( '#GameMenu' ).css( 'display', 'none' );
 
 COLLISION_F.length = 0;
 
-STAGE.update();
-WORLD.Step(
-    1 / 60,     // frame-rate
-    10,         // velocity iterations
-    10          // position iterations
-    );
+//DEBUG_DRAW.m_sprite.graphics.clear(); //HERE doesnt remove
 
-WORLD.DrawDebugData();
-WORLD.ClearForces();
+STAGE.update();
 }
     
     
@@ -445,7 +447,6 @@ WORLD.Step(
 
 WORLD.DrawDebugData();
 WORLD.ClearForces();
-
 
 STAGE.update();
 }

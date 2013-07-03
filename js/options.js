@@ -40,6 +40,7 @@ Options.setMusic = function( trueFalse )
 OPTIONS.music = trueFalse;
 };
 
+
 Options.getMusic = function()
 {
 return OPTIONS.music;
