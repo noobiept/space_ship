@@ -90,29 +90,33 @@ MainMenu.cleanUp();
 var options = document.querySelector( '#Options' );
 
 
-    // :: Music :: //
+    // :: Music Volume :: //
 
-var music = options.querySelector( '#Options-music' );
-var musicValue = music.querySelector( 'span' );
+var musicVolume = options.querySelector( '#Options-musicVolume' );
+var musicVolumeSpan = musicVolume.querySelector( 'span' );
 
-$( musicValue ).text( boolToOnOff( Options.getMusic() ) );
+var musicVolumeValue = Options.getMusicVolume() * 100;
 
-music.onclick = function()
-    {
-    if ( $( musicValue ).text() == 'On' )
+$( musicVolumeSpan ).text( musicVolumeValue + '%' );
+
+var musicVolumeSlider = musicVolume.querySelector( '#Options-musicVolume-slider' );
+
+
+$( musicVolumeSlider ).slider({
+    min: 0,
+    max: 100,
+    step: 1,
+    value: musicVolumeValue,
+    range: 'min',
+    slide: function( event, ui )
         {
-        $( musicValue ).text( 'Off' );
+        $( musicVolumeSpan ).text( ui.value + '%' );
 
-        Options.setMusic( false );
+        Options.setMusicVolume( ui.value / 100 );
+
+        centerElement( options );
         }
-
-    else
-        {
-        $( musicValue ).text( 'On' );
-
-        Options.setMusic( true );
-        }
-    };
+    });
 
 
 var back = options.querySelector( '#Options-back' );

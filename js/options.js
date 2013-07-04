@@ -6,7 +6,7 @@ function Options()
 }
 
 var OPTIONS = {
-    music : true
+    musicVolume: 1  // value between 0 and 1
     };
 
 
@@ -23,27 +23,32 @@ var options = localStorage.getObject( 'options' );
 
 if ( options )
     {
-    if ( typeof options.music !== 'undefined' )
+    if ( typeof options.musicVolume !== 'undefined' )
         {
-        OPTIONS.music = options.music;
+        OPTIONS.musicVolume = options.musicVolume;
         }
     }
 };
 
 
-/**
-    @param {Boolean} trueFalse
- */
 
-Options.setMusic = function( trueFalse )
+
+Options.setMusicVolume = function( value )
 {
-OPTIONS.music = trueFalse;
+if ( value < 0 || value > 1 )
+    {
+    return false;
+    }
+
+OPTIONS.musicVolume = value;
+
+return true;
 };
 
 
-Options.getMusic = function()
+Options.getMusicVolume = function()
 {
-return OPTIONS.music;
+return OPTIONS.musicVolume;
 };
 
 

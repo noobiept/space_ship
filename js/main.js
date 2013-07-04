@@ -4,6 +4,8 @@
     Dependencies:
 
         - jquery : 2.0
+        - jqueryui : 1.10
+            - slider
         - createjs
             - easeljs   : 0.6
             - preloadjs : 0.3
@@ -30,7 +32,6 @@
         - add enemies with more energy (and maybe show above the unit how many more hitpoints it has)
 
         - random maps (like 1 map, random 50 units.. with certain time between each new unit. map 2, more units etc...)
-        - add volume control to the music
  */
 
 
@@ -216,10 +217,13 @@ STAGE.onMouseMove = function( event ) { MAIN_SHIP.handleMouseMove( event ); };
 STAGE.onMouseDown = function( event ) { MAIN_SHIP.handleClick( event ); };
 
 
-if ( Options.getMusic() )
+var musicVolume = Options.getMusicVolume();
+
+if ( musicVolume > 0 )
     {
-    MUSIC = createjs.Sound.play("game_music", createjs.Sound.INTERRUPT_NONE ,0 ,0, -1);
+    MUSIC = createjs.Sound.play( "game_music", createjs.Sound.INTERRUPT_NONE ,0 ,0, -1, Options.getMusicVolume() );
     }
+
 
 GameMenu();
 }

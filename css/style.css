@@ -99,9 +99,10 @@ body
 
     /* Options Menu */
 
-#Options-music
+#Options-back
     {
-    cursor: pointer;
+    width: 200px;
+    margin: auto;
     }
 
 
