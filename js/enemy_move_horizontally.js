@@ -31,34 +31,36 @@ EnemyMoveHorizontally.velocity = EnemyMoveHorizontally.velocity_default;
 
 EnemyMoveHorizontally.prototype.makeShape = function()
 {
+var frequency = 10;
+
 var spriteSheet = {
 
     animations: {
-        
+
         spawn: {
             frames: [ 0, 1, 2 ],
             next: "spawn",
-            frequency: 10
+            frequency: frequency
             },
-        
+
         main: {
-            
+
             frames: [ 3, 4 ],
             next: "main",
-            frequency: 10
+            frequency: frequency
             }
-        
+
         },
-        
+
     frames: {
-        
+
         width: this.width,
         height: this.height
         },
-        
+
     images: [ "images/enemy_move_horizontally.png" ]
     };
-    
+
 var ss = new createjs.SpriteSheet( spriteSheet );
 
 var enemy = new createjs.BitmapAnimation( ss );
@@ -69,9 +71,6 @@ enemy.regX = this.width / 2;
 enemy.regY = this.height / 2;
 
 enemy.gotoAndPlay("spawn");
-
-createjs.Tween.get( enemy, { loop: true } ).to( { alpha: 0.4 }, 200, createjs.Ease.get(1) )
-                                  .to( { alpha: 1   }, 200, createjs.Ease.get(1) );  //HERE 
 
 this.shape = enemy;
 };

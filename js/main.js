@@ -16,10 +16,10 @@
     Issues:
     
         - the EnemyKamikaze doesn't work too well
-        - when returning from the game_menu with two keys held, top and left arrow for example, it doesn't continue going to the top left corner, but to the left only
-        - tweenjs not working
         - when the message appears telling the game ended (to press enter to restart), you can still fire the bullets
-        
+        - have a line separating the game menu and the end of the game window (can't tell until what point you can go down with the ship)
+        - levels ending even though there's still enemies in the map (some bug somewhere, where some objects being leaked?)
+
     to doo:
 
         collisions:
@@ -27,6 +27,7 @@
             - you can outrun the bullets (and collide with them)
             - sniper bullet is too fast for the shape/body to be synced
             - cant fire if mouse is outside of canvas
+            - ignore collisions between enemies
 
         - change the weapons variables in Ship to be zero-based ( this.weaponSelected )
         - add enemies with more energy (and maybe show above the unit how many more hitpoints it has)
@@ -123,6 +124,8 @@ WORLD = new b2World(
     true                // allow sleep
     );
 
+
+createjs.Ticker.setInterval( 50 );
 
 if ( DEBUG )
     {

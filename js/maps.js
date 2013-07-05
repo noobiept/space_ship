@@ -131,7 +131,7 @@ else
     LEVEL_PHASE = 0;
     ENDING_LEVEL = false;
     
-    Maps.showMessage( "Level " + CURRENT_LEVEL, 2000 );
+    new Message( { text: 'Level ' + CURRENT_LEVEL, timeOut: 2000 } );
     }
 };
 
@@ -152,46 +152,6 @@ createjs.Ticker.removeListener( Maps.tick );
 
 
 /*
-    Shows a message in the middle of the canvas for a period of time
-    
-    Arguments:
-    
-        - text : the actual message
-        - timeout : duration of the message (in miliseconds)
-        - timeout_function : executes when the timeout ends (optional)
- */
-
-Maps.showMessage = function( text, timeout, timeout_function )
-{
-var message = new createjs.Text(text, "30px Arial", "rgb(255, 255, 255)");
-
-message.textAlign = 'center';
-
-message.x = CANVAS.width / 2;
-message.y = CANVAS.height / 2;
-
-createjs.Tween.get( message ).to( { alpha: 0 }, 100, createjs.Ease.get( 1 ) );    //HERE doesnt work...
-
-STAGE.addChild( message );
-
-
-setTimeout( function() 
-    {
-    STAGE.removeChild( message ); 
-    
-    if (typeof timeout_function != 'undefined' && timeout_function != null)
-        {
-        timeout_function();
-        }
-    
-    }, timeout );
-};
-
-
-
-
-
-/*
     All levels completed, show a message and then go to the MainMenu
  */
 
@@ -199,7 +159,12 @@ Maps.noMoreLevels = function()
 {
 Maps.reset();
 
-Maps.showMessage("Congratulations, you finished the game!\nToo easy huh?", 4000, function() { MainMenu.open(); } );
+
+new Message({
+    text: "Congratulations, you finished the game!<br />Too easy huh?",
+    timeOut: 4000,
+    timeOut_f: function() { MainMenu.open() }
+    });
 };
 
 
@@ -272,7 +237,7 @@ if ( !ENDING_LEVEL && COUNT_TICKS >= phase.tick)
 
     
     // the level ended
-if ( ENDING_LEVEL === true &&  COUNT_TICKS >= 100 && EnemyShip.all.length === 0 )
+if ( ENDING_LEVEL === true && COUNT_TICKS >= 100 && EnemyShip.all.length === 0 )
     {
     Maps.loadMap();
     }
@@ -280,8 +245,6 @@ if ( ENDING_LEVEL === true &&  COUNT_TICKS >= 100 && EnemyShip.all.length === 0 
 
 Maps.LEVELS = LEVELS;
 
-
 window.Maps = Maps;
-
 
 }(window));

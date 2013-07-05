@@ -548,7 +548,7 @@ else if (KEYS_HELD.down)
     
 this.updateShape();
 
-this.updateAmmo(); 
+this.updateAmmo();
 };
 
     
