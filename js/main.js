@@ -16,8 +16,6 @@
     Issues:
     
         - the EnemyKamikaze doesn't work too well
-        - when the message appears telling the game ended (to press enter to restart), you can still fire the bullets
-        - have a line separating the game menu and the end of the game window (can't tell until what point you can go down with the ship)
         - levels ending even though there's still enemies in the map (some bug somewhere, where some objects being leaked?)
 
     to doo:
@@ -25,7 +23,7 @@
         collisions:
 
             - sniper bullet is too fast for the shape/body to be synced
-            - cant fire if mouse is outside of canvas
+            - cant fire if mouse is outside of canvas (or maybe pause the game when the mouse is outside of the canvas?...)
 
         - change the weapons variables in Ship to be zero-based ( this.weaponSelected )
         - add enemies with more energy (and maybe show above the unit how many more hitpoints it has)
@@ -69,6 +67,7 @@ var WORLD = null;
     // playable dimensions (the rest of the canvas is for menus/etc)
 var GAME_WIDTH;
 var GAME_HEIGHT;
+var GAME_MENU_HEIGHT = 65;
 
     
 var MAIN_SHIP;
@@ -191,7 +190,7 @@ GameStatistics.start();
 
 
 GAME_WIDTH = CANVAS.width;
-GAME_HEIGHT = CANVAS.height - 60;
+GAME_HEIGHT = CANVAS.height - GAME_MENU_HEIGHT;
 
 
 MAIN_SHIP = new Ship();
@@ -202,7 +201,6 @@ MAIN_SHIP = new Ship();
 createjs.Ticker.addListener( MAIN_SHIP );
 createjs.Ticker.addListener( window );
 
-STAGE.enableMouseOver();
 
     // call update on the stage to make it render the current display list to the canvas
 STAGE.update();
@@ -222,7 +220,9 @@ document.onkeyup = handleKeyUp;
 
 
 STAGE.onMouseMove = function( event ) { MAIN_SHIP.handleMouseMove( event ); };
-STAGE.onMouseDown = function( event ) { MAIN_SHIP.handleClick( event ); };
+//STAGE.onMouseDown = function( event ) { MAIN_SHIP.handleClick( event ); };
+//window.onmousemove = function( event ) { MAIN_SHIP.handleMouseMove( event ); };
+window.onclick = function( event ) { MAIN_SHIP.handleClick( event ) };
 
 
 var musicVolume = Options.getMusicVolume();

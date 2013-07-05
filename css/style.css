@@ -3,7 +3,6 @@ body
     background-color: black;
     color: white;
     font-family: Arial, sans-serif;
-    text-align: center;
 
     -webkit-user-select: none;
     user-select: none;
@@ -30,6 +29,7 @@ body
     {
     position: absolute;
     font-size: 1.5em;
+    cursor: default;
     }
 
 
@@ -59,7 +59,7 @@ body
     z-index: 50;
     }
 
-#MainMenu, #Options, #GameMenu
+#MainMenu, #Options, #GameMenu, .Message
     {
     z-index: 150;
     }
@@ -105,6 +105,7 @@ body
     {
     width: 200px;
     margin: auto;
+    text-align: center;
     }
 
 
@@ -119,6 +120,7 @@ body
     -webkit-user-select: none;
 
     color: white;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
     }
 
 
@@ -128,10 +130,12 @@ body
     display: inline-block;
     }
 
+
 #GameMenu-right
     {
     float: right;
     }
+
 
 #GameMenu-selectWeapon > *, #GameMenu-bulletsLeft > *, #GameMenu-right > *
     {

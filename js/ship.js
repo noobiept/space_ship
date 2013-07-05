@@ -242,26 +242,22 @@ if (energy <= 0)
     this.remove();
         
     createjs.Ticker.removeAllListeners();
+    window.onclick = null;  // so that you can't fire anymore
+
+
+    var endMessage = new Message({
+        text: "Game Over: Press enter to restart"
+        });
     
     $( document).bind( "keyup", function(event) 
         {
         if (event.keyCode === EVENT_KEY.enter) 
             {
+            endMessage.remove();
+
             GAME_MODE();
             }
         });
-    
-    
-    var gameOver = new createjs.Text("Game Over: Press enter to restart", "16px Arial", "rgb(255, 255, 255)");
-    
-    gameOver.textAlign = "center";
-    
-    gameOver.x = CANVAS.width / 2;
-    gameOver.y = CANVAS.height / 2;
-    
-    STAGE.addChild( gameOver );
-    
-    STAGE.update();
     }
 };
     

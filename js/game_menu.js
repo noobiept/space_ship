@@ -28,6 +28,7 @@ var weapon4 = weaponsContainer.querySelector( '#GameMenu-weapon4' );
 WEAPON_ELEMENTS.push( weapon1, weapon2, weapon3, weapon4 );
 
 WEAPON_SELECTED = 0;
+$( weapon1 ).addClass( 'WeaponsSelected' );
 
 
 weapon1.onclick = function()
@@ -91,7 +92,8 @@ quit.onclick = function()
 
 $( menu ).css( 'width', CANVAS.width + 'px' );
 
-positionHtmlElement( menu, 0, CANVAS.height - 50 );
+    // +10 for the border etc
+positionHtmlElement( menu, 0, CANVAS.height - GAME_MENU_HEIGHT + 10 );
 
 
 $( '#GameMenu' ).css( 'display', 'block' );
@@ -142,6 +144,8 @@ for (var i = 0 ; i < BULLETS_LEFT_ELEMENTS.length ; i++)
 
 GameMenu.clear = function()
 {
+$( WEAPON_ELEMENTS[ WEAPON_SELECTED ] ).removeClass( 'WeaponsSelected' );
+
 WEAPON_ELEMENTS.length = 0;
 BULLETS_LEFT_ELEMENTS.length = 0;
 
