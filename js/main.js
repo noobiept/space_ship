@@ -24,10 +24,8 @@
 
         collisions:
 
-            - you can outrun the bullets (and collide with them)
             - sniper bullet is too fast for the shape/body to be synced
             - cant fire if mouse is outside of canvas
-            - ignore collisions between enemies
 
         - change the weapons variables in Ship to be zero-based ( this.weaponSelected )
         - add enemies with more energy (and maybe show above the unit how many more hitpoints it has)
@@ -99,6 +97,13 @@ var TYPE_BULLET = 2;
 
     // has functions to be called later (related to a collision). Have to remove the elements after executing the function
 var COLLISION_F = [];
+
+
+    // collision groups
+var COLLISION_GROUP = {
+    ship: -1,
+    enemy: -2
+    };
 
 
 var LOADING_MESSAGE;
