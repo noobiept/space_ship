@@ -32,6 +32,8 @@
         .velocity
         .width
         .height
+        .category_bits
+        .mask_bits
         
     Add reference of the drawn element to:
     
@@ -40,6 +42,7 @@
     Physics body
 
         .body
+        .fixDef
         
  */
 
@@ -57,13 +60,15 @@ this.spawnTicks_int = 20;
 
     // make the tick function deal with spawning the enemy
 this.tick = this.spawningTick;
-
+EnemyShip.all_spawning.push( this );
 
 this.initialize();
 }
 
 
 EnemyShip.all = [];
+
+EnemyShip.all_spawning = [];
 
 
 var p = EnemyShip.prototype = new createjs.Container();
@@ -256,6 +261,19 @@ $( EnemyShip.all ).each(function(index, ship)
     {
     ship.remove( index );
     });
+
+$( EnemyShip.all_spawning ).each(function( index, ship )
+    {
+    STAGE.removeChild( ship.shape );
+
+    createjs.removeListener( ship );
+
+    WORLD.DestroyBody( ship.body );
+
+    var position = EnemyShip.all_spawning.indexOf( ship );
+
+    EnemyShip.all_spawning.splice( position, 1 );
+    });
 };
 
 
@@ -274,9 +292,23 @@ if (this.spawnTicks_int < 0)
     {  
         // play the main animation
     this.shape.gotoAndPlay("main");
-    
+
         // only add now to the enemies list (so, only from now on will the bullets be able to kill it, etc)
     EnemyShip.all.push( this );
+
+            // remove from the spawn array
+    var spawnIndex = EnemyShip.all_spawning.indexOf( this );
+    EnemyShip.all_spawning.splice( spawnIndex, 1 );
+
+    var fixDef = this.fixDef;
+
+    fixDef.filter.categoryBits = CATEGORY.enemy;
+    fixDef.filter.maskBits = MASK.enemy;
+
+    this.category_bits = CATEGORY.enemy;
+    this.mask_bits = MASK.enemy;
+
+    this.body.CreateFixture( fixDef );
 
         // now execute the normal tick function
     this.tick = this.normalTick;

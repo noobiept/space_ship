@@ -116,7 +116,7 @@ if (typeof level == 'undefined')
 
 else
     {
-    CURRENT_LEVEL = 0;
+    CURRENT_LEVEL = level;
     }
 
     // no more levels
@@ -229,15 +229,12 @@ if ( !ENDING_LEVEL && COUNT_TICKS >= phase.tick)
     if (LEVEL_PHASE >= currentLevel.length)
         {
         ENDING_LEVEL = true;
-        
-            // we're gonna count a bit more, before checking for the ENDING_LEVEL variable, to give time for the Enemies to spawn
-        COUNT_TICKS = 0;
         }
     }
 
     
     // the level ended
-if ( ENDING_LEVEL === true && COUNT_TICKS >= 100 && EnemyShip.all.length === 0 )
+if ( ENDING_LEVEL === true && EnemyShip.all.length === 0 && EnemyShip.all_spawning.length === 0 )
     {
     Maps.loadMap();
     }

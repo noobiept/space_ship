@@ -29,6 +29,7 @@
         - add enemies with more energy (and maybe show above the unit how many more hitpoints it has)
 
         - random maps (like 1 map, random 50 units.. with certain time between each new unit. map 2, more units etc...)
+        - different color for bullets (ship vs enemies)
  */
 
 
@@ -98,10 +99,17 @@ var TYPE_BULLET = 2;
 var COLLISION_F = [];
 
 
-    // collision groups
-var COLLISION_GROUP = {
-    ship: -1,
-    enemy: -2
+    // categories
+var CATEGORY = {
+    ship: 1,          // 0001
+    enemy: 2,           // 0010
+    enemy_spawning: 4   // 0100
+    };
+
+var MASK = {
+    ship: CATEGORY.enemy,   // ship can collide with enemies
+    enemy: CATEGORY.ship,   // enemies can collide with the ship
+    enemy_spawning: 0       // doesn't collide with anything, during the spawn phase
     };
 
 

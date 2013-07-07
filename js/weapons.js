@@ -119,7 +119,8 @@ var fixDef = new b2FixtureDef;
 fixDef.density = 1;
 fixDef.friction = 0.5;
 fixDef.restitution = 0.2;
-fixDef.filter.groupIndex = this.shipObject.collision_group;
+fixDef.filter.categoryBits = this.shipObject.category_bits;
+fixDef.filter.maskBits = this.shipObject.mask_bits;
 
 var bodyDef = new b2BodyDef;
 

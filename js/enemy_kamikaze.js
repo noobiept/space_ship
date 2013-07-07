@@ -1,5 +1,3 @@
-/*jslint vars: true, white: true*/
-
 "use strict";
 
 
@@ -78,9 +76,12 @@ var fixDef = new b2FixtureDef;
 fixDef.density = 1;
 fixDef.friction = 0.5;
 fixDef.restitution = 0.2;
-fixDef.filter.groupIndex = COLLISION_GROUP.enemy;
+fixDef.filter.categoryBits = CATEGORY.enemy_spawning;
+fixDef.filter.maskBits = MASK.enemy_spawning;
 
-this.collision_group = COLLISION_GROUP.enemy;
+this.category_bits = CATEGORY.enemy_spawning;
+this.mask_bits = MASK.enemy_spawning;
+
 
 var bodyDef = new b2BodyDef;
 
@@ -98,6 +99,7 @@ body.CreateFixture( fixDef );
 body.SetUserData( this );
 
 this.body = body;
+this.fixDef = fixDef;
 };
 
 

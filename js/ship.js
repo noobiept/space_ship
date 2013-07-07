@@ -117,13 +117,15 @@ var fixDef = new b2FixtureDef;
 fixDef.density = 1;
 fixDef.friction = 0.5;
 fixDef.restitution = 0.2;
-fixDef.filter.groupIndex = COLLISION_GROUP.ship;
+fixDef.filter.categoryBits = CATEGORY.ship;
+fixDef.filter.maskBits = MASK.ship;
 
-this.collision_group = COLLISION_GROUP.ship;
+this.category_bits = CATEGORY.ship;
+this.mask_bits = MASK.ship;
+
 
 var bodyDef = new b2BodyDef;
 
-//bodyDef.type = b2Body.b2_dynamicBody;
 bodyDef.type = b2Body.b2_staticBody;
 
 bodyDef.position.x = 0;
