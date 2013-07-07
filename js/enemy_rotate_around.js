@@ -1,7 +1,7 @@
 "use strict";
 
 
-function EnemyRotateAround()
+function EnemyRotateAround( x, y )
 {
 this.shape = null;
 
@@ -12,7 +12,7 @@ this.width = 20;
 this.height = 20;
 
     // inherits from the Enemy class
-EnemyShip.call( this );
+EnemyShip.call( this, x, y );
 
 
 this.ticksUntilNextBullet = 50;

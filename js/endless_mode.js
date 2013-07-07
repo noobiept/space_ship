@@ -48,17 +48,11 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     //var enemy = new EnemyMoveHorizontally();
     //var enemy = new EnemyRocks();
     //var enemy = new EnemyRotateAround();
-    var enemy = new EnemyKamikaze();
 
     var x = getRandomInt( 0, GAME_WIDTH );
     var y = getRandomInt( 0, GAME_HEIGHT );
-    
-   
 
-
-    enemy.moveTo( x, y );
-
-    addNewEnemy( enemy );
+    new EnemyKamikaze( x, y );
     }
 
     

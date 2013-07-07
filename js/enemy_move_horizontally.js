@@ -1,7 +1,7 @@
 "use strict";
 
 
-function EnemyMoveHorizontally()
+function EnemyMoveHorizontally( x, y )
 {
 this.shape = null;
 
@@ -11,8 +11,8 @@ this.velocity = EnemyMoveHorizontally.velocity;
 this.width = 20;
 this.height = 20;
 
-    // inhirit from EnemyShip class
-EnemyShip.call( this );
+    // inherit from EnemyShip class
+EnemyShip.call( this, x, y );
 }
 
 

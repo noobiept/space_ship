@@ -191,8 +191,6 @@ if ( !ENDING_LEVEL && COUNT_TICKS >= phase.tick)
 
     for (i = 0 ; i < howMany ; i++)
         {
-        var enemy = new enemyType();
-        
             // random x position
         if (phase.x < 0)
             {
@@ -215,9 +213,7 @@ if ( !ENDING_LEVEL && COUNT_TICKS >= phase.tick)
             y = phase.y;
             }
 
-        enemy.moveTo( x, y );
-        
-        addNewEnemy( enemy );
+        new enemyType( x, y );
         }
 
     

@@ -1,7 +1,7 @@
 "use strict";
 
 
-function EnemyKamikaze()
+function EnemyKamikaze( x, y )
 {
 this.shape = null;
 
@@ -12,7 +12,7 @@ this.width = 14;
 this.height = 14;
 
     // inherits from the Enemy class
-EnemyShip.call( this );
+EnemyShip.call( this, x, y );
 }
 
 

@@ -432,19 +432,6 @@ STAGE.update();
     
 
 
-function addNewEnemy( enemyObject )
-{
-enemyObject.beforeAddToStage();
-      
-STAGE.addChild( enemyObject );
-
-ZIndex.update();
-
-createjs.Ticker.addListener( enemyObject );
-}
-
-
-
 
 function tick()
 {

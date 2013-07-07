@@ -6,7 +6,7 @@
         scale: scale the original image (1 -> 100%, no scaling)
  */
 
-function EnemyRocks( scale )
+function EnemyRocks( x, y, scale )
 {
 this.shape = null;
 
@@ -27,7 +27,7 @@ else
     }
 
     // inherits from the EnemyShip class
-EnemyShip.call( this );
+EnemyShip.call( this, x, y );
 }
 
 
@@ -159,12 +159,8 @@ if (this.width >= 50)
     
     for (i = 0 ; i < 3 ; i++)
         {
-        var rock = new EnemyRocks( 0.5 );
-        
             // spawn from the current position
-        rock.moveTo( this.shape.x, this.shape.y );
-
-        addNewEnemy( rock );
+        new EnemyRocks( this.shape.x, this.shape.y, 0.5 );
         }
     }
 

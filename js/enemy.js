@@ -46,7 +46,7 @@
         
  */
 
-function EnemyShip()
+function EnemyShip( x, y )
 {
     // to distinguish the bullets (from enemies or from the main ship)
 this.isEnemy = true;
@@ -62,7 +62,26 @@ this.spawnTicks_int = 20;
 this.tick = this.spawningTick;
 EnemyShip.all_spawning.push( this );
 
-this.initialize();
+
+    // draw the shape (spawn phase animation first)
+this.makeShape();
+
+this.setupPhysics();
+
+this.beforeAddToStage();
+
+    // add to Container()
+STAGE.addChild( this.shape );
+
+
+ZIndex.update();
+
+createjs.Ticker.addListener( this );
+
+
+GameStatistics.updateNumberOfEnemies( GameStatistics.getNumberOfEnemies() + 1 );
+
+this.moveTo( x, y );
 }
 
 
@@ -71,40 +90,18 @@ EnemyShip.all = [];
 EnemyShip.all_spawning = [];
 
 
-var p = EnemyShip.prototype = new createjs.Container();
-
-
-p.Container_initialize = p.initialize;
-
-
-p.initialize = function()
-{
-this.Container_initialize();
-
-
-    // draw the shape (spawn phase animation first)
-this.makeShape();
-
-this.setupPhysics();
-
-    // add to Container()
-this.addChild( this.shape );
-
-
-GameStatistics.updateNumberOfEnemies( GameStatistics.getNumberOfEnemies() + 1 );
-};
 
 
 
 
-p.makeShape = function()
+EnemyShip.prototype.makeShape = function()
 {
     // do this
 };
 
 
 
-p.setupPhysics = function()
+EnemyShip.prototype.setupPhysics = function()
 {
     // do this
 };
@@ -114,7 +111,7 @@ p.setupPhysics = function()
     Updates the shape position to match the physic body
  */
 
-p.updateShape = function()
+EnemyShip.prototype.updateShape = function()
 {
 this.shape.rotation = this.body.GetAngle() * (180 / Math.PI);
 
@@ -123,7 +120,7 @@ this.shape.y = this.body.GetWorldCenter().y * SCALE;
 };
 
 
-p.getPosition = function()
+EnemyShip.prototype.getPosition = function()
 {
 return {
     x: this.shape.x,
@@ -131,19 +128,19 @@ return {
     };
 };
 
-p.getX = function()
+EnemyShip.prototype.getX = function()
 {
 return this.shape.x;
 };
 
 
-p.getY = function()
+EnemyShip.prototype.getY = function()
 {
 return this.shape.y;
 };
 
 
-p.moveTo = function( x, y )
+EnemyShip.prototype.moveTo = function( x, y )
 {
 this.shape.x = x;
 this.shape.y = y;
@@ -155,7 +152,7 @@ this.body.SetPosition( position );
 
 
 
-p.rotate = function( degrees )
+EnemyShip.prototype.rotate = function( degrees )
 {
 this.shape.rotation = degrees;
 
@@ -197,7 +194,7 @@ EnemyShip.prototype.beforeAddToStage = function()
 
 
 
-p.checkLimits = function()
+EnemyShip.prototype.checkLimits = function()
 {
 var x = this.getX();
 var y = this.getY();
@@ -230,9 +227,9 @@ else if (y > GAME_HEIGHT)
     Remove the enemy ship, and update the game statistics
  */
 
-p.remove = function()
+EnemyShip.prototype.remove = function()
 {
-STAGE.removeChild( this );
+STAGE.removeChild( this.shape );
 
 createjs.Ticker.removeListener( this );
 
@@ -266,7 +263,7 @@ $( EnemyShip.all_spawning ).each(function( index, ship )
     {
     STAGE.removeChild( ship.shape );
 
-    createjs.removeListener( ship );
+    createjs.Ticker.removeListener( ship );
 
     WORLD.DestroyBody( ship.body );
 
@@ -321,7 +318,7 @@ if (typeof this.spawnTick_function !== "undefined" && this.spawnTick_function !=
 };
 
 
-p.normalTick = function()
+EnemyShip.prototype.normalTick = function()
 {
 this.shipBehaviour();
 
@@ -337,7 +334,7 @@ if (typeof this.tick_function !== "undefined" && this.tick_function !== null)
 };
 
 
-p.tick = function()
+EnemyShip.prototype.tick = function()
 {
     // this will point to spawningTick() or normalTick()
 };
