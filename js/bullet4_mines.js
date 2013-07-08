@@ -5,13 +5,13 @@
     // remove the mines after some time
 var REMOVE_TICK = 200;
 
-function Weapon4_mines( shipObject )
+function Bullet4_mines( shipObject )
 {
 this.width = 15;
 this.height = 15;
 
-    // inherit from the Weapons class
-Weapons.call( this, shipObject );
+    // inherit from the Bullet class
+Bullet.call( this, shipObject );
 
 this.speed = 0;
 this.damage = 50;
@@ -23,11 +23,11 @@ this.countTick = REMOVE_TICK;
 
 
     // inherit the member functions
-INHERIT_PROTOTYPE( Weapon4_mines, Weapons );
+INHERIT_PROTOTYPE( Bullet4_mines, Bullet );
 
 
 
-Weapon4_mines.prototype.drawBullet = function()
+Bullet4_mines.prototype.drawBullet = function()
 {
 var minesSprite = {
 
@@ -45,7 +45,7 @@ var minesSprite = {
         height: 15
         },
         
-    images: [ "images/weapon4_mines.png" ]
+    images: [ "images/bullet4_mines.png" ]
 
     };
     
@@ -72,7 +72,7 @@ this.shape = mine;
 
 
 
-Weapon4_mines.prototype.tick_function = function()
+Bullet4_mines.prototype.tick_function = function()
 {
 this.countTick--;
 
@@ -84,6 +84,6 @@ if ( this.countTick < 0 )
 };
 
 
-window.Weapon4_mines = Weapon4_mines;
+window.Bullet4_mines = Bullet4_mines;
 
 }(window));

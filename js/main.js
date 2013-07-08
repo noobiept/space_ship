@@ -30,6 +30,7 @@
 
         - random maps (like 1 map, random 50 units.. with certain time between each new unit. map 2, more units etc...)
         - different color for bullets (ship vs enemies)
+        - add the images used in the preloadjs (for enemies, bullets, ...)
  */
 
 
@@ -395,7 +396,7 @@ createjs.Ticker.removeAllListeners();
 ZIndex.clear();
 
 EnemyShip.removeAll();
-Weapons.removeAllBullets();
+Bullet.removeAllBullets();
 Ship.removeAll();
 
     // reset the velocity and damage

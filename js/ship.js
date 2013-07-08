@@ -320,7 +320,7 @@ if ( !event )
     }
 
     
-var weapons = [ Weapon1_laser, Weapon2_sniper, Weapon3_rocket, Weapon4_mines ];
+var weapons = [ Bullet1_laser, Bullet2_sniper, Bullet3_rocket, Bullet4_mines ];
 
     // .weaponSelected starts at 1 for the first element (but arrsys start at 0)
 var weaponSelected = this.weaponSelected - 1;

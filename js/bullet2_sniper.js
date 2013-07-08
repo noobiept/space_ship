@@ -1,15 +1,14 @@
 "use strict";
 
 
-function Weapon2_sniper( shipObject )
+function Bullet2_sniper( shipObject )
 {
 this.width = 10;
 this.height = 2;
 
-    // inherit from the Weapons class
-Weapons.call( this, shipObject );
+    // inherit from the Bullet class
+Bullet.call( this, shipObject );
 
-//this.countTicks = Weapon2_sniper.numberTicksAnimation;
 
 this.damage = 40;
 
@@ -19,14 +18,14 @@ applyImpulse( this.body, shipObject.getRotation(), this.speed * this.body.GetMas
 }
 
     // number of ticks of the duration of the bullet animation, before removing it from the stage
-Weapon2_sniper.numberTicksAnimation = 30;
+Bullet2_sniper.numberTicksAnimation = 30;
 
 
     // inherit the member functions
-INHERIT_PROTOTYPE( Weapon2_sniper, Weapons );
+INHERIT_PROTOTYPE( Bullet2_sniper, Bullet );
 
 
-Weapon2_sniper.prototype.drawBullet = function()
+Bullet2_sniper.prototype.drawBullet = function()
 {
 var sniperSprite = {
     
@@ -44,7 +43,7 @@ var sniperSprite = {
         height: 2
         },
         
-    images: [ "images/weapon2_sniper.png" ]
+    images: [ "images/bullet2_sniper.png" ]
     };
 
 var sprite = new createjs.SpriteSheet( sniperSprite );
@@ -68,7 +67,7 @@ this.shape = sniper;
 
 
 
-Weapon2_sniper.findIfIntercept = function(ship)
+Bullet2_sniper.findIfIntercept = function(ship)
 {
 
 var mouseX = STAGE.mouseX;
@@ -111,7 +110,7 @@ for (i = 0 ; i < enemies.length ; i++)
 };
 
 
-Weapon2_sniper.prototype.tick_function = function()
+Bullet2_sniper.prototype.tick_function = function()
 {
 this.countTicks--;
 

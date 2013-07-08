@@ -4,7 +4,7 @@
 {
 
 /*
-    Use as base class for the weapons
+    Use as base class for all the bullet types
     
     Functions to write (in derived class):
     
@@ -28,7 +28,7 @@
         angleRotation : of the bullet
  */
 
-function Weapons( shipObject, angleRotation, x, y )
+function Bullet( shipObject, angleRotation, x, y )
 {
 this.shape = null;
 
@@ -63,12 +63,12 @@ createjs.Ticker.addListener( this );
 
 if ( this.isEnemy )
     {
-    Weapons.enemyBullets.push( this );
+    Bullet.enemyBullets.push( this );
     }
 
 else
     {
-    Weapons.allyBullets.push( this );
+    Bullet.allyBullets.push( this );
     }
 
 
@@ -94,21 +94,21 @@ this.moveTo( x + addX, y + addY );
 }
 
     // all the bullets from the enemies
-Weapons.enemyBullets = [];
+Bullet.enemyBullets = [];
 
     // all the bullets from the allies
-Weapons.allyBullets = [];
+Bullet.allyBullets = [];
 
 
 
-Weapons.prototype.drawBullet = function( angleRotation )
+Bullet.prototype.drawBullet = function( angleRotation )
 {
     // do this
 };
 
 
 
-Weapons.prototype.setupPhysics = function()
+Bullet.prototype.setupPhysics = function()
 {
 var width = this.width;
 var height = this.height;
@@ -147,19 +147,19 @@ this.body = body;
 
 
 
-Weapons.prototype.getX = function()
+Bullet.prototype.getX = function()
 {
 return this.shape.x;
 };
 
 
-Weapons.prototype.getY = function()
+Bullet.prototype.getY = function()
 {
 return this.shape.y;
 };
 
 
-Weapons.prototype.moveTo = function( x, y )
+Bullet.prototype.moveTo = function( x, y )
 {
 this.shape.x = x;
 this.shape.y = y;
@@ -170,7 +170,7 @@ this.body.SetPosition( position );
 };
 
 
-Weapons.prototype.updateShape = function()
+Bullet.prototype.updateShape = function()
 {
 this.shape.rotation = this.body.GetAngle() * (180 / Math.PI);
 
@@ -183,7 +183,7 @@ this.shape.y = this.body.GetWorldCenter().y * SCALE;
     Tells if a bullet has reached the canvas limits
  */
 
-Weapons.prototype.reachedLimits = function()
+Bullet.prototype.reachedLimits = function()
 {
 var x = this.shape.x;
 var y = this.shape.y;
@@ -201,14 +201,14 @@ return false;
     How much damage the bullets gives to the ship when it hits
  */
 
-Weapons.prototype.damageGiven = function()
+Bullet.prototype.damageGiven = function()
 {
 return this.damage;
 };
 
 
 
-Weapons.prototype.rotate = function( degrees )
+Bullet.prototype.rotate = function( degrees )
 {
 this.shape.rotation = degrees;
 
@@ -219,18 +219,18 @@ this.body.SetAngle( degrees * Math.PI / 180 );
     Remove the bullet from the stage
  */
 
-Weapons.prototype.remove = function()
+Bullet.prototype.remove = function()
 {
 var all;
 
 if ( this.isEnemy )
     {
-    all = Weapons.enemyBullets;
+    all = Bullet.enemyBullets;
     }
     
 else
     {
-    all = Weapons.allyBullets;
+    all = Bullet.allyBullets;
     }
     
 STAGE.removeChild( this.shape );
@@ -249,14 +249,14 @@ all.splice( position, 1 );
     Remove all bullets 
  */
 
-Weapons.removeAllBullets = function()
+Bullet.removeAllBullets = function()
 {
-$( Weapons.enemyBullets ).each(function(index, enemy)
+$( Bullet.enemyBullets ).each(function(index, enemy)
     {
     enemy.remove();
     });
     
-$( Weapons.allyBullets ).each(function(index, ally)
+$( Bullet.allyBullets ).each(function(index, ally)
     {
     ally.remove();
     });
@@ -264,7 +264,7 @@ $( Weapons.allyBullets ).each(function(index, ally)
 
 
 
-Weapons.prototype.tick = function()
+Bullet.prototype.tick = function()
 {
 this.updateShape();
 
@@ -277,9 +277,9 @@ var i;
 var bulletObject;
 
     // check if the bullets are out of bounds (outside the canvas), and remove them if so
-for (i = 0 ; i < Weapons.allyBullets.length ; i++)
+for (i = 0 ; i < Bullet.allyBullets.length ; i++)
     {
-    bulletObject = Weapons.allyBullets[ i ];
+    bulletObject = Bullet.allyBullets[ i ];
 
     if ( outOfBounds( bulletObject ) )
         {
@@ -289,9 +289,9 @@ for (i = 0 ; i < Weapons.allyBullets.length ; i++)
         }
     }
 
-for (i = 0 ; i < Weapons.enemyBullets.length ; i++)
+for (i = 0 ; i < Bullet.enemyBullets.length ; i++)
     {
-    bulletObject = Weapons.enemyBullets[ i ];
+    bulletObject = Bullet.enemyBullets[ i ];
 
     if ( outOfBounds( bulletObject ) )
         {
@@ -306,6 +306,6 @@ for (i = 0 ; i < Weapons.enemyBullets.length ; i++)
 
 
     // public stuff
-window.Weapons = Weapons;
+window.Bullet = Bullet;
 
 }(window));

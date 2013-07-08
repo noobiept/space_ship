@@ -1,13 +1,13 @@
 "use strict";
 
-function Weapon1_laser( shipObject, angleRotation )
+function Bullet1_laser( shipObject, angleRotation )
 {
 this.width = 4;
 this.height = 2;
 
 
-    // inherit from the Weapons class
-Weapons.call( this, shipObject, angleRotation );
+    // inherit from the Bullet class
+Bullet.call( this, shipObject, angleRotation );
 
 this.damage = 10;
 this.speed = 12;
@@ -18,10 +18,10 @@ applyImpulse( this.body, this.angleRotation, this.speed * this.body.GetMass() );
 
 
     // inherit the member functions
-INHERIT_PROTOTYPE( Weapon1_laser, Weapons );
+INHERIT_PROTOTYPE( Bullet1_laser, Bullet );
 
 
-Weapon1_laser.prototype.drawBullet = function( angleRotation )
+Bullet1_laser.prototype.drawBullet = function( angleRotation )
 {
 var laserSprite = {
     
@@ -39,7 +39,7 @@ var laserSprite = {
         height: 2
         },
         
-    images: [ "images/weapon1_laser.png" ]
+    images: [ "images/bullet1_laser.png" ]
     
     };
 

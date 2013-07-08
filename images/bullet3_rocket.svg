@@ -9,13 +9,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="10"
-   height="2"
+   width="30"
+   height="7"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="weapon2_sniper.svg"
-   inkscape:export-filename="C:\Users\drk\Dropbox\projects\space_ship_game\images\weapon2_sniper.png"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="bullet3_rocket.svg"
+   inkscape:export-filename="C:\Users\drk\Dropbox\projects\space_ship_game\images\bullet3_rocket.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -27,16 +27,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="31.678384"
-     inkscape:cx="13.977808"
-     inkscape:cy="-3.4325494"
+     inkscape:zoom="31.678383"
+     inkscape:cx="13.831155"
+     inkscape:cy="7.7766054"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1360"
-     inkscape:window-height="706"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-width="1920"
+     inkscape:window-height="1005"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
@@ -44,7 +44,9 @@
        empspacing="5"
        visible="true"
        enabled="true"
-       snapvisiblegridlinesonly="true" />
+       snapvisiblegridlinesonly="true"
+       spacingx="0.1px"
+       spacingy="0.1px" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -54,7 +56,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -62,13 +64,16 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-1050.3622)">
-    <rect
-       style="fill:#518bff;fill-opacity:1;stroke:none"
-       id="rect2987"
-       width="10"
-       height="2"
-       x="0"
-       y="1050.3622" />
+     transform="translate(0,-1045.3622)">
+    <path
+       style="fill:#dcffe0;fill-opacity:1;stroke:none"
+       d="m 10.233533,1045.7428 c 0,0 10.6341,2.7552 0,6.1226 l -10.10230052,0 0,-6.1226 z"
+       id="path2987"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path2985"
+       d="m 25.196417,1045.7112 c 0,0 10.6341,2.7552 0,6.1226 l -10.102301,0 0,-6.1226 z"
+       style="fill:#dcffe0;fill-opacity:1;stroke:none" />
   </g>
 </svg>

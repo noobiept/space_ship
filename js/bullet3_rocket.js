@@ -1,13 +1,13 @@
 "use strict";
 
 
-function Weapon3_rocket( shipObject )
+function Bullet3_rocket( shipObject )
 {
 this.width = 15;
 this.height = 7;
 
-    // inherit from the Weapons class
-Weapons.call( this, shipObject );
+    // inherit from the Bullet class
+Bullet.call( this, shipObject );
 
 this.damage = 20;
 this.speed = 7;
@@ -18,11 +18,11 @@ applyImpulse( this.body, shipObject.getRotation(), this.speed * this.body.GetMas
 
 
     // inherit the member functions
-INHERIT_PROTOTYPE( Weapon3_rocket, Weapons );
+INHERIT_PROTOTYPE( Bullet3_rocket, Bullet );
 
 
 
-Weapon3_rocket.prototype.drawBullet = function()
+Bullet3_rocket.prototype.drawBullet = function()
 {
 var rocketSprite = {
 
@@ -39,7 +39,7 @@ var rocketSprite = {
         height: 7
         },
         
-    images: [ "images/weapon3_rocket.png" ]
+    images: [ "images/bullet3_rocket.png" ]
     };
 
 var sprite = new createjs.SpriteSheet( rocketSprite );
