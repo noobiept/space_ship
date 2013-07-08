@@ -43,7 +43,7 @@ var sniperSprite = {
         height: 2
         },
         
-    images: [ "images/bullet2_sniper.png" ]
+    images: [ PRELOAD.getResult( 'bullet2_sniper' ) ]
     };
 
 var sprite = new createjs.SpriteSheet( sniperSprite );

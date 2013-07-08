@@ -58,7 +58,7 @@ var spriteSheet = {
         height: this.height
         },
 
-    images: [ "images/enemy_move_horizontally.png" ]
+    images: [ PRELOAD.getResult( 'enemy_move_horizontally' ) ]
     };
 
 var ss = new createjs.SpriteSheet( spriteSheet );

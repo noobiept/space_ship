@@ -39,7 +39,7 @@ var laserSprite = {
         height: 2
         },
         
-    images: [ "images/bullet1_laser.png" ]
+    images: [ PRELOAD.getResult( 'bullet1_laser' ) ]
     
     };
 

@@ -62,7 +62,7 @@ var spriteConfig = {
         width: this.width,
         height: this.height
         },
-    images: [ "images/enemy_rocks.png" ]
+    images: [ PRELOAD.getResult( 'enemy_rocks' ) ]
     };
 
 var sprite = new createjs.SpriteSheet( spriteConfig );

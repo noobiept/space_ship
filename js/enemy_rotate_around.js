@@ -59,7 +59,7 @@ var spriteSheet = {
         height: this.height
         },
         
-    images: [ "images/enemy_rotate_around_ship.png" ]
+    images: [ PRELOAD.getResult( 'enemy_rotate_around' ) ]
 
     };
     

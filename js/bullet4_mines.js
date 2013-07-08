@@ -45,7 +45,7 @@ var minesSprite = {
         height: 15
         },
         
-    images: [ "images/bullet4_mines.png" ]
+    images: [ PRELOAD.getResult( 'bullet4_mines' ) ]
 
     };
     

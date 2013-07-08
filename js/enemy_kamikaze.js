@@ -48,7 +48,7 @@ var spriteSheet = {
         width: this.width,
         height: this.height
         },
-    images: [ "images/enemy_kamikaze.png" ]
+    images: [ PRELOAD.getResult( 'enemy_kamikaze' ) ]
     };
 
 var ss = new createjs.SpriteSheet( spriteSheet );

@@ -39,7 +39,7 @@ var rocketSprite = {
         height: 7
         },
         
-    images: [ "images/bullet3_rocket.png" ]
+    images: [ PRELOAD.getResult( 'bullet3_rocket' ) ]
     };
 
 var sprite = new createjs.SpriteSheet( rocketSprite );

@@ -161,7 +161,16 @@ if ( DEBUG )
 PRELOAD = new createjs.LoadQueue();
 
 var manifest = [
-    { id: "game_music", src: "sound/scumm_bar.ogg" }    // just testing
+    { id: "game_music", src: "sound/scumm_bar.ogg" },
+    { id: 'bullet1_laser', src: 'images/bullet1_laser.png' },
+    { id: 'bullet2_sniper', src: 'images/bullet2_sniper.png' },
+    { id: 'bullet3_rocket', src: 'images/bullet3_rocket.png' },
+    { id: 'bullet4_mines', src: 'images/bullet4_mines.png' },
+    { id: 'enemy_move_horizontally', src: 'images/enemy_move_horizontally.png' },
+    { id: 'enemy_rocks', src: 'images/enemy_rocks.png' },
+    { id: 'enemy_rotate_around', src: 'images/enemy_rotate_around_ship.png' },
+    { id: 'enemy_kamikaze', src: 'images/enemy_kamikaze.png' },
+    { id: 'ship', src: 'images/ship.png' }
     ];
 
 

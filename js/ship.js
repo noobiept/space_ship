@@ -88,7 +88,7 @@ var spriteSheet = {
         width: 10,
         height: 10
         },
-    images: [ "images/ship.png" ]
+    images: [ PRELOAD.getResult( 'ship' ) ]
     };
 
 
@@ -322,7 +322,7 @@ if ( !event )
     
 var weapons = [ Bullet1_laser, Bullet2_sniper, Bullet3_rocket, Bullet4_mines ];
 
-    // .weaponSelected starts at 1 for the first element (but arrsys start at 0)
+    // .weaponSelected starts at 1 for the first element (but arrays start at 0)
 var weaponSelected = this.weaponSelected - 1;
 var bulletsLeft = this.bullets_left;
 
