@@ -319,11 +319,6 @@ else if ( (typeA === TYPE_SHIP && typeB === TYPE_BULLET) ||
         bulletObject = objectA;
         }
 
-        //HERE -- poder levar dano das proprias balas?..
-    if ( !bulletObject.isEnemy )
-        {
-        return;
-        }
 
     COLLISION_F.push(
         function()
@@ -352,12 +347,6 @@ else if ( (typeA === TYPE_BULLET && typeB === TYPE_ENEMY) ||
         {
         bulletObject = objectB;
         enemyObject = objectA;
-        }
-
-        //HERE -- poder levar dano das proprias balas?..
-    if ( bulletObject.isEnemy )
-        {
-        return;
         }
 
     COLLISION_F.push(

@@ -10,6 +10,8 @@
     
         .drawBullet()
         .setupPhysics()         (optional -- the default is a rectangle from the width/height properties)
+        .tick_function()        (optional)
+
 
     Properties:
 
@@ -52,7 +54,6 @@ this.drawBullet( angleRotation );
 
 this.setupPhysics();
 
-this.isEnemy = shipObject.isEnemy;
 
 STAGE.addChild( this.shape );
 
@@ -61,16 +62,7 @@ ZIndex.update();
 createjs.Ticker.addListener( this );
 
 
-if ( this.isEnemy )
-    {
-    Bullet.enemyBullets.push( this );
-    }
-
-else
-    {
-    Bullet.allyBullets.push( this );
-    }
-
+Bullet.all_bullets.push( this );
 
 
 if ( typeof x === 'undefined')
@@ -93,11 +85,8 @@ this.rotate( angle );
 this.moveTo( x + addX, y + addY );
 }
 
-    // all the bullets from the enemies
-Bullet.enemyBullets = [];
-
-    // all the bullets from the allies
-Bullet.allyBullets = [];
+    // all the bullets (from the enemies or the main ship)
+Bullet.all_bullets = [];
 
 
 
@@ -179,23 +168,6 @@ this.shape.y = this.body.GetWorldCenter().y * SCALE;
 };
 
 
-/*
-    Tells if a bullet has reached the canvas limits
- */
-
-Bullet.prototype.reachedLimits = function()
-{
-var x = this.shape.x;
-var y = this.shape.y;
-
-if (x < 0 || x > GAME_WIDTH || y < 0 || y > GAME_HEIGHT)
-    {
-    return true;
-    }
-
-return false;
-};
-
 
 /*
     How much damage the bullets gives to the ship when it hits
@@ -221,18 +193,9 @@ this.body.SetAngle( degrees * Math.PI / 180 );
 
 Bullet.prototype.remove = function()
 {
-var all;
+var all = Bullet.all_bullets;
 
-if ( this.isEnemy )
-    {
-    all = Bullet.enemyBullets;
-    }
-    
-else
-    {
-    all = Bullet.allyBullets;
-    }
-    
+
 STAGE.removeChild( this.shape );
 createjs.Ticker.removeListener( this );
 
@@ -251,14 +214,9 @@ all.splice( position, 1 );
 
 Bullet.removeAllBullets = function()
 {
-$( Bullet.enemyBullets ).each(function(index, enemy)
+$( Bullet.all_bullets ).each(function(index, enemy)
     {
     enemy.remove();
-    });
-    
-$( Bullet.allyBullets ).each(function(index, ally)
-    {
-    ally.remove();
     });
 };
 
@@ -277,21 +235,9 @@ var i;
 var bulletObject;
 
     // check if the bullets are out of bounds (outside the canvas), and remove them if so
-for (i = 0 ; i < Bullet.allyBullets.length ; i++)
+for (i = 0 ; i < Bullet.all_bullets.length ; i++)
     {
-    bulletObject = Bullet.allyBullets[ i ];
-
-    if ( outOfBounds( bulletObject ) )
-        {
-        bulletObject.remove();
-
-        i--;
-        }
-    }
-
-for (i = 0 ; i < Bullet.enemyBullets.length ; i++)
-    {
-    bulletObject = Bullet.enemyBullets[ i ];
+    bulletObject = Bullet.all_bullets[ i ];
 
     if ( outOfBounds( bulletObject ) )
         {
@@ -301,8 +247,6 @@ for (i = 0 ; i < Bullet.enemyBullets.length ; i++)
         }
     }
 };
-
-
 
 
     // public stuff

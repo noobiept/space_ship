@@ -48,10 +48,6 @@
 
 function EnemyShip( x, y )
 {
-    // to distinguish the bullets (from enemies or from the main ship)
-this.isEnemy = true;
-
-
 this.type = TYPE_ENEMY;
    
     // the number of ticks it takes until the enemy can start moving/firing/being killed

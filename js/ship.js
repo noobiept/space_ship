@@ -5,9 +5,6 @@
 
 function Ship()
 {
-    // to distinguish the bullets (from enemies or from the main ship)
-this.isEnemy = false;
-
 this.shape = null;
 
 this.width = 10;
