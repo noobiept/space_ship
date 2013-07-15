@@ -16,7 +16,7 @@
     Issues:
     
         - the EnemyKamikaze doesn't work too well
-        - levels ending even though there's still enemies in the map (some bug somewhere, where some objects being leaked?)
+        - the bullets are shown passing through the game menu, maybe position the game menu below/outside the canvas?
 
     to doo:
 
@@ -291,6 +291,14 @@ if ( (typeA === TYPE_SHIP && typeB === TYPE_ENEMY) ||
         enemyObject = objectA;
         }
 
+        // already was added to the collision array (don't add the same collision twice)
+    if ( enemyObject.alreadyInCollision )
+        {
+        return;
+        }
+
+    enemyObject.alreadyInCollision = true;
+
 
     COLLISION_F.push(
         function()
@@ -318,6 +326,15 @@ else if ( (typeA === TYPE_SHIP && typeB === TYPE_BULLET) ||
         shipObject = objectB;
         bulletObject = objectA;
         }
+
+
+        // already was added to the collision array (don't add the same collision twice)
+    if ( bulletObject.alreadyInCollision )
+        {
+        return;
+        }
+
+    bulletObject.alreadyInCollision = true;
 
 
     COLLISION_F.push(
@@ -348,6 +365,15 @@ else if ( (typeA === TYPE_BULLET && typeB === TYPE_ENEMY) ||
         bulletObject = objectB;
         enemyObject = objectA;
         }
+
+        // already was added to the collision array (don't add the same collision twice)
+    if ( enemyObject.alreadyInCollision )
+        {
+        return;
+        }
+
+    enemyObject.alreadyInCollision = true;
+
 
     COLLISION_F.push(
         function()
@@ -411,20 +437,7 @@ $( '#GameMenu' ).css( 'display', 'none' );
 COLLISION_F.length = 0;
 
 
-    // clear any bodies that for whatever reason aren't removed
-var nextBody = WORLD.GetBodyList();
-
-while ( nextBody )
-    {
-    var body = nextBody;
-
-    nextBody = body.GetNext();
-
-    WORLD.DestroyBody( body );
-    }
-
 WORLD.DrawDebugData();
-
 STAGE.update();
 }
     
