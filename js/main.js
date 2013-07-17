@@ -31,6 +31,8 @@
         - random maps (like 1 map, random 50 units.. with certain time between each new unit. map 2, more units etc...)
         - different color for bullets (ship vs enemies)
         - add the images used in the preloadjs (for enemies, bullets, ...)
+        
+        - change the image of the bullets from loading a bitmap image to drawing a shape. it may prevent the lagging of the shape to the body of the sniper bullet
  */
 
 
@@ -110,7 +112,8 @@ var CATEGORY = {
 var MASK = {
     ship: CATEGORY.enemy,   // ship can collide with enemies
     enemy: CATEGORY.ship,   // enemies can collide with the ship
-    enemy_spawning: 0       // doesn't collide with anything, during the spawn phase
+    enemy_spawning: 0,      // doesn't collide with anything, during the spawn phase
+    dontCollide: 0
     };
 
 
@@ -299,6 +302,9 @@ if ( (typeA === TYPE_SHIP && typeB === TYPE_ENEMY) ||
 
     enemyObject.alreadyInCollision = true;
 
+        // make it not collidable anymore
+    enemyObject.fixDef.mask_bits = MASK.dontCollide;
+    enemyObject.body.CreateFixture( enemyObject.fixDef );
 
     COLLISION_F.push(
         function()
@@ -336,6 +342,9 @@ else if ( (typeA === TYPE_SHIP && typeB === TYPE_BULLET) ||
 
     bulletObject.alreadyInCollision = true;
 
+        // make it not collidable anymore
+    bulletObject.fixDef.mask_bits = MASK.dontCollide;
+    bulletObject.body.CreateFixture( bulletObject.fixDef );
 
     COLLISION_F.push(
         function()
@@ -373,6 +382,10 @@ else if ( (typeA === TYPE_BULLET && typeB === TYPE_ENEMY) ||
         }
 
     enemyObject.alreadyInCollision = true;
+
+        // make it not collidable anymore
+    enemyObject.fixDef.mask_bits = MASK.dontCollide;
+    enemyObject.body.CreateFixture( enemyObject.fixDef );
 
 
     COLLISION_F.push(
@@ -430,7 +443,7 @@ $( ENEMY_TYPES ).each(function(index, enemyType)
     });
     
 clearKeysHeld();
-
+Message.removeAll();
 
 $( '#GameMenu' ).css( 'display', 'none' );
 

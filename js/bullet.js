@@ -131,6 +131,7 @@ body.SetBullet( true );
 body.SetUserData( this );
 
 this.body = body;
+this.fixDef = fixDef;
 };
 
 

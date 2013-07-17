@@ -1,5 +1,7 @@
 (function(window)
 {
+var ALL_MESSAGES = [];
+
 /*
     Argument:
         {
@@ -62,6 +64,9 @@ if ( typeof stuff.timeOut !== 'undefined' )
 
 this.container = container;
 this.message = message;
+
+
+ALL_MESSAGES.push( this );
 }
 
 
@@ -75,11 +80,22 @@ $( this.message ).html( text );
 Message.prototype.remove = function()
 {
 this.container.removeChild( this.message );
+
+var position = ALL_MESSAGES.indexOf( this );
+
+ALL_MESSAGES.splice( position, 1 );
 };
 
 
+Message.removeAll = function()
+{
+for (var i = 0 ; i < ALL_MESSAGES.length ; i++)
+    {
+    ALL_MESSAGES[ i ].remove();
+    }
+};
+
 
 window.Message = Message;
-
 
 }(window));

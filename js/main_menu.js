@@ -67,11 +67,14 @@ STAGE.update();
 
 
 
-MainMenu.startGame = function()
+MainMenu.startGame = function( event )
 {
 MainMenu.cleanUp();
 
 StartGame();
+
+    // prevent the click to select the entry, to also fire a bullet once the game starts
+event.stopPropagation();
 };
 
 
