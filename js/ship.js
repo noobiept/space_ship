@@ -9,6 +9,7 @@ this.shape = null;
 
 this.width = 10;
 this.height = 10;
+this.color = 'rgb(81, 139, 255)';
 
 this.type = TYPE_SHIP;
 
@@ -326,7 +327,7 @@ var bulletsLeft = this.bullets_left;
 
 if (bulletsLeft[ weaponSelected ] > 0)
     {
-    new weapons[ this.weaponSelected - 1 ]( this );
+    new weapons[ this.weaponSelected - 1 ]( this, this.color );
     
     bulletsLeft[ weaponSelected ]--;
     

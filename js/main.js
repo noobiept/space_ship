@@ -29,10 +29,6 @@
         - add enemies with more energy (and maybe show above the unit how many more hitpoints it has)
 
         - random maps (like 1 map, random 50 units.. with certain time between each new unit. map 2, more units etc...)
-        - different color for bullets (ship vs enemies)
-        - add the images used in the preloadjs (for enemies, bullets, ...)
-        
-        - change the image of the bullets from loading a bitmap image to drawing a shape. it may prevent the lagging of the shape to the body of the sniper bullet
  */
 
 
@@ -165,10 +161,6 @@ PRELOAD = new createjs.LoadQueue();
 
 var manifest = [
     { id: "game_music", src: "sound/scumm_bar.ogg" },
-    { id: 'bullet1_laser', src: 'images/bullet1_laser.png' },
-    { id: 'bullet2_sniper', src: 'images/bullet2_sniper.png' },
-    { id: 'bullet3_rocket', src: 'images/bullet3_rocket.png' },
-    { id: 'bullet4_mines', src: 'images/bullet4_mines.png' },
     { id: 'enemy_move_horizontally', src: 'images/enemy_move_horizontally.png' },
     { id: 'enemy_rocks', src: 'images/enemy_rocks.png' },
     { id: 'enemy_rotate_around', src: 'images/enemy_rotate_around_ship.png' },

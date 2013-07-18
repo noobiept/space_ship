@@ -33,20 +33,8 @@
 function Bullet( shipObject, angleRotation, x, y )
 {
 this.shape = null;
-
 this.shipObject = shipObject;
-
-if ( !$.isNumeric( angleRotation ) )
-    {
-    angleRotation = calculateAngleBetweenObjects2( MAIN_SHIP.getX(), MAIN_SHIP.getY(), STAGE.mouseX, STAGE.mouseY );
-    }
-
-angleRotation = -1 * angleRotation; //HERE
-
-this.angleRotation = angleRotation;
-
 this.type = TYPE_BULLET;
-
 this.damage = 10;
 
     // draw the bullet
@@ -61,7 +49,6 @@ ZIndex.update();
 
 createjs.Ticker.addListener( this );
 
-
 Bullet.all_bullets.push( this );
 
 
@@ -74,14 +61,13 @@ if ( typeof x === 'undefined')
     // fire from outside the main ship radius (so it doesn't collide immediately with it)
 var shipRadius = MAIN_SHIP.width / 2;
 
-var angle = this.angleRotation;
 
-var radians = toRadians( angle );
+var radians = toRadians( angleRotation );
 
 var addX = Math.cos( radians ) * shipRadius;
 var addY = Math.sin( radians ) * shipRadius;
 
-this.rotate( angle );
+this.rotate( angleRotation );
 this.moveTo( x + addX, y + addY );
 }
 

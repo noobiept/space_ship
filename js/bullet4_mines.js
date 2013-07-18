@@ -5,20 +5,30 @@
     // remove the mines after some time
 var REMOVE_TICK = 200;
 
-function Bullet4_mines( shipObject )
+    // rotate the mine
+var ANGLE_TICK = 15;
+
+function Bullet4_mines( shipObject, color, angleRotation )
 {
 this.width = 15;
 this.height = 15;
+this.color = color;
+
+angleRotation = 0;  // doesn't need the rotation
 
     // inherit from the Bullet class
-Bullet.call( this, shipObject );
+Bullet.call( this, shipObject, angleRotation );
 
 this.speed = 0;
 this.damage = 50;
 
-
     // count the ticks, and when it reaches 0 remove the mine
 this.countTick = REMOVE_TICK;
+
+    // angle of the mine points (for the animation, keep rotating the mine)
+this.angle = 0;
+
+this.angleTick = ANGLE_TICK;
 }
 
 
@@ -26,60 +36,73 @@ this.countTick = REMOVE_TICK;
 INHERIT_PROTOTYPE( Bullet4_mines, Bullet );
 
 
-
-Bullet4_mines.prototype.drawBullet = function()
+Bullet4_mines.prototype.drawBullet = function( angleRotation )
 {
-var minesSprite = {
+var width = this.width;
+var height = this.height;
 
-    animations: {
-    
-        main: {
-            frames: [ 0, 1, 2, 3 ],
-            next: "main",
-            frequency: 10
-            }
-        },
-        
-    frames: {
-        width: 15,
-        height: 15
-        },
-        
-    images: [ PRELOAD.getResult( 'bullet4_mines' ) ]
+var mine = new createjs.Shape();
 
-    };
-    
+mine.regX = width / 2;
+mine.regY = height / 2;
+mine.rotation = angleRotation;
 
-var sprite = new createjs.SpriteSheet( minesSprite );
+var g = mine.graphics;
 
-var mine = new createjs.BitmapAnimation( sprite );
+var halfPoint = width / 2;  // width is same as height
 
-    // origin in the middle of the image
-mine.regX = this.height / 2;
-mine.regY = this.height / 2;
+g.beginFill( this.color );
+g.drawPolyStar( halfPoint, halfPoint, halfPoint, 5, 0.5, this.angle );
+g.drawCircle( halfPoint, halfPoint, 4 / 6 * halfPoint );
 
-mine.gotoAndPlay( "main" );
-
-var shipObject = this.shipObject;
-
-mine.x = shipObject.getX();
-mine.y = shipObject.getY();
-//mine.rotation = shipObject.getRotation(); //HERE nao precisa
 
 this.shape = mine;
 };
 
+
+/*
+    Have an animation of the mine (rotates around itself)
+ */
+
+Bullet4_mines.prototype.rotateMine = function()
+{
+this.angle += 45;
+
+if (this.angle > 360)
+    {
+    this.angle = 0;
+    }
+
+var mine = this.shape;
+
+var g = mine.graphics;
+
+var halfPoint = this.width / 2;  // width is same as height
+
+g.clear();
+g.beginFill( this.color );
+g.drawPolyStar( halfPoint, halfPoint, halfPoint, 5, 0.5, this.angle );
+g.drawCircle( halfPoint, halfPoint, 4 / 6 * halfPoint );
+
+this.angleTick = ANGLE_TICK;
+};
 
 
 
 Bullet4_mines.prototype.tick_function = function()
 {
 this.countTick--;
+this.angleTick--;
 
     // remove the mine after some time (so that it doesn't stay there forever
 if ( this.countTick < 0 )
     {
     this.remove();
+    }
+
+else if ( this.angleTick < 0 )
+    {
+    this.rotateMine();
     }
 };
 
