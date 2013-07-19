@@ -20,10 +20,7 @@
 
     to doo:
 
-        collisions:
-
-            - sniper bullet is too fast for the shape/body to be synced
-            - cant fire if mouse is outside of canvas (or maybe pause the game when the mouse is outside of the canvas?...)
+        - sniper bullet is too fast for the shape/body to be synced
 
         - change the weapons variables in Ship to be zero-based ( this.weaponSelected )
         - add enemies with more energy (and maybe show above the unit how many more hitpoints it has)
@@ -232,9 +229,7 @@ document.onkeydown = handleKeyDown;
 document.onkeyup = handleKeyUp;
 
 
-STAGE.onMouseMove = function( event ) { MAIN_SHIP.handleMouseMove( event ); };
-//STAGE.onMouseDown = function( event ) { MAIN_SHIP.handleClick( event ); };
-//window.onmousemove = function( event ) { MAIN_SHIP.handleMouseMove( event ); };
+window.onmousemove = function( event ) { MAIN_SHIP.handleMouseMove( event ); };
 window.onclick = function( event ) { MAIN_SHIP.handleClick( event ) };
 
 

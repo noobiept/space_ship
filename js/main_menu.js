@@ -47,7 +47,7 @@ ENTRIES.push( MainMenu.startGame, MainMenu.endlessMode, MainMenu.openOptions );
 
 ENTRIES_ELEMENTS.push( startGame, endlessMode, options );
 
-centerHtmlElement( menu, 90 );
+centerElement( menu );
 
 $( menu ).css( 'display', 'block' );
 

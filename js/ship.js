@@ -284,10 +284,15 @@ if ( !event )
     event = window.event;
     }
 
+var canvasPosition = $( CANVAS ).position();
+
+    // mouse position in the canvas (assume origin point in top/left of canvas element)
+var mouseX = event.pageX - canvasPosition.left;
+var mouseY = event.pageY - canvasPosition.top;
 
     // make a triangle from the position the ship is in, relative to the mouse position
-var triangleOppositeSide = this.shape.y - event.stageY;
-var triangleAdjacentSide = event.stageX - this.shape.x;
+var triangleOppositeSide = this.shape.y - mouseY;
+var triangleAdjacentSide = mouseX - this.shape.x;
 
 
     // find the angle, given the two sides (of a right triangle)
