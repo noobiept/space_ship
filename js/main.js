@@ -16,7 +16,6 @@
     Issues:
     
         - the EnemyKamikaze doesn't work too well
-        - the bullets are shown passing through the game menu, maybe position the game menu below/outside the canvas?
 
     to doo:
 
@@ -200,7 +199,7 @@ GameStatistics.start();
 
 
 GAME_WIDTH = CANVAS.width;
-GAME_HEIGHT = CANVAS.height - GAME_MENU_HEIGHT;
+GAME_HEIGHT = CANVAS.height;
 
 
 MAIN_SHIP = new Ship();

@@ -93,7 +93,7 @@ quit.onclick = function()
 $( menu ).css( 'width', CANVAS.width + 'px' );
 
     // +10 for the border etc
-positionHtmlElement( menu, 0, CANVAS.height - GAME_MENU_HEIGHT + 10 );
+positionHtmlElement( menu, 0, CANVAS.height + 10 );
 
 
 $( '#GameMenu' ).css( 'display', 'block' );
