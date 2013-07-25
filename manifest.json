@@ -3,6 +3,6 @@
     "version": "1.0",
     "description": "Something cool here.",
     "icons": { "16": "images/space_ship_16.png", "128": "images/space_ship_128.png" },
-    "app": { "launch": { "local_path": "home.html" } },
+    "app": { "launch": { "local_path": "index.html" } },
     "manifest_version": 2
 }

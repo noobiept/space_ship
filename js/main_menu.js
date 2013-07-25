@@ -39,24 +39,26 @@ MainMenu.cleanUp();
 
 var menu = document.querySelector( '#MainMenu' );
 
-var startGame = menu.querySelector( '#MainMenu-startGame' );
+var predefinedMaps = menu.querySelector( '#MainMenu-predefinedMaps' );
+var randomMaps = menu.querySelector( '#MainMenu-randomMaps' );
 var endlessMode = menu.querySelector( '#MainMenu-endlessMode' );
 var options = menu.querySelector( '#MainMenu-options' );
 
-ENTRIES.push( MainMenu.startGame, MainMenu.endlessMode, MainMenu.openOptions );
+ENTRIES.push( MainMenu.predefinedMaps, MainMenu.randomMaps, MainMenu.endlessMode, MainMenu.openOptions );
 
-ENTRIES_ELEMENTS.push( startGame, endlessMode, options );
+ENTRIES_ELEMENTS.push( predefinedMaps, randomMaps, endlessMode, options );
 
 centerElement( menu );
 
 $( menu ).css( 'display', 'block' );
 
-startGame.onclick = MainMenu.startGame;
+predefinedMaps.onclick = MainMenu.predefinedMaps;
+randomMaps.onclick = MainMenu.randomMaps;
 endlessMode.onclick = MainMenu.endlessMode;
 options.onclick = MainMenu.openOptions;
 
 ENTRY_SELECTED = 0;
-$( startGame ).addClass( 'MainMenu-entrySelected' );
+$( predefinedMaps ).addClass( 'MainMenu-entrySelected' );
 
 $( document ).bind( "keyup", MainMenu.keyboardEvents );
 
@@ -67,22 +69,33 @@ STAGE.update();
 
 
 
-MainMenu.startGame = function( event )
+MainMenu.predefinedMaps = function( event )
 {
 MainMenu.cleanUp();
 
-StartGame();
+PredefinedMaps.start();
 
     // prevent the click to select the entry, to also fire a bullet once the game starts
 event.stopPropagation();
 };
 
 
+MainMenu.randomMaps = function( event )
+{
+MainMenu.cleanUp();
+
+RandomMaps.start();
+
+event.stopPropagation();
+};
+
+
+
 MainMenu.endlessMode = function()
 {
 MainMenu.cleanUp();
 
-EndlessMode();
+EndlessMode.start();
 
     // prevent the click to select the entry, to also fire a bullet once the game starts
 event.stopPropagation();

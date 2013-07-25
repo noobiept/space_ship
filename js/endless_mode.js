@@ -22,12 +22,16 @@ var COUNT_INCREASE_DIFFICULTY_TICKS = 0;
 
 function EndlessMode()
 {
-GAME_MODE = EndlessMode;
 
-initGame();
 }
 
 
+EndlessMode.start = function()
+{
+GAME_MODE = EndlessMode;
+
+initGame();
+};
 
 
 
