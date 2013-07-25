@@ -30,6 +30,9 @@ EnemyKamikaze.velocity = EnemyKamikaze.velocity_default;
 
 EnemyKamikaze.prototype.makeShape = function()
 {
+var width = this.width;
+var height = this.height;
+
 var spriteSheet = {
     animations: {
         
@@ -45,8 +48,8 @@ var spriteSheet = {
             }
         },
     frames: {
-        width: this.width,
-        height: this.height
+        width: width,
+        height: height
         },
     images: [ PRELOAD.getResult( 'enemy_kamikaze' ) ]
     };
@@ -56,8 +59,8 @@ var ss = new createjs.SpriteSheet( spriteSheet );
 var enemy = new createjs.BitmapAnimation( ss );
 
     // origin in the middle of the image
-enemy.regX = this.width / 2;
-enemy.regY = this.height / 2;
+enemy.regX = width / 2;
+enemy.regY = height / 2;
 
 enemy.gotoAndPlay("spawn");
 

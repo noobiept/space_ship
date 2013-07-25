@@ -110,22 +110,22 @@ switch(event.keyCode)
         
     case EVENT_KEY["1"]:
         
-        MAIN_SHIP.selectWeapon( 1 );
+        MAIN_SHIP.selectWeapon( 0 );
         break;
         
     case EVENT_KEY["2"]:
     
-        MAIN_SHIP.selectWeapon( 2 );
+        MAIN_SHIP.selectWeapon( 1 );
         break;
         
     case EVENT_KEY["3"]:
         
-        MAIN_SHIP.selectWeapon( 3 );
+        MAIN_SHIP.selectWeapon( 2 );
         break;
         
     case EVENT_KEY["4"]:
     
-        MAIN_SHIP.selectWeapon( 4 );
+        MAIN_SHIP.selectWeapon( 3 );
         break;
     }
 }

@@ -33,22 +33,22 @@ $( weapon1 ).addClass( 'WeaponsSelected' );
 
 weapon1.onclick = function()
     {
-    MAIN_SHIP.selectWeapon( 1 );
+    MAIN_SHIP.selectWeapon( 0 );
     };
 
 weapon2.onclick = function()
     {
-    MAIN_SHIP.selectWeapon( 2 );
+    MAIN_SHIP.selectWeapon( 1 );
     };
 
 weapon3.onclick = function()
     {
-    MAIN_SHIP.selectWeapon( 3 );
+    MAIN_SHIP.selectWeapon( 2 );
     };
 
 weapon4.onclick = function()
     {
-    MAIN_SHIP.selectWeapon( 4 );
+    MAIN_SHIP.selectWeapon( 3 );
     };
 
 
@@ -76,6 +76,9 @@ var restart = menu.querySelector( '#GameMenu-restart' );
 restart.onclick = function()
     {
     GAME_MODE();
+
+        // prevent the click to select the entry, to also fire a bullet once the game starts
+    event.stopPropagation();
     };
 
     // :: Quit :: //
@@ -85,6 +88,8 @@ var quit = menu.querySelector( '#GameMenu-quit' );
 quit.onclick = function()
     {
     MainMenu.open();
+
+    event.stopPropagation();
     };
 
 

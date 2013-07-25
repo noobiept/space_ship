@@ -18,7 +18,7 @@ this.makeShape();
 this.setupPhysics();
 
 
-this.weaponSelected = 1;
+this.weaponSelected = 0;
 
     // counter, until it can add a new ammo to the weapon
 this.tick_count = [
@@ -266,7 +266,7 @@ Ship.prototype.selectWeapon = function( weaponNumber )
 {
 this.weaponSelected = weaponNumber;
 
-GameMenu.selectWeapon( weaponNumber - 1 );
+GameMenu.selectWeapon( weaponNumber );
 };
     
 
@@ -325,14 +325,14 @@ if ( !event )
     
 var weapons = [ Bullet1_laser, Bullet2_sniper, Bullet3_rocket, Bullet4_mines ];
 
-    // .weaponSelected starts at 1 for the first element (but arrays start at 0)
-var weaponSelected = this.weaponSelected - 1;
+
+var weaponSelected = this.weaponSelected;
 var bulletsLeft = this.bullets_left;
 
 
 if (bulletsLeft[ weaponSelected ] > 0)
     {
-    new weapons[ this.weaponSelected - 1 ]( this, this.color );
+    new weapons[ this.weaponSelected ]( this, this.color );
     
     bulletsLeft[ weaponSelected ]--;
     

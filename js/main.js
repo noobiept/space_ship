@@ -13,17 +13,11 @@
             - tweenjs   : 0.4
         - box2dweb : 2.1.a
 
-    Issues:
-    
-        - the EnemyKamikaze doesn't work too well
 
     to doo:
 
-        - sniper bullet is too fast for the shape/body to be synced
-
-        - change the weapons variables in Ship to be zero-based ( this.weaponSelected )
+        - shape (createjs) isn't synced with the body (box2dweb) when its moving too fast (for example the sniper)
         - add enemies with more energy (and maybe show above the unit how many more hitpoints it has)
-
         - random maps (like 1 map, random 50 units.. with certain time between each new unit. map 2, more units etc...)
  */
 
