@@ -147,6 +147,9 @@ if ( DEBUG )
     }
 
 
+PredefinedMaps.init();
+
+
 PRELOAD = new createjs.LoadQueue();
 
 var manifest = [
@@ -451,10 +454,6 @@ for (var i = 0 ; i < COLLISION_F.length ; i++)
 
     i--;
     }
-
-
-    // call the tick() of the current game mode
-GAME_MODE.tick();
 
 
 WORLD.Step(

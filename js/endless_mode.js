@@ -13,7 +13,6 @@ var COUNT_INCREASE_DIFFICULTY_TICKS = 0;
 
 
 
-
 /*
     Doesn't have levels/maps
     
@@ -31,6 +30,8 @@ EndlessMode.start = function()
 GAME_MODE = EndlessMode;
 
 initGame();
+
+createjs.Ticker.addEventListener( 'tick', EndlessMode.tick );
 };
 
 
