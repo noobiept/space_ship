@@ -14,6 +14,22 @@
         - box2dweb : 2.1.a
 
 
+    Game Modes:
+
+        Predefined Maps
+
+            - manually written maps
+
+        Random Maps
+
+            - generated maps (adds several enemies each time)
+
+        Endless Mode
+
+            - adds one enemy at a time
+            - the difficulty increases by reducing the time between each new enemy, and by increasing the enemies damage/'movement speed'
+
+
     to doo:
 
         - shape (createjs) isn't synced with the body (box2dweb) when its moving too fast (for example the sniper)

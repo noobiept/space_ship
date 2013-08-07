@@ -1,5 +1,6 @@
 "use strict";
 
+
 (function(window)
 {
 var ENTRY_SELECTED = 0;
@@ -9,6 +10,10 @@ var ENTRIES = [];
 
     // has the html elements of the entries
 var ENTRIES_ELEMENTS = [];
+
+var MAP_OBJECT = null;
+
+
 
 function MainMenu()
 {
@@ -84,7 +89,7 @@ MainMenu.randomMaps = function( event )
 {
 MainMenu.cleanUp();
 
-RandomMaps.start();
+MAP_OBJECT = new RandomMaps();
 
 event.stopPropagation();
 };
@@ -237,7 +242,6 @@ ENTRY_SELECTED = 0;
 
 ENTRIES.length = 0;
 };
-
 
 
 window.MainMenu = MainMenu;
