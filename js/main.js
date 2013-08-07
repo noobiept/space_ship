@@ -73,9 +73,7 @@ var WORLD = null;
     // playable dimensions (the rest of the canvas is for menus/etc)
 var GAME_WIDTH;
 var GAME_HEIGHT;
-var GAME_MENU_HEIGHT = 65;
 
-    
 var MAIN_SHIP;
 
 var ENEMY_TYPES = [
@@ -84,9 +82,7 @@ var ENEMY_TYPES = [
     EnemyRotateAround,
     EnemyKamikaze,
     EnemyRocks
-
     ];
-    
 
     
 var GAME_MODE = null;
@@ -255,6 +251,19 @@ if ( musicVolume > 0 )
 
 GameMenu();
 }
+
+
+function startGameMode()
+{
+if ( startGameMode.game_object )
+    {
+    startGameMode.game_object.clear();
+    }
+
+startGameMode.game_object = null;
+startGameMode.game_object = new GAME_MODE();
+}
+
 
 
 

@@ -4,15 +4,28 @@
 
 (function(window)
 {
-function Maps()
+function Maps( maps )
 {
 var mapObject = this;
 
-    // has the map configuration (what enemies to add, at what tick, etc)
-this.MAPS = [];
 
-    // number of maps in the game, -1 if no limit (for the RandomMaps mode)
-this.NUMBER_OF_MAPS = -1;
+if ( typeof maps == 'undefined' )
+    {
+        // number of maps in the game, -1 if no limit (for the RandomMaps mode)
+    this.NUMBER_OF_MAPS = -1;
+
+        // has the map configuration (what enemies to add, at what tick, etc)
+    this.MAPS = [];
+    }
+
+    // the maps can be provided
+else
+    {
+    this.MAPS = maps;
+
+    this.NUMBER_OF_MAPS = maps.length;
+    }
+
 
     // the current position in the MAPS array above, which represents the current map being played
 this.CURRENT_MAP = 0;
@@ -96,6 +109,8 @@ new Message({
     timeOut_f: function() { MainMenu.open() }
     });
 };
+
+
 
 
 Maps.prototype.clear = function()

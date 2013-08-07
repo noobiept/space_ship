@@ -2,8 +2,6 @@
 {
 function RandomMaps()
 {
-GAME_MODE = RandomMaps;
-
     // inherit from the Maps class
 Maps.call( this );
 }

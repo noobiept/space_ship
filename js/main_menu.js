@@ -11,8 +11,6 @@ var ENTRIES = [];
     // has the html elements of the entries
 var ENTRIES_ELEMENTS = [];
 
-var MAP_OBJECT = null;
-
 
 
 function MainMenu()
@@ -78,7 +76,9 @@ MainMenu.predefinedMaps = function( event )
 {
 MainMenu.cleanUp();
 
-PredefinedMaps.start();
+GAME_MODE = PredefinedMaps;
+
+startGameMode();
 
     // prevent the click to select the entry, to also fire a bullet once the game starts
 event.stopPropagation();
@@ -89,7 +89,9 @@ MainMenu.randomMaps = function( event )
 {
 MainMenu.cleanUp();
 
-MAP_OBJECT = new RandomMaps();
+GAME_MODE = RandomMaps;
+
+startGameMode();
 
 event.stopPropagation();
 };

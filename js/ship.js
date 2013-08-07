@@ -255,7 +255,7 @@ if (energy <= 0)
             {
             endMessage.remove();
 
-            GAME_MODE();
+            startGameMode();
             }
         });
     }
