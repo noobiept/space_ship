@@ -35,6 +35,7 @@
         - shape (createjs) isn't synced with the body (box2dweb) when its moving too fast (for example the sniper)
         - add enemies with more energy (and maybe show above the unit how many more hitpoints it has)
         - random maps (like 1 map, random 50 units.. with certain time between each new unit. map 2, more units etc...)
+        - occasionally we get an error when trying to remove the Message html element (says its not found), when restarting/quitting right after a message is being added maybe?..
  */
 
 

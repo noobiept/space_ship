@@ -102,7 +102,9 @@ MainMenu.endlessMode = function()
 {
 MainMenu.cleanUp();
 
-EndlessMode.start();
+GAME_MODE = EndlessMode;
+
+startGameMode();
 
     // prevent the click to select the entry, to also fire a bullet once the game starts
 event.stopPropagation();

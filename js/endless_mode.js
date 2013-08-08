@@ -1,18 +1,5 @@
 (function(window)
 {
-
-    // from how many ticks, until next enemy
-var NEXT_ENEMY_TICKS = 100;
-
-var COUNT_TICKS_NEXT_ENEMY = 0;
-
-
-    // number of ticks until we increase the difficulty 
-var INCREASE_DIFFICULTY_TICKS = 500;
-var COUNT_INCREASE_DIFFICULTY_TICKS = 0;
-
-
-
 /*
     Doesn't have levels/maps
     
@@ -21,32 +8,40 @@ var COUNT_INCREASE_DIFFICULTY_TICKS = 0;
 
 function EndlessMode()
 {
+var endlessObject = this;
 
-}
+        // from how many ticks, until next enemy
+this.NEXT_ENEMY_TICKS = 100;
 
+    // number of ticks until we increase the difficulty
+this.INCREASE_DIFFICULTY_TICKS = 500;
 
-EndlessMode.start = function()
-{
-GAME_MODE = EndlessMode;
+    // the counters
+this.COUNT_TICKS_NEXT_ENEMY = 0;
+this.COUNT_TICKS_INCREASE_DIFFICULTY = 0;
 
 initGame();
 
-createjs.Ticker.addEventListener( 'tick', EndlessMode.tick );
-};
+this.TICK_F = function()
+    {
+    endlessObject.tick();
+    };
 
+createjs.Ticker.addEventListener( 'tick', this.TICK_F );
+}
 
 
 /*
     Gets called after the main tick()
  */
 
-EndlessMode.tick = function()
+EndlessMode.prototype.tick = function()
 {
-COUNT_TICKS_NEXT_ENEMY--;
+this.COUNT_TICKS_NEXT_ENEMY--;
 
-if (COUNT_TICKS_NEXT_ENEMY < 0)
+if ( this.COUNT_TICKS_NEXT_ENEMY < 0 )
     {
-    COUNT_TICKS_NEXT_ENEMY = NEXT_ENEMY_TICKS;
+    this.COUNT_TICKS_NEXT_ENEMY = this.NEXT_ENEMY_TICKS;
     
   
     //var enemy = new ENEMY_TYPES[ getRandomInt(0, ENEMY_TYPES.length - 1 ) ]();
@@ -63,11 +58,12 @@ if (COUNT_TICKS_NEXT_ENEMY < 0)
     
 
     // deal with increasing the difficulty of the game
-COUNT_INCREASE_DIFFICULTY_TICKS--;
+this.COUNT_TICKS_INCREASE_DIFFICULTY--;
 
-if (COUNT_INCREASE_DIFFICULTY_TICKS < 0)
+
+if ( this.COUNT_TICKS_INCREASE_DIFFICULTY < 0 )
     {
-    COUNT_INCREASE_DIFFICULTY_TICKS = INCREASE_DIFFICULTY_TICKS;
+    this.COUNT_TICKS_INCREASE_DIFFICULTY = this.INCREASE_DIFFICULTY_TICKS;
     
         // increase the difficulty of the game
     $( ENEMY_TYPES ).each(function(index, enemyType)
@@ -76,9 +72,17 @@ if (COUNT_INCREASE_DIFFICULTY_TICKS < 0)
         });
     
         // reduce the time it takes until a new enemy is added
-    NEXT_ENEMY_TICKS--;
+    this.NEXT_ENEMY_TICKS--;
     }    
 };
+
+
+
+EndlessMode.prototype.clear = function()
+{
+createjs.Ticker.removeEventListener( 'tick', this.TICK_F );
+};
+
 
 
 window.EndlessMode = EndlessMode;
