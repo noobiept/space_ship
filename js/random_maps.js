@@ -2,6 +2,17 @@
 {
 function RandomMaps()
 {
+    // the number of times a group of enemies is added
+this.map_length = 5;
+
+    // minimum/maximum number of enemies that can be spawned each time (is is increased as the maps are being cleared)
+this.how_many_min = 1;
+this.how_many_max = 5;
+
+    // minimum/maximum number of ticks between each map phase
+this.tick_min = 10;
+this.tick_max = 50;
+
     // inherit from the Maps class
 Maps.call( this );
 }
@@ -21,10 +32,12 @@ INHERIT_PROTOTYPE( RandomMaps, Maps );
 
 RandomMaps.prototype.generateMap = function()
 {
+this.increaseDifficulty();
+
 var map = [];
 
     // number of times where enemies are added
-var length = 5;
+var length = this.map_length;
 
     // the game tick, from the start of the map
 var tick = 0;
@@ -34,12 +47,12 @@ var howMany;
 
 for (var i = 0 ; i < length ; i++)
     {
-    tick += getRandomInt( 10, 50 );
+    tick += getRandomInt( this.tick_min, this.tick_max );
 
     temp = getRandomInt( 0, ENEMY_TYPES.length - 1 );
 
     enemyType = ENEMY_TYPES[ temp ];
-    howMany = getRandomInt( 1, 5 );
+    howMany = getRandomInt( this.how_many_min, this.how_many_max );
 
     map.push({
             tick: tick,
@@ -52,6 +65,39 @@ for (var i = 0 ; i < length ; i++)
 
 return map;
 };
+
+
+
+
+RandomMaps.prototype.increaseDifficulty = function()
+{
+    // increase the difficulty every two levels (when the map number is even)
+if ( ((this.CURRENT_MAP + 1) % 2) === 0 )
+    {
+    this.map_length++;
+    this.how_many_max++;
+
+    this.tick_max--;
+
+    if ( this.tick_max < this.tick_min )
+        {
+        this.tick_max = this.tick_min;
+        }
+    }
+
+
+    // every 5 levels
+if ( ((this.CURRENT_MAP + 1) % 5) === 0 )
+    {
+    this.tick_min++;
+
+    if ( this.tick_min > this.tick_max )
+        {
+        this.tick_min = this.tick_max;
+        }
+    }
+};
+
 
 
 /*

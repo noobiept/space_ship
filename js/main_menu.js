@@ -169,7 +169,7 @@ var key = event.keyCode;
     // start the game
 if (key === EVENT_KEY.enter)
     {
-    ENTRIES[ ENTRY_SELECTED ]();
+    ENTRIES[ ENTRY_SELECTED ]( event );
     }
 
 else if (key === EVENT_KEY.downArrow)
