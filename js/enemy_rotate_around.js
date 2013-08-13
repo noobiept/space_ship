@@ -118,7 +118,7 @@ this.fixDef = fixDef;
 };
 
 
-EnemyRotateAround.prototype.shipBehaviour = function()
+EnemyRotateAround.prototype.enemyBehaviour = function()
 {
 var currentX = this.shape.x;
 var currentY = this.shape.y;
@@ -171,13 +171,9 @@ if (this.countTicks >= this.ticksUntilNextBullet)
     {
     this.countTicks = 0;
     
-    var angleRotation = calculateAngleBetweenObjects( MAIN_SHIP, this );
-    
-    
-        //HERE align the image
-    angleRotation += 180;
-       
-    
+    var angleRotation = calculateAngleBetweenObjects( this, MAIN_SHIP );
+
+
         // we multiply by -1 because the .rotation property seems to have the angles in the other direction
     angleRotation *= -1;
       

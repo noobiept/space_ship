@@ -13,7 +13,7 @@
    height="14"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.3.1 r9886"
+   inkscape:version="0.48.4 r9939"
    sodipodi:docname="enemy_kamikaze.svg"
    inkscape:export-filename="C:\Users\drk\Dropbox\projects\space_ship_game\images\enemy_kamikaze.png"
    inkscape:export-xdpi="90"
@@ -27,16 +27,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="45.254834"
-     inkscape:cx="46.01462"
-     inkscape:cy="2.8372068"
+     inkscape:zoom="22.627417"
+     inkscape:cx="24.753717"
+     inkscape:cy="2.3477609"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1366"
-     inkscape:window-height="706"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-width="1920"
+     inkscape:window-height="1005"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
      inkscape:window-maximized="1"
      showguides="true"
      inkscape:guide-bbox="true">
@@ -70,7 +70,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -81,23 +81,23 @@
      transform="translate(0,-1038.3622)">
     <path
        style="fill:#d054ff;fill-opacity:1;stroke:#d054ff;stroke-width:0.72058672px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 43.235306,1051.5122 49,1048.6298 54.764694,1051.5122 49,1039.2622 z"
+       d="m 42.875,1039.6225 2.8824,5.7647 -2.8824,5.7647 12.25,-5.7647 z"
        id="path2993"
        inkscape:connector-curvature="0" />
     <path
        inkscape:connector-curvature="0"
        id="path2988"
-       d="M 1.235306,1051.5122 7,1048.6298 12.764694,1051.5122 7,1039.2622 z"
+       d="m 0.875,1039.6225 2.8824,5.7647 -2.8824,5.7647 12.25,-5.7647 z"
        style="fill:#d054ff;fill-opacity:0.23529412;stroke:#d054ff;stroke-width:0.72058672px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.23529412" />
     <path
        style="fill:#d054ff;fill-opacity:0.39215686;stroke:#d054ff;stroke-width:0.72058672px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.39215686"
-       d="M 15.235306,1051.5122 21,1048.6298 26.764694,1051.5122 21,1039.2622 z"
+       d="m 14.875,1039.6225 2.8824,5.7647 -2.8824,5.7647 12.25,-5.7647 z"
        id="path2990"
        inkscape:connector-curvature="0" />
     <path
        inkscape:connector-curvature="0"
        id="path2994"
-       d="M 29.235306,1051.5122 35,1048.6298 40.764694,1051.5122 35,1039.2622 z"
+       d="m 28.875,1039.6225 2.8824,5.7647 -2.8824,5.7647 12.25,-5.7647 z"
        style="fill:#d054ff;fill-opacity:0.70588235;stroke:#d054ff;stroke-width:0.72058672px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.70588235" />
   </g>
 </svg>

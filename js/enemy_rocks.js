@@ -132,8 +132,7 @@ this.fixDef = fixDef;
 
 
 
-//HERE mudar o nome para enemyBehaviour ou shapeBehaviour
-EnemyRocks.prototype.shipBehaviour = function()
+EnemyRocks.prototype.enemyBehaviour = function()
 {
 var currentX = this.shape.x;
 var currentY = this.shape.y;

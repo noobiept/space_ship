@@ -12,9 +12,7 @@ var KEYS_HELD = {
     
     };
 
-var shootHeld;  //HERE
-    
-    
+
 function clearKeysHeld()
 {
 KEYS_HELD.left = false;
@@ -35,11 +33,6 @@ if( !event )
 
 switch(event.keyCode) 
     {
-    case EVENT_KEY.space:	//HERE use for secondary fire or something
-        
-        shootHeld = true; 
-        return false;
-        
     case EVENT_KEY.a:
     case EVENT_KEY.leftArrow:	
         
@@ -79,11 +72,6 @@ if ( !event )
 
 switch(event.keyCode) 
     {
-    case EVENT_KEY.space:	
-        
-        shootHeld = false; 
-        break;
-        
     case EVENT_KEY.a:
     case EVENT_KEY.leftArrow:	
         

@@ -106,11 +106,12 @@ this.fixDef = fixDef;
 };
 
 
-EnemyKamikaze.prototype.shipBehaviour = function()
+EnemyKamikaze.prototype.enemyBehaviour = function()
 {
 var angle = calculateAngleBetweenObjects( this, MAIN_SHIP );
 
-angle *= -1;    //HERE
+    // we multiply by -1 because the .rotation property seems to have the angles in the other direction (not quite sure..)
+angle *= -1;
 
 var radians = toRadians( angle );
 
@@ -140,11 +141,7 @@ this.updateRotation();
 EnemyKamikaze.prototype.updateRotation = function()
 {
     // calculate the angle between the enemy and the ship  
-var angleDegrees = calculateAngleBetweenObjects( MAIN_SHIP, this );
-
-
-    //HERE align the image
-angleDegrees += 90;
+var angleDegrees = calculateAngleBetweenObjects( this, MAIN_SHIP );
 
     // we multiply by -1 because the .rotation property seems to have the angles in the other direction
 this.rotate( -1 * angleDegrees );

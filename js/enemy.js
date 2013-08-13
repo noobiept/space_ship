@@ -14,7 +14,7 @@
     
         .makeShape()
         .setupPhysics()
-        .shipBehaviour()
+        .enemyBehaviour()
         .updateShape()          (optional)
         .tookDamage()           (optional)
         .beforeAddToStage()     (optional)
@@ -172,7 +172,7 @@ this.remove();
 };
 
 
-EnemyShip.prototype.shipBehaviour = function()
+EnemyShip.prototype.enemyBehaviour = function()
 {
     // do this
 };
@@ -316,7 +316,7 @@ if (typeof this.spawnTick_function !== "undefined" && this.spawnTick_function !=
 
 EnemyShip.prototype.normalTick = function()
 {
-this.shipBehaviour();
+this.enemyBehaviour();
 
 this.updateShape();
 

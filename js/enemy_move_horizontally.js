@@ -122,7 +122,7 @@ this.fixDef = fixDef;
 
 
 
-EnemyMoveHorizontally.prototype.shipBehaviour = function()
+EnemyMoveHorizontally.prototype.enemyBehaviour = function()
 {
 var nextX = this.shape.x + this.velocity;
 var nextY = this.shape.y;
