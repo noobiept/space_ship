@@ -168,7 +168,7 @@ var manifest = [
     { id: "game_music", src: "sound/scumm_bar.ogg" },
     { id: 'enemy_move_horizontally', src: 'images/enemy_move_horizontally.png' },
     { id: 'enemy_rocks', src: 'images/enemy_rocks.png' },
-    { id: 'enemy_rotate_around', src: 'images/enemy_rotate_around_ship.png' },
+    { id: 'enemy_rotate_around', src: 'images/enemy_rotate_around.png' },
     { id: 'enemy_kamikaze', src: 'images/enemy_kamikaze.png' },
     { id: 'ship', src: 'images/ship.png' }
     ];

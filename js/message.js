@@ -51,7 +51,7 @@ if ( typeof stuff.timeOut !== 'undefined' )
     {
     window.setTimeout( function()
         {
-        messageObject.remove()
+        messageObject.remove();
 
         if ( stuff.timeOut_f )
             {

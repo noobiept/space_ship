@@ -1,0 +1,28 @@
+{
+    "resultingFolder": "space_ship",
+    "basePath": "..",
+    "files":
+        [
+            "images/enemy_kamikaze.png",
+            "images/enemy_move_horizontally.png",
+            "images/enemy_rocks.png",
+            "images/enemy_rotate_around.png",
+            
+            "images/ship.png",
+            
+            "images/space_ship_16.png",
+            "images/space_ship_128.png",
+
+            "css/",
+            "libraries/",
+            "maps/",
+            "sound/",
+
+            "COPYING.txt",
+            "COPYING_LESSER.txt",
+            "license.txt",
+            
+            "index.html",
+            "manifest.json"
+        ]
+}
