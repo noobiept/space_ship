@@ -1,33 +1,25 @@
 [
     {
     "tick"      : 20,
-    "enemyType" : "EnemyRocks",
+    "enemyType" : "EnemyMoveHorizontally",
     "howMany"   : 2,
     "x"         : -1,
     "y"         : -1
     },
     
     {
-    "tick"      : 60,
-    "enemyType" : "EnemyRocks",
+    "tick"      : 80,
+    "enemyType" : "EnemyRotateAround",
     "howMany"   : 2,
     "x"         : -1,
     "y"         : -1
     },
     
     {
-    "tick"      : 140,
-    "enemyType" : "EnemyKamikaze",
+    "tick"      : 150,
+    "enemyType" : "EnemyMoveHorizontally",
     "howMany"   : 2,
     "x"         : -1,
     "y"         : -1
-    },
-    
-    {
-    "tick"      : 200,
-    "enemyType" : "EnemyRocks",
-    "howMany"   : 2,
-    "x"         : -1,
-    "y"         : -1
-    }    
+    }
 ]

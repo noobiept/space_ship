@@ -93,6 +93,49 @@ quit.onclick = function()
     };
 
 
+$( quit ).css( 'display', 'none' );
+$( restart ).css( 'display', 'none' );
+
+
+    // :: Open the Menu :: //
+
+var openMenu = menu.querySelector( '#GameMenu-openMenu' );
+
+$( openMenu ).text( 'Menu' );
+
+var isOpened = false;
+
+openMenu.onclick = function()
+    {
+    if ( isOpened )
+        {
+        isOpened = false;
+
+        $( openMenu ).text( 'Menu' );
+
+        $( quit ).css( 'display', 'none' );
+        $( restart ).css( 'display', 'none' );
+
+        resume();
+        }
+
+    else
+        {
+        isOpened = true;
+
+        $( openMenu ).text( 'Back' );
+
+        $( quit ).css( 'display', 'inline-block' );
+        $( restart ).css( 'display', 'inline-block' );
+
+        pause();
+        }
+
+    event.stopPropagation();
+    };
+
+
+
     // :: Position the menu :: //
 
 $( menu ).css( 'width', CANVAS.width + 'px' );

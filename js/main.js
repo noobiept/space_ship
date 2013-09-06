@@ -35,6 +35,11 @@
         - shape (createjs) isn't synced with the body (box2dweb) when its moving too fast (for example the sniper)
         - add enemies with more energy (and maybe show above the unit how many more hitpoints it has)
         - occasionally we get an error when trying to remove the Message html element (says its not found), when restarting/quitting right after a message is being added maybe?..
+
+        - reduce the max number of bullets, so that you cant just spam it (and need to aim)
+        - adjust the time it takes to gain new bullets
+        - do 10 maps for the predefined maps
+        - do the icon
  */
 
 
@@ -237,10 +242,6 @@ document.onkeydown = handleKeyDown;
 document.onkeyup = handleKeyUp;
 
 
-window.onmousemove = function( event ) { MAIN_SHIP.handleMouseMove( event ); };
-window.onclick = function( event ) { MAIN_SHIP.handleClick( event ) };
-
-
 var musicVolume = Options.getMusicVolume();
 
 if ( musicVolume > 0 )
@@ -260,9 +261,35 @@ if ( startGameMode.game_object )
     startGameMode.game_object.clear();
     }
 
+resetStuff();
+
 startGameMode.game_object = null;
 startGameMode.game_object = new GAME_MODE();
 }
+
+
+
+function pause()
+{
+if ( MAIN_SHIP )
+    {
+    MAIN_SHIP.clearEvents();
+    }
+
+createjs.Ticker.setPaused( true );
+}
+
+
+function resume()
+{
+if ( MAIN_SHIP )
+    {
+    MAIN_SHIP.setEvents();
+    }
+
+createjs.Ticker.setPaused( false );
+}
+
 
 
 
@@ -456,6 +483,7 @@ Message.removeAll();
 $( '#GameMenu' ).css( 'display', 'none' );
 
 COLLISION_F.length = 0;
+createjs.Ticker.setPaused( false );
 
 
 WORLD.DrawDebugData();

@@ -30,10 +30,10 @@ this.tick_count = [
 
     // current number of bullets left
 this.bullets_left = [
-        MAX_AMMO[ 0 ] / 2,
-        MAX_AMMO[ 1 ] / 2,
-        MAX_AMMO[ 2 ] / 2,
-        MAX_AMMO[ 3 ] / 2
+        parseInt( MAX_AMMO[ 0 ] / 2 ),
+        parseInt( MAX_AMMO[ 1 ] / 2 ),
+        parseInt( MAX_AMMO[ 2 ] / 2 ),
+        parseInt( MAX_AMMO[ 3 ] / 2 )
     ];
 
 
@@ -44,7 +44,10 @@ this.moveTo( GAME_WIDTH / 2, GAME_HEIGHT / 2 );
 STAGE.addChild( this.shape );
 
 ZIndex.add( this.shape );
+
+this.setEvents();
 }
+
 
 Ship.all = [];
 
@@ -55,8 +58,8 @@ var VELOCITY = 5;
     // ticks until we add + ammo to the weapons
     // the weapon number corresponds to the position in the list (position 0 is the first weapon, etc)
 var AMMO_UPDATE_TICK = [
-    10,
-    50,
+    12,
+    40,
     20,
     25
     ];
@@ -64,9 +67,9 @@ var AMMO_UPDATE_TICK = [
 
     // maximum number of bullets per weapon
 var MAX_AMMO = [
-        100,
-        10,
         50,
+        10,
+        20,
         20
     ];
 
@@ -139,6 +142,44 @@ this.body = body;
 
 body.SetUserData( this );
 };
+
+
+
+(function(Ship)
+{
+var CLICK_F = null;
+var MOUSE_MOVE_F = null;
+
+/*
+    Sets Ship's events, that handle the firing of the weapons (click event) and the rotation of the ship (mousemove event)
+ */
+
+Ship.prototype.setEvents = function()
+{
+var shipObject = this;
+
+CLICK_F = function( event ) { shipObject.handleClick( event ); };
+MOUSE_MOVE_F = function( event ) { shipObject.handleMouseMove( event ); };
+
+window.addEventListener( 'click', CLICK_F, false );
+window.addEventListener( 'mousemove', MOUSE_MOVE_F, false );
+};
+
+
+/*
+    Clear the events of the Ship, call .setEvents() later to set them back
+ */
+
+Ship.prototype.clearEvents = function()
+{
+window.removeEventListener( 'click', CLICK_F );
+window.removeEventListener( 'mousemove', MOUSE_MOVE_F );
+};
+
+}(Ship));
+
+
+
 
 /*
     Updates the shape position to match the physic body
