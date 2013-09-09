@@ -4,12 +4,17 @@
 
 (function(window)
 {
-function Maps( maps )
+/*
+    args has:
+        .maps           (optional)
+        .startingLevel  (optional)
+ */
+
+function Maps( args )
 {
 var mapObject = this;
 
-
-if ( typeof maps == 'undefined' )
+if ( typeof args.maps == 'undefined' )
     {
         // number of maps in the game, -1 if no limit (for the RandomMaps mode)
     this.NUMBER_OF_MAPS = -1;
@@ -21,9 +26,9 @@ if ( typeof maps == 'undefined' )
     // the maps can be provided
 else
     {
-    this.MAPS = maps;
+    this.MAPS = args.maps;
 
-    this.NUMBER_OF_MAPS = maps.length;
+    this.NUMBER_OF_MAPS = args.maps.length;
     }
 
 
@@ -43,7 +48,15 @@ this.NO_MORE_PHASES = false;
     // start the game
 initGame();
 
-this.loadMap( 0 );
+
+var startingLevel = 0;
+
+if ( typeof args.startingLevel != 'undefined' )
+    {
+    startingLevel = args.startingLevel;
+    }
+
+this.loadMap( startingLevel );
 
 
     // adding the mapObject directly in the addEventListener wasn't working so...
@@ -73,7 +86,7 @@ if ( typeof mapNumber == 'undefined' )
 
 else
     {
-    self.CURRENT_MAP = mapNumber;
+    this.CURRENT_MAP = mapNumber;
     }
 
 

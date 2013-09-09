@@ -290,13 +290,13 @@ if (energy <= 0)
         text: "Game Over: Press enter to restart"
         });
     
-    $( document).bind( "keyup", function(event) 
+    $( document ).bind( "keyup", function(event)
         {
         if (event.keyCode === EVENT_KEY.enter) 
             {
             endMessage.remove();
 
-            startGameMode();
+            startGameMode( true );
             }
         });
     }
@@ -438,6 +438,7 @@ var position = Ship.all.indexOf( this );
 Ship.all.splice( position, 1 );
 
 $( this ).unbind();
+this.clearEvents();
 };
 
 

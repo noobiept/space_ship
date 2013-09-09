@@ -1,6 +1,6 @@
 (function(window)
 {
-function RandomMaps()
+function RandomMaps( startingLevel )
 {
     // the number of times a group of enemies is added
 this.map_length = 5;
@@ -14,7 +14,7 @@ this.tick_min = 10;
 this.tick_max = 50;
 
     // inherit from the Maps class
-Maps.call( this );
+Maps.call( this, { startingLevel: startingLevel } );
 }
 
 
@@ -114,6 +114,13 @@ if ( typeof mapNumber == 'undefined' )
 else
     {
     this.CURRENT_MAP = mapNumber;
+
+        // fill the MAPS with random stuff, until the position in the array matches the map number (that is assumed in the base class Maps)
+        // for example when you restart the game, it starts again in the same level it was before
+    if ( this.MAPS.length < mapNumber )
+        {
+        this.MAPS = new Array( mapNumber );
+        }
     }
 
 var newMap = this.generateMap();

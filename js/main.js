@@ -40,10 +40,11 @@
         - adjust the time it takes to gain new bullets
         - do 10 maps for the predefined maps
         - do the icon
-        
-        - when you loose in a game, restart from the same level, instead off from the beginning
+
         - make so that the sniper shot isn't removed when it hits an enemy, just continues going until its out of the canvas (being able to hit several enemies)
         - make the map smaller?..
+        - add splash damage to the mine and the rocket
+        - increase the velocity/damage of the enemies as well in the PredefinedMaps/etc (as it is in EndlessMode)
  */
 
 
@@ -257,18 +258,33 @@ if ( musicVolume > 0 )
 GameMenu();
 }
 
+/**
+    @param {Boolean} [fromPreviousLevel=false] restarting the game, starting at same level it was before
+ */
 
-function startGameMode()
+function startGameMode( fromPreviousLevel )
 {
+if ( typeof fromPreviousLevel == 'undefined' )
+    {
+    fromPreviousLevel = false;
+    }
+
+var startingLevel = 0;
+
 if ( startGameMode.game_object )
     {
+    if ( fromPreviousLevel )
+        {
+        startingLevel = startGameMode.game_object.CURRENT_MAP;
+        }
+
     startGameMode.game_object.clear();
     }
 
 resetStuff();
 
 startGameMode.game_object = null;
-startGameMode.game_object = new GAME_MODE();
+startGameMode.game_object = new GAME_MODE( startingLevel );
 }
 
 

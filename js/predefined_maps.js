@@ -5,10 +5,10 @@ var NUMBER_OF_MAPS = 5;
     // has the maps configurations
 var MAPS = [];
 
-function PredefinedMaps()
+function PredefinedMaps( startingLevel )
 {
     // inherit from the Maps class
-Maps.call( this, MAPS );
+Maps.call( this, { maps: MAPS, startingLevel: startingLevel } );
 }
 
 

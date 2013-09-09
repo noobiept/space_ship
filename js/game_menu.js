@@ -75,7 +75,7 @@ var restart = menu.querySelector( '#GameMenu-restart' );
 
 restart.onclick = function()
     {
-    startGameMode();
+    startGameMode( true );
 
         // prevent the click to select the entry, to also fire a bullet once the game starts
     event.stopPropagation();
