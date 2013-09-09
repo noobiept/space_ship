@@ -1,0 +1,177 @@
+[
+    {
+        "tick"      : 0,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 50,
+        "enemyType" : "EnemyKamikaze",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 100,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 150,
+        "enemyType" : "EnemyKamikaze",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 200,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 250,
+        "enemyType" : "EnemyKamikaze",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 300,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 350,
+        "enemyType" : "EnemyKamikaze",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 400,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 450,
+        "enemyType" : "EnemyKamikaze",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 500,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 550,
+        "enemyType" : "EnemyKamikaze",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 600,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 650,
+        "enemyType" : "EnemyKamikaze",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 700,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 750,
+        "enemyType" : "EnemyKamikaze",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 800,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 850,
+        "enemyType" : "EnemyKamikaze",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 900,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 950,
+        "enemyType" : "EnemyKamikaze",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 1000,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 1050,
+        "enemyType" : "EnemyKamikaze",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 1100,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 1150,
+        "enemyType" : "EnemyKamikaze",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 1200,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 15,
+        "x"         : -1,
+        "y"         : -1
+    }
+]

@@ -1,6 +1,6 @@
 (function(window)
 {
-var NUMBER_OF_MAPS = 2;
+var NUMBER_OF_MAPS = 5;
 
     // has the maps configurations
 var MAPS = [];

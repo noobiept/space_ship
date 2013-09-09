@@ -1,33 +1,79 @@
 [
     {
-    "tick"      : 20,
-    "enemyType" : "EnemyRocks",
-    "howMany"   : 2,
-    "x"         : -1,
-    "y"         : -1
+        "tick"      : 0,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1
     },
-    
     {
-    "tick"      : 60,
-    "enemyType" : "EnemyRocks",
-    "howMany"   : 2,
-    "x"         : -1,
-    "y"         : -1
+        "tick"      : 60,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1
     },
-    
     {
-    "tick"      : 140,
-    "enemyType" : "EnemyKamikaze",
-    "howMany"   : 2,
-    "x"         : -1,
-    "y"         : -1
+        "tick"      : 120,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1
     },
-    
     {
-    "tick"      : 200,
-    "enemyType" : "EnemyRocks",
-    "howMany"   : 2,
-    "x"         : -1,
-    "y"         : -1
-    }    
+        "tick"      : 180,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 240,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 300,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 360,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 420,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 480,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 540,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 600,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1
+    }
 ]

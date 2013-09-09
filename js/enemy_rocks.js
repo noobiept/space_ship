@@ -134,13 +134,10 @@ this.fixDef = fixDef;
 
 EnemyRocks.prototype.enemyBehaviour = function()
 {
-var currentX = this.shape.x;
-var currentY = this.shape.y;
+var x = Math.sin( this.angleRadians ) * this.velocity;
+var y = Math.cos( this.angleRadians ) * this.velocity;
 
-var x = currentX + Math.sin( this.angleRadians ) * this.velocity;
-var y = currentY + Math.cos( this.angleRadians ) * this.velocity;
-
-this.moveTo( x, y );
+this.body.SetLinearVelocity( new b2Vec2( x, y ) );
 
 this.rotate( this.shape.rotation + 1 );
 };

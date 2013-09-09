@@ -132,10 +132,10 @@ var triangleAdjacentSide = currentX - MAIN_SHIP.shape.x;
     // find the angle, given the two sides (of a right triangle)
 var angleRadians = Math.atan2( triangleOppositeSide, triangleAdjacentSide );
 
-var x = currentX + Math.sin( angleRadians ) * this.velocity;
-var y = currentY + Math.cos( angleRadians ) * this.velocity;
+var x = Math.sin( angleRadians ) * this.velocity;
+var y = Math.cos( angleRadians ) * this.velocity;
 
-this.moveTo( x, y );
+this.body.SetLinearVelocity( new b2Vec2( x, y ) );
 };
 
 

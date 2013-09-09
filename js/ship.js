@@ -58,9 +58,9 @@ var VELOCITY = 5;
     // ticks until we add + ammo to the weapons
     // the weapon number corresponds to the position in the list (position 0 is the first weapon, etc)
 var AMMO_UPDATE_TICK = [
-    12,
-    40,
-    20,
+    10,
+    35,
+    18,
     25
     ];
 

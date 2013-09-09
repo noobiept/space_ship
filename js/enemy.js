@@ -178,6 +178,18 @@ EnemyShip.prototype.enemyBehaviour = function()
 };
 
 
+
+/*
+    Gets called once after the spawn phase ended, and is going to the normal phase
+ */
+
+EnemyShip.prototype.afterSpawn = function()
+{
+    // do this
+};
+
+
+
 /*
     Its called right before the enemy is added to the Stage
  */
@@ -302,6 +314,8 @@ if (this.spawnTicks_int < 0)
     this.mask_bits = MASK.enemy;
 
     this.body.CreateFixture( fixDef );
+
+    this.afterSpawn();
 
         // now execute the normal tick function
     this.tick = this.normalTick;

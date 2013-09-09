@@ -120,15 +120,12 @@ this.fixDef = fixDef;
 
 
 
-
-
-EnemyMoveHorizontally.prototype.enemyBehaviour = function()
+EnemyMoveHorizontally.prototype.afterSpawn = function()
 {
-var nextX = this.shape.x + this.velocity;
-var nextY = this.shape.y;
-
-this.moveTo( nextX, nextY );
+this.body.SetLinearVelocity( new b2Vec2( 3, 0 ) );
 };
+
+
 
 
 EnemyMoveHorizontally.increaseDifficulty = function()

@@ -1,25 +1,37 @@
 [
     {
-    "tick"      : 20,
-    "enemyType" : "EnemyMoveHorizontally",
-    "howMany"   : 2,
-    "x"         : -1,
-    "y"         : -1
+        "tick"      : 0,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 5,
+        "x"         : -1,
+        "y"         : -1
     },
-    
     {
-    "tick"      : 80,
-    "enemyType" : "EnemyRotateAround",
-    "howMany"   : 2,
-    "x"         : -1,
-    "y"         : -1
+        "tick"      : 65,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 5,
+        "x"         : -1,
+        "y"         : -1
     },
-    
     {
-    "tick"      : 150,
-    "enemyType" : "EnemyMoveHorizontally",
-    "howMany"   : 2,
-    "x"         : -1,
-    "y"         : -1
+        "tick"      : 130,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 5,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 195,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 5,
+        "x"         : -1,
+        "y"         : -1
+    },
+    {
+        "tick"      : 260,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 5,
+        "x"         : -1,
+        "y"         : -1
     }
 ]
