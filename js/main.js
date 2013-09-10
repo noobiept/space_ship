@@ -41,7 +41,6 @@
         - do 10 maps for the predefined maps
         - do the icon
 
-        - make so that the sniper shot isn't removed when it hits an enemy, just continues going until its out of the canvas (being able to hit several enemies)
         - make the map smaller?..
         - add splash damage to the mine and the rocket
         - increase the velocity/damage of the enemies as well in the PredefinedMaps/etc (as it is in EndlessMode)
@@ -404,8 +403,7 @@ else if ( (typeA === TYPE_SHIP && typeB === TYPE_BULLET) ||
     COLLISION_F.push(
         function()
             {
-                // remove the bullet
-            bulletObject.remove();
+            bulletObject.collisionResponse();
 
                 // remove the EnemyShip
             shipObject.tookDamage( bulletObject.damageGiven() );
@@ -446,8 +444,7 @@ else if ( (typeA === TYPE_BULLET && typeB === TYPE_ENEMY) ||
     COLLISION_F.push(
         function()
             {
-                // remove the bullet
-            bulletObject.remove();
+            bulletObject.collisionResponse();
 
                 // remove the EnemyShip
             enemyObject.tookDamage( bulletObject.damageGiven() );

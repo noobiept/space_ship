@@ -97,6 +97,11 @@ fixDef.restitution = 0.2;
 fixDef.filter.categoryBits = this.shipObject.category_bits;
 fixDef.filter.maskBits = this.shipObject.mask_bits;
 
+    // so that it doesn't have a reaction when it collides (but we still need to detect the collision)
+    // useful for example for the sniper, to be able to continue moving through
+fixDef.isSensor = true;
+
+
 var bodyDef = new b2BodyDef;
 
 bodyDef.type = b2Body.b2_dynamicBody;
@@ -164,6 +169,19 @@ Bullet.prototype.damageGiven = function()
 {
 return this.damage;
 };
+
+
+/*
+    What to do to the bullet when a collision is detected
+ */
+
+Bullet.prototype.collisionResponse = function()
+{
+    // default is to remove the bullet, but you can override this function to do something else
+this.remove();
+};
+
+
 
 
 

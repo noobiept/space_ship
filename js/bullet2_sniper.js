@@ -47,3 +47,9 @@ this.shape = sniper;
 
 
 
+
+Bullet2_sniper.prototype.collisionResponse = function()
+{
+    // the default is to remove the bullet, but for the sniper we want the bullet to continue going forward, and possibly taking down more enemies (until it goes out of the canvas)
+    // therefore, no code here, just keep the bullet
+};
