@@ -45,4 +45,16 @@ g.bezierCurveTo( width, 0, width, height, width / 2, height );
 
 
 this.shape = rocket;
-};  
+};
+
+
+/*
+    What to do to the bullet when a collision is detected
+ */
+
+Bullet3_rocket.prototype.collisionResponse = function()
+{
+this.remove();
+
+new SplashDamage( this.shipObject, this.getX(), this.getY(), 10, this.color, 40 );
+};

@@ -88,6 +88,18 @@ this.angleTick = ANGLE_TICK;
 };
 
 
+/*
+    What to do to the bullet when a collision is detected
+ */
+
+Bullet4_mines.prototype.collisionResponse = function()
+{
+this.remove();
+
+new SplashDamage( this.shipObject, this.getX(), this.getY(), 40, this.color, 40 );
+};
+
+
 
 Bullet4_mines.prototype.tick_function = function()
 {

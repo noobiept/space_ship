@@ -42,7 +42,8 @@
         - do the icon
 
         - make the map smaller?..
-        - add splash damage to the mine and the rocket
+        - the splash damage doesn't reduce the radius (the body part)
+
         - increase the velocity/damage of the enemies as well in the PredefinedMaps/etc (as it is in EndlessMode)
  */
 
