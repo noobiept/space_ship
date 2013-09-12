@@ -1,24 +1,22 @@
 "use strict";
 
 /*
-    Arguments:
-    
-        scale: scale the original image (1 -> 100%, no scaling)
+    args = {
+        x: Number,
+        y: Number,
+        scale: Number,      (optional)
+        damage: Number,     (optional)
+        velocity: Number    (optional)
+    }
+
+        - scale: scale the original image (1 -> 100%, no scaling)
  */
 
-function EnemyRocks( x, y, scale )
+function EnemyRocks( args )
 {
-this.shape = null;
-
-this.damage = EnemyRocks.damage;
-this.velocity = EnemyRocks.velocity;
-
-this.width = 50;
-this.height = 50;
-
-if (typeof scale != "undefined" && $.isNumeric( scale ))
+if (typeof args.scale != "undefined" && $.isNumeric( args.scale ))
     {
-    this.scale = scale;
+    this.scale = args.scale;
     }
 
 else
@@ -26,20 +24,32 @@ else
     this.scale = 1;
     }
 
+if ( typeof args.damage == 'undefined' )
+    {
+    args.damage = 5;
+    }
+
+if ( typeof args.velocity == 'undefined' )
+    {
+    args.velocity = 1;
+    }
+
+this.shape = null;
+
+this.damage = args.damage;
+this.velocity = args.velocity;
+
+this.width = 50;
+this.height = 50;
+
+
     // inherits from the EnemyShip class
-EnemyShip.call( this, x, y );
+EnemyShip.call( this, args.x, args.y );
 }
 
 
     // inherit the member functions
 INHERIT_PROTOTYPE( EnemyRocks, EnemyShip );
-
-
-EnemyRocks.damage_default = 5;
-EnemyRocks.velocity_default = 1;
-
-EnemyRocks.damage = EnemyRocks.damage_default;
-EnemyRocks.velocity = EnemyRocks.velocity_default;
 
 
 
@@ -162,21 +172,6 @@ if (this.width >= 50)
 
 this.remove();
 };
-
-
-EnemyRocks.increaseDifficulty = function()
-{
-EnemyRocks.damage++;
-EnemyRocks.velocity++;
-};
-
-
-EnemyRocks.reset = function()
-{
-EnemyRocks.damage = EnemyRocks.damage_default;
-EnemyRocks.velocity = EnemyRocks.velocity_default;
-};
-
 
 
 

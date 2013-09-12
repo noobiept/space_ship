@@ -45,6 +45,9 @@
         - the splash damage doesn't reduce the radius (the body part)
 
         - increase the velocity/damage of the enemies as well in the PredefinedMaps/etc (as it is in EndlessMode)
+            - also increase in the RandomMaps
+
+        - reset the weapons bullets left when a new map starts
  */
 
 
@@ -489,12 +492,6 @@ EnemyShip.removeAll();
 Bullet.removeAllBullets();
 Ship.removeAll();
 
-    // reset the velocity and damage
-$( ENEMY_TYPES ).each(function(index, enemyType)
-    {
-    enemyType.reset();
-    });
-    
 clearKeysHeld();
 Message.removeAll();
 

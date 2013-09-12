@@ -1,30 +1,42 @@
 "use strict";
 
 
-function EnemyMoveHorizontally( x, y )
+/*
+    args = {
+        x: Number,
+        y: Number,
+        damage: Number,     (optional)
+        velocity: Number    (optional)
+    }
+ */
+
+function EnemyMoveHorizontally( args )
 {
+if ( typeof args.damage == 'undefined' )
+    {
+    args.damage = 10;
+    }
+
+if ( typeof args.velocity == 'undefined' )
+    {
+    args.velocity = 1;
+    }
+
 this.shape = null;
 
-this.damage = EnemyMoveHorizontally.damage;
-this.velocity = EnemyMoveHorizontally.velocity;
+this.damage = args.damage;
+this.velocity = args.velocity;
 
 this.width = 20;
 this.height = 20;
 
     // inherit from EnemyShip class
-EnemyShip.call( this, x, y );
+EnemyShip.call( this, args.x, args.y );
 }
 
 
     //inherit the member functions
 INHERIT_PROTOTYPE( EnemyMoveHorizontally, EnemyShip);
-
-
-EnemyMoveHorizontally.damage_default = 10;
-EnemyMoveHorizontally.velocity_default = 1;
-
-EnemyMoveHorizontally.damage = EnemyMoveHorizontally.damage_default;
-EnemyMoveHorizontally.velocity = EnemyMoveHorizontally.velocity_default;
 
 
 
@@ -126,17 +138,3 @@ this.body.SetLinearVelocity( new b2Vec2( 3, 0 ) );
 };
 
 
-
-
-EnemyMoveHorizontally.increaseDifficulty = function()
-{
-EnemyMoveHorizontally.damage++;
-EnemyMoveHorizontally.velocity++;
-};
-
-
-EnemyMoveHorizontally.reset = function()
-{
-EnemyMoveHorizontally.damage = EnemyMoveHorizontally.damage_default;
-EnemyMoveHorizontally.velocity = EnemyMoveHorizontally.velocity_default;
-};

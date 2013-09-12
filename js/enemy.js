@@ -21,11 +21,7 @@
         .spawnTick_function()   (optional)
         .tick_function()        (optional)
 
-    --- to the class ---
 
-        .increaseDifficulty()
-        .reset()
-    
     and change these properties:
     
         .damage

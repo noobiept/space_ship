@@ -1,30 +1,42 @@
 "use strict";
 
+/*
+    args = {
+        x: Number,
+        y: Number,
+        damage: Number,     (optional)
+        velocity: Number    (optional)
+    }
+ */
 
-function EnemyKamikaze( x, y )
+function EnemyKamikaze( args )
 {
+if ( typeof args.damage == 'undefined' )
+    {
+    args.damage = 10;
+    }
+
+if ( typeof args.velocity == 'undefined' )
+    {
+    args.velocity = 2;
+    }
+
+
 this.shape = null;
 
-this.damage = EnemyKamikaze.damage;
-this.velocity = EnemyKamikaze.velocity;
+this.damage = args.damage;
+this.velocity = args.velocity;
 
 this.width = 14;
 this.height = 14;
 
     // inherits from the Enemy class
-EnemyShip.call( this, x, y );
+EnemyShip.call( this, args.x, args.y );
 }
 
 
     //inherit the member functions
 INHERIT_PROTOTYPE( EnemyKamikaze, EnemyShip );
-
-
-EnemyKamikaze.damage_default = 10;
-EnemyKamikaze.velocity_default = 2;
-
-EnemyKamikaze.damage = EnemyKamikaze.damage_default;
-EnemyKamikaze.velocity = EnemyKamikaze.velocity_default;
 
 
 
@@ -115,7 +127,7 @@ angle *= -1;
 
 var radians = toRadians( angle );
 
-var velocity = EnemyKamikaze.velocity;
+var velocity = this.velocity;
 
 var x = Math.cos( radians ) * velocity;
 var y = Math.sin( radians ) * velocity;
@@ -148,19 +160,6 @@ this.rotate( -1 * angleDegrees );
 };
 
 
-
-EnemyKamikaze.increaseDifficulty = function()
-{
-EnemyKamikaze.damage++;
-EnemyKamikaze.velocity++;
-};
-
-
-EnemyKamikaze.reset = function()
-{
-EnemyKamikaze.damage = EnemyKamikaze.damage_default;
-EnemyKamikaze.velocity = EnemyKamikaze.velocity_default;
-};
 
 
 EnemyKamikaze.prototype.spawnTick_function = function()

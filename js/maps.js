@@ -145,6 +145,7 @@ var phase = currentMap[ this.CURRENT_MAP_PHASE ];
 
 if ( !this.NO_MORE_PHASES && this.CURRENT_MAP_TICK >= phase.tick )
     {
+        // get the enemy type
     var enemyType;
 
     if ( $.type( phase.enemyType ) == 'string' )
@@ -160,8 +161,14 @@ if ( !this.NO_MORE_PHASES && this.CURRENT_MAP_TICK >= phase.tick )
         }
 
 
+        // other information
     var howMany = parseInt( phase.howMany );
 
+    var damage = parseInt( phase.damage );
+
+    var velocity = parseInt( phase.velocity );
+
+        // get the x/y and create the enemy
     var x, y;
 
     for (var i = 0 ; i < howMany ; i++)
@@ -188,7 +195,7 @@ if ( !this.NO_MORE_PHASES && this.CURRENT_MAP_TICK >= phase.tick )
             y = phase.y;
             }
 
-        new enemyType( x, y );
+        new enemyType( { x: x, y: y, damage: damage, velocity: velocity } );
         }
 
 

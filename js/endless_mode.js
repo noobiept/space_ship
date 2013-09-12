@@ -44,12 +44,13 @@ if ( this.COUNT_TICKS_NEXT_ENEMY < 0 )
     this.COUNT_TICKS_NEXT_ENEMY = this.NEXT_ENEMY_TICKS;
     
 
-    var enemy = ENEMY_TYPES[ getRandomInt( 0, ENEMY_TYPES.length - 1 ) ];
+//    var enemy = ENEMY_TYPES[ getRandomInt( 0, ENEMY_TYPES.length - 1 ) ];
+    var enemy = EnemyKamikaze;
 
     var x = getRandomInt( 0, GAME_WIDTH );
     var y = getRandomInt( 0, GAME_HEIGHT );
 
-    new enemy( x, y );
+    new enemy( { x: x, y: y } );
     }
 
     
@@ -63,10 +64,10 @@ if ( this.COUNT_TICKS_INCREASE_DIFFICULTY < 0 )
     this.COUNT_TICKS_INCREASE_DIFFICULTY = this.INCREASE_DIFFICULTY_TICKS;
     
         // increase the difficulty of the game
-    $( ENEMY_TYPES ).each(function(index, enemyType)
+    /*$( ENEMY_TYPES ).each(function(index, enemyType)
         {
         enemyType.increaseDifficulty();
-        });
+        });*/       //HERE
     
         // reduce the time it takes until a new enemy is added
     this.NEXT_ENEMY_TICKS--;

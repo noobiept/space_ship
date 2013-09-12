@@ -1,18 +1,37 @@
 "use strict";
 
 
-function EnemyRotateAround( x, y )
+/*
+    args = {
+        x: Number,
+        y: Number,
+        damage: Number,     (optional)
+        velocity: Number    (optional)
+    }
+ */
+
+function EnemyRotateAround( args )
 {
+if ( typeof args.damage == 'undefined' )
+    {
+    args.damage = 10;
+    }
+
+if ( typeof args.velocity == 'undefined' )
+    {
+    args.velocity = 1;
+    }
+
 this.shape = null;
 
-this.damage = EnemyRotateAround.damage;
-this.velocity = EnemyRotateAround.velocity;
+this.damage = args.damage;
+this.velocity = args.velocity;
 
 this.width = 20;
 this.height = 20;
 
     // inherits from the Enemy class
-EnemyShip.call( this, x, y );
+EnemyShip.call( this, args.x, args.y );
 
 
 this.ticksUntilNextBullet = 50;
@@ -22,15 +41,7 @@ this.countTicks = 0;
 
 
     //inherit the member functions
-INHERIT_PROTOTYPE( EnemyRotateAround, EnemyShip);
-
-
-EnemyRotateAround.damage_default = 10;
-EnemyRotateAround.velocity_default = 1;
-
-EnemyRotateAround.damage = EnemyRotateAround.damage_default;
-EnemyRotateAround.velocity = EnemyRotateAround.velocity_default;
-
+INHERIT_PROTOTYPE( EnemyRotateAround, EnemyShip );
 
 
 
@@ -136,21 +147,6 @@ var x = Math.sin( angleRadians ) * this.velocity;
 var y = Math.cos( angleRadians ) * this.velocity;
 
 this.body.SetLinearVelocity( new b2Vec2( x, y ) );
-};
-
-
-
-EnemyRotateAround.increaseDifficulty = function()
-{
-EnemyRotateAround.damage++;
-EnemyRotateAround.velocity++;
-};
-
-
-EnemyRotateAround.reset = function()
-{
-EnemyRotateAround.damage = EnemyRotateAround.damage_default;
-EnemyRotateAround.velocity = EnemyRotateAround.velocity_default;
 };
 
 
