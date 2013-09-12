@@ -1,7 +1,12 @@
 "use strict";
 
-function Bullet1_laser( shipObject, color, angleRotation )
+function Bullet1_laser( shipObject, color, angleRotation, damage )
 {
+if ( typeof damage == 'undefined' )
+    {
+    damage = 10;
+    }
+
 this.width = 4;
 this.height = 2;
 this.color = color;
@@ -15,7 +20,7 @@ if ( typeof angleRotation == 'undefined' )
     // inherit from the Bullet class
 Bullet.call( this, shipObject, angleRotation );
 
-this.damage = 10;
+this.damage = damage;
 this.speed = 12;
 
 

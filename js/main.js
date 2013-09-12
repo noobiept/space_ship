@@ -36,18 +36,10 @@
         - add enemies with more energy (and maybe show above the unit how many more hitpoints it has)
         - occasionally we get an error when trying to remove the Message html element (says its not found), when restarting/quitting right after a message is being added maybe?..
 
-        - reduce the max number of bullets, so that you cant just spam it (and need to aim)
-        - adjust the time it takes to gain new bullets
-        - do 10 maps for the predefined maps
         - do the icon
-
-        - make the map smaller?..
         - the splash damage doesn't reduce the radius (the body part)
-
         - increase the velocity/damage of the enemies as well in the PredefinedMaps/etc (as it is in EndlessMode)
             - also increase in the RandomMaps
-
-        - reset the weapons bullets left when a new map starts
  */
 
 

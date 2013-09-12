@@ -215,6 +215,8 @@ if ( !this.NO_MORE_PHASES && this.CURRENT_MAP_TICK >= phase.tick )
 if ( this.NO_MORE_PHASES === true && EnemyShip.all.length === 0 && EnemyShip.all_spawning.length === 0 )
     {
     this.loadMap();
+
+    MAIN_SHIP.refreshAmmo();
     }
 };
 

@@ -34,7 +34,7 @@ this.height = 20;
 EnemyShip.call( this, args.x, args.y );
 
 
-this.ticksUntilNextBullet = 50;
+this.ticksUntilNextBullet = 60;
 
 this.countTicks = 0;
 }
@@ -172,6 +172,6 @@ if (this.countTicks >= this.ticksUntilNextBullet)
         // we multiply by -1 because the .rotation property seems to have the angles in the other direction
     angleRotation *= -1;
 
-    new Bullet1_laser( this, 'red', angleRotation );
+    new Bullet1_laser( this, 'red', angleRotation, this.damage );
     }
 };

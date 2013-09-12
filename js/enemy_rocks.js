@@ -166,7 +166,12 @@ if (this.width >= 50)
     for (i = 0 ; i < 3 ; i++)
         {
             // spawn from the current position
-        new EnemyRocks( this.shape.x, this.shape.y, 0.5 );
+        new EnemyRocks(
+            {
+                x: this.shape.x,
+                y: this.shape.y,
+                scale: 0.5
+            });
         }
     }
 

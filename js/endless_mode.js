@@ -16,6 +16,9 @@ this.NEXT_ENEMY_TICKS = 100;
     // number of ticks until we increase the difficulty
 this.INCREASE_DIFFICULTY_TICKS = 500;
 
+this.damage = 10;
+this.velocity = 1;
+
     // the counters
 this.COUNT_TICKS_NEXT_ENEMY = 0;
 this.COUNT_TICKS_INCREASE_DIFFICULTY = 0;
@@ -68,6 +71,7 @@ if ( this.COUNT_TICKS_INCREASE_DIFFICULTY < 0 )
         {
         enemyType.increaseDifficulty();
         });*/       //HERE
+
     
         // reduce the time it takes until a new enemy is added
     this.NEXT_ENEMY_TICKS--;

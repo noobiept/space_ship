@@ -420,7 +420,29 @@ Ship.prototype.getBulletsLeft = function( weapon )
 {
 return this.bullets_left[ weapon ];
 };
-    
+
+
+/*
+    Adds the ammo of all the weapons back to half of the maximum ammo, or if the ammo is already at half or more, keep whatever value it has
+ */
+
+Ship.prototype.refreshAmmo = function()
+{
+var bulletsLeft = this.bullets_left;
+var halfMaxAmmo;
+
+for (var i = 0 ; i < bulletsLeft.length ; i++)
+    {
+    halfMaxAmmo = parseInt( MAX_AMMO[ i ] / 2, 10 );
+
+    if ( bulletsLeft[ i ] < halfMaxAmmo )
+        {
+        bulletsLeft[ i ] = halfMaxAmmo;
+        }
+    }
+};
+
+
     
 /* 
     Remove this ship

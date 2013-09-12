@@ -13,6 +13,10 @@ this.how_many_max = 5;
 this.tick_min = 10;
 this.tick_max = 50;
 
+    // the damage/velocity of the enemies, it will be increased once and then to make the game more difficult
+this.damage = 10;
+this.velocity = 1;
+
     // inherit from the Maps class
 Maps.call( this, { startingLevel: startingLevel } );
 }
@@ -55,11 +59,13 @@ for (var i = 0 ; i < length ; i++)
     howMany = getRandomInt( this.how_many_min, this.how_many_max );
 
     map.push({
-            tick: tick,
-            enemyType: enemyType,
-            howMany: howMany,
-            x: -1,
-            y: -1
+            tick      : tick,
+            enemyType : enemyType,
+            howMany   : howMany,
+            x         : -1,
+            y         : -1,
+            damage    : this.damage,
+            velocity  : this.velocity
         });
     }
 
@@ -83,6 +89,8 @@ if ( ((this.CURRENT_MAP + 1) % 2) === 0 )
         {
         this.tick_max = this.tick_min;
         }
+
+    this.damage++;
     }
 
 
@@ -95,6 +103,8 @@ if ( ((this.CURRENT_MAP + 1) % 5) === 0 )
         {
         this.tick_min = this.tick_max;
         }
+
+    this.velocity++;
     }
 };
 
