@@ -38,8 +38,6 @@
 
         - do the icon
         - the splash damage doesn't reduce the radius (the body part)
-        - increase the velocity/damage of the enemies as well in the PredefinedMaps/etc (as it is in EndlessMode)
-            - also increase in the RandomMaps
  */
 
 

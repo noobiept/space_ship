@@ -10,18 +10,29 @@ function EndlessMode()
 {
 var endlessObject = this;
 
-        // from how many ticks, until next enemy
-this.NEXT_ENEMY_TICKS = 100;
+    // from how many ticks, until next enemy (the step)
+this.next_enemy = 50;
 
-    // number of ticks until we increase the difficulty
-this.INCREASE_DIFFICULTY_TICKS = 500;
-
+    // the current damage/velocity of the enemies
 this.damage = 10;
 this.velocity = 1;
 
+
+    // number of ticks until we decrease the 'next_enemy_ticks'
+this.decrease_next_enemy_step = 100;
+
+    // number of ticks until we increase the 'damage' of the enemies
+this.increase_damage_step = 300;
+
+    // number of ticks until we increase the 'velocity' of the enemies
+this.increase_velocity_step = 500;
+
+
     // the counters
-this.COUNT_TICKS_NEXT_ENEMY = 0;
-this.COUNT_TICKS_INCREASE_DIFFICULTY = 0;
+this.count_next_enemy = 0;
+this.count_decrease_next_enemy = 0;
+this.count_increase_damage = 0;
+this.count_increase_velocity = 0;
 
 initGame();
 
@@ -40,12 +51,16 @@ createjs.Ticker.addEventListener( 'tick', this.TICK_F );
 
 EndlessMode.prototype.tick = function()
 {
-this.COUNT_TICKS_NEXT_ENEMY--;
+this.count_next_enemy++;
+this.count_decrease_next_enemy++;
+this.count_increase_damage++;
+this.count_increase_velocity++;
 
-if ( this.COUNT_TICKS_NEXT_ENEMY < 0 )
+
+if ( this.count_next_enemy >= this.next_enemy )
     {
-    this.COUNT_TICKS_NEXT_ENEMY = this.NEXT_ENEMY_TICKS;
-    
+    this.count_next_enemy = 0;
+
 
 //    var enemy = ENEMY_TYPES[ getRandomInt( 0, ENEMY_TYPES.length - 1 ) ];
     var enemy = EnemyKamikaze;
@@ -53,29 +68,42 @@ if ( this.COUNT_TICKS_NEXT_ENEMY < 0 )
     var x = getRandomInt( 0, GAME_WIDTH );
     var y = getRandomInt( 0, GAME_HEIGHT );
 
-    new enemy( { x: x, y: y } );
+    new enemy(
+        {
+            x        : x,
+            y        : y,
+            damage   : this.damage,
+            velocity : this.velocity
+        });
     }
 
-    
-
-    // deal with increasing the difficulty of the game
-this.COUNT_TICKS_INCREASE_DIFFICULTY--;
 
 
-if ( this.COUNT_TICKS_INCREASE_DIFFICULTY < 0 )
+if ( this.count_decrease_next_enemy >= this.decrease_next_enemy_step )
     {
-    this.COUNT_TICKS_INCREASE_DIFFICULTY = this.INCREASE_DIFFICULTY_TICKS;
-    
-        // increase the difficulty of the game
-    /*$( ENEMY_TYPES ).each(function(index, enemyType)
-        {
-        enemyType.increaseDifficulty();
-        });*/       //HERE
+    this.count_decrease_next_enemy = 0;
 
-    
-        // reduce the time it takes until a new enemy is added
-    this.NEXT_ENEMY_TICKS--;
-    }    
+    if ( this.next_enemy > 1 )
+        {
+        this.next_enemy--;
+        }
+    }
+
+
+if ( this.count_increase_damage >= this.increase_damage_step )
+    {
+    this.count_increase_damage = 0;
+
+    this.damage++;
+    }
+
+
+if ( this.count_increase_velocity >= this.increase_velocity_step )
+    {
+    this.count_increase_velocity = 0;
+
+    this.velocity++;
+    }
 };
 
 
