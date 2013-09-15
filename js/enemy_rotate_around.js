@@ -34,7 +34,7 @@ this.height = 20;
 EnemyShip.call( this, args.x, args.y );
 
 
-this.ticksUntilNextBullet = 60;
+this.ticksUntilNextBullet = 100;
 
 this.countTicks = 0;
 }

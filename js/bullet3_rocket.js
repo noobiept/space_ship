@@ -56,5 +56,5 @@ Bullet3_rocket.prototype.collisionResponse = function()
 {
 this.remove();
 
-new SplashDamage( this.shipObject, this.getX(), this.getY(), 10, this.color, 40 );
+new SplashDamage( this.shipObject, this.getX(), this.getY(), 17, this.color, 30 );
 };

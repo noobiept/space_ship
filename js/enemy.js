@@ -284,8 +284,13 @@ $( EnemyShip.all_spawning ).each(function( index, ship )
     This prevents problems like a ship spawning right under the main ship (and so taking damage without any chance to prevent it)
  */
 
-EnemyShip.prototype.spawningTick = function()
+EnemyShip.prototype.spawningTick = function( event )
 {
+if ( event.paused )
+    {
+    return;
+    }
+
 this.spawnTicks_int--;
 
 
@@ -324,8 +329,13 @@ if (typeof this.spawnTick_function !== "undefined" && this.spawnTick_function !=
 };
 
 
-EnemyShip.prototype.normalTick = function()
+EnemyShip.prototype.normalTick = function( event )
 {
+if ( event.paused )
+    {
+    return;
+    }
+
 this.enemyBehaviour();
 
 this.updateShape();

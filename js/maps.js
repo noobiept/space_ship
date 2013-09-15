@@ -60,9 +60,9 @@ this.loadMap( startingLevel );
 
 
     // adding the mapObject directly in the addEventListener wasn't working so...
-this.TICK_F = function()
+this.TICK_F = function( event )
     {
-    mapObject.tick();
+    mapObject.tick( event );
     };
 
 createjs.Ticker.addEventListener( 'tick', this.TICK_F );
@@ -134,8 +134,13 @@ createjs.Ticker.removeEventListener( 'tick', this.TICK_F );
 
 
 
-Maps.prototype.tick = function()
+Maps.prototype.tick = function( event )
 {
+if ( event.paused )
+    {
+    return;
+    }
+
 this.CURRENT_MAP_TICK++;
 
 var currentMap = this.MAPS[ this.CURRENT_MAP ];

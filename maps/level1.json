@@ -2,7 +2,7 @@
     {
         "tick"      : 0,
         "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 5,
+        "howMany"   : 8,
         "x"         : -1,
         "y"         : -1,
         "damage"    : 10,
@@ -11,7 +11,7 @@
     {
         "tick"      : 65,
         "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 5,
+        "howMany"   : 8,
         "x"         : -1,
         "y"         : -1,
         "damage"    : 10,
@@ -20,7 +20,7 @@
     {
         "tick"      : 130,
         "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 5,
+        "howMany"   : 8,
         "x"         : -1,
         "y"         : -1,
         "damage"    : 10,
@@ -29,7 +29,7 @@
     {
         "tick"      : 195,
         "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 5,
+        "howMany"   : 8,
         "x"         : -1,
         "y"         : -1,
         "damage"    : 10,
@@ -38,7 +38,7 @@
     {
         "tick"      : 260,
         "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 5,
+        "howMany"   : 8,
         "x"         : -1,
         "y"         : -1,
         "damage"    : 10,

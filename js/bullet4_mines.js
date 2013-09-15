@@ -3,7 +3,7 @@
 (function(window)
 {
     // remove the mines after some time
-var REMOVE_TICK = 200;
+var REMOVE_TICK = 250;
 
     // rotate the mine
 var ANGLE_TICK = 15;

@@ -38,6 +38,7 @@
 
         - do the icon
         - the splash damage doesn't reduce the radius (the body part)
+        - balance the game modes (and the maps)
  */
 
 
@@ -499,8 +500,13 @@ STAGE.update();
 
 
 
-function tick()
+function tick( event )
 {
+if ( event.paused )
+    {
+    return;
+    }
+
     // check if there's collisions to deal with
 for (var i = 0 ; i < COLLISION_F.length ; i++)
     {

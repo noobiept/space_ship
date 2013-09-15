@@ -36,9 +36,9 @@ this.count_increase_velocity = 0;
 
 initGame();
 
-this.TICK_F = function()
+this.TICK_F = function( event )
     {
-    endlessObject.tick();
+    endlessObject.tick( event );
     };
 
 createjs.Ticker.addEventListener( 'tick', this.TICK_F );
@@ -49,8 +49,13 @@ createjs.Ticker.addEventListener( 'tick', this.TICK_F );
     Gets called after the main tick()
  */
 
-EndlessMode.prototype.tick = function()
+EndlessMode.prototype.tick = function( event )
 {
+if ( event.paused )
+    {
+    return;
+    }
+
 this.count_next_enemy++;
 this.count_decrease_next_enemy++;
 this.count_increase_damage++;

@@ -1,0 +1,308 @@
+[
+    {
+        "tick"      : 0,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 3
+    },
+    {
+        "tick"      : 50,
+        "enemyType" : "EnemyKamikaze",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 4
+    },
+    {
+        "tick"      : 100,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 3
+    },
+    {
+        "tick"      : 150,
+        "enemyType" : "EnemyRotateAround",
+        "howMany"   : 5,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 10,
+        "velocity"  : 2
+    },
+    {
+        "tick"      : 200,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 3
+    },
+    {
+        "tick"      : 250,
+        "enemyType" : "EnemyRocks",
+        "howMany"   : 5,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 5,
+        "velocity"  : 1
+    },
+    {
+        "tick"      : 300,
+        "enemyType" : "EnemyRocks",
+        "howMany"   : 5,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 5,
+        "velocity"  : 1
+    },
+    {
+        "tick"      : 350,
+        "enemyType" : "EnemyRotateAround",
+        "howMany"   : 5,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 10,
+        "velocity"  : 2
+    },
+    {
+        "tick"      : 400,
+        "enemyType" : "EnemyKamikaze",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 4
+    },
+    {
+        "tick"      : 450,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 3
+    },
+    {
+        "tick"      : 500,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 3
+    },
+    {
+        "tick"      : 550,
+        "enemyType" : "EnemyKamikaze",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 4
+    },
+    {
+        "tick"      : 600,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 3
+    },
+    {
+        "tick"      : 650,
+        "enemyType" : "EnemyRocks",
+        "howMany"   : 5,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 5,
+        "velocity"  : 1
+    },
+    {
+        "tick"      : 700,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 3
+    },
+    {
+        "tick"      : 750,
+        "enemyType" : "EnemyRotateAround",
+        "howMany"   : 5,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 10,
+        "velocity"  : 2
+    },
+    {
+        "tick"      : 800,
+        "enemyType" : "EnemyKamikaze",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 4
+    },
+    {
+        "tick"      : 850,
+        "enemyType" : "EnemyRocks",
+        "howMany"   : 5,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 5,
+        "velocity"  : 1
+    },
+    {
+        "tick"      : 900,
+        "enemyType" : "EnemyKamikaze",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 4
+    },
+    {
+        "tick"      : 1000,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 3
+    },
+    {
+        "tick"      : 1050,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 3
+    },
+    {
+        "tick"      : 1100,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 3
+    },
+    {
+        "tick"      : 1150,
+        "enemyType" : "EnemyKamikaze",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 4
+    },
+    {
+        "tick"      : 1200,
+        "enemyType" : "EnemyRocks",
+        "howMany"   : 5,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 5,
+        "velocity"  : 1
+    },
+    {
+        "tick"      : 1250,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 3
+    },
+    {
+        "tick"      : 1300,
+        "enemyType" : "EnemyRotateAround",
+        "howMany"   : 5,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 10,
+        "velocity"  : 2
+    },
+    {
+        "tick"      : 1350,
+        "enemyType" : "EnemyRotateAround",
+        "howMany"   : 5,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 10,
+        "velocity"  : 2
+    },
+    {
+        "tick"      : 1400,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 3
+    },
+    {
+        "tick"      : 1450,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 3
+    },
+    {
+        "tick"      : 1500,
+        "enemyType" : "EnemyRocks",
+        "howMany"   : 5,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 5,
+        "velocity"  : 1
+    },
+    {
+        "tick"      : 1550,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 3
+    },
+    {
+        "tick"      : 1600,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 3
+    },
+    {
+        "tick"      : 1650,
+        "enemyType" : "EnemyRocks",
+        "howMany"   : 5,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 5,
+        "velocity"  : 1
+    },
+    {
+        "tick"      : 1700,
+        "enemyType" : "EnemyMoveHorizontally",
+        "howMany"   : 10,
+        "x"         : -1,
+        "y"         : -1,
+        "damage"    : 14,
+        "velocity"  : 3
+    }
+]

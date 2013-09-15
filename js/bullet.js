@@ -227,8 +227,13 @@ $( Bullet.all_bullets ).each(function(index, enemy)
 
 
 
-Bullet.prototype.tick = function()
+Bullet.prototype.tick = function( event )
 {
+if ( event.paused )
+    {
+    return;
+    }
+
 this.updateShape();
 
 if (typeof this.tick_function !== "undefined" && this.tick_function !== null)

@@ -59,9 +59,9 @@ var VELOCITY = 5;
     // the weapon number corresponds to the position in the list (position 0 is the first weapon, etc)
 var AMMO_UPDATE_TICK = [
     10,
-    32,
-    15,
-    25
+    28,
+    11,
+    21
     ];
 
 
