@@ -13,7 +13,7 @@
    height="10"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.3.1 r9886"
+   inkscape:version="0.48.4 r9939"
    sodipodi:docname="ship.svg"
    inkscape:export-filename="C:\Users\drk\Dropbox\projects\space_ship_game\images\ship.png"
    inkscape:export-xdpi="90"
@@ -27,16 +27,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="22.4"
-     inkscape:cx="2.4269996"
-     inkscape:cy="7.2571923"
+     inkscape:zoom="44.8"
+     inkscape:cx="4.1335227"
+     inkscape:cy="4.035413"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1366"
-     inkscape:window-height="706"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-width="1920"
+     inkscape:window-height="1005"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
@@ -64,10 +64,12 @@
      id="layer1"
      transform="translate(0,-1042.3622)">
     <path
-       style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:#78ff37;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1"
        d="M 10,5 0,10 0,0 z"
        id="path2987"
        inkscape:connector-curvature="0"
-       transform="translate(0,1042.3622)" />
+       transform="translate(0,1042.3622)"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>

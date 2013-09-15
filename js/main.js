@@ -37,8 +37,6 @@
         - occasionally we get an error when trying to remove the Message html element (says its not found), when restarting/quitting right after a message is being added maybe?..
 
         - do the icon
-        - balance the game modes (and the maps)
-        - maybe have the main ship of green color (or other color), to be more noticeable
  */
 
 
@@ -47,7 +45,7 @@
 var CANVAS;
 var CANVAS_DEBUG;
 
-var DEBUG = true;
+var DEBUG = false;
 
 
     // createjs
