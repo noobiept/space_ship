@@ -1,22 +1,22 @@
 (function(window)
 {
 /*
-    The splash damage starts with half of the maximum radius, and expands until it reaches the maximum value, then back again until half, before being removed
+    The splash damage starts with radius of 1, then expands until it reaches the maximum value, then back again until 1, before being removed
  */
 
 function SplashDamage( shipObject, x, y, maxRadius, color, splashDuration )
 {
-this.maxRadius = maxRadius;
-
     // duration (in number of ticks) of the splash damage (for that time, any ship that goes into that area takes damage. after that, the splash is removed)
 this.splashDuration = splashDuration;
 
+    // how much radius is increase per tick
+    // it can be a float value, but the change will only occur at integer changes
+    // its 2 times, because it has to grow and shrink
+this.radiusPerTick = 2 * maxRadius / splashDuration;
 
-   // how many ticks it takes until we grow/shrink the radius per one
-this.changeRadiusTick = parseInt( this.splashDuration / this.maxRadius, 10 );
 
-    // start with half of the maximum radius
-this.radius = maxRadius / 2;
+    // start with radius of 1, and grow from there
+this.radius = 1;
 
 this.width = this.radius * 2;
 this.height = this.radius * 2;
@@ -26,9 +26,13 @@ this.damage = 5;
 this.type = TYPE_BULLET;
 this.countTick = 0;
 
+this.x = x;
+this.y = y;
 
     // inherit from the Bullet class
 Bullet.call( this, shipObject, 0, x, y );
+
+this.moveTo( x, y );
 }
 
 
@@ -79,14 +83,21 @@ body.CreateFixture( fixDef );
 body.SetUserData( this );
 
 this.body = body;
+this.bodyDef = bodyDef;
 this.fixDef = fixDef;
 };
 
 
 SplashDamage.prototype.setRadius = function( radius )
 {
-//this.fixDef.shape.SetRadius( radius / SCALE );
-this.fixDef.shape = new b2CircleShape( radius /SCALE );
+    // box2dweb doesn't seem to be able to resize existing bodies, so we create again the body (kind of stupid but oh well.. >.>)
+WORLD.DestroyBody( this.body );
+
+
+this.body = WORLD.CreateBody( this.bodyDef );
+this.body.SetUserData( this );
+
+this.fixDef.shape = new b2CircleShape( radius / SCALE );
 
 this.body.CreateFixture( this.fixDef );
 
@@ -97,6 +108,8 @@ g.beginFill( this.color );
 g.drawCircle( 0, 0, radius );
 
 this.radius = radius;
+
+this.moveTo( this.x, this.y );
 };
 
 
@@ -115,23 +128,28 @@ this.countTick++;
 
 var isGrowing = true;
 
-if ( (this.countTick % this.changeRadiusTick) == 0 )
+if ( this.countTick > this.splashDuration * 0.5 )
     {
-    if ( this.countTick >= this.splashDuration / 2 )
-        {
-        isGrowing = false;
-        }
+    isGrowing = false;
+    }
 
-    if ( isGrowing )
-        {
-        this.setRadius( this.radius + 1 );
-        }
+if ( isGrowing )
+    {
+    this.radius += this.radiusPerTick;
+    }
 
-    else
+else
+    {
+    this.radius -= this.radiusPerTick;
+
+    if ( this.radius < 1 )
         {
-        this.setRadius( this.radius - 1 );
+        this.radius = 1;
         }
     }
+
+
+this.setRadius( Math.round( this.radius ) );
 
 
 if ( this.countTick >= this.splashDuration )

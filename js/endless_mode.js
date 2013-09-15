@@ -25,7 +25,7 @@ this.decrease_next_enemy_step = 100;
 this.increase_damage_step = 300;
 
     // number of ticks until we increase the 'velocity' of the enemies
-this.increase_velocity_step = 500;
+this.increase_velocity_step = 400;
 
 
     // the counters
@@ -67,19 +67,25 @@ if ( this.count_next_enemy >= this.next_enemy )
     this.count_next_enemy = 0;
 
 
-//    var enemy = ENEMY_TYPES[ getRandomInt( 0, ENEMY_TYPES.length - 1 ) ];
-    var enemy = EnemyKamikaze;
+    var enemy = ENEMY_TYPES[ getRandomInt( 0, ENEMY_TYPES.length - 1 ) ];
 
-    var x = getRandomInt( 0, GAME_WIDTH );
-    var y = getRandomInt( 0, GAME_HEIGHT );
 
-    new enemy(
+    var numberOfEnemies = 3;
+    var x, y;
+
+    for ( var i = 0 ; i < numberOfEnemies ; i++ )
         {
-            x        : x,
-            y        : y,
-            damage   : this.damage,
-            velocity : this.velocity
-        });
+        x = getRandomInt( 0, GAME_WIDTH );
+        y = getRandomInt( 0, GAME_HEIGHT );
+
+        new enemy(
+            {
+                x        : x,
+                y        : y,
+                damage   : this.damage,
+                velocity : this.velocity
+            });
+        }
     }
 
 

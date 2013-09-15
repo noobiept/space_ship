@@ -95,7 +95,7 @@ if ( ((this.CURRENT_MAP + 1) % 2) === 0 )
 
 
     // every 5 levels
-if ( ((this.CURRENT_MAP + 1) % 5) === 0 )
+if ( ((this.CURRENT_MAP + 1) % 4) === 0 )
     {
     this.tick_min++;
 
