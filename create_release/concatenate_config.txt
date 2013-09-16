@@ -9,6 +9,7 @@
         "js/bullet2_sniper.js", 
         "js/bullet3_rocket.js", 
         "js/bullet4_mines.js", 
+        "js/splash_damage.js", 
         "js/enemy.js", 
         "js/enemy_rotate_around.js", 
         "js/enemy_move_horizontally.js", 

@@ -3,6 +3,7 @@
 import argparse
 import sys
 import os.path
+import re
 
 sys.path.append( 'C:/Users/drk/Dropbox/projects/' )
 
@@ -30,10 +31,28 @@ def go( htmlFile= default_htmlFile,
     baseDirectory = os.path.realpath( '' )
 
 
-    main.go( htmlFile, copyFilesConfig, concatenateConfig, resultingFolder, baseDirectory )
+    def afterCopy( resultingFolder ):
+        """
+            Set the 'DEBUG' variable to false, for the release
+        """
+
+        minimizedPath = os.path.join( resultingFolder, 'minimized.js' )
+
+        with open( minimizedPath, 'r', encoding= 'utf-8' ) as f:
+            text = f.read()
+
+        newText = re.sub( r'var DEBUG *= *true;', 'var DEBUG=false;', text, 1 )
 
 
-    
+        with open( minimizedPath, 'w', encoding= 'utf-8' ) as f:
+            f.write( newText )
+
+
+
+    main.go( htmlFile, copyFilesConfig, concatenateConfig, resultingFolder, baseDirectory, afterCopy )
+
+
+
 
 if __name__ == '__main__':
 
@@ -48,3 +67,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     go( args.htmlFile, args.copyFilesConfig, args.concatenateConfig, args.resultingFolder )
+    

@@ -2,7 +2,7 @@
     "name": "Space Ship Game",
     "version": "1.0",
     "description": "Something cool here.",
-    "icons": { "16": "images/space_ship_16.png", "128": "images/space_ship_128.png" },
+    "icons": { "16": "images/icon16.png", "128": "images/icon128.png" },
     "app": { "launch": { "local_path": "index.html" } },
     "manifest_version": 2
 }

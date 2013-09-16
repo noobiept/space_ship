@@ -10,8 +10,8 @@
             
             "images/ship.png",
             
-            "images/space_ship_16.png",
-            "images/space_ship_128.png",
+            "images/icon16.png",
+            "images/icon128.png",
 
             "css/",
             "libraries/",
