@@ -67,4 +67,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     go( args.htmlFile, args.copyFilesConfig, args.concatenateConfig, args.resultingFolder )
-    
+

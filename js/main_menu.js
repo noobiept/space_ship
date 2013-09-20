@@ -28,13 +28,8 @@ if ( LOADING_MESSAGE )
     LOADING_MESSAGE = null;
     }
 
-if ( MUSIC )
-    {
-    MUSIC.stop();
 
-    MUSIC = null;
-    }
-
+Music.stop();
 
 resetStuff();
 MainMenu.cleanUp();

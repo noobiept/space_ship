@@ -33,8 +33,10 @@
     to doo:
 
         - shape (createjs) isn't synced with the body (box2dweb) when its moving too fast (for example the sniper)
-        - add enemies with more energy (and maybe show above the unit how many more hitpoints it has)
+        - add enemies with more energy (and maybe show above the unit how many more hit-points it has)
         - occasionally we get an error when trying to remove the Message html element (says its not found), when restarting/quitting right after a message is being added maybe?..
+        
+        - smooth transition between songs
  */
 
 
@@ -86,8 +88,6 @@ var ENEMY_TYPES = [
 
     
 var GAME_MODE = null;
-
-var MUSIC = null;
 
     // :: Collision Detection :: //
 
@@ -165,7 +165,8 @@ PredefinedMaps.init();
 PRELOAD = new createjs.LoadQueue();
 
 var manifest = [
-    { id: "game_music", src: "sound/scumm_bar.ogg" },
+    { id: "scumm_bar", src: "sound/scumm_bar.ogg" },
+    { id: "space_ship_1", src: "sound/space_ship_1.ogg" },
     { id: 'enemy_move_horizontally', src: 'images/enemy_move_horizontally.png' },
     { id: 'enemy_rocks', src: 'images/enemy_rocks.png' },
     { id: 'enemy_rotate_around', src: 'images/enemy_rotate_around.png' },
@@ -236,14 +237,7 @@ WORLD.SetContactListener( listener );
 document.onkeydown = handleKeyDown;
 document.onkeyup = handleKeyUp;
 
-
-var musicVolume = Options.getMusicVolume();
-
-if ( musicVolume > 0 )
-    {
-    MUSIC = createjs.Sound.play( "game_music", createjs.Sound.INTERRUPT_NONE ,0 ,0, -1, Options.getMusicVolume() );
-    }
-
+Music.play( 0 );
 
 GameMenu();
 }

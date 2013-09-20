@@ -221,6 +221,8 @@ if ( this.NO_MORE_PHASES === true && EnemyShip.all.length === 0 && EnemyShip.all
     {
     this.loadMap();
 
+    Music.next();
+
     MAIN_SHIP.refreshAmmo();
     }
 };
