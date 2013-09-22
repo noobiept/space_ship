@@ -16,6 +16,8 @@ def a( maximum, step ):
     print()
 
 
+main ship velocity -- 5
+
 ----------------------------------------------------------------
 
 map1:
@@ -140,4 +142,3 @@ map10:
         - kamikaze              (damage: 15, velocity: 5)
         - rotate_around         (damage: 15, velocity: 3)
         - rocks                 (damage: 15, velocity: 3)
-    

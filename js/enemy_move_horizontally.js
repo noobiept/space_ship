@@ -134,7 +134,7 @@ this.fixDef = fixDef;
 
 EnemyMoveHorizontally.prototype.afterSpawn = function()
 {
-this.body.SetLinearVelocity( new b2Vec2( 3, 0 ) );
+this.body.SetLinearVelocity( new b2Vec2( this.velocity, 0 ) );
 };
 
 

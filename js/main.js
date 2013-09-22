@@ -37,6 +37,10 @@
         - occasionally we get an error when trying to remove the Message html element (says its not found), when restarting/quitting right after a message is being added maybe?..
         
         - smooth transition between songs
+
+        - increase the velocity of the enemies (the main ship has 5)
+        - have the volume control in the game (and remove the options, since thats the only thing there)
+        - change the colors of the game menu, when it is opened
  */
 
 

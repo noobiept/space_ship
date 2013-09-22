@@ -69,7 +69,9 @@ for (var i = 0 ; i < length ; i++)
         });
     }
 
-return map;
+return {
+    "map": map
+    };
 };
 
 

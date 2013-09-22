@@ -1,74 +1,53 @@
-[
-    {
-        "tick"      : 0,
-        "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 10,
-        "velocity"  : 1
-    },
-    {
-        "tick"      : 65,
-        "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 10,
-        "velocity"  : 1
-    },
-    {
-        "tick"      : 130,
-        "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 10,
-        "velocity"  : 1
-    },
-    {
-        "tick"      : 195,
-        "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 10,
-        "velocity"  : 1
-    },
-    {
-        "tick"      : 260,
-        "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 10,
-        "velocity"  : 1
-    },
-    {
-        "tick"      : 325,
-        "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 10,
-        "velocity"  : 1
-    },
-    {
-        "tick"      : 390,
-        "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 10,
-        "velocity"  : 1
-    },
-    {
-        "tick"      : 455,
-        "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 10,
-        "velocity"  : 1
-    }
-]
+{
+    "damage":
+        {
+            "EnemyMoveHorizontally": 10
+        },
+    "velocity":
+        {
+            "EnemyMoveHorizontally": 3
+        },
+    "map":
+        [
+            {
+                "tick"      : 0,
+                "enemyType" : "EnemyMoveHorizontally",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 65,
+                "enemyType" : "EnemyMoveHorizontally",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 130,
+                "enemyType" : "EnemyMoveHorizontally",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 195,
+                "enemyType" : "EnemyMoveHorizontally",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 260,
+                "enemyType" : "EnemyMoveHorizontally",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 325,
+                "enemyType" : "EnemyMoveHorizontally",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 390,
+                "enemyType" : "EnemyMoveHorizontally",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 455,
+                "enemyType" : "EnemyMoveHorizontally",
+                "howMany"   : 8
+            }
+        ]
+}

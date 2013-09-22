@@ -1,146 +1,95 @@
-[
-    {
-        "tick"      : 0,
-        "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 12,
-        "velocity"  : 2
-    },
-    {
-        "tick"      : 60,
-        "enemyType" : "EnemyKamikaze",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 12,
-        "velocity"  : 3
-    },
-    {
-        "tick"      : 120,
-        "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 12,
-        "velocity"  : 2
-    },
-    {
-        "tick"      : 180,
-        "enemyType" : "EnemyKamikaze",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 12,
-        "velocity"  : 3
-    },
-    {
-        "tick"      : 240,
-        "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 12,
-        "velocity"  : 2
-    },
-    {
-        "tick"      : 300,
-        "enemyType" : "EnemyKamikaze",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 12,
-        "velocity"  : 3
-    },
-    {
-        "tick"      : 360,
-        "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 12,
-        "velocity"  : 2
-    },
-    {
-        "tick"      : 420,
-        "enemyType" : "EnemyKamikaze",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 12,
-        "velocity"  : 3
-    },
-    {
-        "tick"      : 480,
-        "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 12,
-        "velocity"  : 2
-    },
-    {
-        "tick"      : 540,
-        "enemyType" : "EnemyKamikaze",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 12,
-        "velocity"  : 3
-    },
-    {
-        "tick"      : 600,
-        "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 12,
-        "velocity"  : 2
-    },
-    {
-        "tick"      : 660,
-        "enemyType" : "EnemyKamikaze",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 12,
-        "velocity"  : 3
-    },
-    {
-        "tick"      : 720,
-        "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 12,
-        "velocity"  : 2
-    },
-    {
-        "tick"      : 780,
-        "enemyType" : "EnemyKamikaze",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 12,
-        "velocity"  : 3
-    },
-    {
-        "tick"      : 840,
-        "enemyType" : "EnemyMoveHorizontally",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 12,
-        "velocity"  : 2
-    },
-    {
-        "tick"      : 900,
-        "enemyType" : "EnemyKamikaze",
-        "howMany"   : 8,
-        "x"         : -1,
-        "y"         : -1,
-        "damage"    : 12,
-        "velocity"  : 3
-    }
-]
+{
+    "damage":
+        {
+            "EnemyMoveHorizontally": 12,
+            "EnemyKamikaze": 12
+        },
+    "velocity":
+        {
+            "EnemyMoveHorizontally": 4,
+            "EnemyKamikaze": 3
+        },
+    "map":
+        [
+            {
+                "tick"      : 0,
+                "enemyType" : "EnemyMoveHorizontally",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 60,
+                "enemyType" : "EnemyKamikaze",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 120,
+                "enemyType" : "EnemyMoveHorizontally",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 180,
+                "enemyType" : "EnemyKamikaze",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 240,
+                "enemyType" : "EnemyMoveHorizontally",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 300,
+                "enemyType" : "EnemyKamikaze",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 360,
+                "enemyType" : "EnemyMoveHorizontally",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 420,
+                "enemyType" : "EnemyKamikaze",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 480,
+                "enemyType" : "EnemyMoveHorizontally",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 540,
+                "enemyType" : "EnemyKamikaze",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 600,
+                "enemyType" : "EnemyMoveHorizontally",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 660,
+                "enemyType" : "EnemyKamikaze",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 720,
+                "enemyType" : "EnemyMoveHorizontally",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 780,
+                "enemyType" : "EnemyKamikaze",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 840,
+                "enemyType" : "EnemyMoveHorizontally",
+                "howMany"   : 8
+            },
+            {
+                "tick"      : 900,
+                "enemyType" : "EnemyKamikaze",
+                "howMany"   : 8
+            }
+        ]
+}

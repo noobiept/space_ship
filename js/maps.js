@@ -8,6 +8,33 @@
     args has:
         .maps           (optional)
         .startingLevel  (optional)
+
+        .maps = {
+            "damage":   // globally sets the damage/velocity of a certain type of enemy. it can be overridden in the individual tick in the "map"
+                {
+                    "EnemyMoveHorizontally": 10,
+                    "EnemyKamikaze": 5,
+                    ...
+                },
+            "velocity":
+                {
+                    "EnemyMoveHorizontally": 4,
+                    ...
+                },
+            "map":  // a list of the ticks, where we add enemies, counting from the start of the map
+                [
+                    {
+                        "tick": 0,
+                        "enemyType": "EnemyMoveHorizontally",
+                        "howMany": 10,
+                        "x": 100,       (optional, if not provided or if its less than zero then its randomized)
+                        "y": 100,       (optional, same as with "x")
+                        "damage": 15,   (optional, if not provided it uses the global value)
+                        "velocity": 6   (optional, same as with "damage")
+                    },
+                    ...
+                ]
+        }
  */
 
 function Maps( args )
@@ -145,7 +172,7 @@ this.CURRENT_MAP_TICK++;
 
 var currentMap = this.MAPS[ this.CURRENT_MAP ];
 
-var phase = currentMap[ this.CURRENT_MAP_PHASE ];
+var phase = currentMap.map[ this.CURRENT_MAP_PHASE ];
 
 
 if ( !this.NO_MORE_PHASES && this.CURRENT_MAP_TICK >= phase.tick )
@@ -169,9 +196,35 @@ if ( !this.NO_MORE_PHASES && this.CURRENT_MAP_TICK >= phase.tick )
         // other information
     var howMany = parseInt( phase.howMany );
 
-    var damage = parseInt( phase.damage );
+    var damage;
 
-    var velocity = parseInt( phase.velocity );
+        // see if there's a specific damage set for this type
+    if ( phase.damage )
+        {
+        damage = parseInt( phase.damage );
+        }
+
+        // otherwise use the global value
+    else
+        {
+        damage = parseInt( currentMap.damage[ phase.enemyType.toString() ] );
+        }
+
+
+    var velocity;
+
+        // again like with the damage, the value in the map has precedence
+    if ( phase.velocity )
+        {
+        velocity = parseInt( phase.velocity );
+        }
+
+        // otherwise we use the global value
+    else
+        {
+        velocity = parseInt( currentMap.velocity[ phase.enemyType.toString() ] );
+        }
+
 
         // get the x/y and create the enemy
     var x, y;
@@ -179,7 +232,7 @@ if ( !this.NO_MORE_PHASES && this.CURRENT_MAP_TICK >= phase.tick )
     for (var i = 0 ; i < howMany ; i++)
         {
             // random x position
-        if ( phase.x < 0 )
+        if ( !phase.x || phase.x < 0 )
             {
             x = getRandomInt( 0, GAME_WIDTH );
             }
@@ -190,7 +243,7 @@ if ( !this.NO_MORE_PHASES && this.CURRENT_MAP_TICK >= phase.tick )
             }
 
             // random y position
-        if ( phase.y < 0 )
+        if ( !phase.y || phase.y < 0 )
             {
             y = getRandomInt( 0, GAME_HEIGHT );
             }
@@ -209,7 +262,7 @@ if ( !this.NO_MORE_PHASES && this.CURRENT_MAP_TICK >= phase.tick )
 
         // no more phases of the map
         // game ends when there aren't more enemies
-    if ( this.CURRENT_MAP_PHASE >= currentMap.length )
+    if ( this.CURRENT_MAP_PHASE >= currentMap.map.length )
         {
         this.NO_MORE_PHASES = true;
         }
