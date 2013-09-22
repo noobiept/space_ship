@@ -16,6 +16,8 @@ var CURRENT_SONG = 0;
 
 Music.play = function( musicNumber )
 {
+Music.stop();
+
 if ( musicNumber < 0 || musicNumber >= SONG_NAMES.length )
     {
     musicNumber = 0;

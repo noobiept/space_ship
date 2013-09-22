@@ -81,13 +81,6 @@ body
     left: 0;
     }
 
-#MainMenu-title
-    {
-    color: rgb(255, 255, 255);
-
-    font-size: 32px;
-    }
-
 
 #MainMenu > *
     {
@@ -168,4 +161,9 @@ body
     background-color: white;
     }
 
+
+.GamePausedMessage
+    {
+    font-size: 2em;
+    }
 

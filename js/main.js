@@ -26,7 +26,7 @@
 
         Endless Mode
 
-            - adds one enemy at a time
+            - adds three enemies at a time
             - the difficulty increases by reducing the time between each new enemy, and by increasing the enemies damage/'movement speed'
 
 
@@ -45,7 +45,7 @@
 var CANVAS;
 var CANVAS_DEBUG;
 
-var DEBUG = true;
+var DEBUG = false;
 
 
     // createjs

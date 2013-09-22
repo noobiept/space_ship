@@ -104,12 +104,14 @@ var openMenu = menu.querySelector( '#GameMenu-openMenu' );
 $( openMenu ).text( 'Menu' );
 
 var isOpened = false;
+var pausedMessage = null;
 
 openMenu.onclick = function()
     {
     if ( isOpened )
         {
         isOpened = false;
+        pausedMessage.remove();
 
         $( openMenu ).text( 'Menu' );
 
@@ -122,6 +124,11 @@ openMenu.onclick = function()
     else
         {
         isOpened = true;
+
+        pausedMessage = new Message({
+            text: 'Paused',
+            cssClass: 'GamePausedMessage'
+            });
 
         $( openMenu ).text( 'Back' );
 
