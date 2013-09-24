@@ -29,7 +29,36 @@ var volume = Options.getMusicVolume();
 
 if ( volume > 0 )
     {
-    SOUND_OBJ = createjs.Sound.play( SONG_NAMES[ musicNumber ], createjs.Sound.INTERRUPT_NONE ,0 ,0, -1, volume );
+        // start with 0 volume
+    var sound = createjs.Sound.play( SONG_NAMES[ musicNumber ], createjs.Sound.INTERRUPT_NONE ,0 ,0, -1, 0 );
+    var interval = null;
+
+    var increaseVolume = function()
+        {
+        var newVolume = sound.getVolume() + 0.1;
+
+            // we achieved the volume we wanted
+        if ( newVolume > volume )
+            {
+            sound.setVolume( volume );
+
+            if ( interval )
+                {
+                window.clearInterval( interval );
+                }
+            }
+
+            // keep raising the volume
+        else
+            {
+            sound.setVolume( newVolume );
+            }
+        };
+
+    increaseVolume();
+    interval = window.setInterval( increaseVolume, 400 );
+
+    SOUND_OBJ = sound;
     }
 };
 
@@ -38,7 +67,32 @@ Music.stop = function()
 {
 if ( SOUND_OBJ )
     {
-    SOUND_OBJ.stop();
+    var previousSound = SOUND_OBJ;
+    var interval = null;
+
+    var reduceVolume = function()
+        {
+        var volume = previousSound.getVolume() - 0.1;
+
+        if ( volume < 0 )
+            {
+            previousSound.stop();
+
+            if ( interval )
+                {
+                window.clearInterval( interval );
+                }
+            }
+
+        else
+            {
+            previousSound.setVolume( volume );
+            }
+        };
+
+
+    reduceVolume();
+    interval = window.setInterval( reduceVolume, 400 );
 
     SOUND_OBJ = null;
     }
