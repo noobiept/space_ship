@@ -14,6 +14,8 @@
         - box2dweb : 2.1.a
 
 
+        - dry fire : http://freesound.org/people/brianhanson2nd/sounds/171211/ (Creative Commons 0 License)
+
     Game Modes:
 
         Predefined Maps
@@ -37,8 +39,6 @@
 
         - have the volume control in the game (and remove the options, since that's the only thing there)
         - change the colors of the game menu, when it is opened
-
-        - have a sound when you're out of bullets
   */
 
 
@@ -169,6 +169,7 @@ PRELOAD = new createjs.LoadQueue();
 var manifest = [
     { id: "scumm_bar", src: "sound/scumm_bar.ogg" },
     { id: "space_ship_1", src: "sound/space_ship_1.ogg" },
+    { id: "dry_fire", src: "sound/dry_fire.ogg" },
     { id: 'enemy_move_horizontally', src: 'images/enemy_move_horizontally.png' },
     { id: 'enemy_rocks', src: 'images/enemy_rocks.png' },
     { id: 'enemy_rotate_around', src: 'images/enemy_rotate_around.png' },

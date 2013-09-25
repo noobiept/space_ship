@@ -379,6 +379,13 @@ if (bulletsLeft[ weaponSelected ] > 0)
     
     GameStatistics.updateBulletsLeft( weaponSelected );
     }
+
+else
+    {
+    var volume = Options.getMusicVolume();
+
+    createjs.Sound.play( 'dry_fire', createjs.Sound.INTERRUPT_NONE, 0, 0, 0, volume );
+    }
 };
     
 
