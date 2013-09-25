@@ -1,13 +1,13 @@
 {
     "damage":
         {
-            "EnemyMoveHorizontally": 12,
-            "EnemyKamikaze": 12
+            "EnemyMoveHorizontally": 10,
+            "EnemyKamikaze": 10
         },
     "velocity":
         {
-            "EnemyMoveHorizontally": 4,
-            "EnemyKamikaze": 3
+            "EnemyMoveHorizontally": 5,
+            "EnemyKamikaze": 5
         },
     "map":
         [

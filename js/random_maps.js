@@ -3,11 +3,11 @@
 function RandomMaps( startingLevel )
 {
     // the number of times a group of enemies is added
-this.map_length = 5;
+this.map_length = 6;
 
     // minimum/maximum number of enemies that can be spawned each time (is is increased as the maps are being cleared)
-this.how_many_min = 1;
-this.how_many_max = 5;
+this.how_many_min = 2;
+this.how_many_max = 6;
 
     // minimum/maximum number of ticks between each map phase
 this.tick_min = 10;
@@ -15,7 +15,7 @@ this.tick_max = 50;
 
     // the damage/velocity of the enemies, it will be increased once and then to make the game more difficult
 this.damage = 10;
-this.velocity = 1;
+this.velocity = 5;
 
     // inherit from the Maps class
 Maps.call( this, { startingLevel: startingLevel } );

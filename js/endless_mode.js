@@ -15,7 +15,7 @@ this.next_enemy = 50;
 
     // the current damage/velocity of the enemies
 this.damage = 10;
-this.velocity = 1;
+this.velocity = 5;
 
 
     // number of ticks until we decrease the 'next_enemy_ticks'

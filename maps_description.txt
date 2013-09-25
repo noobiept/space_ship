@@ -27,7 +27,7 @@ map1:
     step_tick -- 65
     how_many -- 8
     enemies: 
-        - move_horizontally     (damage: 10, velocity: 1)
+        - move_horizontally     (damage: 10, velocity: 4)
     
 map2:
 
@@ -36,7 +36,7 @@ map2:
     step_tick -- 65
     how_many -- 8
     enemies:
-        - move_horizontally     (damage: 10, velocity: 1)
+        - move_horizontally     (damage: 10, velocity: 4)
     
 
 map3:
@@ -46,8 +46,8 @@ map3:
     step_tick -- 60
     how_many -- 8
     enemies:
-        - move_horizontally     (damage: 10, velocity: 1)
-        - kamikaze              (damage: 10, velocity: 2)
+        - move_horizontally     (damage: 10, velocity: 4)
+        - kamikaze              (damage: 10, velocity: 5)
 
 map4:
 
@@ -56,8 +56,8 @@ map4:
     step_tick -- 60
     how_many -- 8
     enemies:
-        - move_horizontally     (damage: 12, velocity: 2)
-        - kamikaze              (damage: 12, velocity: 3)
+        - move_horizontally     (damage: 10, velocity: 5)
+        - kamikaze              (damage: 10, velocity: 5)
 
 map5:
 
@@ -68,9 +68,9 @@ map5:
         - 10
         - rotate_around - 5
     enemies:
-        - move_horizontally     (damage: 12, velocity: 2)
-        - kamikaze              (damage: 12, velocity: 3)
-        - rotate_around         (damage:  8, velocity: 1)
+        - move_horizontally     (damage: 10, velocity: 5)
+        - kamikaze              (damage: 10, velocity: 6)
+        - rotate_around         (damage:  6, velocity: 3)
     
 map6:
 
@@ -81,9 +81,9 @@ map6:
         - 10
         - rotate_around - 5
     enemies:
-        - move_horizontally     (damage: 12, velocity: 2)
-        - kamikaze              (damage: 12, velocity: 3)
-        - rotate_around         (damage:  8, velocity: 2)
+        - move_horizontally     (damage: 10, velocity: 5)
+        - kamikaze              (damage: 10, velocity: 6)
+        - rotate_around         (damage:  6, velocity: 3)
 
 
 map7:
@@ -95,10 +95,10 @@ map7:
         - 10
         - rotate_around / rocks - 5
     enemies:
-        - move_horizontally     (damage: 12, velocity: 3)
-        - kamikaze              (damage: 12, velocity: 4)
-        - rotate_around         (damage:  8, velocity: 2)
-        - rocks                 (damage:  5, velocity: 1)
+        - move_horizontally     (damage: 11, velocity: 6)
+        - kamikaze              (damage: 11, velocity: 7)
+        - rotate_around         (damage:  7, velocity: 3)
+        - rocks                 (damage:  7, velocity: 4)
     
 map8:
 
@@ -109,10 +109,10 @@ map8:
         - 10
         - rotate_around / rocks - 5
     enemies:
-        - move_horizontally     (damage: 14, velocity: 3)
-        - kamikaze              (damage: 14, velocity: 4)
-        - rotate_around         (damage: 10, velocity: 2)
-        - rocks                 (damage:  5, velocity: 1)
+        - move_horizontally     (damage: 11, velocity: 6)
+        - kamikaze              (damage: 11, velocity: 7)
+        - rotate_around         (damage: 7, velocity: 4)
+        - rocks                 (damage:  7, velocity: 4)
 
     
 map9:
@@ -124,10 +124,10 @@ map9:
         - 12
         - rotate_around / rocks - 6
     enemies -- lots of one type of enemy, than just other type etc
-        - move_horizontally     (damage: 14, velocity: 3)
-        - kamikaze              (damage: 14, velocity: 4)
-        - rotate_around         (damage: 10, velocity: 3)
-        - rocks                 (damage: 10, velocity: 2)
+        - move_horizontally     (damage: 12, velocity: 7)
+        - kamikaze              (damage: 12, velocity: 8)
+        - rotate_around         (damage: 8, velocity: 4)
+        - rocks                 (damage: 8, velocity: 5)
     
 map10:
 
@@ -138,7 +138,7 @@ map10:
         - 12
         - rotate_around / rocks - 6
     enemies:    
-        - move_horizontally     (damage: 15, velocity: 4)
-        - kamikaze              (damage: 15, velocity: 5)
-        - rotate_around         (damage: 15, velocity: 3)
-        - rocks                 (damage: 15, velocity: 3)
+        - move_horizontally     (damage: 12, velocity: 7)
+        - kamikaze              (damage: 12, velocity: 8)
+        - rotate_around         (damage: 8, velocity: 4)
+        - rocks                 (damage: 8, velocity: 5)

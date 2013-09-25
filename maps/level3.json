@@ -6,8 +6,8 @@
         },
     "velocity":
         {
-            "EnemyMoveHorizontally": 3,
-            "EnemyKamikaze": 2
+            "EnemyMoveHorizontally": 4,
+            "EnemyKamikaze": 5
         },
     "map":
         [

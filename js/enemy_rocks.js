@@ -170,7 +170,9 @@ if (this.width >= 50)
             {
                 x: this.shape.x,
                 y: this.shape.y,
-                scale: 0.5
+                scale: 0.5,
+                damage: this.damage,
+                velocity: this.velocity
             });
         }
     }

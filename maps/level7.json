@@ -1,17 +1,17 @@
 {
     "damage":
         {
-            "EnemyMoveHorizontally": 12,
-            "EnemyKamikaze": 12,
-            "EnemyRotateAround": 8,
-            "EnemyRocks": 12
+            "EnemyMoveHorizontally": 11,
+            "EnemyKamikaze": 11,
+            "EnemyRotateAround": 7,
+            "EnemyRocks": 7
         },
     "velocity":
         {
-            "EnemyMoveHorizontally": 5,
-            "EnemyKamikaze": 3,
-            "EnemyRotateAround": 2,
-            "EnemyRocks": 1
+            "EnemyMoveHorizontally": 6,
+            "EnemyKamikaze": 7,
+            "EnemyRotateAround": 3,
+            "EnemyRocks": 4
         },
     "map":
         [
