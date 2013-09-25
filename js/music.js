@@ -1,20 +1,16 @@
 (function(window)
 {
-function Music()
-{
-
-}
-
-var SOUND_OBJ = null;
-
 var SONG_NAMES = [ 'scumm_bar', 'space_ship_1' ];
 var CURRENT_SONG = 0;
+
+    // has the reference to the current music being played
+var MUSIC_OBJ = null;
 
 /**
     @param {Number} [musicNumber] Position (0 based) in the 'SONG_NAMES' array above, which tells the song to play
  */
 
-Music.play = function( musicNumber )
+function Music( musicNumber )
 {
 Music.stop();
 
@@ -58,44 +54,42 @@ if ( volume > 0 )
     increaseVolume();
     interval = window.setInterval( increaseVolume, 400 );
 
-    SOUND_OBJ = sound;
+    MUSIC_OBJ = sound;
+    this.sound_obj = sound;
     }
-};
+}
 
 
-Music.stop = function()
+Music.prototype.stop = function()
 {
-if ( SOUND_OBJ )
+var interval = null;
+var sound = this.sound_obj;
+
+var reduceVolume = function()
     {
-    var previousSound = SOUND_OBJ;
-    var interval = null;
+    var volume = sound.getVolume() - 0.1;
 
-    var reduceVolume = function()
+    if ( volume < 0 )
         {
-        var volume = previousSound.getVolume() - 0.1;
+        sound.stop();
 
-        if ( volume < 0 )
+        if ( interval )
             {
-            previousSound.stop();
-
-            if ( interval )
-                {
-                window.clearInterval( interval );
-                }
+            window.clearInterval( interval );
             }
+        }
 
-        else
-            {
-            previousSound.setVolume( volume );
-            }
-        };
+    else
+        {
+        sound.setVolume( volume );
+        }
+    };
 
 
-    reduceVolume();
-    interval = window.setInterval( reduceVolume, 400 );
+reduceVolume();
+interval = window.setInterval( reduceVolume, 400 );
 
-    SOUND_OBJ = null;
-    }
+MUSIC_OBJ = null;
 };
 
 
@@ -110,7 +104,18 @@ if ( CURRENT_SONG >= SONG_NAMES.length )
     CURRENT_SONG = 0;
     }
 
-Music.play( CURRENT_SONG );
+new Music( CURRENT_SONG );
+};
+
+
+Music.stop = function()
+{
+if ( MUSIC_OBJ )
+    {
+    MUSIC_OBJ.stop();
+
+    MUSIC_OBJ = null;
+    }
 };
 
 

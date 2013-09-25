@@ -34,8 +34,6 @@
 
         - shape (createjs) isn't synced with the body (box2dweb) when its moving too fast (for example the sniper)
         - add enemies with more energy (and maybe show above the unit how many more hit-points it has)
-        - occasionally we get an error when trying to remove the Message html element (says its not found), when restarting/quitting right after a message is being added maybe?..
-            - seems to be a chrome bug, apparently it is fixed in chrome 30
 
         - have the volume control in the game (and remove the options, since that's the only thing there)
         - change the colors of the game menu, when it is opened
@@ -241,7 +239,7 @@ WORLD.SetContactListener( listener );
 document.onkeydown = handleKeyDown;
 document.onkeyup = handleKeyUp;
 
-Music.play( 0 );
+new Music( 0 );
 
 GameMenu();
 }

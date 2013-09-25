@@ -79,7 +79,7 @@ $( this.message ).html( text );
 
 Message.prototype.remove = function()
 {
-this.container.removeChild( this.message );
+$( this.message ).remove();
 
 var position = ALL_MESSAGES.indexOf( this );
 
@@ -92,6 +92,8 @@ Message.removeAll = function()
 for (var i = 0 ; i < ALL_MESSAGES.length ; i++)
     {
     ALL_MESSAGES[ i ].remove();
+
+    i--;
     }
 };
 
