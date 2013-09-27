@@ -73,7 +73,7 @@ GameMenu.updateAllBulletsLeft();
 
 var restart = menu.querySelector( '#GameMenu-restart' );
 
-restart.onclick = function()
+restart.onclick = function( event )
     {
     startGameMode( true );
 
@@ -85,7 +85,7 @@ restart.onclick = function()
 
 var quit = menu.querySelector( '#GameMenu-quit' );
 
-quit.onclick = function()
+quit.onclick = function( event )
     {
     MainMenu.open();
 
@@ -106,7 +106,7 @@ $( openMenu ).text( 'Menu' );
 var isOpened = false;
 var pausedMessage = null;
 
-openMenu.onclick = function()
+openMenu.onclick = function( event )
     {
     if ( isOpened )
         {
@@ -184,7 +184,7 @@ GameMenu.updateBulletsLeft = function( weapon, bulletsLeft )
 {
 var bulletsElement = BULLETS_LEFT_ELEMENTS[ weapon ];
 
-bulletsElement.innerText = bulletsLeft;
+$( bulletsElement ).text( bulletsLeft );
 };
 
 

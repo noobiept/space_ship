@@ -49,6 +49,7 @@ var CANVAS_DEBUG;
 
 var DEBUG = false;
 
+var BASE_URL = '';
 
     // createjs
 
@@ -167,14 +168,14 @@ PredefinedMaps.init();
 PRELOAD = new createjs.LoadQueue();
 
 var manifest = [
-    { id: "scumm_bar", src: "sound/scumm_bar.ogg" },
-    { id: "space_ship_1", src: "sound/space_ship_1.ogg" },
-    { id: "dry_fire", src: "sound/dry_fire.ogg" },
-    { id: 'enemy_move_horizontally', src: 'images/enemy_move_horizontally.png' },
-    { id: 'enemy_rocks', src: 'images/enemy_rocks.png' },
-    { id: 'enemy_rotate_around', src: 'images/enemy_rotate_around.png' },
-    { id: 'enemy_kamikaze', src: 'images/enemy_kamikaze.png' },
-    { id: 'ship', src: 'images/ship.png' }
+    { id: "scumm_bar",               src: BASE_URL + "sound/scumm_bar.ogg" },
+    { id: "space_ship_1",            src: BASE_URL + "sound/space_ship_1.ogg" },
+    { id: "dry_fire",                src: BASE_URL + "sound/dry_fire.ogg" },
+    { id: 'enemy_move_horizontally', src: BASE_URL + 'images/enemy_move_horizontally.png' },
+    { id: 'enemy_rocks',             src: BASE_URL + 'images/enemy_rocks.png' },
+    { id: 'enemy_rotate_around',     src: BASE_URL + 'images/enemy_rotate_around.png' },
+    { id: 'enemy_kamikaze',          src: BASE_URL + 'images/enemy_kamikaze.png' },
+    { id: 'ship',                    src: BASE_URL + 'images/ship.png' }
     ];
 
 

@@ -24,7 +24,7 @@ var filePath;
 
 for (var i = 0 ; i < NUMBER_OF_MAPS ; i++)
     {
-    filePath = 'maps/level' + (i + 1) + '.json';
+    filePath = BASE_URL + 'maps/level' + (i + 1) + '.json';
 
     $.ajax({
         url: filePath,

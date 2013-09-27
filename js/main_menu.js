@@ -93,7 +93,7 @@ event.stopPropagation();
 
 
 
-MainMenu.endlessMode = function()
+MainMenu.endlessMode = function( event )
 {
 MainMenu.cleanUp();
 
@@ -106,7 +106,7 @@ event.stopPropagation();
 };
 
 
-MainMenu.openOptions = function()
+MainMenu.openOptions = function( event )
 {
 MainMenu.cleanUp();
 

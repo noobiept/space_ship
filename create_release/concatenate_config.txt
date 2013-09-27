@@ -1,5 +1,5 @@
 {
-    "C:\\Users\\drk\\Dropbox\\projects\\space_ship_game": [
+    "C:\\Users\\drk\\Dropbox\\projects\\space_ship": [
         "js/utilities.js", 
         "js/message.js", 
         "js/options.js", 
