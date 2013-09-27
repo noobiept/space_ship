@@ -3,6 +3,7 @@
         "js/utilities.js", 
         "js/message.js", 
         "js/options.js", 
+        "js/music.js", 
         "js/ship.js", 
         "js/bullet.js", 
         "js/bullet1_laser.js", 

@@ -6,6 +6,7 @@ var CURRENT_SONG = 0;
     // has the reference to the current music being played
 var MUSIC_OBJ = null;
 
+
 /**
     @param {Number} [musicNumber] Position (0 based) in the 'SONG_NAMES' array above, which tells the song to play
  */
@@ -54,14 +55,19 @@ if ( volume > 0 )
     increaseVolume();
     interval = window.setInterval( increaseVolume, 400 );
 
-    MUSIC_OBJ = sound;
+    MUSIC_OBJ = this;
+
     this.sound_obj = sound;
+    this.increase_interval = interval;
     }
 }
 
 
 Music.prototype.stop = function()
 {
+    // if we stop the music before the increase of the volume had ended
+window.clearInterval( this.increase_interval );
+
 var interval = null;
 var sound = this.sound_obj;
 
@@ -85,11 +91,8 @@ var reduceVolume = function()
         }
     };
 
-
 reduceVolume();
 interval = window.setInterval( reduceVolume, 400 );
-
-MUSIC_OBJ = null;
 };
 
 

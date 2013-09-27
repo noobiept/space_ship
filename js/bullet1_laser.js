@@ -21,7 +21,7 @@ if ( typeof angleRotation == 'undefined' )
 Bullet.call( this, shipObject, angleRotation );
 
 this.damage = damage;
-this.speed = 12;
+this.speed = 14;
 
 
 applyImpulse( this.body, angleRotation, this.speed * this.body.GetMass() );
