@@ -4,11 +4,14 @@ Space Ship Game
 
 A shooter type game, you can check it out here:
 
-- [chrome store](http://link.here "chrome store")
+- [chrome store](https://chrome.google.com/webstore/detail/space-ship-game/degnjhilepodhhbfomolhhohphgidmnn "chrome store")
 - [personal website](http://nbpt.eu/games/space_ship "personal website")
 
 
-(some images here)
+
+
+![In-game](/images/space_ship_1280_800.png "In-game")
+
 
 
 
@@ -38,6 +41,7 @@ Endless Mode:
 - just keeps adding enemies, that keep getting stronger as time passes.
 
 
+
 Weapons Description
 ===================
 
@@ -64,6 +68,6 @@ Mines:
 The songs used can be found here:
 
 
-* [scumm bar](http://link.here "scumm bar")
-* [space ship 1](http://link.here "space ship 1")
+* [scumm bar](http://www.youtube.com/watch?v=39CSrCugHfA "scumm bar")
+* [space ship 1](http://www.youtube.com/watch?v=MJhUJ7YV7EA "space ship 1")  
 
