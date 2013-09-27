@@ -10,7 +10,7 @@ A shooter type game, you can check it out here:
 
 
 
-![In-game](/images/space_ship_1280_800.png "In-game")
+![In-game](https://bitbucket.org/drk4/space_ship_game/raw/a8481dc01263930b030057632deb53d9dfc0f904/images/space_ship_1280_800.png "In-game")
 
 
 
@@ -69,5 +69,5 @@ The songs used can be found here:
 
 
 * [scumm bar](http://www.youtube.com/watch?v=39CSrCugHfA "scumm bar")
-* [space ship 1](http://www.youtube.com/watch?v=MJhUJ7YV7EA "space ship 1")  
+* [space ship 1](http://www.youtube.com/watch?v=MJhUJ7YV7EA "space ship 1")
 
