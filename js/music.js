@@ -53,7 +53,7 @@ if ( volume > 0 )
         };
 
     increaseVolume();
-    interval = window.setInterval( increaseVolume, 300 );
+    interval = window.setInterval( increaseVolume, 250 );
 
     MUSIC_OBJ = this;
 
@@ -92,7 +92,7 @@ var reduceVolume = function()
     };
 
 reduceVolume();
-interval = window.setInterval( reduceVolume, 300 );
+interval = window.setInterval( reduceVolume, 250 );
 };
 
 

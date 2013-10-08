@@ -162,15 +162,24 @@ if ( DEBUG )
     }
 
 
-PredefinedMaps.init();
-
-
 PRELOAD = new createjs.LoadQueue();
 
 var manifest = [
+    { id: "level1",                  src: BASE_URL + "maps/level1.json" },
+    { id: "level2",                  src: BASE_URL + "maps/level2.json" },
+    { id: "level3",                  src: BASE_URL + "maps/level3.json" },
+    { id: "level4",                  src: BASE_URL + "maps/level4.json" },
+    { id: "level5",                  src: BASE_URL + "maps/level5.json" },
+    { id: "level6",                  src: BASE_URL + "maps/level6.json" },
+    { id: "level7",                  src: BASE_URL + "maps/level7.json" },
+    { id: "level8",                  src: BASE_URL + "maps/level8.json" },
+    { id: "level9",                  src: BASE_URL + "maps/level9.json" },
+    { id: "level10",                 src: BASE_URL + "maps/level10.json" },
+
     { id: "scumm_bar",               src: BASE_URL + "sound/scumm_bar.ogg" },
     { id: "space_ship_1",            src: BASE_URL + "sound/space_ship_1.ogg" },
     { id: "dry_fire",                src: BASE_URL + "sound/dry_fire.ogg" },
+
     { id: 'enemy_move_horizontally', src: BASE_URL + 'images/enemy_move_horizontally.png' },
     { id: 'enemy_rocks',             src: BASE_URL + 'images/enemy_rocks.png' },
     { id: 'enemy_rotate_around',     src: BASE_URL + 'images/enemy_rotate_around.png' },
