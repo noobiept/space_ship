@@ -95,7 +95,7 @@ var spriteSheet = {
 
 var ss = new createjs.SpriteSheet( spriteSheet );
 
-var ship = new createjs.BitmapAnimation( ss );
+var ship = new createjs.Sprite( ss );
 
 ship.gotoAndPlay("main");
 
@@ -282,7 +282,7 @@ if (energy <= 0)
     {
     this.remove();
         
-    createjs.Ticker.removeAllListeners();
+    createjs.Ticker.removeAllEventListeners();
     window.onclick = null;  // so that you can't fire anymore
 
 
@@ -457,9 +457,7 @@ for (var i = 0 ; i < bulletsLeft.length ; i++)
     
 Ship.prototype.remove = function()
 {
-createjs.Ticker.removeListener( this );
 STAGE.removeChild( this.shape );
-
 WORLD.DestroyBody( this.body );
 
 var position = Ship.all.indexOf( this );
@@ -482,7 +480,6 @@ $( Ship.all ).each(function(index, value)
     value.remove();
     });
 };
- 
  
 
     

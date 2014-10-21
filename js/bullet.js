@@ -47,8 +47,6 @@ STAGE.addChild( this.shape );
 
 ZIndex.update();
 
-createjs.Ticker.addListener( this );
-
 Bullet.all_bullets.push( this );
 
 
@@ -202,8 +200,6 @@ var all = Bullet.all_bullets;
 
 
 STAGE.removeChild( this.shape );
-createjs.Ticker.removeListener( this );
-
 
 WORLD.DestroyBody( this.body );
 

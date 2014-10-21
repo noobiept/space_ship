@@ -68,8 +68,6 @@ STAGE.addChild( this.shape );
 
 ZIndex.update();
 
-createjs.Ticker.addListener( this );
-
 
 GameStatistics.updateNumberOfEnemies( GameStatistics.getNumberOfEnemies() + 1 );
 
@@ -234,10 +232,6 @@ else if (y > GAME_HEIGHT)
 EnemyShip.prototype.remove = function()
 {
 STAGE.removeChild( this.shape );
-
-createjs.Ticker.removeListener( this );
-
-
 WORLD.DestroyBody( this.body );
 
 var position = EnemyShip.all.indexOf( this );
@@ -266,9 +260,6 @@ $( EnemyShip.all ).each(function(index, ship)
 $( EnemyShip.all_spawning ).each(function( index, ship )
     {
     STAGE.removeChild( ship.shape );
-
-    createjs.Ticker.removeListener( ship );
-
     WORLD.DestroyBody( ship.body );
 
     var position = EnemyShip.all_spawning.indexOf( ship );

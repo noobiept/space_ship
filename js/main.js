@@ -3,14 +3,14 @@
 /*
     Dependencies:
 
-        - jquery : 2.0
-        - jqueryui : 1.10
+        - jquery : 2.1
+        - jqueryui : 1.11
             - slider
+            - redmond theme
         - createjs
-            - easeljs   : 0.6
-            - preloadjs : 0.3
-            - soundjs   : 0.4
-            - tweenjs   : 0.4
+            - easeljs   : 0.7
+            - preloadjs : 0.4
+            - soundjs   : 0.5
         - box2dweb : 2.1.a
 
 
@@ -91,6 +91,7 @@ var ENEMY_TYPES = [
 
     
 var GAME_MODE = null;
+var GAME_OBJECT = null;
 
     // :: Collision Detection :: //
 
@@ -228,10 +229,8 @@ GAME_HEIGHT = CANVAS.height;
 MAIN_SHIP = new Ship();
 
 
-
     // so that .tick() of EnemyShip/Ship/... is called automatically
-createjs.Ticker.addListener( MAIN_SHIP );
-createjs.Ticker.addListener( window );
+createjs.Ticker.on( 'tick', tick );
 
 
     // call update on the stage to make it render the current display list to the canvas
@@ -268,20 +267,18 @@ if ( typeof fromPreviousLevel == 'undefined' )
 
 var startingLevel = 0;
 
-if ( startGameMode.game_object )
+if ( GAME_OBJECT )
     {
     if ( fromPreviousLevel )
         {
-        startingLevel = startGameMode.game_object.CURRENT_MAP;
+        startingLevel = GAME_OBJECT.CURRENT_MAP;
         }
-
-    startGameMode.game_object.clear();
     }
 
 resetStuff();
 
-startGameMode.game_object = null;
-startGameMode.game_object = new GAME_MODE( startingLevel );
+GAME_OBJECT = null;
+GAME_OBJECT = new GAME_MODE( startingLevel );
 }
 
 
@@ -478,7 +475,7 @@ STAGE.removeAllChildren();
     // unbind the event
 STAGE.onMouseDown = null;
 
-createjs.Ticker.removeAllListeners();
+createjs.Ticker.removeAllEventListeners();
 
 ZIndex.clear();
 
@@ -510,6 +507,7 @@ if ( event.paused )
     return;
     }
 
+
     // check if there's collisions to deal with
 for (var i = 0 ; i < COLLISION_F.length ; i++)
     {
@@ -521,6 +519,39 @@ for (var i = 0 ; i < COLLISION_F.length ; i++)
 
     i--;
     }
+
+
+    // call the ticks of the ships/bullets/etc
+var a;
+var length = Ship.all.length;
+
+for (a = length - 1 ; a >= 0 ; a--)
+    {
+    Ship.all[ a ].tick( event );
+    }
+
+length = EnemyShip.all.length;
+
+for (a = length - 1 ; a >= 0 ; a--)
+    {
+    EnemyShip.all[ a ].tick( event );
+    }
+
+length = EnemyShip.all_spawning.length;
+
+for (a = length - 1 ; a >= 0 ; a--)
+    {
+    EnemyShip.all_spawning[ a ].tick( event );
+    }
+
+length = Bullet.all_bullets.length;
+
+for (a = length - 1 ; a >= 0 ; a--)
+    {
+    Bullet.all_bullets[ a ].tick( event );
+    }
+
+GAME_OBJECT.tick( event );
 
 
 WORLD.Step(

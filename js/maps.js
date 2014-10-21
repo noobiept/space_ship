@@ -39,8 +39,6 @@
 
 function Maps( args )
 {
-var mapObject = this;
-
 if ( typeof args.maps == 'undefined' )
     {
         // number of maps in the game, -1 if no limit (for the RandomMaps mode)
@@ -84,15 +82,6 @@ if ( typeof args.startingLevel != 'undefined' )
     }
 
 this.loadMap( startingLevel );
-
-
-    // adding the mapObject directly in the addEventListener wasn't working so...
-this.TICK_F = function( event )
-    {
-    mapObject.tick( event );
-    };
-
-createjs.Ticker.addEventListener( 'tick', this.TICK_F );
 }
 
 
@@ -141,21 +130,11 @@ else
 
 Maps.prototype.noMoreLevels = function()
 {
-this.clear();
-
 new Message({
     text: "Congratulations, you finished the game!<br />Too easy huh?",
     timeOut: 4000,
     timeOut_f: function() { MainMenu.open() }
     });
-};
-
-
-
-
-Maps.prototype.clear = function()
-{
-createjs.Ticker.removeEventListener( 'tick', this.TICK_F );
 };
 
 

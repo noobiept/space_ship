@@ -68,7 +68,7 @@ var spriteSheet = {
 
 var ss = new createjs.SpriteSheet( spriteSheet );
 
-var enemy = new createjs.BitmapAnimation( ss );
+var enemy = new createjs.Sprite( ss );
 
     // origin in the middle of the image
 enemy.regX = width / 2;

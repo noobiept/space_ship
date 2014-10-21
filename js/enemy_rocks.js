@@ -77,7 +77,7 @@ var spriteConfig = {
 
 var sprite = new createjs.SpriteSheet( spriteConfig );
     
-var rock = new createjs.BitmapAnimation( sprite );
+var rock = new createjs.Sprite( sprite );
 
     // origin in the middle of the image
 rock.regX = this.width / 2;

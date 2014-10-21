@@ -35,13 +35,6 @@ this.count_increase_damage = 0;
 this.count_increase_velocity = 0;
 
 initGame();
-
-this.TICK_F = function( event )
-    {
-    endlessObject.tick( event );
-    };
-
-createjs.Ticker.addEventListener( 'tick', this.TICK_F );
 }
 
 
@@ -115,13 +108,6 @@ if ( this.count_increase_velocity >= this.increase_velocity_step )
 
     this.velocity++;
     }
-};
-
-
-
-EndlessMode.prototype.clear = function()
-{
-createjs.Ticker.removeEventListener( 'tick', this.TICK_F );
 };
 
 
