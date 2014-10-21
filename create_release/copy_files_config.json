@@ -1,5 +1,4 @@
 {
-    "resultingFolder": "space_ship",
     "basePath": "..",
     "files":
         [
@@ -24,5 +23,13 @@
             
             "index.html",
             "manifest.json"
+        ],
+    "extensions":
+        [
+            ".css",
+            ".js",
+            ".png",
+            ".json",
+            ".ogg"
         ]
 }

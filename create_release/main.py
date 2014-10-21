@@ -4,29 +4,39 @@ import argparse
 import sys
 import os.path
 import re
+import json
 
 sys.path.append( 'C:/Users/drk/Dropbox/projects/' )
 
-import create_release_script.main as main
+from create_release_script import main
 
 
     # relative paths
 default_htmlFile = '../index.html'
-default_copyFilesConfig = 'copy_files_config.txt'
-default_concatenateConfig = 'concatenate_config.txt'
-default_resultingFolder = 'space_ship'
+default_manifest = '../manifest.json'
+default_copyFilesConfig = 'copy_files_config.json'
+default_concatenateConfig = 'concatenate_config.json'
+default_resultingFolder = '../release/space_ship'
 
 
 def go( htmlFile= default_htmlFile,
         copyFilesConfig= default_copyFilesConfig,
         concatenateConfig= default_concatenateConfig,
-        resultingFolder= default_resultingFolder ):
+        resultingFolder= default_resultingFolder,
+        manifestPath= default_manifest ):
+
+    manifestPath = os.path.realpath( default_manifest )
+
+    with open( manifestPath, 'r', encoding= 'utf-8' ) as f:
+        manifest = f.read()
+
+    manifest = json.loads( manifest )
 
         # absolute paths
     htmlFile = os.path.realpath( htmlFile )
     copyFilesConfig = os.path.realpath( copyFilesConfig )
     concatenateConfig = os.path.realpath( concatenateConfig )
-    resultingFolder = os.path.realpath( resultingFolder )
+    resultingFolder = os.path.realpath( '{} {}'.format( resultingFolder, manifest[ 'version' ] ) )
 
     baseDirectory = os.path.realpath( '' )
 
@@ -48,10 +58,7 @@ def go( htmlFile= default_htmlFile,
             f.write( newText )
 
 
-
     main.go( htmlFile, copyFilesConfig, concatenateConfig, resultingFolder, baseDirectory, afterCopy )
-
-
 
 
 if __name__ == '__main__':
