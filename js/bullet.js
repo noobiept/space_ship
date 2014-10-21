@@ -198,9 +198,7 @@ Bullet.prototype.remove = function()
 {
 var all = Bullet.all_bullets;
 
-
 STAGE.removeChild( this.shape );
-
 WORLD.DestroyBody( this.body );
 
 var position = all.indexOf( this );

@@ -147,9 +147,14 @@ if ( event.paused )
     return;
     }
 
-this.CURRENT_MAP_TICK++;
-
 var currentMap = this.MAPS[ this.CURRENT_MAP ];
+
+if ( !currentMap )
+    {
+    return;
+    }
+
+this.CURRENT_MAP_TICK++;
 
 var phase = currentMap.map[ this.CURRENT_MAP_PHASE ];
 
