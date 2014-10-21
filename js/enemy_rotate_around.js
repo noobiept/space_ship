@@ -47,6 +47,8 @@ INHERIT_PROTOTYPE( EnemyRotateAround, EnemyShip );
 
 EnemyRotateAround.prototype.makeShape = function()
 {
+var speed = 0.2;
+
 var spriteSheet = {
 
     animations: {
@@ -54,13 +56,13 @@ var spriteSheet = {
         spawn: {
             frames: [0, 1, 2],
             next: "spawn",
-            frequency: 10
+            speed: speed
             },
 
         main: {   
             frames: [3, 4],
             next: "main",    // set up looping
-            frequency: 10
+            speed: speed
             }
         },
         

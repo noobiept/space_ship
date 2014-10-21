@@ -44,6 +44,7 @@ EnemyKamikaze.prototype.makeShape = function()
 {
 var width = this.width;
 var height = this.height;
+var speed = 0.2;
 
 var spriteSheet = {
     animations: {
@@ -51,12 +52,12 @@ var spriteSheet = {
         spawn: {
             frames: [ 0, 1, 2 ],
             next: "spawn",
-            frequency: 10
+            speed: speed
             },
         main: {
             frames: [ 3 ],
             next: "main",
-            frequency: 10
+            speed: speed
             }
         },
     frames: {

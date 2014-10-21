@@ -43,7 +43,7 @@ INHERIT_PROTOTYPE( EnemyMoveHorizontally, EnemyShip);
 
 EnemyMoveHorizontally.prototype.makeShape = function()
 {
-var frequency = 10;
+var speed = 0.2;
 
 var spriteSheet = {
 
@@ -52,14 +52,14 @@ var spriteSheet = {
         spawn: {
             frames: [ 0, 1, 2 ],
             next: "spawn",
-            frequency: frequency
+            speed: speed
             },
 
         main: {
 
             frames: [ 3, 4 ],
             next: "main",
-            frequency: frequency
+            speed: speed
             }
 
         },
