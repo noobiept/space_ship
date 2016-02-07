@@ -118,7 +118,7 @@ var options = document.querySelector( '#Options' );
 var musicVolume = options.querySelector( '#Options-musicVolume' );
 var musicVolumeSpan = musicVolume.querySelector( 'span' );
 
-var musicVolumeValue = Options.getMusicVolume() * 100;
+var musicVolumeValue = Math.round( Options.getMusicVolume() * 100 );
 
 $( musicVolumeSpan ).text( musicVolumeValue + '%' );
 
@@ -146,6 +146,7 @@ var back = options.querySelector( '#Options-back' );
 
 back.onclick = function()
     {
+    Options.save();
     MainMenu.open();
     };
 

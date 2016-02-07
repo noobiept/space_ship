@@ -123,7 +123,13 @@ var LOADING_MESSAGE;
     
 window.onload = function()
 {
-Options.load();
+AppStorage.getData( [ 'space_ship_options' ], initApp );
+};
+    
+
+function initApp( data )
+{
+Options.load( data[ 'space_ship_options' ] );
 
     // get a reference to the canvas we'll be working with
 CANVAS = document.querySelector( "#mainCanvas" );
@@ -195,26 +201,15 @@ PRELOAD.installPlugin( createjs.Sound );
 PRELOAD.addEventListener( 'progress', updateLoading );
 PRELOAD.addEventListener( 'complete', MainMenu.open );
 PRELOAD.loadManifest( manifest, true );
-};
-    
-
-window.onunload = function()
-{
-Options.save();
-};
+}
 
 
 function updateLoading( event )
 {
 LOADING_MESSAGE.setText( "Loading " + ( event.progress*100 | 0 ) + "%" );
 }
-    
-    
-    
-/*
 
- */
-   
+
 function initGame()
 {
 resetStuff();

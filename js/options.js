@@ -12,15 +12,12 @@ var OPTIONS = {
 
 Options.save = function()
 {
-localStorage.setObject( 'options', OPTIONS );
+AppStorage.setData({ space_ship_options: OPTIONS });
 };
 
 
-
-Options.load = function()
+Options.load = function( options )
 {
-var options = localStorage.getObject( 'options' );
-
 if ( options )
     {
     if ( typeof options.musicVolume !== 'undefined' )
@@ -29,8 +26,6 @@ if ( options )
         }
     }
 };
-
-
 
 
 Options.setMusicVolume = function( value )
