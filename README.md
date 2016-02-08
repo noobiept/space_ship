@@ -14,14 +14,14 @@ A shooter type game, you can check it out here:
 Dependencies
 ============
 
-- jquery : 2.1
+- jquery : 2.2
 - jqueryui : 1.11
     - slider
     - redmond theme
 - createJS
-    - easeljs : 0.7
-    - preloadjs : 0.4
-    - soundjs : 0.5
+    - easeljs : 0.8
+    - preloadjs : 0.6
+    - soundjs : 0.6
 - box2dweb : 2.1.a
 
 
