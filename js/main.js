@@ -1,47 +1,5 @@
 "use strict";
 
-/*
-    Dependencies:
-
-        - jquery : 2.1
-        - jqueryui : 1.11
-            - slider
-            - redmond theme
-        - createjs
-            - easeljs   : 0.7
-            - preloadjs : 0.4
-            - soundjs   : 0.5
-        - box2dweb : 2.1.a
-
-
-        - dry fire : http://freesound.org/people/brianhanson2nd/sounds/171211/ (Creative Commons 0 License)
-
-    Game Modes:
-
-        Predefined Maps
-
-            - manually written maps
-
-        Random Maps
-
-            - generated maps (adds several enemies each time)
-
-        Endless Mode
-
-            - adds three enemies at a time
-            - the difficulty increases by reducing the time between each new enemy, and by increasing the enemies damage/'movement speed'
-
-
-    to doo:
-
-        - shape (createjs) isn't synced with the body (box2dweb) when its moving too fast (for example the sniper)
-        - add enemies with more energy (and maybe show above the unit how many more hit-points it has)
-
-        - have the volume control in the game (and remove the options, since that's the only thing there)
-        - change the colors of the game menu, when it is opened
-  */
-
-
     // global variables
 
 var CANVAS;

@@ -8,20 +8,21 @@ A shooter type game, you can check it out here:
 - [personal website](http://nbpt.eu/games/space_ship "personal website")
 
 
-
-
 ![In-game](https://bitbucket.org/drk4/space_ship_game/raw/a8481dc01263930b030057632deb53d9dfc0f904/images/space_ship_1280_800.png "In-game")
 
 
+Dependencies
+============
 
-
-Dependencies:
-
-* jquery
-* jqueryui
-* createJS
-* box2dweb
-
+- jquery : 2.1
+- jqueryui : 1.11
+    - slider
+    - redmond theme
+- createJS
+    - easeljs : 0.7
+    - preloadjs : 0.4
+    - soundjs : 0.5
+- box2dweb : 2.1.a
 
 
 Game Modes
@@ -39,7 +40,6 @@ Random Maps:
 Endless Mode:
 
 - just keeps adding enemies, that keep getting stronger as time passes.
-
 
 
 Weapons Description
@@ -63,11 +63,13 @@ Mines:
 - they don't move, but have a bigger splash damage.
 
 
+Sounds
+======
 
+- dry fire : http://freesound.org/people/brianhanson2nd/sounds/171211/ (Creative Commons 0 License)
 
-The songs used can be found here:
+Music
+=====
 
-
-* [scumm bar](http://www.youtube.com/watch?v=39CSrCugHfA "scumm bar")
-* [space ship 1](http://www.youtube.com/watch?v=MJhUJ7YV7EA "space ship 1")
-
+- [scumm bar](http://www.youtube.com/watch?v=39CSrCugHfA "scumm bar")
+- [space ship 1](http://www.youtube.com/watch?v=MJhUJ7YV7EA "space ship 1")
