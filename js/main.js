@@ -376,12 +376,13 @@ else if ( (typeA === TYPE_BULLET && typeB === TYPE_ENEMY) ||
         }
 
         // already was added to the collision array (don't add the same collision twice)
-    if ( enemyObject.alreadyInCollision )
+    if ( enemyObject.alreadyInCollision || bulletObject.alreadyInCollision )
         {
         return;
         }
 
     enemyObject.alreadyInCollision = true;
+    bulletObject.alreadyInCollision = true;
 
         // make it not collidable anymore
     enemyObject.fixDef.mask_bits = MASK.dontCollide;
