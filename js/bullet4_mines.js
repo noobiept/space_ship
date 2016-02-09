@@ -8,6 +8,7 @@ var REMOVE_TICK = 250;
     // rotate the mine
 var ANGLE_TICK = 15;
 
+
 function Bullet4_mines( shipObject, color, angleRotation )
 {
 this.width = 15;

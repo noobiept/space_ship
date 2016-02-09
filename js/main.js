@@ -230,7 +230,6 @@ if ( GAME_OBJECT )
 
 resetStuff();
 
-GAME_OBJECT = null;
 GAME_OBJECT = new GAME_MODE( startingLevel );
 }
 
@@ -448,9 +447,6 @@ createjs.Ticker.setPaused( false );
 WORLD.DrawDebugData();
 STAGE.update();
 }
-    
-    
-
 
 
 function tick( event )
@@ -460,59 +456,47 @@ if ( event.paused )
     return;
     }
 
+var a;
 
     // check if there's collisions to deal with
-for (var i = 0 ; i < COLLISION_F.length ; i++)
+for (a = COLLISION_F.length - 1 ; a >= 0 ; a--)
     {
-        // call the function
-    COLLISION_F[ i ]();
-
-        // and remove it from array
-    COLLISION_F.splice( i, 1 );
-
-    i--;
+    COLLISION_F[ a ]();
     }
+
+COLLISION_F.length = 0;
 
 
     // call the ticks of the ships/bullets/etc
-var a;
-var length = Ship.all.length;
-
-for (a = length - 1 ; a >= 0 ; a--)
+for (a = Ship.all.length - 1 ; a >= 0 ; a--)
     {
     Ship.all[ a ].tick( event );
     }
 
-length = EnemyShip.all.length;
-
-for (a = length - 1 ; a >= 0 ; a--)
+for (a = EnemyShip.all.length - 1 ; a >= 0 ; a--)
     {
     EnemyShip.all[ a ].tick( event );
     }
 
-length = EnemyShip.all_spawning.length;
-
-for (a = length - 1 ; a >= 0 ; a--)
+for (a = EnemyShip.all_spawning.length - 1 ; a >= 0 ; a--)
     {
     EnemyShip.all_spawning[ a ].tick( event );
     }
 
-length = Bullet.all_bullets.length;
+Bullet.checkOutOfBounds();
 
-for (a = length - 1 ; a >= 0 ; a--)
+for (a = Bullet.all_bullets.length - 1 ; a >= 0 ; a--)
     {
     Bullet.all_bullets[ a ].tick( event );
     }
 
 GAME_OBJECT.tick( event );
 
-
 WORLD.Step(
     1 / 60,     // frame-rate
     10,         // velocity iterations
     10          // position iterations
     );
-
 WORLD.DrawDebugData();
 WORLD.ClearForces();
 

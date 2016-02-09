@@ -37,8 +37,8 @@ STAGE.addChild( g.score_text );
 ZIndex.add( g.score_text );
 
     // position the text on screen, relative to the stage coordinates
-g.score_text.x = CANVAS.width - 150;
-g.score_text.y = 40;
+g.score_text.x = CANVAS.width - 100;
+g.score_text.y = 10;
 
 
     // :: Energy :: //
@@ -56,7 +56,7 @@ g.energy_text.y = g.score_text.y + 30;
 
     // :: Number of Enemies :: //
 
-g.numberOfEnemies_text = new createjs.Text("Enemies in map: " + g.numberOfEnemies, "16px Arial", "#777");
+g.numberOfEnemies_text = new createjs.Text("Enemies: " + g.numberOfEnemies, "16px Arial", "#777");
 
 
 STAGE.addChild( g.numberOfEnemies_text );
@@ -99,7 +99,7 @@ var g = GameStatistics;
 
 g.numberOfEnemies = newNumber;
 
-g.numberOfEnemies_text.text = "Enemies in map: " + g.numberOfEnemies;
+g.numberOfEnemies_text.text = "Enemies: " + g.numberOfEnemies;
 };
 
 

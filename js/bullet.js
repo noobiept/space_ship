@@ -162,7 +162,6 @@ this.shape.y = this.body.GetWorldCenter().y * SCALE;
 /*
     How much damage the bullets gives to the ship when it hits
  */
-
 Bullet.prototype.damageGiven = function()
 {
 return this.damage;
@@ -172,15 +171,11 @@ return this.damage;
 /*
     What to do to the bullet when a collision is detected
  */
-
 Bullet.prototype.collisionResponse = function()
 {
     // default is to remove the bullet, but you can override this function to do something else
 this.remove();
 };
-
-
-
 
 
 Bullet.prototype.rotate = function( degrees )
@@ -190,10 +185,10 @@ this.shape.rotation = degrees;
 this.body.SetAngle( degrees * Math.PI / 180 );
 };
 
+
 /*
     Remove the bullet from the stage
  */
-
 Bullet.prototype.remove = function()
 {
 var all = Bullet.all_bullets;
@@ -205,20 +200,6 @@ var position = all.indexOf( this );
 
 all.splice( position, 1 );
 };
-
-
-/*
-    Remove all bullets 
- */
-
-Bullet.removeAllBullets = function()
-{
-$( Bullet.all_bullets ).each(function(index, enemy)
-    {
-    enemy.remove();
-    });
-};
-
 
 
 Bullet.prototype.tick = function( event )
@@ -234,20 +215,36 @@ if (typeof this.tick_function !== "undefined" && this.tick_function !== null)
     {
     this.tick_function();
     }
+};
 
+
+/*
+    Remove all bullets
+ */
+Bullet.removeAllBullets = function()
+{
+$( Bullet.all_bullets ).each(function(index, enemy)
+    {
+    enemy.remove();
+    });
+};
+
+
+/**
+ * Check if there's bullets out of bounds (outside of the canvas), and remove them if so
+ */
+Bullet.checkOutOfBounds = function()
+{
 var i;
 var bulletObject;
 
-    // check if the bullets are out of bounds (outside the canvas), and remove them if so
-for (i = 0 ; i < Bullet.all_bullets.length ; i++)
+for (i = Bullet.all_bullets.length - 1 ; i >= 0 ; i--)
     {
     bulletObject = Bullet.all_bullets[ i ];
 
     if ( outOfBounds( bulletObject ) )
         {
         bulletObject.remove();
-
-        i--;
         }
     }
 };
@@ -255,5 +252,4 @@ for (i = 0 ; i < Bullet.all_bullets.length ; i++)
 
     // public stuff
 window.Bullet = Bullet;
-
 }(window));
