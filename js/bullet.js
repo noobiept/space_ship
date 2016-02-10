@@ -36,6 +36,7 @@ this.shape = null;
 this.shipObject = shipObject;
 this.type = TYPE_BULLET;
 this.damage = 10;
+this.removed = false;
 
     // draw the bullet
 this.drawBullet( angleRotation );
@@ -191,6 +192,12 @@ this.body.SetAngle( degrees * Math.PI / 180 );
  */
 Bullet.prototype.remove = function()
 {
+this.removed = true;
+};
+
+
+Bullet.prototype.removeNow = function()
+{
 var all = Bullet.all_bullets;
 
 STAGE.removeChild( this.shape );
@@ -202,9 +209,10 @@ all.splice( position, 1 );
 };
 
 
+
 Bullet.prototype.tick = function( event )
 {
-if ( event.paused )
+if ( event.paused || this.removed )
     {
     return;
     }
@@ -219,21 +227,23 @@ if (typeof this.tick_function !== "undefined" && this.tick_function !== null)
 
 
 /*
-    Remove all bullets
+    Remove all bullets.
  */
 Bullet.removeAllBullets = function()
 {
-$( Bullet.all_bullets ).each(function(index, enemy)
+for (var a = Bullet.all_bullets.length - 1 ; a >= 0 ; a--)
     {
-    enemy.remove();
-    });
+    Bullet.all_bullets[ a ].removeNow();
+    }
+
+Bullet.all_bullets.length = 0;
 };
 
 
 /**
- * Check if there's bullets out of bounds (outside of the canvas), and remove them if so
+ * Removes all bullets that were marked to be removed, and all bullets that are out of bounds (outside of the canvas).
  */
-Bullet.checkOutOfBounds = function()
+Bullet.cleanAll = function()
 {
 var i;
 var bulletObject;
@@ -242,9 +252,9 @@ for (i = Bullet.all_bullets.length - 1 ; i >= 0 ; i--)
     {
     bulletObject = Bullet.all_bullets[ i ];
 
-    if ( outOfBounds( bulletObject ) )
+    if ( bulletObject.removed || outOfBounds( bulletObject ) )
         {
-        bulletObject.remove();
+        bulletObject.removeNow();
         }
     }
 };

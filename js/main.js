@@ -257,15 +257,11 @@ createjs.Ticker.setPaused( false );
 }
 
 
-
-
-
 /*
     Called on 'BeginContact' between box2d bodies
 
     Warning: You cannot create/destroy Box2D entities inside these callbacks.
  */
-
 function collisionDetection( contact )
 {
 var objectA = contact.GetFixtureA().GetBody().GetUserData();
@@ -376,13 +372,12 @@ else if ( (typeA === TYPE_BULLET && typeB === TYPE_ENEMY) ||
         }
 
         // already was added to the collision array (don't add the same collision twice)
-    if ( enemyObject.alreadyInCollision || bulletObject.alreadyInCollision )
+    if ( enemyObject.alreadyInCollision )
         {
         return;
         }
 
     enemyObject.alreadyInCollision = true;
-    bulletObject.alreadyInCollision = true;
 
         // make it not collidable anymore
     enemyObject.fixDef.mask_bits = MASK.dontCollide;
@@ -467,6 +462,7 @@ for (a = COLLISION_F.length - 1 ; a >= 0 ; a--)
 
 COLLISION_F.length = 0;
 
+Bullet.cleanAll();
 
     // call the ticks of the ships/bullets/etc
 for (a = Ship.all.length - 1 ; a >= 0 ; a--)
@@ -483,8 +479,6 @@ for (a = EnemyShip.all_spawning.length - 1 ; a >= 0 ; a--)
     {
     EnemyShip.all_spawning[ a ].tick( event );
     }
-
-Bullet.checkOutOfBounds();
 
 for (a = Bullet.all_bullets.length - 1 ; a >= 0 ; a--)
     {
