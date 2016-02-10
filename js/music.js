@@ -32,7 +32,7 @@ if ( volume > 0 )
 
     var increaseVolume = function()
         {
-        var newVolume = sound.getVolume() + 0.1;
+        var newVolume = sound.getVolume() + 0.2;
 
             // we achieved the volume we wanted
         if ( newVolume > volume )
@@ -73,7 +73,7 @@ var sound = this.sound_obj;
 
 var reduceVolume = function()
     {
-    var volume = sound.getVolume() - 0.1;
+    var volume = sound.getVolume() - 0.2;
 
     if ( volume < 0 )
         {

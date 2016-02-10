@@ -8,7 +8,16 @@ A shooter type game, you can check it out here:
 - [personal website](http://nbpt.eu/games/space_ship "personal website")
 
 
-![In-game](https://bitbucket.org/drk4/space_ship_game/raw/a8481dc01263930b030057632deb53d9dfc0f904/images/space_ship_1280_800.png "In-game")
+![In-game](images/space_ship_1280_800.png "In-game")
+
+
+Controls
+========
+
+- Either `wasd` or `arrow` keys for the movement.
+- `1` to `4` to select a weapon.
+- `Left click` to fire a bullet.
+- `Mouse movement` to rotate the ship.
 
 
 Dependencies

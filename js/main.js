@@ -83,7 +83,7 @@ window.onload = function()
 {
 AppStorage.getData( [ 'space_ship_options' ], initApp );
 };
-    
+
 
 function initApp( data )
 {
