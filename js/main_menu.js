@@ -1,4 +1,4 @@
-/*global Music, resetStuff, LOADING_MESSAGE, centerElement, STAGE, GAME_MODE, startGameMode, PredefinedMaps, RandomMaps, EndlessMode, Options, EVENT_KEY*/
+/*global Music, resetStuff, LOADING_MESSAGE, STAGE, GAME_MODE, startGameMode, PredefinedMaps, RandomMaps, EndlessMode, Options, EVENT_KEY, CANVAS*/
 /*exported GAME_MODE*/
 "use strict";
 
@@ -26,10 +26,10 @@ MainMenu.open = function()
 if ( LOADING_MESSAGE )
     {
     LOADING_MESSAGE.remove();
-
     LOADING_MESSAGE = null;
     }
 
+CANVAS.style.display = 'none';
 
 Music.stop();
 
@@ -48,8 +48,6 @@ ENTRIES.push( MainMenu.predefinedMaps, MainMenu.randomMaps, MainMenu.endlessMode
 
 ENTRIES_ELEMENTS.push( predefinedMaps, randomMaps, endlessMode, options );
 
-centerElement( menu );
-
 $( menu ).css( 'display', 'block' );
 
 predefinedMaps.onclick = MainMenu.predefinedMaps;
@@ -62,11 +60,8 @@ $( predefinedMaps ).addClass( 'MainMenu-entrySelected' );
 
 $( document ).bind( "keyup", MainMenu.keyboardEvents );
 
-
 STAGE.update();
 };
-
-
 
 
 MainMenu.predefinedMaps = function( event )
@@ -138,8 +133,6 @@ $( musicVolumeSlider ).slider({
         $( musicVolumeSpan ).text( ui.value + '%' );
 
         Options.setMusicVolume( ui.value / 100 );
-
-        centerElement( options );
         }
     });
 
@@ -154,8 +147,6 @@ back.onclick = function()
 
 
 $( options ).css( 'display', 'block' );
-
-centerElement( options );
 };
 
 

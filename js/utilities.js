@@ -89,7 +89,6 @@ return Math.random() * (max - min) + min;
 /*
     Centers an html element in the middle of the game canvas (assumes html element has its css position: absolute;
  */
-
 function centerElement( element )
 {
 var canvasWidth = CANVAS.width;

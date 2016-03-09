@@ -97,9 +97,6 @@ CANVAS = document.querySelector( "#mainCanvas" );
     // canvas for debugging the physics
 CANVAS_DEBUG = document.querySelector( '#debugCanvas' );
 
-centerCanvas( CANVAS );
-centerCanvas( CANVAS_DEBUG );
-
     // create a stage object to work with the canvas. This is the top level node in the display list
 STAGE = new createjs.Stage( CANVAS );
 
@@ -114,9 +111,9 @@ createjs.Ticker.setInterval( 50 );
 if ( DEBUG )
     {
     $( CANVAS_DEBUG ).css('display', 'block');
+    centerCanvas( CANVAS_DEBUG );
 
         // setup debug draw
-
     var debugDraw = new b2DebugDraw();
 
     debugDraw.SetSprite( CANVAS_DEBUG.getContext('2d') );

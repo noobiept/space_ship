@@ -1,5 +1,16 @@
+html
+    {
+    height: 100%;
+    }
+
 body
     {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 0;
+    margin: 0;
     background-color: black;
     color: white;
     font-family: Arial, sans-serif;
@@ -8,8 +19,7 @@ body
     user-select: none;
     }
 
-
-#mainCanvas, #debugCanvas
+#debugCanvas
     {
     position: absolute;
     }
@@ -19,11 +29,10 @@ body
     border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-#debugCanvas
+#mainCanvas, #debugCanvas
     {
     display: none;
     }
-
 
 .Message
     {
@@ -33,20 +42,17 @@ body
     cursor: default;
     }
 
-
 .button
     {
     cursor: pointer;
     color: white;
     }
 
-
 .button:hover
     {
     color: black;
     background-color: white;
     }
-
 
     /* z-index */
 
@@ -65,7 +71,6 @@ body
     z-index: 150;
     }
 
-
     /* Main Menu */
 
 #MainMenu, #Options
@@ -74,13 +79,7 @@ body
     color: rgb(120, 120, 120);
     text-align: center;
     font-size: 28px;
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
     }
-
 
 #MainMenu > *
     {
@@ -102,7 +101,6 @@ body
     text-align: center;
     }
 
-
     /* Game Menu */
 
 #GameMenu
@@ -116,19 +114,15 @@ body
     color: white;
     }
 
-
-
 #GameMenu-right, #GameMenu-left
     {
     display: inline-block;
     }
 
-
 #GameMenu-right
     {
     float: right;
     }
-
 
 #GameMenu-selectWeapon > *, #GameMenu-bulletsLeft > *, #GameMenu-right > *
     {
@@ -138,7 +132,6 @@ body
     padding: 5px 0;
     width: 100px;
     }
-
 
 #GameMenu-selectWeapon > *
     {
@@ -154,16 +147,13 @@ body
     font-size: 14px;
     }
 
-
 #GameMenu-selectWeapon .WeaponsSelected
     {
     color: black;
     background-color: white;
     }
 
-
 .GamePausedMessage
     {
     font-size: 2em;
     }
-

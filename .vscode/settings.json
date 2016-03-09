@@ -1,0 +1,12 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "files.exclude": {
+        "**/.hg": true,
+        "**/release": true,
+        "**/build/node_modules": true,
+        "**/build/.tmp": true
+    },
+    "search.exclude": {
+        "**/libraries": true
+    }
+}
