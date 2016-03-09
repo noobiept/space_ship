@@ -47,7 +47,7 @@ function setLocalStorage( items, callback )
  */
 function chromeStorageGet( keys, callback )
     {
-    chrome.storage.local.get( keys, callback );
+    window.chrome.storage.local.get( keys, callback );
     }
 
 
@@ -57,7 +57,7 @@ function chromeStorageGet( keys, callback )
  */
 function chromeStorageSet( items, callback )
     {
-    chrome.storage.local.set( items, callback );
+    window.chrome.storage.local.set( items, callback );
     }
 
 

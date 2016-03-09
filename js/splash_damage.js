@@ -1,3 +1,5 @@
+/*global Bullet, TYPE_BULLET, INHERIT_PROTOTYPE, createjs, b2FixtureDef, b2BodyDef, b2Body, b2CircleShape, SCALE, WORLD*/
+
 (function(window)
 {
 /*

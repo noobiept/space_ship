@@ -6,6 +6,13 @@ var dest = '../release/<%= pkg.name %> <%= pkg.version %>/';
 grunt.initConfig({
         pkg: grunt.file.readJSON( 'package.json' ),
 
+        eslint: {
+            options: {
+                configFile: root + '.eslintrc.json'
+            },
+            target: [ root + 'js' ]
+        },
+
             // delete the destination folder
         clean: {
             options: {
@@ -50,6 +57,7 @@ grunt.initConfig({
 
 
     // load the plugins
+grunt.loadNpmTasks( 'grunt-eslint' );
 grunt.loadNpmTasks( 'grunt-contrib-clean' );
 grunt.loadNpmTasks( 'grunt-contrib-copy' );
 grunt.loadNpmTasks( 'grunt-contrib-concat' );
@@ -58,5 +66,5 @@ grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 grunt.loadNpmTasks( 'grunt-usemin' );
 
     // tasks
-grunt.registerTask( 'default', [ 'clean', 'copy', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'usemin' ] );
+grunt.registerTask( 'default', [ 'eslint', 'clean', 'copy', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'usemin' ] );
 };

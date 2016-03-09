@@ -1,3 +1,5 @@
+/*global PRELOAD, Maps, INHERIT_PROTOTYPE*/
+
 (function(window)
 {
 var NUMBER_OF_MAPS = 10;

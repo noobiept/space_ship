@@ -1,6 +1,7 @@
+/*global TYPE_SHIP, GAME_WIDTH, GAME_HEIGHT, STAGE, ZIndex, PRELOAD, createjs, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, SCALE, WORLD, b2CircleShape, b2Vec2, GameStatistics, Message, GameMenu, EVENT_KEY, startGameMode, CANVAS, Bullet1_laser, Bullet2_sniper, Bullet3_rocket, Bullet4_mines, Options, KEYS_HELD*/
 "use strict";
 
-(function(window) 
+(function(window)
 {
 
 function Ship()
@@ -105,12 +106,11 @@ ship.regY = this.height / 2;
 
 this.shape = ship;
 };
- 
+
 
 Ship.prototype.setupPhysics = function()
 {
 var width = this.width;
-var height = this.height;
 
     // physics
 var fixDef = new b2FixtureDef;
@@ -232,8 +232,8 @@ if (y < 0)
 
 return false;
 };
- 
- 
+
+
 
 Ship.inLeftLimit = function( x )
 {
@@ -255,7 +255,7 @@ if (x > GAME_WIDTH)
 
 return false;
 };
- 
+
 
 
 Ship.inBottomLimit = function( y )
@@ -281,7 +281,7 @@ GameStatistics.updateShipEnergy( energy );
 if (energy <= 0)
     {
     this.remove();
-        
+
     createjs.Ticker.removeAllEventListeners();
     window.onclick = null;  // so that you can't fire anymore
 
@@ -289,10 +289,10 @@ if (energy <= 0)
     var endMessage = new Message({
         text: "Game Over: Press enter to restart"
         });
-    
+
     $( document ).bind( "keyup", function(event)
         {
-        if (event.keyCode === EVENT_KEY.enter) 
+        if (event.keyCode === EVENT_KEY.enter)
             {
             endMessage.remove();
 
@@ -301,23 +301,23 @@ if (energy <= 0)
         });
     }
 };
-    
-    
+
+
 Ship.prototype.selectWeapon = function( weaponNumber )
 {
 this.weaponSelected = weaponNumber;
 
 GameMenu.selectWeapon( weaponNumber );
 };
-    
+
 
 /*
     Arguments:
-    
+
         event : (MouseEvent -- easelJS)
         ship  : (Ship object)
  */
-    
+
 Ship.prototype.handleMouseMove = function( event )
 {
 if ( !event )
@@ -345,8 +345,8 @@ var angleDegrees = angleRadians * 180 / Math.PI;
     // we multiply by -1 because the .rotation property seems to have the angles in the other direction
 this.rotate( -1 * angleDegrees );
 };
-    
-    
+
+
 Ship.prototype.rotate = function( degrees )
 {
 this.shape.rotation = degrees;
@@ -355,15 +355,15 @@ this.body.SetAngle( degrees * Math.PI / 180 );
 };
 
 
-    
-Ship.prototype.handleClick = function( event )  
+
+Ship.prototype.handleClick = function( event )
 {
 if ( !event )
     {
     event = window.event;
     }
 
-    
+
 var weapons = [ Bullet1_laser, Bullet2_sniper, Bullet3_rocket, Bullet4_mines ];
 
 
@@ -374,9 +374,9 @@ var bulletsLeft = this.bullets_left;
 if (bulletsLeft[ weaponSelected ] > 0)
     {
     new weapons[ this.weaponSelected ]( this, this.color );
-    
+
     bulletsLeft[ weaponSelected ]--;
-    
+
     GameStatistics.updateBulletsLeft( weaponSelected );
     }
 
@@ -387,11 +387,11 @@ else
     createjs.Sound.play( 'dry_fire', createjs.Sound.INTERRUPT_NONE, 0, 0, 0, volume );
     }
 };
-    
 
-    
-    
-    
+
+
+
+
 Ship.prototype.updateAmmo = function()
 {
 var i;
@@ -401,18 +401,18 @@ var bulletsLeft = this.bullets_left;
 for (i = 0 ; i < AMMO_UPDATE_TICK.length ; i++)
     {
     tickCount[ i ]--;
-    
+
     if (tickCount[ i ] <= 0)
         {
             // reset the counter
         tickCount[ i ] = AMMO_UPDATE_TICK[ i ];
-        
+
             // if we still didn't reach the maximum value
         if (bulletsLeft[ i ] < MAX_AMMO[ i ])
             {
                 // increase the number of bullets available
             bulletsLeft[ i ]++;
-            
+
             GameStatistics.updateBulletsLeft( i );
             }
         }
@@ -450,11 +450,11 @@ for (var i = 0 ; i < bulletsLeft.length ; i++)
 };
 
 
-    
-/* 
+
+/*
     Remove this ship
  */
-    
+
 Ship.prototype.remove = function()
 {
 STAGE.removeChild( this.shape );
@@ -480,10 +480,10 @@ $( Ship.all ).each(function(index, value)
     value.remove();
     });
 };
- 
 
-    
-    
+
+
+
 Ship.prototype.tick = function()
 {
 var nextX, nextY;
@@ -498,7 +498,7 @@ if (KEYS_HELD.left && KEYS_HELD.up)
         {
         nextY = this.shape.y;
         }
-    
+
     if ( Ship.inLeftLimit( nextX ) )
         {
         nextX = this.shape.x;
@@ -506,18 +506,18 @@ if (KEYS_HELD.left && KEYS_HELD.up)
 
     this.moveTo( nextX, nextY );
     }
-    
+
     // bottom left
 else if (KEYS_HELD.left && KEYS_HELD.down)
     {
     nextX = this.shape.x - VELOCITY;
     nextY = this.shape.y + VELOCITY;
-    
+
     if ( Ship.inLeftLimit( nextX ) )
         {
         nextX = this.shape.x;
         }
-        
+
     if ( Ship.inBottomLimit( nextY ) )
         {
         nextY = this.shape.y;
@@ -525,18 +525,18 @@ else if (KEYS_HELD.left && KEYS_HELD.down)
 
     this.moveTo( nextX, nextY );
     }
-    
+
     // top right
 else if (KEYS_HELD.right && KEYS_HELD.up)
     {
     nextX = this.shape.x + VELOCITY;
     nextY = this.shape.y - VELOCITY;
-    
+
     if ( Ship.inRightLimit( nextX ) )
         {
         nextX = this.shape.x;
         }
-        
+
     if ( Ship.inTopLimit( nextY ) )
         {
         nextY = this.shape.y;
@@ -544,18 +544,18 @@ else if (KEYS_HELD.right && KEYS_HELD.up)
 
     this.moveTo( nextX, nextY );
     }
-    
+
     // bottom right
 else if (KEYS_HELD.right && KEYS_HELD.down)
     {
     nextX = this.shape.x + VELOCITY;
     nextY = this.shape.y + VELOCITY;
-    
+
     if ( Ship.inRightLimit( nextX ) )
         {
         nextX = this.shape.x;
         }
-        
+
     if ( Ship.inBottomLimit( nextY ) )
         {
         nextY = this.shape.y;
@@ -568,7 +568,7 @@ else if (KEYS_HELD.right && KEYS_HELD.down)
 else if(KEYS_HELD.left)
     {
     nextX = this.shape.x - VELOCITY;
-    
+
     if ( Ship.inLeftLimit( nextX ) )
         {
         nextX = this.shape.x;
@@ -576,12 +576,12 @@ else if(KEYS_HELD.left)
 
     this.moveTo( nextX, this.shape.y );
     }
-    
+
     // right
 else if (KEYS_HELD.right)
     {
     nextX = this.shape.x + VELOCITY;
-    
+
     if ( Ship.inRightLimit( nextX ) )
         {
         nextX = this.shape.x;
@@ -589,12 +589,12 @@ else if (KEYS_HELD.right)
 
     this.moveTo( nextX, this.shape.y );
     }
-    
+
     // top
 else if (KEYS_HELD.up)
     {
     nextY = this.shape.y - VELOCITY;
-    
+
         // check if is within the canvas (in bounds)
     if ( Ship.inTopLimit( nextY ) )
         {
@@ -603,12 +603,12 @@ else if (KEYS_HELD.up)
 
     this.moveTo( this.shape.x, nextY );
     }
-    
+
     // bottom
 else if (KEYS_HELD.down)
     {
     nextY = this.shape.y + VELOCITY;
-    
+
     if ( Ship.inBottomLimit( nextY ) )
         {
         nextY = this.shape.y;
@@ -617,13 +617,13 @@ else if (KEYS_HELD.down)
     this.moveTo( this.shape.x, nextY );
     }
 
-    
+
 this.updateShape();
 
 this.updateAmmo();
 };
 
-    
+
 window.Ship = Ship;
 
 }(window));

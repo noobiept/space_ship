@@ -1,3 +1,4 @@
+/*global EnemyShip, INHERIT_PROTOTYPE, PRELOAD, createjs, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, calculateAngleBetweenObjects, b2CircleShape, WORLD, SCALE, toRadians, b2Vec2, MAIN_SHIP*/
 "use strict";
 
 /*
@@ -48,7 +49,7 @@ var speed = 0.2;
 
 var spriteSheet = {
     animations: {
-        
+
         spawn: {
             frames: [ 0, 1, 2 ],
             next: "spawn",
@@ -84,7 +85,6 @@ this.shape = enemy;
 EnemyKamikaze.prototype.setupPhysics = function()
 {
 var width = this.width;
-var height = this.height;
 
     // physics
 var fixDef = new b2FixtureDef;
@@ -153,7 +153,7 @@ this.updateRotation();
 
 EnemyKamikaze.prototype.updateRotation = function()
 {
-    // calculate the angle between the enemy and the ship  
+    // calculate the angle between the enemy and the ship
 var angleDegrees = calculateAngleBetweenObjects( this, MAIN_SHIP );
 
     // we multiply by -1 because the .rotation property seems to have the angles in the other direction

@@ -1,3 +1,5 @@
+/*global centerElement*/
+
 (function(window)
 {
 var ALL_MESSAGES = [];

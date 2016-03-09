@@ -1,3 +1,4 @@
+/*global EnemyShip, INHERIT_PROTOTYPE, PRELOAD, createjs, getRandomFloat, b2FixtureDef, CATEGORY, MASK, b2Body, b2BodyDef, b2PolygonShape, SCALE, WORLD, b2Vec2*/
 "use strict";
 
 /*
@@ -78,7 +79,7 @@ var spriteConfig = {
     };
 
 var sprite = new createjs.SpriteSheet( spriteConfig );
-    
+
 var rock = new createjs.Sprite( sprite );
 
     // origin in the middle of the image
@@ -92,7 +93,7 @@ rock.scaleY = this.scale;
 this.width *= this.scale;
 this.height *= this.scale;
 
-    // it moves 
+    // it moves
 this.angleRadians = getRandomFloat( 0, 2 * Math.PI );
 
 rock.gotoAndPlay("spawn");
@@ -164,7 +165,7 @@ EnemyRocks.prototype.tookDamage = function()
 if (this.width >= 50)
     {
     var i;
-    
+
     for (i = 0 ; i < 3 ; i++)
         {
             // spawn from the current position

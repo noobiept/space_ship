@@ -1,3 +1,5 @@
+/*global Maps, INHERIT_PROTOTYPE, getRandomInt, ENEMY_TYPES, Message*/
+
 (function(window)
 {
 function RandomMaps( startingLevel )

@@ -1,3 +1,5 @@
+/*global Music, resetStuff, LOADING_MESSAGE, centerElement, STAGE, GAME_MODE, startGameMode, PredefinedMaps, RandomMaps, EndlessMode, Options, EVENT_KEY*/
+/*exported GAME_MODE*/
 "use strict";
 
 
@@ -18,7 +20,7 @@ function MainMenu()
 
 }
 
-    
+
 MainMenu.open = function()
 {
 if ( LOADING_MESSAGE )
@@ -172,7 +174,7 @@ else if (key === EVENT_KEY.downArrow)
     {
     MainMenu.selectNextEntry();
     }
-    
+
 else if (key === EVENT_KEY.upArrow)
     {
     MainMenu.selectPreviousEntry();

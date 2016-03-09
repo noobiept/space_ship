@@ -1,3 +1,4 @@
+/*global initGame, Message, MainMenu, getRandomInt, GAME_WIDTH, GAME_HEIGHT, EnemyShip, Music, MAIN_SHIP*/
 /*
     Base class for PredefinedMaps and RandomMaps
  */

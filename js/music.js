@@ -1,3 +1,5 @@
+/*global createjs, Options*/
+
 (function(window)
 {
 var SONG_NAMES = [ 'scumm_bar', 'space_ship_1' ];

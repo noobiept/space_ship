@@ -1,6 +1,7 @@
+/*global createjs, STAGE, ZIndex, CANVAS, MAIN_SHIP, GameMenu*/
 "use strict";
 
-(function(window) 
+(function(window)
 {
 function GameStatistics()
 {
@@ -72,7 +73,7 @@ g.numberOfEnemies_text.y = g.energy_text.y + 30;
 
 
 GameStatistics.getScore = function()
-{ 
+{
 return GameStatistics.score;
 };
 
@@ -82,7 +83,7 @@ GameStatistics.updateScore = function( newScore )
 {
 GameStatistics.score = newScore;
 
-GameStatistics.score_text.text = "Score: " + newScore;    
+GameStatistics.score_text.text = "Score: " + newScore;
 };
 
 

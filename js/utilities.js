@@ -1,3 +1,5 @@
+/*global CANVAS, b2Vec2*/
+/*exported EVENT_KEY, getRandomInt, getRandomFloat, centerElement, INHERIT_PROTOTYPE, applyForce, applyImpulse, calculateAngleBetweenObjects, toDegrees, outOfBounds, positionHtmlElement, boolToOnOff*/
 "use strict";
 
 
@@ -70,7 +72,7 @@ var EVENT_KEY = {
 };
 
 
-function getRandomInt( min, max )  
+function getRandomInt( min, max )
 {
 return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -123,7 +125,7 @@ F.prototype = o;
 return new F();
 }
 
-   
+
 /*
  * Used for 'class' inheritance (search for parasitic combination inheritance)
  */

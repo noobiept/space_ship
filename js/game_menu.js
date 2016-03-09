@@ -1,3 +1,4 @@
+/*global MAIN_SHIP, startGameMode, MainMenu, resume, pause, Message, positionHtmlElement, CANVAS*/
 "use strict";
 
 (function(window)

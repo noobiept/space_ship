@@ -1,3 +1,4 @@
+/*global STAGE, TYPE_BULLET, ZIndex, MAIN_SHIP, toRadians, b2FixtureDef, b2BodyDef, b2PolygonShape, SCALE, WORLD, outOfBounds, b2Vec2, b2Body*/
 "use strict";
 
 (function(window)
@@ -5,9 +6,9 @@
 
 /*
     Use as base class for all the bullet types
-    
+
     Functions to write (in derived class):
-    
+
         .drawBullet()
         .setupPhysics()         (optional -- the default is a rectangle from the width/height properties)
         .tick_function()        (optional)
@@ -19,13 +20,13 @@
         .height
         .damage
         .speed
-        
+
     Add reference of the drawn element to:
-    
+
         .shape
-        
+
     Arguments:
-    
+
         shipObject    : of the ship which fired the bullet
         angleRotation : of the bullet
  */

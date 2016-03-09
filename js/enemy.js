@@ -1,3 +1,4 @@
+/*global TYPE_ENEMY, STAGE, ZIndex, GameStatistics, b2Vec2, SCALE, GAME_WIDTH, GAME_HEIGHT, WORLD, CATEGORY, MASK*/
 "use strict";
 
 /*
@@ -9,9 +10,9 @@
 
 /*
     Don't use directly, use as a base class, and write these functions:
-    
+
     --- to the prototype ---
-    
+
         .makeShape()
         .setupPhysics()
         .enemyBehaviour()
@@ -23,29 +24,29 @@
 
 
     and change these properties:
-    
+
         .damage
         .velocity
         .width
         .height
         .category_bits
         .mask_bits
-        
+
     Add reference of the drawn element to:
-    
+
         .shape
 
     Physics body
 
         .body
         .fixDef
-        
+
  */
 
 function EnemyShip( x, y )
 {
 this.type = TYPE_ENEMY;
-   
+
     // the number of ticks it takes until the enemy can start moving/firing/being killed
 this.spawnTicks_int = 20;
 
@@ -286,7 +287,7 @@ this.spawnTicks_int--;
 
 
 if (this.spawnTicks_int < 0)
-    {  
+    {
         // play the main animation
     this.shape.gotoAndPlay("main");
 
@@ -312,9 +313,9 @@ if (this.spawnTicks_int < 0)
         // now execute the normal tick function
     this.tick = this.normalTick;
     }
-    
+
 if (typeof this.spawnTick_function !== "undefined" && this.spawnTick_function !== null)
-    {  
+    {
     this.spawnTick_function();
     }
 };

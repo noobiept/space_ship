@@ -1,3 +1,4 @@
+/*global EnemyShip, INHERIT_PROTOTYPE, PRELOAD, createjs, b2FixtureDef, CATEGORY, MASK, MAIN_SHIP, b2Body, b2BodyDef, WORLD, SCALE, b2CircleShape, b2Vec2, calculateAngleBetweenObjects, Bullet1_laser*/
 "use strict";
 
 
@@ -52,30 +53,30 @@ var speed = 0.2;
 var spriteSheet = {
 
     animations: {
-        
+
         spawn: {
             frames: [0, 1, 2],
             next: "spawn",
             speed: speed
             },
 
-        main: {   
+        main: {
             frames: [3, 4],
             next: "main",    // set up looping
             speed: speed
             }
         },
-        
+
     frames: {
-        
+
         width: this.width,
         height: this.height
         },
-        
+
     images: [ PRELOAD.getResult( 'enemy_rotate_around' ) ]
 
     };
-    
+
 var ss = new createjs.SpriteSheet( spriteSheet );
 
 var enemy = new createjs.Sprite( ss );
@@ -94,7 +95,6 @@ this.shape = enemy;
 EnemyRotateAround.prototype.setupPhysics = function()
 {
 var width = this.width;
-var height = this.height;
 
     // physics
 var fixDef = new b2FixtureDef;
@@ -156,7 +156,7 @@ this.body.SetLinearVelocity( new b2Vec2( x, y ) );
 
 /*
     Gets called in the base class .tick() function
-    
+
     Shoots the bullets
  */
 
@@ -168,7 +168,7 @@ this.countTicks++;
 if (this.countTicks >= this.ticksUntilNextBullet)
     {
     this.countTicks = 0;
-    
+
     var angleRotation = calculateAngleBetweenObjects( this, MAIN_SHIP );
 
         // we multiply by -1 because the .rotation property seems to have the angles in the other direction

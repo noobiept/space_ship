@@ -1,3 +1,4 @@
+/*global Bullet, INHERIT_PROTOTYPE, createjs, SplashDamage*/
 "use strict";
 
 (function(window)

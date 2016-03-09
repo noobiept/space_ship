@@ -1,3 +1,4 @@
+/*global EnemyShip, INHERIT_PROTOTYPE, PRELOAD, createjs, MASK, CATEGORY, b2FixtureDef, b2BodyDef, b2Body, b2PolygonShape, WORLD, b2Vec2, SCALE*/
 "use strict";
 
 

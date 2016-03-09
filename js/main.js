@@ -1,3 +1,5 @@
+/*global Box2D, EnemyMoveHorizontally, EnemyRotateAround, EnemyKamikaze, EnemyRocks, AppStorage, Options, createjs, Message, MainMenu, GameStatistics, Ship, Music, GameMenu, ZIndex, Bullet, EnemyShip, clearKeysHeld, handleKeyDown, handleKeyUp*/
+/*exported b2Vec2, b2BodyDef, b2Body, b2FixtureDef, b2Fixture, b2PolygonShape, b2CircleShape, GAME_WIDTH, GAME_HEIGHT, ENEMY_TYPES, initGame, startGameMode, pause, resume*/
 "use strict";
 
     // global variables
@@ -47,7 +49,7 @@ var ENEMY_TYPES = [
     EnemyRocks
     ];
 
-    
+
 var GAME_MODE = null;
 var GAME_OBJECT = null;
 
@@ -78,7 +80,7 @@ var MASK = {
 
 
 var LOADING_MESSAGE;
-    
+
 window.onload = function()
 {
 AppStorage.getData( [ 'space_ship_options' ], initApp );

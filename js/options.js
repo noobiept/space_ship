@@ -1,3 +1,5 @@
+/*global AppStorage*/
+
 (function(window)
 {
 function Options()

@@ -1,15 +1,15 @@
+/*global initGame, ENEMY_TYPES, getRandomInt, GAME_WIDTH, GAME_HEIGHT*/
+
 (function(window)
 {
 /*
     Doesn't have levels/maps
-    
+
     Difficulty increases with time
  */
 
 function EndlessMode()
 {
-var endlessObject = this;
-
     // from how many ticks, until next enemy (the step)
 this.next_enemy = 50;
 

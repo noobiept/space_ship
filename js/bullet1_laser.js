@@ -1,3 +1,4 @@
+/*global Bullet, applyImpulse, INHERIT_PROTOTYPE, createjs*/
 "use strict";
 
 function Bullet1_laser( shipObject, color, angleRotation, damage )

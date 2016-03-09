@@ -1,3 +1,4 @@
+/*global Bullet, applyImpulse, INHERIT_PROTOTYPE, createjs, SplashDamage*/
 "use strict";
 
 function Bullet3_rocket( shipObject, color, angleRotation )
