@@ -8,11 +8,12 @@ var ALL_MESSAGES = [];
     Argument:
         {
             text: string,
-            x: number,          ( optional )
-            y: number,          ( optional )
-            cssClass: string,   ( optional )    -- adds a css class to the html element
-            timeOut: number     ( optional )    -- the message is removed after this time (in milliseconds) has passed (otherwise it has to be removed manually)
-            timeOut_f: function ( optional )    -- to be called when timeout ends
+            x: number,             ( optional )
+            y: number,             ( optional )
+            centerWindow: boolean, ( optional ) -- if x/y isn't provided, specify whether to center in the middle of the canvas or the window (default is canvas).
+            cssClass: string,      ( optional ) -- adds a css class to the html element
+            timeOut: number        ( optional ) -- the message is removed after this time (in milliseconds) has passed (otherwise it has to be removed manually)
+            timeOut_f: function    ( optional ) -- to be called when timeout ends
         }
 
     If x/y isn't provided, the message is centered in the middle of the canvas
@@ -33,7 +34,15 @@ container.appendChild( message );
 
 if ( typeof stuff.x == 'undefined' )
     {
-    centerElement( message );
+    if ( stuff.centerWindow === true )
+        {
+        centerElement( message, document.body );
+        }
+
+    else
+        {
+        centerElement( message );
+        }
     }
 
 else

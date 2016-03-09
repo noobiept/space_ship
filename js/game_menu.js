@@ -1,4 +1,4 @@
-/*global MAIN_SHIP, startGameMode, MainMenu, resume, pause, Message, positionHtmlElement, CANVAS*/
+/*global MAIN_SHIP, startGameMode, MainMenu, resume, pause, Message, CANVAS*/
 "use strict";
 
 (function(window)
@@ -53,7 +53,6 @@ weapon4.onclick = function()
     };
 
 
-
     // :: Bullets Left :: //
 
 var bulletsContainer = menu.querySelector( '#GameMenu-bulletsLeft' );
@@ -63,12 +62,9 @@ var bulletsLeft2 = bulletsContainer.querySelector( '#GameMenu-bullets2' );
 var bulletsLeft3 = bulletsContainer.querySelector( '#GameMenu-bullets3' );
 var bulletsLeft4 = bulletsContainer.querySelector( '#GameMenu-bullets4' );
 
-
 BULLETS_LEFT_ELEMENTS.push( bulletsLeft1, bulletsLeft2, bulletsLeft3, bulletsLeft4 );
 
-
 GameMenu.updateAllBulletsLeft();
-
 
     // :: Restart :: //
 
@@ -92,7 +88,6 @@ quit.onclick = function( event )
 
     event.stopPropagation();
     };
-
 
 $( quit ).css( 'display', 'none' );
 $( restart ).css( 'display', 'none' );
@@ -142,24 +137,15 @@ openMenu.onclick = function( event )
     event.stopPropagation();
     };
 
-
-
     // :: Position the menu :: //
-
 $( menu ).css( 'width', CANVAS.width + 'px' );
-
-    // +10 for the border etc
-positionHtmlElement( menu, 0, CANVAS.height + 10 );
-
-
-$( '#GameMenu' ).css( 'display', 'block' );
+$( menu ).css( 'display', 'block' );
 }
 
 
 /*
     number is zero-based
  */
-
 GameMenu.selectWeapon = function( number )
 {
 if ( number !== WEAPON_SELECTED )

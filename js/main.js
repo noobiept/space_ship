@@ -152,7 +152,7 @@ var manifest = [
     ];
 
 
-LOADING_MESSAGE = new Message({ text: 'Loading' });
+LOADING_MESSAGE = new Message({ text: 'Loading', centerWindow: true });
 
 PRELOAD.installPlugin( createjs.Sound );
 PRELOAD.addEventListener( 'progress', updateLoading );
@@ -229,6 +229,7 @@ if ( GAME_OBJECT )
 
 resetStuff();
 
+CANVAS.style.display = 'block';
 GAME_OBJECT = new GAME_MODE( startingLevel );
 }
 

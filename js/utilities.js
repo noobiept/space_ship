@@ -1,5 +1,5 @@
 /*global CANVAS, b2Vec2*/
-/*exported EVENT_KEY, getRandomInt, getRandomFloat, centerElement, INHERIT_PROTOTYPE, applyForce, applyImpulse, calculateAngleBetweenObjects, toDegrees, outOfBounds, positionHtmlElement, boolToOnOff*/
+/*exported EVENT_KEY, getRandomInt, getRandomFloat, centerElement, INHERIT_PROTOTYPE, applyForce, applyImpulse, calculateAngleBetweenObjects, toDegrees, outOfBounds, boolToOnOff*/
 "use strict";
 
 
@@ -86,20 +86,25 @@ return Math.random() * (max - min) + min;
 
 
 
-/*
-    Centers an html element in the middle of the game canvas (assumes html element has its css position: absolute;
+/**
+ * Centers an html element in the middle of a given reference element (assumes html element has in its css 'position: absolute;').
+ * If 'refElement' isn't given, its assumed to be the 'CANVAS'.
  */
-function centerElement( element )
+function centerElement( element, refElement )
 {
-var canvasWidth = CANVAS.width;
-var canvasHeight = CANVAS.height;
+if ( typeof refElement === 'undefined' )
+    {
+    refElement = CANVAS;
+    }
 
-    // the canvas may not be starting at 0,0 position, so we need to account for that
-var canvasPosition = $( CANVAS ).position();
+var width = $( refElement ).width();
+var height = $( refElement ).height();
 
-var left = canvasWidth / 2 - $( element ).width() / 2 + canvasPosition.left;
+    // the reference element may not be starting at 0,0 position, so we need to account for that
+var canvasPosition = $( refElement ).position();
 
-var top = canvasHeight / 2 - $( element ).height() / 2 + canvasPosition.top;
+var left = width / 2 - $( element ).width() / 2 + canvasPosition.left;
+var top = height / 2 - $( element ).height() / 2 + canvasPosition.top;
 
 $( element ).css({
     top  : top  + 'px',
@@ -108,13 +113,9 @@ $( element ).css({
 }
 
 
-
-
-
 /*
  * Used for 'class' inheritance (search prototypal inheritance)
  */
-
 function OBJECT (o)
 {
 function F(){}
@@ -238,27 +239,6 @@ return false;
 }
 
 
-
-/*
-    Positions an html element with top/left css properties, with x/y position of the canvas (like you were drawing in the canvas)
- */
-
-function positionHtmlElement( element, x, y )
-{
-var canvasPosition = $( CANVAS ).position();
-
-    // the canvas may not be at the top/left of the window, so subtract the difference (so a coordinate is the same as with the canvas)
-var left = canvasPosition.left + x;
-
-var top = canvasPosition.top + y;
-
-    $( element ).css({
-        'top'     : top + 'px',
-        'left'    : left + 'px'
-    });
-}
-
-
 function boolToOnOff( value )
 {
 if ( value == true )
@@ -271,6 +251,3 @@ else
     return 'Off';
     }
 }
-
-
-
