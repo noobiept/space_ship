@@ -2,9 +2,10 @@
 /*exported GAME_MODE*/
 "use strict";
 
+var MainMenu;
+(function (MainMenu) {
 
-(function(window)
-{
+
 var ENTRY_SELECTED = 0;
 
     // has the functions to call when choosing an entry
@@ -12,13 +13,6 @@ var ENTRIES = [];
 
     // has the html elements of the entries
 var ENTRIES_ELEMENTS = [];
-
-
-
-function MainMenu()
-{
-
-}
 
 
 MainMenu.open = function()
@@ -32,10 +26,8 @@ if ( LOADING_MESSAGE )
 CANVAS.style.display = 'none';
 
 Music.stop();
-
 resetStuff();
 MainMenu.cleanUp();
-
 
 var menu = document.querySelector( '#MainMenu' );
 
@@ -43,10 +35,11 @@ var predefinedMaps = menu.querySelector( '#MainMenu-predefinedMaps' );
 var randomMaps = menu.querySelector( '#MainMenu-randomMaps' );
 var endlessMode = menu.querySelector( '#MainMenu-endlessMode' );
 var options = menu.querySelector( '#MainMenu-options' );
+var donate = menu.querySelector( '#MainMenu-donate' );
 
-ENTRIES.push( MainMenu.predefinedMaps, MainMenu.randomMaps, MainMenu.endlessMode, MainMenu.openOptions );
+ENTRIES.push( MainMenu.predefinedMaps, MainMenu.randomMaps, MainMenu.endlessMode, MainMenu.openOptions, MainMenu.openDonate );
 
-ENTRIES_ELEMENTS.push( predefinedMaps, randomMaps, endlessMode, options );
+ENTRIES_ELEMENTS.push( predefinedMaps, randomMaps, endlessMode, options, donate );
 
 $( menu ).css( 'display', 'block' );
 
@@ -82,12 +75,10 @@ MainMenu.randomMaps = function( event )
 MainMenu.cleanUp();
 
 GAME_MODE = RandomMaps;
-
 startGameMode();
 
 event.stopPropagation();
 };
-
 
 
 MainMenu.endlessMode = function( event )
@@ -95,7 +86,6 @@ MainMenu.endlessMode = function( event )
 MainMenu.cleanUp();
 
 GAME_MODE = EndlessMode;
-
 startGameMode();
 
     // prevent the click to select the entry, to also fire a bullet once the game starts
@@ -109,7 +99,6 @@ MainMenu.cleanUp();
 
 var options = document.querySelector( '#Options' );
 
-
     // :: Music Volume :: //
 
 var musicVolume = options.querySelector( '#Options-musicVolume' );
@@ -120,7 +109,6 @@ var musicVolumeValue = Math.round( Options.getMusicVolume() * 100 );
 $( musicVolumeSpan ).text( musicVolumeValue + '%' );
 
 var musicVolumeSlider = musicVolume.querySelector( '#Options-musicVolume-slider' );
-
 
 $( musicVolumeSlider ).slider({
     min: 0,
@@ -136,7 +124,6 @@ $( musicVolumeSlider ).slider({
         }
     });
 
-
 var back = options.querySelector( '#Options-back' );
 
 back.onclick = function()
@@ -145,10 +132,14 @@ back.onclick = function()
     MainMenu.open();
     };
 
-
 $( options ).css( 'display', 'block' );
 };
 
+
+MainMenu.openDonate = function()
+{
+document.getElementById( 'MainMenu-donate' ).click();
+};
 
 
 MainMenu.keyboardEvents = function( event )
@@ -173,11 +164,9 @@ else if (key === EVENT_KEY.upArrow)
 };
 
 
-
 /*
     Select the next entry on the menu (update the animation)
  */
-
 MainMenu.selectNextEntry = function()
 {
 var previousEntry = ENTRY_SELECTED;
@@ -198,7 +187,6 @@ $( ENTRIES_ELEMENTS[ ENTRY_SELECTED ] ).addClass( 'MainMenu-entrySelected' );
 /*
     Select the previous entry on the menu (update the animation)
  */
-
 MainMenu.selectPreviousEntry = function()
 {
 var previousEntry = ENTRY_SELECTED;
@@ -216,11 +204,9 @@ $( ENTRIES_ELEMENTS[ ENTRY_SELECTED ] ).addClass( 'MainMenu-entrySelected' );
 };
 
 
-
 /*
     Call when moving away from the MainMenu
  */
-
 MainMenu.cleanUp = function()
 {
 $( '#MainMenu' ).css( 'display', 'none' );
@@ -228,15 +214,11 @@ $( '#Options' ).css( 'display', 'none' );
 
 $( document ).unbind( "keyup" );
 
-
 $( ENTRIES_ELEMENTS[ ENTRY_SELECTED ] ).removeClass( 'MainMenu-entrySelected' );
 
 ENTRY_SELECTED = 0;
-
 ENTRIES.length = 0;
 };
 
 
-window.MainMenu = MainMenu;
-
-}(window));
+})(MainMenu || (MainMenu = {}));
