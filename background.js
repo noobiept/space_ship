@@ -3,6 +3,7 @@ chrome.app.runtime.onLaunched.addListener( function() {
         'innerBounds': {
             'width': 850,
             'height': 600
-        }
+        },
+        'id': 'default'
     });
 });
