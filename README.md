@@ -8,7 +8,9 @@ A shooter type game, you can check it out here:
 - [personal website](http://nbpt.eu/games/space_ship "personal website")
 
 
-![In-game](images/space_ship_1280_800.png "In-game")
+![Promotion 1](images/promotion1.png "Promotion 1")
+![Promotion 2](images/promotion2.png "Promotion 2")
+![Promotion 3](images/promotion3.png "Promotion 3")
 
 
 Controls
