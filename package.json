@@ -1,0 +1,22 @@
+{
+    "name": "space_ship",
+    "version": "2.0.0",
+    "scripts": {
+        "build": "webpack"
+    },
+    "devDependencies": {
+        "eslint": "~2.11.0",
+        "grunt": "~1.0.1",
+        "grunt-contrib-clean": "~1.0.0",
+        "grunt-contrib-concat": "~1.0.0",
+        "grunt-contrib-copy": "~1.0.0",
+        "grunt-contrib-cssmin": "~1.0.1",
+        "grunt-contrib-uglify": "~1.0.1",
+        "grunt-eslint": "~18.1.0",
+        "grunt-usemin": "~3.1.1",
+        "ts-loader": "^6.2.2",
+        "typescript": "^3.8.3",
+        "webpack": "^4.42.1",
+        "webpack-cli": "^3.3.11"
+    }
+}

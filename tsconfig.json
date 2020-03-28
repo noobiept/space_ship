@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "outDir": "./output/",
+        "allowJs": true
+    },
+    "include": [ "js/**/*"]
+}
