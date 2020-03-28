@@ -1,6 +1,10 @@
 import Box2D from 'box2dweb'
 import * as Options from './options'
+import * as GameStatistics from './game_statistics'
+import * as ZIndex from './z_index'
 import Message from './message'
+import Music from './music'
+
 
     // global variables
 
@@ -18,7 +22,7 @@ var PRELOAD;
 
     // box2d physics
 
-var b2Vec2 = Box2D.Common.Math.b2Vec2;
+export var b2Vec2 = Box2D.Common.Math.b2Vec2;
 var b2BodyDef = Box2D.Dynamics.b2BodyDef;
 var b2Body = Box2D.Dynamics.b2Body;
 var b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
@@ -50,7 +54,7 @@ var ENEMY_TYPES = [
     ];
 
 
-var GAME_MODE = null;
+export var GAME_MODE = null;
 var GAME_OBJECT = null;
 
     // :: Collision Detection :: //
@@ -79,7 +83,7 @@ var MASK = {
     };
 
 
-var LOADING_MESSAGE;
+export var LOADING_MESSAGE;
 
 window.onload = function()
 {
@@ -416,7 +420,7 @@ $( canvasElement ).css( 'top', top + 'px' );
     Resets the configurations (for when restarting the game)
  */
 
-function resetStuff()
+export function resetStuff()
 {
 STAGE.removeAllChildren();
 

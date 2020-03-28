@@ -1,21 +1,24 @@
-/*global createjs, Options*/
+import { getMusicVolume} from './options'
 
-(function(window)
-{
-var SONG_NAMES = [ 'scumm_bar', 'space_ship_1' ];
-var CURRENT_SONG = 0;
+const SONG_NAMES = [ 'scumm_bar', 'space_ship_1' ];
+let CURRENT_SONG = 0;
 
     // has the reference to the current music being played
-var MUSIC_OBJ = null;
+let MUSIC_OBJ = null;
 
 
 /**
     @param {Number} [musicNumber] Position (0 based) in the 'SONG_NAMES' array above, which tells the song to play
  */
-
-function Music( musicNumber )
+export default class Music
 {
-Music.stop();
+    increase_interval?: number
+    sound_obj: createjs.AbstractSoundInstance
+
+
+constructor ( musicNumber )
+{
+stop();
 
 if ( musicNumber < 0 || musicNumber >= SONG_NAMES.length )
     {
@@ -24,7 +27,7 @@ if ( musicNumber < 0 || musicNumber >= SONG_NAMES.length )
 
 CURRENT_SONG = musicNumber;
 
-var volume = Options.getMusicVolume();
+const volume = getMusicVolume();
 
 if ( volume > 0 )
     {
@@ -65,7 +68,7 @@ if ( volume > 0 )
 }
 
 
-Music.prototype.stop = function()
+stop()
 {
     // if we stop the music before the increase of the volume had ended
 window.clearInterval( this.increase_interval );
@@ -96,11 +99,11 @@ var reduceVolume = function()
 reduceVolume();
 interval = window.setInterval( reduceVolume, 250 );
 };
+}
 
-
-Music.next = function()
+export function next()
 {
-Music.stop();
+stop();
 
 CURRENT_SONG++;
 
@@ -113,17 +116,11 @@ new Music( CURRENT_SONG );
 };
 
 
-Music.stop = function()
+export function stop()
 {
 if ( MUSIC_OBJ )
     {
     MUSIC_OBJ.stop();
-
     MUSIC_OBJ = null;
     }
 };
-
-
-window.Music = Music;
-
-}(window));

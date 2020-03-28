@@ -1,9 +1,7 @@
-/*global CANVAS, b2Vec2*/
-/*exported EVENT_KEY, getRandomInt, getRandomFloat, centerElement, INHERIT_PROTOTYPE, applyForce, applyImpulse, calculateAngleBetweenObjects, toDegrees, outOfBounds, boolToOnOff*/
-"use strict";
+import { CANVAS, b2Vec2 } from './main'
 
 
-var EVENT_KEY = {
+export const EVENT_KEY = {
 
     backspace  : 8,
     tab        : 9,
@@ -72,25 +70,23 @@ var EVENT_KEY = {
 };
 
 
-function getRandomInt( min, max )
+export function getRandomInt( min, max )
 {
 return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 
-function getRandomFloat( min, max )
+export function getRandomFloat( min, max )
 {
 return Math.random() * (max - min) + min;
 }
-
-
 
 
 /**
  * Centers an html element in the middle of a given reference element (assumes html element has in its css 'position: absolute;').
  * If 'refElement' isn't given, its assumed to be the 'CANVAS'.
  */
-function centerElement( element, refElement )
+export function centerElement( element, refElement )
 {
 if ( typeof refElement === 'undefined' )
     {
@@ -145,7 +141,7 @@ derivedClass.prototype = prototype;
  Applies an impulse to a body (box2d)
  */
 
-function applyImpulse( body, degrees, power )
+export function applyImpulse( body, degrees, power )
 {
 var rads = toRadians( degrees );
 
@@ -161,7 +157,7 @@ body.ApplyImpulse( impulse, point );
     Applies a force to a body (box2d)
  */
 
-function applyForce( body, degrees, power )
+export function applyForce( body, degrees, power )
 {
 var rads = toRadians( degrees );
 
@@ -178,7 +174,7 @@ body.ApplyForce( impulse, point );
     objectA and objectB has to have a .getX() and .getY() method
  */
 
-function calculateAngleBetweenObjects( objectA, objectB )
+export function calculateAngleBetweenObjects( objectA, objectB )
 {
 var aX = objectA.getX();
 var aY = objectA.getY();
@@ -209,20 +205,19 @@ return angleDegrees;
 }
 
 
-
-function toRadians( degrees )
+export function toRadians( degrees )
 {
 return degrees * Math.PI / 180;
 }
 
 
-function toDegrees( radians )
+export function toDegrees( radians )
 {
 return radians * 180 / Math.PI;
 }
 
 
-function outOfBounds( object )
+export function outOfBounds( object )
 {
 var width = CANVAS.width;
 var height = CANVAS.height;
@@ -239,7 +234,7 @@ return false;
 }
 
 
-function boolToOnOff( value )
+export function boolToOnOff( value )
 {
 if ( value == true )
     {

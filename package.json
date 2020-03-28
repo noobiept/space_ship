@@ -7,6 +7,7 @@
     "devDependencies": {
         "@types/createjs": "0.0.29",
         "@types/jquery": "^3.3.34",
+        "@types/jqueryui": "^1.12.10",
         "eslint": "~2.11.0",
         "grunt": "~1.0.1",
         "grunt-contrib-clean": "~1.0.0",

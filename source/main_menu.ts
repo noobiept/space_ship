@@ -1,9 +1,7 @@
-/*global Music, resetStuff, LOADING_MESSAGE, STAGE, GAME_MODE, startGameMode, PredefinedMaps, RandomMaps, EndlessMode, Options, EVENT_KEY, CANVAS*/
-/*exported GAME_MODE*/
-"use strict";
-
-var MainMenu;
-(function (MainMenu) {
+import { LOADING_MESSAGE, CANVAS, resetStuff, startGameMode, GAME_MODE, STAGE } from './main'
+import * as Music from './music'
+import * as Options from './options'
+import { EVENT_KEY } from './utilities';
 
 
 var ENTRY_SELECTED = 0;
@@ -15,7 +13,7 @@ var ENTRIES = [];
 var ENTRIES_ELEMENTS = [];
 
 
-MainMenu.open = function()
+export function open()
 {
 if ( LOADING_MESSAGE )
     {
@@ -27,39 +25,39 @@ CANVAS.style.display = 'none';
 
 Music.stop();
 resetStuff();
-MainMenu.cleanUp();
+cleanUp();
 
 var menu = document.querySelector( '#MainMenu' );
 
-var predefinedMaps = menu.querySelector( '#MainMenu-predefinedMaps' );
-var randomMaps = menu.querySelector( '#MainMenu-randomMaps' );
-var endlessMode = menu.querySelector( '#MainMenu-endlessMode' );
-var options = menu.querySelector( '#MainMenu-options' );
-var donate = menu.querySelector( '#MainMenu-donate' );
+const predefinedMaps = document.getElementById( 'MainMenu-predefinedMaps' );
+const randomMaps = document.getElementById( 'MainMenu-randomMaps' );
+const endlessMode = document.getElementById( 'MainMenu-endlessMode' );
+const options = document.getElementById( 'MainMenu-options' );
+const donate = document.getElementById( 'MainMenu-donate' );
 
-ENTRIES.push( MainMenu.predefinedMaps, MainMenu.randomMaps, MainMenu.endlessMode, MainMenu.openOptions, MainMenu.openDonate );
+ENTRIES.push( predefinedMaps, randomMaps, endlessMode, openOptions, openDonate );
 
 ENTRIES_ELEMENTS.push( predefinedMaps, randomMaps, endlessMode, options, donate );
 
 $( menu ).css( 'display', 'block' );
 
-predefinedMaps.onclick = MainMenu.predefinedMaps;
-randomMaps.onclick = MainMenu.randomMaps;
-endlessMode.onclick = MainMenu.endlessMode;
-options.onclick = MainMenu.openOptions;
+predefinedMaps.onclick = openPredefinedMaps;
+randomMaps.onclick = openRandomMaps;
+endlessMode.onclick = openEndlessMode;
+options.onclick = openOptions;
 
 ENTRY_SELECTED = 0;
 $( predefinedMaps ).addClass( 'MainMenu-entrySelected' );
 
-$( document ).bind( "keyup", MainMenu.keyboardEvents );
+$( document ).bind( "keyup", keyboardEvents );
 
 STAGE.update();
 };
 
 
-MainMenu.predefinedMaps = function( event )
+function openPredefinedMaps( event )
 {
-MainMenu.cleanUp();
+cleanUp();
 
 GAME_MODE = PredefinedMaps;
 
@@ -70,9 +68,9 @@ event.stopPropagation();
 };
 
 
-MainMenu.randomMaps = function( event )
+function openRandomMaps( event )
 {
-MainMenu.cleanUp();
+cleanUp();
 
 GAME_MODE = RandomMaps;
 startGameMode();
@@ -81,9 +79,9 @@ event.stopPropagation();
 };
 
 
-MainMenu.endlessMode = function( event )
+function openEndlessMode( event )
 {
-MainMenu.cleanUp();
+cleanUp();
 
 GAME_MODE = EndlessMode;
 startGameMode();
@@ -93,9 +91,9 @@ event.stopPropagation();
 };
 
 
-MainMenu.openOptions = function( event )
+function openOptions( event )
 {
-MainMenu.cleanUp();
+cleanUp();
 
 var options = document.querySelector( '#Options' );
 
@@ -124,25 +122,24 @@ $( musicVolumeSlider ).slider({
         }
     });
 
-var back = options.querySelector( '#Options-back' );
-
+const back = document.getElementById( 'Options-back' );
 back.onclick = function()
     {
     Options.save();
-    MainMenu.open();
+    open();
     };
 
 $( options ).css( 'display', 'block' );
 };
 
 
-MainMenu.openDonate = function()
+function openDonate()
 {
 document.getElementById( 'MainMenu-donate' ).click();
 };
 
 
-MainMenu.keyboardEvents = function( event )
+function keyboardEvents( event )
 {
 var key = event.keyCode;
 
@@ -154,12 +151,12 @@ if (key === EVENT_KEY.enter)
 
 else if (key === EVENT_KEY.downArrow)
     {
-    MainMenu.selectNextEntry();
+    selectNextEntry();
     }
 
 else if (key === EVENT_KEY.upArrow)
     {
-    MainMenu.selectPreviousEntry();
+    selectPreviousEntry();
     }
 };
 
@@ -167,7 +164,7 @@ else if (key === EVENT_KEY.upArrow)
 /*
     Select the next entry on the menu (update the animation)
  */
-MainMenu.selectNextEntry = function()
+function selectNextEntry()
 {
 var previousEntry = ENTRY_SELECTED;
 
@@ -187,7 +184,7 @@ $( ENTRIES_ELEMENTS[ ENTRY_SELECTED ] ).addClass( 'MainMenu-entrySelected' );
 /*
     Select the previous entry on the menu (update the animation)
  */
-MainMenu.selectPreviousEntry = function()
+function selectPreviousEntry()
 {
 var previousEntry = ENTRY_SELECTED;
 
@@ -207,7 +204,7 @@ $( ENTRIES_ELEMENTS[ ENTRY_SELECTED ] ).addClass( 'MainMenu-entrySelected' );
 /*
     Call when moving away from the MainMenu
  */
-MainMenu.cleanUp = function()
+function cleanUp()
 {
 $( '#MainMenu' ).css( 'display', 'none' );
 $( '#Options' ).css( 'display', 'none' );
@@ -219,6 +216,3 @@ $( ENTRIES_ELEMENTS[ ENTRY_SELECTED ] ).removeClass( 'MainMenu-entrySelected' );
 ENTRY_SELECTED = 0;
 ENTRIES.length = 0;
 };
-
-
-})(MainMenu || (MainMenu = {}));
