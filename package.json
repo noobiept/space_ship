@@ -5,6 +5,8 @@
         "build": "webpack"
     },
     "devDependencies": {
+        "@types/createjs": "0.0.29",
+        "@types/jquery": "^3.3.34",
         "eslint": "~2.11.0",
         "grunt": "~1.0.1",
         "grunt-contrib-clean": "~1.0.0",
@@ -18,5 +20,8 @@
         "typescript": "^3.8.3",
         "webpack": "^4.42.1",
         "webpack-cli": "^3.3.11"
+    },
+    "dependencies": {
+        "box2dweb": "^2.1.0-b"
     }
 }

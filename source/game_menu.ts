@@ -1,30 +1,22 @@
-/*global MAIN_SHIP, startGameMode, MainMenu, resume, pause, Message, CANVAS*/
-"use strict";
+import { MAIN_SHIP, startGameMode, resume, pause, CANVAS } from './main'
+import Message from './message'
 
-(function(window)
+let WEAPON_SELECTED = 0;
+const WEAPON_ELEMENTS = [];
+const BULLETS_LEFT_ELEMENTS = [];
+
+
+export function init()
 {
-var WEAPON_SELECTED = 0;
+clear();
 
-var WEAPON_ELEMENTS = [];
-
-var BULLETS_LEFT_ELEMENTS = [];
-
-
-function GameMenu()
-{
-GameMenu.clear();
-
-var menu = document.querySelector( '#GameMenu' );
+const menu = document.getElementById( 'GameMenu' );
 
     // :: Weapons Selection :: //
-
-var weaponsContainer = menu.querySelector( '#GameMenu-selectWeapon' );
-
-
-var weapon1 = weaponsContainer.querySelector( '#GameMenu-weapon1' );
-var weapon2 = weaponsContainer.querySelector( '#GameMenu-weapon2' );
-var weapon3 = weaponsContainer.querySelector( '#GameMenu-weapon3' );
-var weapon4 = weaponsContainer.querySelector( '#GameMenu-weapon4' );
+const weapon1 = document.getElementById( 'GameMenu-weapon1' );
+const weapon2 = document.getElementById( 'GameMenu-weapon2' );
+const weapon3 = document.getElementById( 'GameMenu-weapon3' );
+const weapon4 = document.getElementById( 'GameMenu-weapon4' );
 
 WEAPON_ELEMENTS.push( weapon1, weapon2, weapon3, weapon4 );
 
@@ -55,20 +47,18 @@ weapon4.onclick = function()
 
     // :: Bullets Left :: //
 
-var bulletsContainer = menu.querySelector( '#GameMenu-bulletsLeft' );
-
-var bulletsLeft1 = bulletsContainer.querySelector( '#GameMenu-bullets1' );
-var bulletsLeft2 = bulletsContainer.querySelector( '#GameMenu-bullets2' );
-var bulletsLeft3 = bulletsContainer.querySelector( '#GameMenu-bullets3' );
-var bulletsLeft4 = bulletsContainer.querySelector( '#GameMenu-bullets4' );
+const bulletsLeft1 = document.getElementById( 'GameMenu-bullets1' );
+const bulletsLeft2 = document.getElementById( 'GameMenu-bullets2' );
+const bulletsLeft3 = document.getElementById( 'GameMenu-bullets3' );
+const bulletsLeft4 = document.getElementById( 'GameMenu-bullets4' );
 
 BULLETS_LEFT_ELEMENTS.push( bulletsLeft1, bulletsLeft2, bulletsLeft3, bulletsLeft4 );
 
-GameMenu.updateAllBulletsLeft();
+updateAllBulletsLeft();
 
     // :: Restart :: //
 
-var restart = menu.querySelector( '#GameMenu-restart' );
+var restart = document.getElementById( 'GameMenu-restart' );
 
 restart.onclick = function( event )
     {
@@ -80,7 +70,7 @@ restart.onclick = function( event )
 
     // :: Quit :: //
 
-var quit = menu.querySelector( '#GameMenu-quit' );
+var quit = document.getElementById( 'GameMenu-quit' );
 
 quit.onclick = function( event )
     {
@@ -95,7 +85,7 @@ $( restart ).css( 'display', 'none' );
 
     // :: Open the Menu :: //
 
-var openMenu = menu.querySelector( '#GameMenu-openMenu' );
+var openMenu = document.getElementById( 'GameMenu-openMenu' );
 
 $( openMenu ).text( 'Menu' );
 
@@ -146,7 +136,7 @@ $( menu ).css( 'display', 'block' );
 /*
     number is zero-based
  */
-GameMenu.selectWeapon = function( number )
+export function selectWeapon( number )
 {
 if ( number !== WEAPON_SELECTED )
     {
@@ -161,13 +151,10 @@ if ( number !== WEAPON_SELECTED )
 };
 
 
-
-
 /*
     Updates the number of bullets left (zero-based)
  */
-
-GameMenu.updateBulletsLeft = function( weapon, bulletsLeft )
+export function updateBulletsLeft( weapon, bulletsLeft )
 {
 var bulletsElement = BULLETS_LEFT_ELEMENTS[ weapon ];
 
@@ -175,16 +162,16 @@ $( bulletsElement ).text( bulletsLeft );
 };
 
 
-GameMenu.updateAllBulletsLeft = function()
+export function updateAllBulletsLeft()
 {
 for (var i = 0 ; i < BULLETS_LEFT_ELEMENTS.length ; i++)
     {
-    GameMenu.updateBulletsLeft( i,MAIN_SHIP.getBulletsLeft( i ) );
+    updateBulletsLeft( i, MAIN_SHIP.getBulletsLeft( i ) );
     }
 };
 
 
-GameMenu.clear = function()
+export function clear()
 {
 $( WEAPON_ELEMENTS[ WEAPON_SELECTED ] ).removeClass( 'WeaponsSelected' );
 
@@ -194,7 +181,3 @@ BULLETS_LEFT_ELEMENTS.length = 0;
 WEAPON_SELECTED = 0;
 };
 
-
-window.GameMenu = GameMenu;
-
-}(window));

@@ -1,24 +1,15 @@
-/*global AppStorage*/
-
-(function(window)
-{
-function Options()
-{
-
-}
-
-var OPTIONS = {
+const OPTIONS = {
     musicVolume: 1  // value between 0 and 1
     };
 
 
-Options.save = function()
+export function save()
 {
 AppStorage.setData({ space_ship_options: OPTIONS });
-};
+}
 
 
-Options.load = function( options )
+export function load( options )
 {
 if ( options )
     {
@@ -30,7 +21,7 @@ if ( options )
 };
 
 
-Options.setMusicVolume = function( value )
+export function setMusicVolume( value )
 {
 if ( value < 0 || value > 1 )
     {
@@ -40,15 +31,10 @@ if ( value < 0 || value > 1 )
 OPTIONS.musicVolume = value;
 
 return true;
-};
+}
 
 
-Options.getMusicVolume = function()
+export function getMusicVolume()
 {
 return OPTIONS.musicVolume;
-};
-
-
-window.Options = Options;
-
-}(window));
+}

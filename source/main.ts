@@ -1,10 +1,10 @@
-/*global Box2D, EnemyMoveHorizontally, EnemyRotateAround, EnemyKamikaze, EnemyRocks, AppStorage, Options, createjs, Message, MainMenu, GameStatistics, Ship, Music, GameMenu, ZIndex, Bullet, EnemyShip, clearKeysHeld, handleKeyDown, handleKeyUp*/
-/*exported b2Vec2, b2BodyDef, b2Body, b2FixtureDef, b2Fixture, b2PolygonShape, b2CircleShape, GAME_WIDTH, GAME_HEIGHT, ENEMY_TYPES, initGame, startGameMode, pause, resume*/
-"use strict";
+import Box2D from 'box2dweb'
+import * as Options from './options'
+import Message from './message'
 
     // global variables
 
-var CANVAS;
+export var CANVAS;
 var CANVAS_DEBUG;
 
 var DEBUG = false;
@@ -13,7 +13,7 @@ var BASE_URL = '';
 
     // createjs
 
-var STAGE;
+export var STAGE;
 var PRELOAD;
 
     // box2d physics
@@ -39,7 +39,7 @@ var WORLD = null;
 var GAME_WIDTH;
 var GAME_HEIGHT;
 
-var MAIN_SHIP;
+export var MAIN_SHIP;
 
 var ENEMY_TYPES = [
 
@@ -210,7 +210,7 @@ GameMenu();
     @param {Boolean} [fromPreviousLevel=false] restarting the game, starting at same level it was before
  */
 
-function startGameMode( fromPreviousLevel )
+export function startGameMode( fromPreviousLevel )
 {
 if ( typeof fromPreviousLevel == 'undefined' )
     {
@@ -235,7 +235,7 @@ GAME_OBJECT = new GAME_MODE( startingLevel );
 
 
 
-function pause()
+export function pause()
 {
 if ( MAIN_SHIP )
     {
@@ -246,7 +246,7 @@ createjs.Ticker.setPaused( true );
 }
 
 
-function resume()
+export function resume()
 {
 if ( MAIN_SHIP )
     {
