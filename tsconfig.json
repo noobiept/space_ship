@@ -3,5 +3,5 @@
         "outDir": "./output/",
         "allowJs": true
     },
-    "include": [ "js/**/*"]
+    "include": [ "source/**/*"]
 }
