@@ -50,6 +50,10 @@ export default abstract class EnemyShip {
     fixDef;
     category_bits;
     mask_bits;
+    damage: number;
+    velocity: number;
+    width: number;
+    height: number;
 
 constructor( x, y )
 {
@@ -83,19 +87,20 @@ this.moveTo( x, y );
 
 abstract makeShape();
 abstract setupPhysics();
-abstract enemyBehaviour();
+
+enemyBehaviour() {};
 
 
 /*
     Gets called once after the spawn phase ended, and is going to the normal phase
  */
-abstract afterSpawn();
+afterSpawn() {};
 
 
 /*
     Its called right before the enemy is added to the Stage
  */
-abstract beforeAddToStage();
+beforeAddToStage() {};
 
 
 /*

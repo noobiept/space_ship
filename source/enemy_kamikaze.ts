@@ -1,5 +1,6 @@
-/*global EnemyShip, INHERIT_PROTOTYPE, PRELOAD, createjs, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, calculateAngleBetweenObjects, b2CircleShape, WORLD, SCALE, toRadians, b2Vec2, MAIN_SHIP*/
-"use strict";
+import EnemyShip from "./enemy_ship";
+import { PRELOAD, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2CircleShape, SCALE, WORLD, MAIN_SHIP, b2Vec2 } from "./main";
+import { calculateAngleBetweenObjects, toRadians } from "./utilities";
 
 /*
     args = {
@@ -9,9 +10,12 @@
         velocity: Number    (optional)
     }
  */
+export default class EnemyKamikaze extends EnemyShip {
 
-function EnemyKamikaze( args )
+constructor( args )
 {
+super(args.x, args.y)
+
 if ( typeof args.damage == 'undefined' )
     {
     args.damage = 10;
@@ -30,18 +34,10 @@ this.velocity = args.velocity;
 
 this.width = 14;
 this.height = 14;
-
-    // inherits from the Enemy class
-EnemyShip.call( this, args.x, args.y );
 }
 
 
-    //inherit the member functions
-INHERIT_PROTOTYPE( EnemyKamikaze, EnemyShip );
-
-
-
-EnemyKamikaze.prototype.makeShape = function()
+makeShape()
 {
 var width = this.width;
 var height = this.height;
@@ -82,7 +78,7 @@ this.shape = enemy;
 };
 
 
-EnemyKamikaze.prototype.setupPhysics = function()
+setupPhysics()
 {
 var width = this.width;
 
@@ -119,7 +115,7 @@ this.fixDef = fixDef;
 };
 
 
-EnemyKamikaze.prototype.enemyBehaviour = function()
+enemyBehaviour()
 {
 var angle = calculateAngleBetweenObjects( this, MAIN_SHIP );
 
@@ -140,7 +136,7 @@ this.updateRotation();
 
 
 
-EnemyKamikaze.prototype.beforeAddToStage = function()
+beforeAddToStage()
 {
 this.updateRotation();
 };
@@ -150,8 +146,7 @@ this.updateRotation();
 /*
     Updates the rotation property so that the enemy ship points at the main ship
  */
-
-EnemyKamikaze.prototype.updateRotation = function()
+updateRotation()
 {
     // calculate the angle between the enemy and the ship
 var angleDegrees = calculateAngleBetweenObjects( this, MAIN_SHIP );
@@ -161,9 +156,8 @@ this.rotate( -1 * angleDegrees );
 };
 
 
-
-
-EnemyKamikaze.prototype.spawnTick_function = function()
+spawnTick_function()
 {
 this.updateRotation();
 };
+}

@@ -1,21 +1,66 @@
-/*global TYPE_SHIP, GAME_WIDTH, GAME_HEIGHT, STAGE, ZIndex, PRELOAD, createjs, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, SCALE, WORLD, b2CircleShape, b2Vec2, GameStatistics, Message, GameMenu, EVENT_KEY, startGameMode, CANVAS, Bullet1_laser, Bullet2_sniper, Bullet3_rocket, Bullet4_mines, Options, KEYS_HELD*/
-"use strict";
+import { TYPE_SHIP, GAME_WIDTH, GAME_HEIGHT, STAGE, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2CircleShape, SCALE, WORLD, b2Vec2, startGameMode, CANVAS, PRELOAD } from "./main";
+import { KEYS_HELD } from "./keyboard_events";
+import Message from "./message";
+import { EVENT_KEY } from "./utilities";
+import Bullet1_laser from "./bullet1_laser";
+import Bullet2_sniper from "./bullet2_sniper";
+import Bullet3_rocket from "./bullet3_rocket";
+import Bullet4_mines from "./bullet4_mines";
+import * as GameStatistics from './game_statistics'
+import * as ZIndex from './z_index'
+import * as GameMenu from './game_menu'
 
-(function(window)
-{
+const VELOCITY = 5;
 
-function Ship()
+
+    // ticks until we add + ammo to the weapons
+    // the weapon number corresponds to the position in the list (position 0 is the first weapon, etc)
+const AMMO_UPDATE_TICK = [
+    10,
+    28,
+    11,
+    21
+    ];
+
+
+    // maximum number of bullets per weapon
+const MAX_AMMO = [
+        50,
+        10,
+        25,
+        20
+    ];
+
+var CLICK_F = null;
+var MOUSE_MOVE_F = null;
+
+
+
+export default class Ship {
+
+shape;
+width = 10;
+height = 10;
+color: string;
+type;
+weaponSelected: number;
+tick_count: [number, number, number, number]
+bullets_left: [number, number, number, number]
+category_bits;
+mask_bits;
+body;
+
+
+static all = [];
+
+constructor()
 {
 this.shape = null;
-
-this.width = 10;
-this.height = 10;
 this.color = 'rgb(81, 139, 255)';
 
 this.type = TYPE_SHIP;
 
 this.makeShape();
-
 this.setupPhysics();
 
 
@@ -50,34 +95,7 @@ this.setEvents();
 }
 
 
-Ship.all = [];
-
-
-var VELOCITY = 5;
-
-
-    // ticks until we add + ammo to the weapons
-    // the weapon number corresponds to the position in the list (position 0 is the first weapon, etc)
-var AMMO_UPDATE_TICK = [
-    10,
-    28,
-    11,
-    21
-    ];
-
-
-    // maximum number of bullets per weapon
-var MAX_AMMO = [
-        50,
-        10,
-        25,
-        20
-    ];
-
-
-
-
-Ship.prototype.makeShape = function()
+makeShape()
 {
 var spriteSheet = {
     animations: {
@@ -108,7 +126,7 @@ this.shape = ship;
 };
 
 
-Ship.prototype.setupPhysics = function()
+setupPhysics()
 {
 var width = this.width;
 
@@ -144,17 +162,10 @@ body.SetUserData( this );
 };
 
 
-
-(function(Ship)
-{
-var CLICK_F = null;
-var MOUSE_MOVE_F = null;
-
 /*
     Sets Ship's events, that handle the firing of the weapons (click event) and the rotation of the ship (mousemove event)
  */
-
-Ship.prototype.setEvents = function()
+setEvents()
 {
 var shipObject = this;
 
@@ -169,23 +180,17 @@ window.addEventListener( 'mousemove', MOUSE_MOVE_F, false );
 /*
     Clear the events of the Ship, call .setEvents() later to set them back
  */
-
-Ship.prototype.clearEvents = function()
+clearEvents()
 {
 window.removeEventListener( 'click', CLICK_F );
 window.removeEventListener( 'mousemove', MOUSE_MOVE_F );
 };
 
-}(Ship));
-
-
-
 
 /*
     Updates the shape position to match the physic body
  */
-
-Ship.prototype.updateShape = function()
+updateShape()
 {
 this.shape.rotation = this.body.GetAngle() * (180 / Math.PI);
 
@@ -194,7 +199,7 @@ this.shape.y = this.body.GetWorldCenter().y * SCALE;
 };
 
 
-Ship.prototype.moveTo = function( x, y )
+moveTo( x, y )
 {
 this.shape.x = x;
 this.shape.y = y;
@@ -205,25 +210,25 @@ this.body.SetPosition( position );
 };
 
 
-Ship.prototype.getX = function()
+getX()
 {
 return this.shape.x;
 };
 
 
-Ship.prototype.getY = function()
+getY()
 {
 return this.shape.y;
 };
 
 
-Ship.prototype.getRotation = function()
+getRotation()
 {
 return this.shape.rotation;
 };
 
 
-Ship.inTopLimit = function( y )
+static inTopLimit( y )
 {
 if (y < 0)
     {
@@ -235,7 +240,7 @@ return false;
 
 
 
-Ship.inLeftLimit = function( x )
+static inLeftLimit( x )
 {
 if (x < 0)
     {
@@ -246,7 +251,7 @@ return false;
 };
 
 
-Ship.inRightLimit = function( x )
+static inRightLimit( x )
 {
 if (x > GAME_WIDTH)
     {
@@ -258,7 +263,7 @@ return false;
 
 
 
-Ship.inBottomLimit = function( y )
+static inBottomLimit( y )
 {
 if (y > GAME_HEIGHT)
     {
@@ -270,7 +275,7 @@ return false;
 
 
 
-Ship.prototype.tookDamage = function( damage )
+tookDamage( damage )
 {
 var energy = GameStatistics.getShipEnergy() - damage;
 
@@ -303,7 +308,7 @@ if (energy <= 0)
 };
 
 
-Ship.prototype.selectWeapon = function( weaponNumber )
+selectWeapon( weaponNumber )
 {
 this.weaponSelected = weaponNumber;
 
@@ -317,8 +322,7 @@ GameMenu.selectWeapon( weaponNumber );
         event : (MouseEvent -- easelJS)
         ship  : (Ship object)
  */
-
-Ship.prototype.handleMouseMove = function( event )
+handleMouseMove( event )
 {
 if ( !event )
     {
@@ -347,7 +351,7 @@ this.rotate( -1 * angleDegrees );
 };
 
 
-Ship.prototype.rotate = function( degrees )
+rotate( degrees )
 {
 this.shape.rotation = degrees;
 
@@ -356,7 +360,7 @@ this.body.SetAngle( degrees * Math.PI / 180 );
 
 
 
-Ship.prototype.handleClick = function( event )
+handleClick( event )
 {
 if ( !event )
     {
@@ -389,10 +393,7 @@ else
 };
 
 
-
-
-
-Ship.prototype.updateAmmo = function()
+updateAmmo()
 {
 var i;
 var tickCount = this.tick_count;
@@ -422,8 +423,7 @@ for (i = 0 ; i < AMMO_UPDATE_TICK.length ; i++)
 /*
     Returns the number of bullets left from a particular weapon (zero-based)
  */
-
-Ship.prototype.getBulletsLeft = function( weapon )
+getBulletsLeft( weapon )
 {
 return this.bullets_left[ weapon ];
 };
@@ -432,8 +432,7 @@ return this.bullets_left[ weapon ];
 /*
     Adds the ammo of all the weapons back to half of the maximum ammo, or if the ammo is already at half or more, keep whatever value it has
  */
-
-Ship.prototype.refreshAmmo = function()
+refreshAmmo()
 {
 var bulletsLeft = this.bullets_left;
 var halfMaxAmmo;
@@ -454,8 +453,7 @@ for (var i = 0 ; i < bulletsLeft.length ; i++)
 /*
     Remove this ship
  */
-
-Ship.prototype.remove = function()
+remove()
 {
 STAGE.removeChild( this.shape );
 WORLD.DestroyBody( this.body );
@@ -472,8 +470,7 @@ this.clearEvents();
 /*
     Remove all the ships
  */
-
-Ship.removeAll = function()
+static removeAll()
 {
 $( Ship.all ).each(function(index, value)
     {
@@ -483,8 +480,7 @@ $( Ship.all ).each(function(index, value)
 
 
 
-
-Ship.prototype.tick = function()
+tick()
 {
 var nextX, nextY;
 
@@ -619,12 +615,6 @@ else if (KEYS_HELD.down)
 
 
 this.updateShape();
-
 this.updateAmmo();
 };
-
-
-window.Ship = Ship;
-
-}(window));
-
+}

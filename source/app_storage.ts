@@ -1,6 +1,3 @@
-var AppStorage;
-(function(AppStorage) {
-
 
 /**
  * Calls the `callback` with a dictionary that has all the requested keys/values from `localStorage`.
@@ -64,7 +61,7 @@ function chromeStorageSet( items, callback )
 /**
  * Uses the `chrome storage` if it's available (when running as a chrome app), otherwise uses the `localStorage`.
  */
-AppStorage.getData = function( keys, callback )
+export function getData( keys, callback )
     {
     if ( window.chrome && window.chrome.storage )
         {
@@ -81,7 +78,7 @@ AppStorage.getData = function( keys, callback )
 /**
  * Uses the `chrome storage` if it's available (when running as a chrome app), otherwise uses the `localStorage`.
  */
-AppStorage.setData = function( items, callback )
+export function setData( items, callback )
     {
     if ( window.chrome && window.chrome.storage )
         {
@@ -94,5 +91,3 @@ AppStorage.setData = function( items, callback )
         }
     };
 
-
-})(AppStorage || (AppStorage = {}));

@@ -1,10 +1,8 @@
-/*global EVENT_KEY, MAIN_SHIP*/
-"use strict";
+import { EVENT_KEY } from "./utilities";
+import { MAIN_SHIP } from "./main";
 
-(function(window)
-{
     // keys being pressed/held
-var KEYS_HELD = {
+export const KEYS_HELD = {
 
     left  : false,
     right : false,
@@ -14,7 +12,7 @@ var KEYS_HELD = {
     };
 
 
-function clearKeysHeld()
+export function clearKeysHeld()
 {
 KEYS_HELD.left = false;
 KEYS_HELD.right = false;
@@ -23,14 +21,12 @@ KEYS_HELD.down = false;
 }
 
 
-function handleKeyDown( event )
+export function handleKeyDown( event )
 {
 if( !event )
     {
     event = window.event;
     }
-
-
 
 switch(event.keyCode)
     {
@@ -63,7 +59,7 @@ switch(event.keyCode)
 
 
 
-function handleKeyUp( event )
+export function handleKeyUp( event )
 {
 if ( !event )
     {
@@ -118,14 +114,3 @@ switch(event.keyCode)
         break;
     }
 }
-
-
-    // make functions available outside
-window.handleKeyDown = handleKeyDown;
-window.handleKeyUp = handleKeyUp;
-window.clearKeysHeld = clearKeysHeld;
-
-window.KEYS_HELD = KEYS_HELD;
-window.EVENT_KEY = EVENT_KEY;
-
-}(window));

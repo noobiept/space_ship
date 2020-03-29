@@ -1,6 +1,5 @@
-/*global EnemyShip, INHERIT_PROTOTYPE, PRELOAD, createjs, MASK, CATEGORY, b2FixtureDef, b2BodyDef, b2Body, b2PolygonShape, WORLD, b2Vec2, SCALE*/
-"use strict";
-
+import EnemyShip from "./enemy_ship";
+import { PRELOAD, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2PolygonShape, SCALE, WORLD, b2Vec2 } from "./main";
 
 /*
     args = {
@@ -10,9 +9,12 @@
         velocity: Number    (optional)
     }
  */
+export default class EnemyMoveHorizontally extends EnemyShip {
 
-function EnemyMoveHorizontally( args )
+constructor( args )
 {
+    super(args.x, args.y);
+
 if ( typeof args.damage == 'undefined' )
     {
     args.damage = 10;
@@ -31,18 +33,10 @@ this.velocity = args.velocity;
 this.width = 20;
 this.height = 20;
 
-    // inherit from EnemyShip class
-EnemyShip.call( this, args.x, args.y );
 }
 
 
-    //inherit the member functions
-INHERIT_PROTOTYPE( EnemyMoveHorizontally, EnemyShip);
-
-
-
-
-EnemyMoveHorizontally.prototype.makeShape = function()
+makeShape()
 {
 var speed = 0.2;
 
@@ -90,7 +84,7 @@ this.shape = enemy;
 
 
 
-EnemyMoveHorizontally.prototype.setupPhysics = function()
+setupPhysics()
 {
 var width = this.width;
 var height = this.height;
@@ -133,9 +127,10 @@ this.fixDef = fixDef;
 
 
 
-EnemyMoveHorizontally.prototype.afterSpawn = function()
+afterSpawn()
 {
 this.body.SetLinearVelocity( new b2Vec2( this.velocity, 0 ) );
 };
 
 
+}

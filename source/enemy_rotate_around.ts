@@ -1,6 +1,7 @@
-/*global EnemyShip, INHERIT_PROTOTYPE, PRELOAD, createjs, b2FixtureDef, CATEGORY, MASK, MAIN_SHIP, b2Body, b2BodyDef, WORLD, SCALE, b2CircleShape, b2Vec2, calculateAngleBetweenObjects, Bullet1_laser*/
-"use strict";
-
+import EnemyShip from "./enemy_ship";
+import { PRELOAD, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2CircleShape, SCALE, WORLD, MAIN_SHIP, b2Vec2 } from "./main";
+import { calculateAngleBetweenObjects } from "./utilities";
+import Bullet1_laser from "./bullet1_laser";
 
 /*
     args = {
@@ -10,9 +11,15 @@
         velocity: Number    (optional)
     }
  */
+export default class EnemyRotateAround extends EnemyShip {
 
-function EnemyRotateAround( args )
+ticksUntilNextBullet: number;
+countTicks: number;
+
+constructor( args )
 {
+    super(args.x, args.y)
+
 if ( typeof args.damage == 'undefined' )
     {
     args.damage = 10;
@@ -31,22 +38,12 @@ this.velocity = args.velocity;
 this.width = 20;
 this.height = 20;
 
-    // inherits from the Enemy class
-EnemyShip.call( this, args.x, args.y );
-
-
 this.ticksUntilNextBullet = 100;
-
 this.countTicks = 0;
 }
 
 
-    //inherit the member functions
-INHERIT_PROTOTYPE( EnemyRotateAround, EnemyShip );
-
-
-
-EnemyRotateAround.prototype.makeShape = function()
+makeShape()
 {
 var speed = 0.2;
 
@@ -92,7 +89,7 @@ this.shape = enemy;
 
 
 
-EnemyRotateAround.prototype.setupPhysics = function()
+setupPhysics()
 {
 var width = this.width;
 
@@ -131,7 +128,7 @@ this.fixDef = fixDef;
 };
 
 
-EnemyRotateAround.prototype.enemyBehaviour = function()
+enemyBehaviour()
 {
 var currentX = this.shape.x;
 var currentY = this.shape.y;
@@ -159,8 +156,7 @@ this.body.SetLinearVelocity( new b2Vec2( x, y ) );
 
     Shoots the bullets
  */
-
-EnemyRotateAround.prototype.tick_function = function()
+tick_function()
 {
 this.countTicks++;
 
@@ -177,3 +173,4 @@ if (this.countTicks >= this.ticksUntilNextBullet)
     new Bullet1_laser( this, 'red', angleRotation, this.damage );
     }
 };
+}

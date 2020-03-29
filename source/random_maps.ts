@@ -1,9 +1,22 @@
-/*global Maps, INHERIT_PROTOTYPE, getRandomInt, ENEMY_TYPES, Message*/
+import Maps from "./maps";
+import { getRandomInt } from "./utilities";
+import Message from "./message";
+import { ENEMY_TYPES } from "./main";
 
-(function(window)
+export default class RandomMaps extends Maps {
+
+map_length: number;
+how_many_min: number;
+how_many_max: number;
+tick_min: number;
+tick_max: number;
+damage: number;
+velocity: number;
+
+constructor( startingLevel )
 {
-function RandomMaps( startingLevel )
-{
+    super({ startingLevel })
+
     // the number of times a group of enemies is added
 this.map_length = 6;
 
@@ -18,14 +31,7 @@ this.tick_max = 50;
     // the damage/velocity of the enemies, it will be increased once and then to make the game more difficult
 this.damage = 10;
 this.velocity = 5;
-
-    // inherit from the Maps class
-Maps.call( this, { startingLevel: startingLevel } );
 }
-
-
-    // inherit the member functions
-INHERIT_PROTOTYPE( RandomMaps, Maps );
 
 
 
@@ -35,8 +41,7 @@ INHERIT_PROTOTYPE( RandomMaps, Maps );
     Differences:
         - the EnemyType is the class reference here, while in the PredefinedMaps is a string
  */
-
-RandomMaps.prototype.generateMap = function()
+generateMap()
 {
 this.increaseDifficulty();
 
@@ -79,7 +84,7 @@ return {
 
 
 
-RandomMaps.prototype.increaseDifficulty = function()
+increaseDifficulty()
 {
     // increase the difficulty every two levels (when the map number is even)
 if ( ((this.CURRENT_MAP + 1) % 2) === 0 )
@@ -117,8 +122,7 @@ if ( ((this.CURRENT_MAP + 1) % 4) === 0 )
 /*
     Never ending maps
  */
-
-RandomMaps.prototype.loadMap = function( mapNumber )
+loadMap( mapNumber?: number )
 {
 if ( typeof mapNumber == 'undefined' )
     {
@@ -147,10 +151,4 @@ this.NO_MORE_PHASES = false;
 
 new Message( { text: 'Level ' + (this.CURRENT_MAP + 1), timeOut: 2000 } );
 };
-
-
-
-
-window.RandomMaps = RandomMaps;
-
-}(window));
+}

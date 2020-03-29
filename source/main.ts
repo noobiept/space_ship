@@ -18,7 +18,7 @@ var BASE_URL = '';
     // createjs
 
 export var STAGE;
-var PRELOAD;
+export var PRELOAD;
 
     // box2d physics
 
@@ -45,8 +45,7 @@ export var GAME_HEIGHT;
 
 export var MAIN_SHIP;
 
-var ENEMY_TYPES = [
-
+export const ENEMY_TYPES = [
     EnemyMoveHorizontally,
     EnemyRotateAround,
     EnemyKamikaze,
@@ -171,7 +170,7 @@ LOADING_MESSAGE.setText( "Loading " + ( event.progress*100 | 0 ) + "%" );
 }
 
 
-function initGame()
+export function initGame()
 {
 resetStuff();
 

@@ -1,11 +1,14 @@
-/*global initGame, Message, MainMenu, getRandomInt, GAME_WIDTH, GAME_HEIGHT, EnemyShip, Music, MAIN_SHIP*/
+import { initGame, GAME_WIDTH, GAME_HEIGHT, MAIN_SHIP } from "./main";
+import Message from "./message";
+import * as MainMenu from './main_menu'
+import { getRandomInt } from "./utilities";
+import EnemyShip from "./enemy_ship";
+import * as Music from "./music";
+
+
 /*
     Base class for PredefinedMaps and RandomMaps
- */
 
-(function(window)
-{
-/*
     args has:
         .maps           (optional)
         .startingLevel  (optional)
@@ -37,8 +40,16 @@
                 ]
         }
  */
+export default class  Maps {
 
-function Maps( args )
+NUMBER_OF_MAPS: number;
+MAPS;
+CURRENT_MAP: number;
+CURRENT_MAP_TICK: number;
+CURRENT_MAP_PHASE: number;
+NO_MORE_PHASES: boolean;
+
+constructor( args )
 {
 if ( typeof args.maps == 'undefined' )
     {
@@ -53,7 +64,6 @@ if ( typeof args.maps == 'undefined' )
 else
     {
     this.MAPS = args.maps;
-
     this.NUMBER_OF_MAPS = args.maps.length;
     }
 
@@ -92,8 +102,7 @@ this.loadMap( startingLevel );
 
         level (int) : which map/level to load (if not provided, load the next map)
  */
-
-Maps.prototype.loadMap = function( mapNumber )
+loadMap( mapNumber?: number )
 {
     // load the next map
 if ( typeof mapNumber == 'undefined' )
@@ -128,8 +137,7 @@ else
 /*
     All levels completed, show a message and then go to the MainMenu
  */
-
-Maps.prototype.noMoreLevels = function()
+noMoreLevels()
 {
 new Message({
     text: "Congratulations, you finished the game!<br />Too easy huh?",
@@ -141,7 +149,7 @@ new Message({
 
 
 
-Maps.prototype.tick = function( event )
+tick( event )
 {
 if ( event.paused )
     {
@@ -258,13 +266,9 @@ if ( !this.NO_MORE_PHASES && this.CURRENT_MAP_TICK >= phase.tick )
 if ( this.NO_MORE_PHASES === true && EnemyShip.all.length === 0 && EnemyShip.all_spawning.length === 0 )
     {
     this.loadMap();
-
     Music.next();
 
     MAIN_SHIP.refreshAmmo();
     }
 };
-
-window.Maps = Maps;
-
-}(window));
+}

@@ -1,5 +1,6 @@
-/*global EnemyShip, INHERIT_PROTOTYPE, PRELOAD, createjs, getRandomFloat, b2FixtureDef, CATEGORY, MASK, b2Body, b2BodyDef, b2PolygonShape, SCALE, WORLD, b2Vec2*/
-"use strict";
+import EnemyShip from "./enemy_ship";
+import { PRELOAD, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2PolygonShape, SCALE, WORLD, b2Vec2 } from "./main";
+import { getRandomFloat } from "./utilities";
 
 /*
     args = {
@@ -12,9 +13,15 @@
 
         - scale: scale the original image (1 -> 100%, no scaling)
  */
+export default class EnemyRocks extends EnemyShip {
 
-function EnemyRocks( args )
+scale: number;
+angleRadians: number;
+
+constructor( args )
 {
+    super(args.x, args.y)
+
 if (typeof args.scale != "undefined" && $.isNumeric( args.scale ))
     {
     this.scale = args.scale;
@@ -42,19 +49,10 @@ this.velocity = args.velocity;
 
 this.width = 50;
 this.height = 50;
-
-
-    // inherits from the EnemyShip class
-EnemyShip.call( this, args.x, args.y );
 }
 
 
-    // inherit the member functions
-INHERIT_PROTOTYPE( EnemyRocks, EnemyShip );
-
-
-
-EnemyRocks.prototype.makeShape = function()
+makeShape()
 {
 var speed = 0.2;
 
@@ -79,7 +77,6 @@ var spriteConfig = {
     };
 
 var sprite = new createjs.SpriteSheet( spriteConfig );
-
 var rock = new createjs.Sprite( sprite );
 
     // origin in the middle of the image
@@ -102,7 +99,7 @@ this.shape = rock;
 };
 
 
-EnemyRocks.prototype.setupPhysics = function()
+setupPhysics()
 {
 var width = this.width;
 var height = this.height;
@@ -145,7 +142,7 @@ this.fixDef = fixDef;
 
 
 
-EnemyRocks.prototype.enemyBehaviour = function()
+enemyBehaviour()
 {
 var x = Math.sin( this.angleRadians ) * this.velocity;
 var y = Math.cos( this.angleRadians ) * this.velocity;
@@ -159,8 +156,7 @@ this.rotate( this.shape.rotation + 1 );
 /*
     When it takes damage, create new smaller rocks
  */
-
-EnemyRocks.prototype.tookDamage = function()
+tookDamage()
 {
 if (this.width >= 50)
     {
@@ -182,6 +178,4 @@ if (this.width >= 50)
 
 this.remove();
 };
-
-
-
+}

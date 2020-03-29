@@ -1,14 +1,26 @@
-/*global initGame, ENEMY_TYPES, getRandomInt, GAME_WIDTH, GAME_HEIGHT*/
+import { initGame, ENEMY_TYPES, GAME_WIDTH, GAME_HEIGHT } from "./main";
+import { getRandomInt } from "./utilities";
 
-(function(window)
-{
 /*
     Doesn't have levels/maps
 
     Difficulty increases with time
  */
+export default class EndlessMode {
 
-function EndlessMode()
+next_enemy: number;
+damage: number;
+velocity: number;
+    decrease_next_enemy_step: number;
+    increase_damage_step: number;
+    increase_velocity_step: number;
+    count_next_enemy: number;
+    count_decrease_next_enemy: number;
+    count_increase_damage: number;
+    count_increase_velocity: number;
+
+
+constructor()
 {
     // from how many ticks, until next enemy (the step)
 this.next_enemy = 50;
@@ -42,7 +54,7 @@ initGame();
     Gets called after the main tick()
  */
 
-EndlessMode.prototype.tick = function( event )
+tick( event )
 {
 if ( event.paused )
     {
@@ -109,9 +121,4 @@ if ( this.count_increase_velocity >= this.increase_velocity_step )
     this.velocity++;
     }
 };
-
-
-
-window.EndlessMode = EndlessMode;
-
-}(window));
+}
