@@ -1,8 +1,6 @@
-/*global STAGE, TYPE_BULLET, ZIndex, MAIN_SHIP, toRadians, b2FixtureDef, b2BodyDef, b2PolygonShape, SCALE, WORLD, outOfBounds, b2Vec2, b2Body*/
-"use strict";
-
-(function(window)
-{
+import { STAGE, TYPE_BULLET, MAIN_SHIP, b2FixtureDef, b2BodyDef, b2Body, b2PolygonShape, b2Vec2, SCALE, WORLD  } from './main'
+import * as ZIndex from './z_index'
+import { toRadians, outOfBounds } from './utilities'
 
 /*
     Use as base class for all the bullet types
@@ -31,7 +29,23 @@
         angleRotation : of the bullet
  */
 
-function Bullet( shipObject, angleRotation, x, y )
+export default abstract class Bullet {
+
+shape;
+shipObject;
+type;
+body;
+fixDef;
+damage: number;
+removed: boolean;
+width: number;
+height: number;
+
+
+    // all the bullets (from the enemies or the main ship)
+static all_bullets = [];
+
+constructor( shipObject, angleRotation, x?: number, y?: number )
 {
 this.shape = null;
 this.shipObject = shipObject;
@@ -71,19 +85,11 @@ this.rotate( angleRotation );
 this.moveTo( x + addX, y + addY );
 }
 
-    // all the bullets (from the enemies or the main ship)
-Bullet.all_bullets = [];
+
+abstract drawBullet( angleRotation );
 
 
-
-Bullet.prototype.drawBullet = function( angleRotation )
-{
-    // do this
-};
-
-
-
-Bullet.prototype.setupPhysics = function()
+setupPhysics()
 {
 var width = this.width;
 var height = this.height;
@@ -126,21 +132,19 @@ this.fixDef = fixDef;
 };
 
 
-
-
-Bullet.prototype.getX = function()
+getX()
 {
 return this.shape.x;
 };
 
 
-Bullet.prototype.getY = function()
+getY()
 {
 return this.shape.y;
 };
 
 
-Bullet.prototype.moveTo = function( x, y )
+moveTo( x, y )
 {
 this.shape.x = x;
 this.shape.y = y;
@@ -151,7 +155,7 @@ this.body.SetPosition( position );
 };
 
 
-Bullet.prototype.updateShape = function()
+updateShape()
 {
 this.shape.rotation = this.body.GetAngle() * (180 / Math.PI);
 
@@ -164,7 +168,7 @@ this.shape.y = this.body.GetWorldCenter().y * SCALE;
 /*
     How much damage the bullets gives to the ship when it hits
  */
-Bullet.prototype.damageGiven = function()
+damageGiven()
 {
 return this.damage;
 };
@@ -173,14 +177,14 @@ return this.damage;
 /*
     What to do to the bullet when a collision is detected
  */
-Bullet.prototype.collisionResponse = function()
+collisionResponse()
 {
     // default is to remove the bullet, but you can override this function to do something else
 this.remove();
 };
 
 
-Bullet.prototype.rotate = function( degrees )
+rotate( degrees )
 {
 this.shape.rotation = degrees;
 
@@ -191,13 +195,13 @@ this.body.SetAngle( degrees * Math.PI / 180 );
 /*
     Remove the bullet from the stage
  */
-Bullet.prototype.remove = function()
+remove()
 {
 this.removed = true;
 };
 
 
-Bullet.prototype.removeNow = function()
+removeNow()
 {
 var all = Bullet.all_bullets;
 
@@ -211,7 +215,7 @@ all.splice( position, 1 );
 
 
 
-Bullet.prototype.tick = function( event )
+tick( event )
 {
 if ( event.paused || this.removed )
     {
@@ -220,6 +224,7 @@ if ( event.paused || this.removed )
 
 this.updateShape();
 
+//HERE refactor this
 if (typeof this.tick_function !== "undefined" && this.tick_function !== null)
     {
     this.tick_function();
@@ -230,7 +235,7 @@ if (typeof this.tick_function !== "undefined" && this.tick_function !== null)
 /*
     Remove all bullets.
  */
-Bullet.removeAllBullets = function()
+static removeAllBullets()
 {
 for (var a = Bullet.all_bullets.length - 1 ; a >= 0 ; a--)
     {
@@ -244,14 +249,11 @@ Bullet.all_bullets.length = 0;
 /**
  * Removes all bullets that were marked to be removed, and all bullets that are out of bounds (outside of the canvas).
  */
-Bullet.cleanAll = function()
+static cleanAll()
 {
-var i;
-var bulletObject;
-
-for (i = Bullet.all_bullets.length - 1 ; i >= 0 ; i--)
+for (let i = Bullet.all_bullets.length - 1 ; i >= 0 ; i--)
     {
-    bulletObject = Bullet.all_bullets[ i ];
+    const bulletObject = Bullet.all_bullets[ i ];
 
     if ( bulletObject.removed || outOfBounds( bulletObject ) )
         {
@@ -259,8 +261,4 @@ for (i = Bullet.all_bullets.length - 1 ; i >= 0 ; i--)
         }
     }
 };
-
-
-    // public stuff
-window.Bullet = Bullet;
-}(window));
+}

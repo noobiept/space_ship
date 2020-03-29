@@ -1,8 +1,15 @@
-/*global Bullet, applyImpulse, INHERIT_PROTOTYPE, createjs*/
-"use strict";
+import Bullet from "./bullet";
+import { applyImpulse } from "./utilities";
 
-function Bullet1_laser( shipObject, color, angleRotation, damage )
+export default class Bullet1_laser extends Bullet {
+
+color;
+speed: number;
+
+constructor( shipObject, color, angleRotation, damage )
 {
+    super(shipObject, angleRotation)
+
 if ( typeof damage == 'undefined' )
     {
     damage = 10;
@@ -18,8 +25,6 @@ if ( typeof angleRotation == 'undefined' )
     }
 
 
-    // inherit from the Bullet class
-Bullet.call( this, shipObject, angleRotation );
 
 this.damage = damage;
 this.speed = 14;
@@ -29,11 +34,8 @@ applyImpulse( this.body, angleRotation, this.speed * this.body.GetMass() );
 }
 
 
-    // inherit the member functions
-INHERIT_PROTOTYPE( Bullet1_laser, Bullet );
 
-
-Bullet1_laser.prototype.drawBullet = function( angleRotation )
+drawBullet( angleRotation )
 {
 var width = this.width;
 var height = this.height;
@@ -51,4 +53,5 @@ g.drawRect( 0, 0, width, height );
 
 
 this.shape = laser;
-};
+}
+}

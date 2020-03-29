@@ -1,8 +1,16 @@
-/*global Bullet, applyImpulse, INHERIT_PROTOTYPE, createjs, SplashDamage*/
-"use strict";
+import Bullet from "./bullet";
+import { applyImpulse } from "./utilities";
+import SplashDamage from "./splash_damage";
 
-function Bullet3_rocket( shipObject, color, angleRotation )
+export default class Bullet3_rocket extends Bullet {
+
+speed: number;
+color;
+
+constructor( shipObject, color, angleRotation )
 {
+    super(shipObject, angleRotation)
+
 this.width = 15;
 this.height = 7;
 this.color = color;
@@ -12,8 +20,6 @@ if ( typeof angleRotation == 'undefined' )
     angleRotation = shipObject.getRotation();
     }
 
-    // inherit from the Bullet class
-Bullet.call( this, shipObject, angleRotation );
 
 this.damage = 20;
 this.speed = 9;
@@ -22,11 +28,8 @@ applyImpulse( this.body, angleRotation, this.speed * this.body.GetMass() );
 }
 
 
-    // inherit the member functions
-INHERIT_PROTOTYPE( Bullet3_rocket, Bullet );
 
-
-Bullet3_rocket.prototype.drawBullet = function( angleRotation )
+drawBullet( angleRotation )
 {
 var width = this.width;
 var height = this.height;
@@ -53,9 +56,10 @@ this.shape = rocket;
     What to do to the bullet when a collision is detected
  */
 
-Bullet3_rocket.prototype.collisionResponse = function()
+collisionResponse()
 {
 this.remove();
 
 new SplashDamage( this.shipObject, this.getX(), this.getY(), 17, this.color, 30 );
 };
+}

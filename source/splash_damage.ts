@@ -1,13 +1,26 @@
-/*global Bullet, TYPE_BULLET, INHERIT_PROTOTYPE, createjs, b2FixtureDef, b2BodyDef, b2Body, b2CircleShape, SCALE, WORLD*/
+import Bullet from "./bullet";
+import { TYPE_BULLET, b2FixtureDef, b2BodyDef, b2Body, b2CircleShape, SCALE, WORLD } from "./main";
 
-(function(window)
-{
 /*
     The splash damage starts with radius of 1, then expands until it reaches the maximum value, then back again until 1, before being removed
  */
+export default class SplashDamage extends Bullet {
 
-function SplashDamage( shipObject, x, y, maxRadius, color, splashDuration )
+
+    splashDuration;
+    radiusPerTick: number;
+    radius: number;
+    color;
+    bodyDef;
+    countTick: number;
+    x: number;
+    y: number;
+
+
+constructor ( shipObject, x, y, maxRadius, color, splashDuration )
 {
+    super( shipObject, 0, x, y);
+
     // duration (in number of ticks) of the splash damage (for that time, any ship that goes into that area takes damage. after that, the splash is removed)
 this.splashDuration = splashDuration;
 
@@ -31,24 +44,15 @@ this.countTick = 0;
 this.x = x;
 this.y = y;
 
-    // inherit from the Bullet class
-Bullet.call( this, shipObject, 0, x, y );
-
 this.moveTo( x, y );
 }
 
 
-    // inherit the member functions
-INHERIT_PROTOTYPE( SplashDamage, Bullet );
 
-
-
-SplashDamage.prototype.drawBullet = function()
+drawBullet()
 {
 var radius = this.radius;
-
 var shape = new createjs.Shape();
-
 var g = shape.graphics;
 
 g.beginFill( this.color );
@@ -58,7 +62,7 @@ this.shape = shape;
 };
 
 
-SplashDamage.prototype.setupPhysics = function()
+setupPhysics()
 {
 var fixDef = new b2FixtureDef;
 
@@ -90,7 +94,7 @@ this.fixDef = fixDef;
 };
 
 
-SplashDamage.prototype.setRadius = function( radius )
+setRadius( radius )
 {
     // box2dweb doesn't seem to be able to resize existing bodies, so we create again the body (kind of stupid but oh well.. >.>)
 WORLD.DestroyBody( this.body );
@@ -116,15 +120,13 @@ this.moveTo( this.x, this.y );
 
 
 
-SplashDamage.prototype.collisionResponse = function()
+collisionResponse()
 {
     // the element will be removed in other place, keep it for now
 };
 
 
-
-
-SplashDamage.prototype.tick_function = function()
+tick_function()
 {
 this.countTick++;
 
@@ -159,9 +161,4 @@ if ( this.countTick >= this.splashDuration )
     this.remove();
     }
 };
-
-
-
-window.SplashDamage = SplashDamage;
-
-}(window));
+}

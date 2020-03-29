@@ -22,26 +22,26 @@ var PRELOAD;
 
     // box2d physics
 
-export var b2Vec2 = Box2D.Common.Math.b2Vec2;
-var b2BodyDef = Box2D.Dynamics.b2BodyDef;
-var b2Body = Box2D.Dynamics.b2Body;
-var b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
-var b2Fixture = Box2D.Dynamics.b2Fixture;
-var b2World = Box2D.Dynamics.b2World;
-var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
-var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
-var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
-var b2ContactListener = Box2D.Dynamics.b2ContactListener;
+export const b2Vec2 = Box2D.Common.Math.b2Vec2;
+export const b2BodyDef = Box2D.Dynamics.b2BodyDef;
+export const b2Body = Box2D.Dynamics.b2Body;
+export const b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
+export const b2Fixture = Box2D.Dynamics.b2Fixture;
+export const b2World = Box2D.Dynamics.b2World;
+export const b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
+export const b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
+export const b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
+export const b2ContactListener = Box2D.Dynamics.b2ContactListener;
 
     // scale from meters/kilograms/seconds into pixels
-var SCALE = 30;
+export const SCALE = 30;
 
-var WORLD = null;
+export var WORLD = null;
 
 
     // playable dimensions (the rest of the canvas is for menus/etc)
-var GAME_WIDTH;
-var GAME_HEIGHT;
+export var GAME_WIDTH;
+export var GAME_HEIGHT;
 
 export var MAIN_SHIP;
 
@@ -60,22 +60,22 @@ var GAME_OBJECT = null;
     // :: Collision Detection :: //
 
     // objects identification (for the collision detection)
-var TYPE_SHIP = 0;
-var TYPE_ENEMY = 1;
-var TYPE_BULLET = 2;
+export const TYPE_SHIP = 0;
+export const TYPE_ENEMY = 1;
+export const TYPE_BULLET = 2;
 
     // has functions to be called later (related to a collision). Have to remove the elements after executing the function
 var COLLISION_F = [];
 
 
     // categories
-var CATEGORY = {
+export const CATEGORY = {
     ship: 1,          // 0001
     enemy: 2,           // 0010
     enemy_spawning: 4   // 0100
     };
 
-var MASK = {
+export const MASK = {
     ship: CATEGORY.enemy,   // ship can collide with enemies
     enemy: CATEGORY.ship,   // enemies can collide with the ship
     enemy_spawning: 0,      // doesn't collide with anything, during the spawn phase

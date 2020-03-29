@@ -1,12 +1,6 @@
-/*global TYPE_ENEMY, STAGE, ZIndex, GameStatistics, b2Vec2, SCALE, GAME_WIDTH, GAME_HEIGHT, WORLD, CATEGORY, MASK*/
-"use strict";
-
-/*
-    This anonymous function, is to create a 'module', all functions/variables here are not available outside (apart from the ones we explicitly add to the window object)
- */
-
-(function(window)
-{
+import { TYPE_ENEMY, STAGE, SCALE, b2Vec2, WORLD, GAME_WIDTH, GAME_HEIGHT, CATEGORY, MASK } from "./main";
+import * as ZIndex from './z_index'
+import * as GameStatistics from './game_statistics'
 
 /*
     Don't use directly, use as a base class, and write these functions:
@@ -43,7 +37,21 @@
 
  */
 
-function EnemyShip( x, y )
+
+export default abstract class EnemyShip {
+
+    static all = [];
+    static all_spawning = [];
+
+    type;
+    spawnTicks_int: number;
+    shape;
+    body;
+    fixDef;
+    category_bits;
+    mask_bits;
+
+constructor( x, y )
 {
 this.type = TYPE_ENEMY;
 
@@ -66,43 +74,34 @@ this.beforeAddToStage();
     // add to Container()
 STAGE.addChild( this.shape );
 
-
 ZIndex.update();
-
-
 GameStatistics.updateNumberOfEnemies( GameStatistics.getNumberOfEnemies() + 1 );
 
 this.moveTo( x, y );
 }
 
 
-EnemyShip.all = [];
-
-EnemyShip.all_spawning = [];
-
-
+abstract makeShape();
+abstract setupPhysics();
+abstract enemyBehaviour();
 
 
+/*
+    Gets called once after the spawn phase ended, and is going to the normal phase
+ */
+abstract afterSpawn();
 
 
-EnemyShip.prototype.makeShape = function()
-{
-    // do this
-};
-
-
-
-EnemyShip.prototype.setupPhysics = function()
-{
-    // do this
-};
+/*
+    Its called right before the enemy is added to the Stage
+ */
+abstract beforeAddToStage();
 
 
 /*
     Updates the shape position to match the physic body
  */
-
-EnemyShip.prototype.updateShape = function()
+updateShape()
 {
 this.shape.rotation = this.body.GetAngle() * (180 / Math.PI);
 
@@ -111,7 +110,7 @@ this.shape.y = this.body.GetWorldCenter().y * SCALE;
 };
 
 
-EnemyShip.prototype.getPosition = function()
+getPosition()
 {
 return {
     x: this.shape.x,
@@ -119,19 +118,19 @@ return {
     };
 };
 
-EnemyShip.prototype.getX = function()
+getX()
 {
 return this.shape.x;
 };
 
 
-EnemyShip.prototype.getY = function()
+getY()
 {
 return this.shape.y;
 };
 
 
-EnemyShip.prototype.moveTo = function( x, y )
+moveTo( x, y )
 {
 this.shape.x = x;
 this.shape.y = y;
@@ -143,7 +142,7 @@ this.body.SetPosition( position );
 
 
 
-EnemyShip.prototype.rotate = function( degrees )
+rotate( degrees )
 {
 this.shape.rotation = degrees;
 
@@ -152,13 +151,12 @@ this.body.SetAngle( degrees * Math.PI / 180 );
 
 
 
-EnemyShip.prototype.damageGiven = function()
+damageGiven()
 {
 return this.damage;
 };
 
-
-EnemyShip.prototype.tookDamage = function()
+tookDamage()
 {
     // do this
 
@@ -167,37 +165,8 @@ this.remove();
 };
 
 
-EnemyShip.prototype.enemyBehaviour = function()
-{
-    // do this
-};
 
-
-
-/*
-    Gets called once after the spawn phase ended, and is going to the normal phase
- */
-
-EnemyShip.prototype.afterSpawn = function()
-{
-    // do this
-};
-
-
-
-/*
-    Its called right before the enemy is added to the Stage
- */
-
-EnemyShip.prototype.beforeAddToStage = function()
-{
-    // do this
-};
-
-
-
-
-EnemyShip.prototype.checkLimits = function()
+checkLimits()
 {
 var x = this.getX();
 var y = this.getY();
@@ -224,13 +193,10 @@ else if (y > GAME_HEIGHT)
 };
 
 
-
-
 /*
     Remove the enemy ship, and update the game statistics
  */
-
-EnemyShip.prototype.remove = function()
+remove()
 {
 STAGE.removeChild( this.shape );
 WORLD.DestroyBody( this.body );
@@ -250,8 +216,7 @@ GameStatistics.updateScore( GameStatistics.getScore() + 1 );
 /*
     Remove everything
  */
-
-EnemyShip.removeAll = function()
+static removeAll()
 {
 $( EnemyShip.all ).each(function(index, ship)
     {
@@ -275,8 +240,7 @@ $( EnemyShip.all_spawning ).each(function( index, ship )
     The idea here is to have a time when the enemy ship can't do damage (or receive), since its still spawning.
     This prevents problems like a ship spawning right under the main ship (and so taking damage without any chance to prevent it)
  */
-
-EnemyShip.prototype.spawningTick = function( event )
+spawningTick( event )
 {
 if ( event.paused )
     {
@@ -321,7 +285,7 @@ if (typeof this.spawnTick_function !== "undefined" && this.spawnTick_function !=
 };
 
 
-EnemyShip.prototype.normalTick = function( event )
+normalTick( event )
 {
 if ( event.paused )
     {
@@ -342,12 +306,8 @@ if (typeof this.tick_function !== "undefined" && this.tick_function !== null)
 };
 
 
-EnemyShip.prototype.tick = function()
+tick()
 {
     // this will point to spawningTick() or normalTick()
 };
-
-
-window.EnemyShip = EnemyShip;
-
-}(window));
+}

@@ -1,25 +1,30 @@
-/*global Bullet, INHERIT_PROTOTYPE, createjs, SplashDamage*/
-"use strict";
+import Bullet from "./bullet";
+import SplashDamage from "./splash_damage";
 
-(function(window)
-{
     // remove the mines after some time
-var REMOVE_TICK = 250;
+const REMOVE_TICK = 250;
 
     // rotate the mine
-var ANGLE_TICK = 15;
+const ANGLE_TICK = 15;
 
 
-function Bullet4_mines( shipObject, color, angleRotation )
+export default class Bullet4_mines extends Bullet {
+
+    speed;
+    angle;
+    angleTick;
+    color;
+    countTick;
+
+constructor( shipObject, color, angleRotation )
 {
+    super(shipObject, angleRotation);
+
 this.width = 15;
 this.height = 15;
 this.color = color;
 
 angleRotation = 0;  // doesn't need the rotation
-
-    // inherit from the Bullet class
-Bullet.call( this, shipObject, angleRotation );
 
 this.speed = 0;
 this.damage = 50;
@@ -34,11 +39,7 @@ this.angleTick = ANGLE_TICK;
 }
 
 
-    // inherit the member functions
-INHERIT_PROTOTYPE( Bullet4_mines, Bullet );
-
-
-Bullet4_mines.prototype.drawBullet = function( angleRotation )
+drawBullet( angleRotation )
 {
 var width = this.width;
 var height = this.height;
@@ -66,7 +67,7 @@ this.shape = mine;
     Have an animation of the mine (rotates around itself)
  */
 
-Bullet4_mines.prototype.rotateMine = function()
+rotateMine()
 {
 this.angle += 45;
 
@@ -94,7 +95,7 @@ this.angleTick = ANGLE_TICK;
     What to do to the bullet when a collision is detected
  */
 
-Bullet4_mines.prototype.collisionResponse = function()
+collisionResponse()
 {
 this.remove();
 
@@ -103,7 +104,7 @@ new SplashDamage( this.shipObject, this.getX(), this.getY(), 40, this.color, 40 
 
 
 
-Bullet4_mines.prototype.tick_function = function()
+tick_function()
 {
 this.countTick--;
 this.angleTick--;
@@ -119,8 +120,4 @@ else if ( this.angleTick < 0 )
     this.rotateMine();
     }
 };
-
-
-window.Bullet4_mines = Bullet4_mines;
-
-}(window));
+}
