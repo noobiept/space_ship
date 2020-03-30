@@ -2,7 +2,7 @@
 /**
  * Calls the `callback` with a dictionary that has all the requested keys/values from `localStorage`.
  */
-function getLocalStorage( keys, callback )
+function getData( keys, callback )
     {
     var objects = {};
 
@@ -22,7 +22,7 @@ function getLocalStorage( keys, callback )
  * Sets the given key/value into `localStorage`. Calls the `callback` when its done.
  * Converts the value to string (with json).
  */
-function setLocalStorage( items, callback )
+function setData( items )
     {
     for ( var key in items )
         {
@@ -31,63 +31,4 @@ function setLocalStorage( items, callback )
             localStorage.setItem( key, JSON.stringify( items[ key ] ) );
             }
         }
-
-    if ( callback )
-        {
-        callback();
-        }
     }
-
-
-/**
- * Calls the `callback` with a dictionary that has all the requested keys/values from `chrome.storage.local`.
- */
-function chromeStorageGet( keys, callback )
-    {
-    window.chrome.storage.local.get( keys, callback );
-    }
-
-
-/**
- * Sets the given key/value into `chrome.storage.local`. Calls the `callback` when its done.
- * Converts the value to string (with json).
- */
-function chromeStorageSet( items, callback )
-    {
-    window.chrome.storage.local.set( items, callback );
-    }
-
-
-/**
- * Uses the `chrome storage` if it's available (when running as a chrome app), otherwise uses the `localStorage`.
- */
-export function getData( keys, callback )
-    {
-    if ( window.chrome && window.chrome.storage )
-        {
-        chromeStorageGet( keys, callback );
-        }
-
-    else
-        {
-        getLocalStorage( keys, callback );
-        }
-    };
-
-
-/**
- * Uses the `chrome storage` if it's available (when running as a chrome app), otherwise uses the `localStorage`.
- */
-export function setData( items, callback? )
-    {
-    if ( window.chrome && window.chrome.storage )
-        {
-        chromeStorageSet( items, callback );
-        }
-
-    else
-        {
-        setLocalStorage( items, callback );
-        }
-    };
-
