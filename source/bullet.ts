@@ -2,6 +2,14 @@ import { STAGE, TYPE_BULLET, MAIN_SHIP, b2FixtureDef, b2BodyDef, b2Body, b2Polyg
 import * as ZIndex from './z_index'
 import { toRadians, outOfBounds } from './utilities'
 
+
+export type BulletArgs = {
+    ship,
+    angleRotation?: number,
+    x?: number,
+    y?: number,
+}
+
 /*
     Use as base class for all the bullet types
 
@@ -9,8 +17,6 @@ import { toRadians, outOfBounds } from './utilities'
 
         .drawBullet()
         .setupPhysics()         (optional -- the default is a rectangle from the width/height properties)
-        .tick_function()        (optional)
-
 
     Properties:
 
@@ -22,13 +28,7 @@ import { toRadians, outOfBounds } from './utilities'
     Add reference of the drawn element to:
 
         .shape
-
-    Arguments:
-
-        shipObject    : of the ship which fired the bullet
-        angleRotation : of the bullet
  */
-
 export default abstract class Bullet {
 
 shape;
@@ -45,13 +45,17 @@ height: number;
     // all the bullets (from the enemies or the main ship)
 static all_bullets = [];
 
-constructor( shipObject, angleRotation, x?: number, y?: number )
+constructor( { angleRotation, ship, x, y }: BulletArgs )
 {
 this.shape = null;
-this.shipObject = shipObject;
+this.shipObject = ship;
 this.type = TYPE_BULLET;
 this.damage = 10;
 this.removed = false;
+
+    if (typeof angleRotation === 'undefined') {
+        angleRotation = 0;
+    }
 
     // draw the bullet
 this.drawBullet( angleRotation );
@@ -68,8 +72,8 @@ Bullet.all_bullets.push( this );
 
 if ( typeof x === 'undefined')
     {
-    x = shipObject.getX();
-    y = shipObject.getY();
+    x = ship.getX();
+    y = ship.getY();
     }
 
     // fire from outside the main ship radius (so it doesn't collide immediately with it)
@@ -223,13 +227,7 @@ if ( event.paused || this.removed )
     }
 
 this.updateShape();
-
-//HERE refactor this
-if (typeof this.tick_function !== "undefined" && this.tick_function !== null)
-    {
-    this.tick_function();
-    }
-};
+}
 
 
 /*

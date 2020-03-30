@@ -378,10 +378,9 @@ var bulletsLeft = this.bullets_left;
 
 if (bulletsLeft[ weaponSelected ] > 0)
     {
-    new weapons[ this.weaponSelected ]( this, this.color );
+    new weapons[ this.weaponSelected ]({ ship: this, color: this.color  });
 
     bulletsLeft[ weaponSelected ]--;
-
     GameStatistics.updateBulletsLeft( weaponSelected );
     }
 

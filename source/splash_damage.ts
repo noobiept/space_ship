@@ -1,5 +1,12 @@
-import Bullet from "./bullet";
+import Bullet, { BulletArgs } from "./bullet";
 import { TYPE_BULLET, b2FixtureDef, b2BodyDef, b2Body, b2CircleShape, SCALE, WORLD } from "./main";
+
+export type SplashDamageArgs = {
+    maxRadius: number
+    color: string
+    splashDuration: number
+} & BulletArgs
+
 
 /*
     The splash damage starts with radius of 1, then expands until it reaches the maximum value, then back again until 1, before being removed
@@ -17,9 +24,11 @@ export default class SplashDamage extends Bullet {
     y: number;
 
 
-constructor ( shipObject, x, y, maxRadius, color, splashDuration )
+constructor ( args: SplashDamageArgs )
 {
-    super( shipObject, 0, x, y);
+    super( args);
+
+    const { color, splashDuration, maxRadius, x, y} = args
 
     // duration (in number of ticks) of the splash damage (for that time, any ship that goes into that area takes damage. after that, the splash is removed)
 this.splashDuration = splashDuration;

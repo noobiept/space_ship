@@ -1,21 +1,28 @@
-import Bullet from "./bullet";
+import Bullet, { BulletArgs } from "./bullet";
 import { applyImpulse } from "./utilities";
+
+
+export type Bullet2_sniperArgs = {
+    color: string
+} & BulletArgs
 
 export default class Bullet2_sniper extends Bullet {
 
 color;
 speed;
 
-constructor( shipObject, color, angleRotation? )
+constructor( args: Bullet2_sniperArgs )
 {
-    super( shipObject, angleRotation)
+    super( args);
+
+    let { angleRotation, ship, color } = args
 this.width = 10;
 this.height = 2;
 this.color = color;
 
 if ( typeof angleRotation == 'undefined' )
     {
-    angleRotation = shipObject.getRotation();
+    angleRotation = ship.getRotation();
     }
 
 

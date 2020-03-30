@@ -2,7 +2,7 @@
 /**
  * Calls the `callback` with a dictionary that has all the requested keys/values from `localStorage`.
  */
-function getData( keys, callback )
+export function getData( keys, callback )
     {
     var objects = {};
 
@@ -22,7 +22,7 @@ function getData( keys, callback )
  * Sets the given key/value into `localStorage`. Calls the `callback` when its done.
  * Converts the value to string (with json).
  */
-function setData( items )
+export function setData( items )
     {
     for ( var key in items )
         {

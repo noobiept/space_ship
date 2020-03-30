@@ -1,15 +1,22 @@
-import Bullet from "./bullet";
+import Bullet, { BulletArgs } from "./bullet";
 import { applyImpulse } from "./utilities";
 import SplashDamage from "./splash_damage";
+
+export type Bullet3_rocketArgs = {
+    color: string
+} & BulletArgs
+
 
 export default class Bullet3_rocket extends Bullet {
 
 speed: number;
 color;
 
-constructor( shipObject, color, angleRotation? )
+constructor( args: Bullet3_rocketArgs )
 {
-    super(shipObject, angleRotation)
+    super(args)
+
+    let { color, angleRotation, ship} = args
 
 this.width = 15;
 this.height = 7;
@@ -17,7 +24,7 @@ this.color = color;
 
 if ( typeof angleRotation == 'undefined' )
     {
-    angleRotation = shipObject.getRotation();
+    angleRotation = ship.getRotation();
     }
 
 

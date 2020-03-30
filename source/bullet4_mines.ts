@@ -1,4 +1,4 @@
-import Bullet from "./bullet";
+import Bullet, { BulletArgs } from "./bullet";
 import SplashDamage from "./splash_damage";
 
     // remove the mines after some time
@@ -8,6 +8,10 @@ const REMOVE_TICK = 250;
 const ANGLE_TICK = 15;
 
 
+export type Bullet4_minesArgs = {
+    color: string
+} & BulletArgs
+
 export default class Bullet4_mines extends Bullet {
 
     speed;
@@ -16,15 +20,13 @@ export default class Bullet4_mines extends Bullet {
     color;
     countTick;
 
-constructor( shipObject, color, angleRotation? )
+constructor(args: Bullet4_minesArgs)
 {
-    super(shipObject, angleRotation);
+    super(args);
 
 this.width = 15;
 this.height = 15;
-this.color = color;
-
-angleRotation = 0;  // doesn't need the rotation
+this.color = args.color;
 
 this.speed = 0;
 this.damage = 50;
@@ -104,9 +106,10 @@ new SplashDamage( this.shipObject, this.getX(), this.getY(), 40, this.color, 40 
 
 
 
-tick_function()
-{
-this.countTick--;
+tick(event) {
+    super.tick(event)
+
+    this.countTick--;
 this.angleTick--;
 
     // remove the mine after some time (so that it doesn't stay there forever
