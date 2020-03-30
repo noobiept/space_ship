@@ -1,3 +1,5 @@
+import { centerElement } from "./utilities";
+
 const ALL_MESSAGES = [];
 
 /*
@@ -18,7 +20,7 @@ const ALL_MESSAGES = [];
 export default class Message
 {
 private message: HTMLElement;
-private container: HTMLElement;
+private container: HTMLElement; //HERE not used?
 
 constructor( stuff )
     {
@@ -91,10 +93,8 @@ remove()
 
     ALL_MESSAGES.splice( position, 1 );
     }
-}
 
-
-export function removeAll()
+static removeAll()
 {
 for (var i = 0 ; i < ALL_MESSAGES.length ; i++)
     {
@@ -103,3 +103,7 @@ for (var i = 0 ; i < ALL_MESSAGES.length ; i++)
     i--;
     }
 }
+}
+
+
+

@@ -1,3 +1,4 @@
+import * as MainMenu from './main_menu'
 import { MAIN_SHIP, startGameMode, resume, pause, CANVAS } from './main'
 import Message from './message'
 

@@ -2,8 +2,20 @@ import Box2D from 'box2dweb'
 import * as Options from './options'
 import * as GameStatistics from './game_statistics'
 import * as ZIndex from './z_index'
+import * as MainMenu from './main_menu'
+import * as AppStorage from './app_storage'
+import * as GameMenu from './game_menu'
 import Message from './message'
 import Music from './music'
+import EnemyMoveHorizontally from './enemy_move_horizontally'
+import EnemyRotateAround from './enemy_rotate_around'
+import EnemyKamikaze from './enemy_kamikaze'
+import EnemyRocks from './enemy_rocks'
+import Ship from './ship'
+import { handleKeyDown, handleKeyUp, clearKeysHeld } from './keyboard_events'
+import EnemyShip from './enemy_ship'
+import Bullet from './bullet'
+
 
 
     // global variables
@@ -206,14 +218,14 @@ document.onkeyup = handleKeyUp;
 
 new Music( 0 );
 
-GameMenu();
+GameMenu.init();
 }
 
 /**
     @param {Boolean} [fromPreviousLevel=false] restarting the game, starting at same level it was before
  */
 
-export function startGameMode( fromPreviousLevel )
+export function startGameMode( fromPreviousLevel?: boolean )
 {
 if ( typeof fromPreviousLevel == 'undefined' )
     {

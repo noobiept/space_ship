@@ -78,7 +78,7 @@ export function getData( keys, callback )
 /**
  * Uses the `chrome storage` if it's available (when running as a chrome app), otherwise uses the `localStorage`.
  */
-export function setData( items, callback )
+export function setData( items, callback? )
     {
     if ( window.chrome && window.chrome.storage )
         {

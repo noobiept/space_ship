@@ -6,7 +6,7 @@ export default class Bullet2_sniper extends Bullet {
 color;
 speed;
 
-constructor( shipObject, color, angleRotation )
+constructor( shipObject, color, angleRotation? )
 {
     super( shipObject, angleRotation)
 this.width = 10;

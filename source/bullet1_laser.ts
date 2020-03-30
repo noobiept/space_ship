@@ -6,7 +6,7 @@ export default class Bullet1_laser extends Bullet {
 color;
 speed: number;
 
-constructor( shipObject, color, angleRotation, damage )
+constructor( shipObject, color, angleRotation?, damage? )
 {
     super(shipObject, angleRotation)
 

@@ -9,6 +9,7 @@ import Bullet4_mines from "./bullet4_mines";
 import * as GameStatistics from './game_statistics'
 import * as ZIndex from './z_index'
 import * as GameMenu from './game_menu'
+import * as Options from './options'
 
 const VELOCITY = 5;
 
@@ -76,10 +77,10 @@ this.tick_count = [
 
     // current number of bullets left
 this.bullets_left = [
-        parseInt( MAX_AMMO[ 0 ] / 2 ),
-        parseInt( MAX_AMMO[ 1 ] / 2 ),
-        parseInt( MAX_AMMO[ 2 ] / 2 ),
-        parseInt( MAX_AMMO[ 3 ] / 2 )
+        Math.floor( MAX_AMMO[ 0 ] / 2 ),
+        Math.floor( MAX_AMMO[ 1 ] / 2 ),
+        Math.floor( MAX_AMMO[ 2 ] / 2 ),
+        Math.floor( MAX_AMMO[ 3 ] / 2 )
     ];
 
 
@@ -434,12 +435,11 @@ return this.bullets_left[ weapon ];
  */
 refreshAmmo()
 {
-var bulletsLeft = this.bullets_left;
-var halfMaxAmmo;
+const bulletsLeft = this.bullets_left;
 
-for (var i = 0 ; i < bulletsLeft.length ; i++)
+for (let i = 0 ; i < bulletsLeft.length ; i++)
     {
-    halfMaxAmmo = parseInt( MAX_AMMO[ i ] / 2, 10 );
+    const halfMaxAmmo = Math.floor( MAX_AMMO[ i ] / 2 );
 
     if ( bulletsLeft[ i ] < halfMaxAmmo )
         {

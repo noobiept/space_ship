@@ -16,7 +16,7 @@ export default class Bullet4_mines extends Bullet {
     color;
     countTick;
 
-constructor( shipObject, color, angleRotation )
+constructor( shipObject, color, angleRotation? )
 {
     super(shipObject, angleRotation);
 

@@ -2,6 +2,9 @@ import { LOADING_MESSAGE, CANVAS, resetStuff, startGameMode, GAME_MODE, STAGE } 
 import * as Music from './music'
 import * as Options from './options'
 import { EVENT_KEY } from './utilities';
+import RandomMaps from './random_maps';
+import PredefinedMaps from './predefined_maps';
+import EndlessMode from './endless_mode';
 
 
 var ENTRY_SELECTED = 0;
@@ -18,7 +21,7 @@ export function open()
 if ( LOADING_MESSAGE )
     {
     LOADING_MESSAGE.remove();
-    LOADING_MESSAGE = null;
+    LOADING_MESSAGE = null; //HERE refactor
     }
 
 CANVAS.style.display = 'none';
@@ -72,7 +75,7 @@ function openRandomMaps( event )
 {
 cleanUp();
 
-GAME_MODE = RandomMaps;
+GAME_MODE = RandomMaps; //HERE
 startGameMode();
 
 event.stopPropagation();

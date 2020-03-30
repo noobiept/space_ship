@@ -7,7 +7,7 @@ export default class Bullet3_rocket extends Bullet {
 speed: number;
 color;
 
-constructor( shipObject, color, angleRotation )
+constructor( shipObject, color, angleRotation? )
 {
     super(shipObject, angleRotation)
 

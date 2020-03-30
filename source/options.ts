@@ -1,3 +1,5 @@
+import * as AppStorage from './app_storage'
+
 const OPTIONS = {
     musicVolume: 1  // value between 0 and 1
     };

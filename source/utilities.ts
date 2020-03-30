@@ -86,7 +86,7 @@ return Math.random() * (max - min) + min;
  * Centers an html element in the middle of a given reference element (assumes html element has in its css 'position: absolute;').
  * If 'refElement' isn't given, its assumed to be the 'CANVAS'.
  */
-export function centerElement( element, refElement )
+export function centerElement( element, refElement? )
 {
 if ( typeof refElement === 'undefined' )
     {
