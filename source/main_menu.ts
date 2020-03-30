@@ -1,4 +1,4 @@
-import { LOADING_MESSAGE, CANVAS, resetStuff, startGameMode, GAME_MODE, STAGE } from './main'
+import { CANVAS, resetStuff, startGameMode, STAGE, setMapMode, removeLoadingMessage } from './main'
 import * as Music from './music'
 import * as Options from './options'
 import { EVENT_KEY } from './utilities';
@@ -18,11 +18,7 @@ var ENTRIES_ELEMENTS = [];
 
 export function open()
 {
-if ( LOADING_MESSAGE )
-    {
-    LOADING_MESSAGE.remove();
-    LOADING_MESSAGE = null; //HERE refactor
-    }
+removeLoadingMessage();
 
 CANVAS.style.display = 'none';
 
@@ -61,9 +57,7 @@ STAGE.update();
 function openPredefinedMaps( event )
 {
 cleanUp();
-
-GAME_MODE = PredefinedMaps;
-
+setMapMode(PredefinedMaps);
 startGameMode();
 
     // prevent the click to select the entry, to also fire a bullet once the game starts
@@ -74,8 +68,7 @@ event.stopPropagation();
 function openRandomMaps( event )
 {
 cleanUp();
-
-GAME_MODE = RandomMaps; //HERE
+setMapMode(RandomMaps);
 startGameMode();
 
 event.stopPropagation();
@@ -85,8 +78,7 @@ event.stopPropagation();
 function openEndlessMode( event )
 {
 cleanUp();
-
-GAME_MODE = EndlessMode;
+setMapMode(EndlessMode);
 startGameMode();
 
     // prevent the click to select the entry, to also fire a bullet once the game starts

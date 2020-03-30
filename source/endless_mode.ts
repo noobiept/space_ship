@@ -1,12 +1,13 @@
 import { initGame, ENEMY_TYPES, GAME_WIDTH, GAME_HEIGHT } from "./main";
 import { getRandomInt } from "./utilities";
+import { MapType } from "./shared/types";
 
 /*
     Doesn't have levels/maps
 
     Difficulty increases with time
  */
-export default class EndlessMode {
+export default class EndlessMode implements MapType {
 
 next_enemy: number;
 damage: number;

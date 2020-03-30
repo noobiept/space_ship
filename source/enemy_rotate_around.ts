@@ -156,8 +156,10 @@ this.body.SetLinearVelocity( new b2Vec2( x, y ) );
 
     Shoots the bullets
  */
-tick_function()
+normalTick(event)
 {
+super.normalTick(event)
+
 this.countTicks++;
 
     // fire a new bullet

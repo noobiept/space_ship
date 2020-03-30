@@ -135,8 +135,10 @@ collisionResponse()
 };
 
 
-tick_function()
+tick(event)
 {
+    super.tick(event);
+
 this.countTick++;
 
 var isGrowing = true;

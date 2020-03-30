@@ -101,7 +101,7 @@ collisionResponse()
 {
 this.remove();
 
-new SplashDamage( this.shipObject, this.getX(), this.getY(), 40, this.color, 40 );
+new SplashDamage({ ship: this.shipObject, x: this.getX(), y: this.getY(), maxRadius: 40, color: this.color, splashDuration: 40  } );
 };
 
 

@@ -156,8 +156,9 @@ this.rotate( -1 * angleDegrees );
 };
 
 
-spawnTick_function()
-{
-this.updateRotation();
-};
+spawningTick(event) {
+    super.spawningTick(event);
+    this.updateRotation();
+}
+
 }

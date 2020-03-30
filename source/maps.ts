@@ -4,6 +4,7 @@ import * as MainMenu from './main_menu'
 import { getRandomInt } from "./utilities";
 import EnemyShip from "./enemy_ship";
 import * as Music from "./music";
+import { MapType } from "./shared/types";
 
 
 /*
@@ -40,7 +41,7 @@ import * as Music from "./music";
                 ]
         }
  */
-export default class  Maps {
+export default class Maps implements MapType {
 
 NUMBER_OF_MAPS: number;
 MAPS;

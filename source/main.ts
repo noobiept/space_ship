@@ -15,6 +15,7 @@ import Ship from './ship'
 import { handleKeyDown, handleKeyUp, clearKeysHeld } from './keyboard_events'
 import EnemyShip from './enemy_ship'
 import Bullet from './bullet'
+import { MapType } from './shared/types'
 
 
 
@@ -65,7 +66,7 @@ export const ENEMY_TYPES = [
     ];
 
 
-export var GAME_MODE = null;
+var MAP_MODE = null;
 var GAME_OBJECT = null;
 
     // :: Collision Detection :: //
@@ -94,7 +95,7 @@ export const MASK = {
     };
 
 
-export var LOADING_MESSAGE;
+var LOADING_MESSAGE;
 
 window.onload = function()
 {
@@ -182,6 +183,14 @@ LOADING_MESSAGE.setText( "Loading " + ( event.progress*100 | 0 ) + "%" );
 }
 
 
+export function removeLoadingMessage() {
+    if (LOADING_MESSAGE ) {
+        LOADING_MESSAGE.remove();
+        LOADING_MESSAGE = null;
+    }
+}
+
+
 export function initGame()
 {
 resetStuff();
@@ -245,7 +254,7 @@ if ( GAME_OBJECT )
 resetStuff();
 
 CANVAS.style.display = 'block';
-GAME_OBJECT = new GAME_MODE( startingLevel );
+GAME_OBJECT = new MAP_MODE( startingLevel );
 }
 
 
@@ -423,6 +432,11 @@ var top = window.innerHeight / 2 - canvasElement.height / 2;
 
 $( canvasElement ).css( 'left', left + 'px' );
 $( canvasElement ).css( 'top', top + 'px' );
+}
+
+
+export function setMapMode(mode: MapType) {
+    MAP_MODE = mode;
 }
 
 

@@ -13,9 +13,6 @@ import * as GameStatistics from './game_statistics'
         .updateShape()          (optional)
         .tookDamage()           (optional)
         .beforeAddToStage()     (optional)
-        .spawnTick_function()   (optional)
-        .tick_function()        (optional)
-
 
     and change these properties:
 
@@ -54,6 +51,7 @@ export default abstract class EnemyShip {
     velocity: number;
     width: number;
     height: number;
+    tick: (event) => void;  // this will point to spawningTick() or normalTick()
 
 constructor( x, y )
 {
@@ -282,11 +280,6 @@ if (this.spawnTicks_int < 0)
         // now execute the normal tick function
     this.tick = this.normalTick;
     }
-
-if (typeof this.spawnTick_function !== "undefined" && this.spawnTick_function !== null)
-    {
-    this.spawnTick_function();
-    }
 };
 
 
@@ -303,16 +296,6 @@ this.updateShape();
 
     // the limits of the canvas
 this.checkLimits();
-
-if (typeof this.tick_function !== "undefined" && this.tick_function !== null)
-    {
-    this.tick_function();
-    }
 };
 
-
-tick()
-{
-    // this will point to spawningTick() or normalTick()
-};
 }
