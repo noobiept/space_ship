@@ -1,10 +1,10 @@
-import { initGame, GAME_WIDTH, GAME_HEIGHT, MAIN_SHIP } from "./main";
-import Message from "./message";
-import * as MainMenu from './main_menu'
-import { getRandomInt } from "./utilities";
-import EnemyShip from "./enemy_ship";
-import * as Music from "./music";
-import { MapType } from "./shared/types";
+import { initGame, GAME_WIDTH, GAME_HEIGHT, MAIN_SHIP } from "./main.js";
+import Message from "./message.js";
+import * as MainMenu from './main_menu.js'
+import { getRandomInt } from "./utilities.js";
+import EnemyShip from "./enemy_ship.js";
+import * as Music from "./music.js";
+import { MapType } from "./shared/types.js";
 
 
 /*

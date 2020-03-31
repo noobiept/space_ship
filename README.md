@@ -22,20 +22,6 @@ Controls
 - `Mouse movement` to rotate the ship.
 
 
-Dependencies
-============
-
-- jquery : 2.2
-- jqueryui : 1.11
-    - slider
-    - redmond theme
-- createJS
-    - easeljs : 0.8
-    - preloadjs : 0.6
-    - soundjs : 0.6
-- box2dweb : 2.1.a
-
-
 Game Modes
 ==========
 
@@ -84,3 +70,10 @@ Music
 
 - [scumm bar](http://www.youtube.com/watch?v=39CSrCugHfA "scumm bar")
 - [space ship 1](http://www.youtube.com/watch?v=MJhUJ7YV7EA "space ship 1")
+
+
+# Development
+
+- `npm install`
+- `npm start` (runs a local server at `localhost:8080/`)
+- `npm build` (build the release build)

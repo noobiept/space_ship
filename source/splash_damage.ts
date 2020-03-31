@@ -1,5 +1,5 @@
-import Bullet, { BulletArgs } from "./bullet";
-import { TYPE_BULLET, b2FixtureDef, b2BodyDef, b2Body, b2CircleShape, SCALE, WORLD } from "./main";
+import Bullet, { BulletArgs } from "./bullet.js";
+import { TYPE_BULLET, b2FixtureDef, b2BodyDef, b2Body, b2CircleShape, SCALE, WORLD } from "./main.js";
 
 export type SplashDamageArgs = {
     maxRadius: number

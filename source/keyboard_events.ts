@@ -1,5 +1,5 @@
-import { EVENT_KEY } from "./utilities";
-import { MAIN_SHIP } from "./main";
+import { EVENT_KEY } from "./utilities.js";
+import { MAIN_SHIP } from "./main.js";
 
     // keys being pressed/held
 export const KEYS_HELD = {

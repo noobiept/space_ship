@@ -1,4 +1,4 @@
-import { CANVAS, b2Vec2 } from './main'
+import { CANVAS, b2Vec2 } from './main.js'
 
 
 export const EVENT_KEY = {

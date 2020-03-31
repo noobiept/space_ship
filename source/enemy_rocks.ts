@@ -1,6 +1,6 @@
-import EnemyShip from "./enemy_ship";
-import { PRELOAD, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2PolygonShape, SCALE, WORLD, b2Vec2 } from "./main";
-import { getRandomFloat } from "./utilities";
+import EnemyShip from "./enemy_ship.js";
+import { PRELOAD, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2PolygonShape, SCALE, WORLD, b2Vec2 } from "./main.js";
+import { getRandomFloat } from "./utilities.js";
 
 /*
     args = {

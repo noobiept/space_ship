@@ -1,4 +1,4 @@
-import * as AppStorage from './app_storage'
+import * as AppStorage from './app_storage.js'
 
 const OPTIONS = {
     musicVolume: 1  // value between 0 and 1

@@ -1,6 +1,6 @@
-import * as MainMenu from './main_menu'
-import { MAIN_SHIP, startGameMode, resume, pause, CANVAS } from './main'
-import Message from './message'
+import * as MainMenu from './main_menu.js'
+import { MAIN_SHIP, startGameMode, resume, pause, CANVAS } from './main.js'
+import Message from './message.js'
 
 let WEAPON_SELECTED = 0;
 const WEAPON_ELEMENTS = [];

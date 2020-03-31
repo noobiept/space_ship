@@ -1,5 +1,5 @@
-import Bullet, { BulletArgs } from "./bullet";
-import { applyImpulse } from "./utilities";
+import Bullet, { BulletArgs } from "./bullet.js";
+import { applyImpulse } from "./utilities.js";
 
 
 export type Bullet2_sniperArgs = {

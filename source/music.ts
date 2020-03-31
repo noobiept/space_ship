@@ -1,4 +1,4 @@
-import { getMusicVolume} from './options'
+import { getMusicVolume} from './options.js'
 
 const SONG_NAMES = [ 'scumm_bar', 'space_ship_1' ];
 let CURRENT_SONG = 0;

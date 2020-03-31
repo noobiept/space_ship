@@ -1,7 +1,14 @@
 const path = require('path');
 
-module.exports = {
+module.exports = function (env, argv) {
+  const mode = argv.mode;
+
+  return {
   entry: './source/main.ts',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
   module: {
     rules: [
       {
@@ -11,11 +18,9 @@ module.exports = {
       },
     ],
   },
+  devtool: mode === "development" ? "source-map" : false,
   resolve: {
     extensions: [ '.tsx', '.ts', '.js' ],
   },
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
+}
 };

@@ -1,7 +1,7 @@
-import EnemyShip from "./enemy_ship";
-import { PRELOAD, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2CircleShape, SCALE, WORLD, MAIN_SHIP, b2Vec2 } from "./main";
-import { calculateAngleBetweenObjects } from "./utilities";
-import Bullet1_laser from "./bullet1_laser";
+import EnemyShip from "./enemy_ship.js";
+import { PRELOAD, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2CircleShape, SCALE, WORLD, MAIN_SHIP, b2Vec2 } from "./main.js";
+import { calculateAngleBetweenObjects } from "./utilities.js";
+import Bullet1_laser from "./bullet1_laser.js";
 
 /*
     args = {

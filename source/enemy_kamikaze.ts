@@ -1,6 +1,6 @@
-import EnemyShip from "./enemy_ship";
-import { PRELOAD, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2CircleShape, SCALE, WORLD, MAIN_SHIP, b2Vec2 } from "./main";
-import { calculateAngleBetweenObjects, toRadians } from "./utilities";
+import EnemyShip from "./enemy_ship.js";
+import { PRELOAD, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2CircleShape, SCALE, WORLD, MAIN_SHIP, b2Vec2 } from "./main.js";
+import { calculateAngleBetweenObjects, toRadians } from "./utilities.js";
 
 /*
     args = {

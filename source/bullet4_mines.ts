@@ -1,5 +1,5 @@
-import Bullet, { BulletArgs } from "./bullet";
-import SplashDamage from "./splash_damage";
+import Bullet, { BulletArgs } from "./bullet.js";
+import SplashDamage from "./splash_damage.js";
 
     // remove the mines after some time
 const REMOVE_TICK = 250;

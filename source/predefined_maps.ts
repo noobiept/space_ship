@@ -1,5 +1,5 @@
-import Maps from "./maps";
-import { PRELOAD } from "./main";
+import Maps from "./maps.js";
+import { PRELOAD } from "./main.js";
 
 var NUMBER_OF_MAPS = 10;
 

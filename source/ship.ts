@@ -1,15 +1,15 @@
-import { TYPE_SHIP, GAME_WIDTH, GAME_HEIGHT, STAGE, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2CircleShape, SCALE, WORLD, b2Vec2, startGameMode, CANVAS, PRELOAD } from "./main";
-import { KEYS_HELD } from "./keyboard_events";
-import Message from "./message";
-import { EVENT_KEY } from "./utilities";
-import Bullet1_laser from "./bullet1_laser";
-import Bullet2_sniper from "./bullet2_sniper";
-import Bullet3_rocket from "./bullet3_rocket";
-import Bullet4_mines from "./bullet4_mines";
-import * as GameStatistics from './game_statistics'
-import * as ZIndex from './z_index'
-import * as GameMenu from './game_menu'
-import * as Options from './options'
+import { TYPE_SHIP, GAME_WIDTH, GAME_HEIGHT, STAGE, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2CircleShape, SCALE, WORLD, b2Vec2, startGameMode, CANVAS, PRELOAD } from "./main.js";
+import { KEYS_HELD } from "./keyboard_events.js";
+import Message from "./message.js";
+import { EVENT_KEY } from "./utilities.js";
+import Bullet1_laser from "./bullet1_laser.js";
+import Bullet2_sniper from "./bullet2_sniper.js";
+import Bullet3_rocket from "./bullet3_rocket.js";
+import Bullet4_mines from "./bullet4_mines.js";
+import * as GameStatistics from './game_statistics.js'
+import * as ZIndex from './z_index.js'
+import * as GameMenu from './game_menu.js'
+import * as Options from './options.js'
 
 const VELOCITY = 5;
 

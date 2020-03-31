@@ -1,6 +1,6 @@
-import { TYPE_ENEMY, STAGE, SCALE, b2Vec2, WORLD, GAME_WIDTH, GAME_HEIGHT, CATEGORY, MASK } from "./main";
-import * as ZIndex from './z_index'
-import * as GameStatistics from './game_statistics'
+import { TYPE_ENEMY, STAGE, SCALE, b2Vec2, WORLD, GAME_WIDTH, GAME_HEIGHT, CATEGORY, MASK } from "./main.js";
+import * as ZIndex from './z_index.js'
+import * as GameStatistics from './game_statistics.js'
 
 /*
     Don't use directly, use as a base class, and write these functions:

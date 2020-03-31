@@ -1,10 +1,10 @@
-import { CANVAS, resetStuff, startGameMode, STAGE, setMapMode, removeLoadingMessage } from './main'
-import * as Music from './music'
-import * as Options from './options'
-import { EVENT_KEY } from './utilities';
-import RandomMaps from './random_maps';
-import PredefinedMaps from './predefined_maps';
-import EndlessMode from './endless_mode';
+import { CANVAS, resetStuff, startGameMode, STAGE, setMapMode, removeLoadingMessage } from './main.js'
+import * as Music from './music.js'
+import * as Options from './options.js'
+import { EVENT_KEY } from './utilities.js';
+import RandomMaps from './random_maps.js';
+import PredefinedMaps from './predefined_maps.js';
+import EndlessMode from './endless_mode.js';
 
 
 var ENTRY_SELECTED = 0;

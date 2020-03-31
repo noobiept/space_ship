@@ -1,6 +1,6 @@
-import { STAGE, TYPE_BULLET, MAIN_SHIP, b2FixtureDef, b2BodyDef, b2Body, b2PolygonShape, b2Vec2, SCALE, WORLD  } from './main'
-import * as ZIndex from './z_index'
-import { toRadians, outOfBounds } from './utilities'
+import { STAGE, TYPE_BULLET, MAIN_SHIP, b2FixtureDef, b2BodyDef, b2Body, b2PolygonShape, b2Vec2, SCALE, WORLD  } from './main.js'
+import * as ZIndex from './z_index.js'
+import { toRadians, outOfBounds } from './utilities.js'
 
 
 export type BulletArgs = {
