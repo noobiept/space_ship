@@ -14,7 +14,11 @@ export default class EnemyKamikaze extends EnemyShip {
 
 constructor( args )
 {
-super(args.x, args.y)
+super({
+    ...args,
+    width: 14,
+    height: 14
+})
 
 if ( typeof args.damage == 'undefined' )
     {
@@ -31,19 +35,13 @@ this.shape = null;
 
 this.damage = args.damage;
 this.velocity = args.velocity;
-
-this.width = 14;
-this.height = 14;
 }
 
 
-makeShape()
+makeShape({ width, height })
 {
-var width = this.width;
-var height = this.height;
-var speed = 0.2;
-
-var spriteSheet = {
+const speed = 0.2;
+const spriteSheet = {
     animations: {
 
         spawn: {
@@ -58,15 +56,14 @@ var spriteSheet = {
             }
         },
     frames: {
-        width: width,
-        height: height
+        width,
+        height
         },
     images: [ PRELOAD.getResult( 'enemy_kamikaze' ) ]
     };
 
-var ss = new createjs.SpriteSheet( spriteSheet );
-
-var enemy = new createjs.Sprite( ss );
+const ss = new createjs.SpriteSheet( spriteSheet );
+const enemy = new createjs.Sprite( ss );
 
     // origin in the middle of the image
 enemy.regX = width / 2;
@@ -74,7 +71,7 @@ enemy.regY = height / 2;
 
 enemy.gotoAndPlay("spawn");
 
-this.shape = enemy;
+return enemy;
 };
 
 

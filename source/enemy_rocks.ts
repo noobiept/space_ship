@@ -1,6 +1,11 @@
-import EnemyShip from "./enemy_ship.js";
+import EnemyShip, { EnemyShipArgs } from "./enemy_ship.js";
 import { PRELOAD, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2PolygonShape, SCALE, WORLD, b2Vec2 } from "./main.js";
 import { getRandomFloat } from "./utilities.js";
+
+
+export type EnemyRocksArgs = {
+    scale?: number
+} & EnemyShipArgs
 
 /*
     args = {
@@ -20,7 +25,11 @@ angleRadians: number;
 
 constructor( args )
 {
-    super(args.x, args.y)
+    super({
+        ...args,
+        width: 50,
+        height: 50
+    })
 
 if (typeof args.scale != "undefined" && $.isNumeric( args.scale ))
     {
@@ -46,13 +55,10 @@ this.shape = null;
 
 this.damage = args.damage;
 this.velocity = args.velocity;
-
-this.width = 50;
-this.height = 50;
 }
 
 
-makeShape()
+makeShape({ width, height, scale }: EnemyRocksArgs)
 {
 var speed = 0.2;
 
@@ -70,8 +76,8 @@ var spriteConfig = {
             }
         },
     frames: {
-        width: this.width,
-        height: this.height
+        width,
+        height
         },
     images: [ PRELOAD.getResult( 'enemy_rocks' ) ]
     };
@@ -80,22 +86,22 @@ var sprite = new createjs.SpriteSheet( spriteConfig );
 var rock = new createjs.Sprite( sprite );
 
     // origin in the middle of the image
-rock.regX = this.width / 2;
-rock.regY = this.height / 2;
+rock.regX = width / 2;
+rock.regY = height / 2;
 
-rock.scaleX = this.scale;
-rock.scaleY = this.scale;
+rock.scaleX = scale;
+rock.scaleY = scale;
 
     // don't update these variables before the scaling (they're are used in the config above, and the scaling is applied later)
-this.width *= this.scale;
-this.height *= this.scale;
+this.width *= scale;
+this.height *= scale;
 
     // it moves
 this.angleRadians = getRandomFloat( 0, 2 * Math.PI );
 
 rock.gotoAndPlay("spawn");
 
-this.shape = rock;
+return rock;
 };
 
 

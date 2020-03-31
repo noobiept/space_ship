@@ -13,7 +13,11 @@ export default class EnemyMoveHorizontally extends EnemyShip {
 
 constructor( args )
 {
-    super(args.x, args.y);
+    super({
+        ...args,
+        width: 20,
+        height: 20
+    });
 
 if ( typeof args.damage == 'undefined' )
     {
@@ -25,18 +29,12 @@ if ( typeof args.velocity == 'undefined' )
     args.velocity = 1;
     }
 
-this.shape = null;
-
 this.damage = args.damage;
 this.velocity = args.velocity;
-
-this.width = 20;
-this.height = 20;
-
 }
 
 
-makeShape()
+makeShape({ width, height })
 {
 var speed = 0.2;
 
@@ -60,26 +58,24 @@ var spriteSheet = {
         },
 
     frames: {
-
-        width: this.width,
-        height: this.height
+        width,
+        height
         },
 
     images: [ PRELOAD.getResult( 'enemy_move_horizontally' ) ]
     };
 
-var ss = new createjs.SpriteSheet( spriteSheet );
-
-var enemy = new createjs.Sprite( ss );
+const ss = new createjs.SpriteSheet( spriteSheet );
+const enemy = new createjs.Sprite( ss );
 
 
     // origin in the middle of the image
-enemy.regX = this.width / 2;
-enemy.regY = this.height / 2;
+enemy.regX = width / 2;
+enemy.regY = height / 2;
 
 enemy.gotoAndPlay("spawn");
 
-this.shape = enemy;
+return enemy;
 };
 
 

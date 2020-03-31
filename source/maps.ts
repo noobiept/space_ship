@@ -5,6 +5,7 @@ import { getRandomInt } from "./utilities.js";
 import EnemyShip from "./enemy_ship.js";
 import * as Music from "./music.js";
 import { MapType } from "./shared/types.js";
+import { EnemyMapping } from "./shared/constants.js";
 
 
 /*
@@ -177,7 +178,7 @@ if ( !this.NO_MORE_PHASES && this.CURRENT_MAP_TICK >= phase.tick )
     if ( $.type( phase.enemyType ) == 'string' )
         {
             // get the variable/reference from a string (the class, for example a reference to EnemyKamikaze)
-        enemyType = window[ phase.enemyType ];
+        enemyType = EnemyMapping[phase.enemyType];
         }
 
     else
@@ -189,7 +190,6 @@ if ( !this.NO_MORE_PHASES && this.CURRENT_MAP_TICK >= phase.tick )
 
         // other information
     var howMany = parseInt( phase.howMany );
-
     var damage;
 
         // see if there's a specific damage set for this type

@@ -195,8 +195,10 @@ updateShape()
 {
 this.shape.rotation = this.body.GetAngle() * (180 / Math.PI);
 
-this.shape.x = this.body.GetWorldCenter().x * SCALE;
-this.shape.y = this.body.GetWorldCenter().y * SCALE;
+const bodyCenter = this.body.GetWorldCenter()
+
+this.shape.x = bodyCenter.x * SCALE;
+this.shape.y = bodyCenter.y * SCALE;
 };
 
 

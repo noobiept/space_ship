@@ -2,6 +2,17 @@ import { TYPE_ENEMY, STAGE, SCALE, b2Vec2, WORLD, GAME_WIDTH, GAME_HEIGHT, CATEG
 import * as ZIndex from './z_index.js'
 import * as GameStatistics from './game_statistics.js'
 
+
+
+export type EnemyShipArgs = {
+    x: number
+    y: number
+    width: number
+    height: number
+}
+
+
+
 /*
     Don't use directly, use as a base class, and write these functions:
 
@@ -33,8 +44,6 @@ import * as GameStatistics from './game_statistics.js'
         .fixDef
 
  */
-
-
 export default abstract class EnemyShip {
 
     static all = [];
@@ -53,13 +62,16 @@ export default abstract class EnemyShip {
     height: number;
     tick: (event) => void;  // this will point to spawningTick() or normalTick()
 
-constructor( x, y )
+constructor( args: EnemyShipArgs )
 {
+const {x, y, width, height} = args
+
 this.type = TYPE_ENEMY;
 
     // the number of ticks it takes until the enemy can start moving/firing/being killed
 this.spawnTicks_int = 20;
-
+this.width = width
+this.height = height
 
     // make the tick function deal with spawning the enemy
 this.tick = this.spawningTick;
@@ -67,10 +79,8 @@ EnemyShip.all_spawning.push( this );
 
 
     // draw the shape (spawn phase animation first)
-this.makeShape();
-
+this.shape = this.makeShape(args);
 this.setupPhysics();
-
 this.beforeAddToStage();
 
     // add to Container()
@@ -83,7 +93,7 @@ this.moveTo( x, y );
 }
 
 
-abstract makeShape();
+abstract makeShape(args: EnemyShipArgs);
 abstract setupPhysics();
 
 enemyBehaviour() {};
