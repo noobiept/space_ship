@@ -13,9 +13,9 @@ tick_max: number;
 damage: number;
 velocity: number;
 
-constructor( startingLevel )
+constructor()
 {
-    super({ startingLevel })
+    super()
 
     // the number of times a group of enemies is added
 this.map_length = 6;

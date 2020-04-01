@@ -251,8 +251,13 @@ if ( GAME_OBJECT )
 
 resetStuff();
 
-CANVAS.style.display = 'block';
-GAME_OBJECT = new MAP_MODE( startingLevel );
+CANVAS.style.display = 'block'; //HERE
+GAME_OBJECT = new MAP_MODE();
+
+//HERE
+if ( GAME_OBJECT.loadMap) {
+    GAME_OBJECT.loadMap(startingLevel);
+}
 }
 
 

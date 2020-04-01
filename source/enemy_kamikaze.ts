@@ -34,8 +34,6 @@ if ( typeof args.velocity == 'undefined' )
     }
 
 
-this.shape = null;
-
 this.damage = args.damage;
 this.velocity = args.velocity;
 }

@@ -25,36 +25,18 @@ angleRadians: number;
 
 constructor( args )
 {
+    const scale = args.scale ?? 1;
+
     super({
         ...args,
         width: 50,
-        height: 50
+        height: 50,
+        scale
     })
 
-if (typeof args.scale != "undefined" && $.isNumeric( args.scale ))
-    {
-    this.scale = args.scale;
-    }
-
-else
-    {
-    this.scale = 1;
-    }
-
-if ( typeof args.damage == 'undefined' )
-    {
-    args.damage = 5;
-    }
-
-if ( typeof args.velocity == 'undefined' )
-    {
-    args.velocity = 1;
-    }
-
-this.shape = null;
-
-this.damage = args.damage;
-this.velocity = args.velocity;
+    this.scale = scale;
+    this.damage = args.damage ?? 5;
+    this.velocity = args.velocity ?? 1;
 }
 
 

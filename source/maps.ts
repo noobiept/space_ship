@@ -8,6 +8,11 @@ import { MapType } from "./shared/types.js";
 import { EnemyMapping } from "./shared/constants.js";
 
 
+export type MapsArgs = {
+    maps?
+}
+
+
 /*
     Base class for PredefinedMaps and RandomMaps
 
@@ -51,7 +56,7 @@ CURRENT_MAP_TICK: number;
 CURRENT_MAP_PHASE: number;
 NO_MORE_PHASES: boolean;
 
-constructor( args )
+constructor( args: MapsArgs = {} )
 {
 if ( typeof args.maps == 'undefined' )
     {
@@ -85,16 +90,6 @@ this.NO_MORE_PHASES = false;
 
     // start the game
 initGame();
-
-
-var startingLevel = 0;
-
-if ( typeof args.startingLevel != 'undefined' )
-    {
-    startingLevel = args.startingLevel;
-    }
-
-this.loadMap( startingLevel );
 }
 
 

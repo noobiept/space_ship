@@ -8,7 +8,7 @@ var MAPS = [];
 
 export default class PredefinedMaps extends Maps {
 
-constructor( startingLevel )
+constructor()
 {
 
 if ( MAPS.length == 0 )
@@ -19,6 +19,6 @@ if ( MAPS.length == 0 )
         }
     }
 
-    super({ maps: MAPS, startingLevel })
+    super({ maps: MAPS })
 }
 }
