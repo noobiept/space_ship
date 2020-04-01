@@ -44,7 +44,7 @@ export type EnemyShipArgs = {
         .fixDef
 
  */
-export default abstract class EnemyShip {
+export default abstract class EnemyShip<Args extends EnemyShipArgs> {
 
     static all = [];
     static all_spawning = [];
@@ -62,7 +62,7 @@ export default abstract class EnemyShip {
     height: number;
     tick: (event) => void;  // this will point to spawningTick() or normalTick()
 
-constructor( args: EnemyShipArgs )
+constructor( args: Args )
 {
 const {x, y, width, height} = args
 
@@ -93,7 +93,7 @@ this.moveTo( x, y );
 }
 
 
-abstract makeShape(args: EnemyShipArgs);
+abstract makeShape(args: Args);
 abstract setupPhysics();
 
 enemyBehaviour() {};

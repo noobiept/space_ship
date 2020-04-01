@@ -5,10 +5,22 @@ import { toRadians, outOfBounds } from './utilities.js'
 
 export type BulletArgs = {
     ship,
+    color: string
     angleRotation?: number,
     x?: number,
     y?: number,
 }
+
+
+export type AdditionalBulletArgs = {
+    width: number
+    height: number
+    damage: number
+    speed: number
+}
+
+
+
 
 /*
     Use as base class for all the bullet types
@@ -29,7 +41,7 @@ export type BulletArgs = {
 
         .shape
  */
-export default abstract class Bullet {
+export default abstract class Bullet<Args extends BulletArgs> {
 
 shape;
 shipObject;
@@ -40,31 +52,37 @@ damage: number;
 removed: boolean;
 width: number;
 height: number;
-
+color: string
+speed: number
+angleRotation: number
 
     // all the bullets (from the enemies or the main ship)
 static all_bullets = [];
 
-constructor( { angleRotation, ship, x, y }: BulletArgs )
+constructor( args: Args & AdditionalBulletArgs )
 {
-this.shape = null;
-this.shipObject = ship;
-this.type = TYPE_BULLET;
-this.damage = 10;
-this.removed = false;
-
-    if (typeof angleRotation === 'undefined') {
-        angleRotation = 0;
+    if (typeof args.angleRotation === 'undefined') {
+        args.angleRotation = args.ship.getRotation();
     }
 
-    // draw the bullet
-this.drawBullet( angleRotation );
+    let { angleRotation, ship, x, y, width, height, color, damage, speed } = args
 
-this.setupPhysics();
+this.shipObject = ship;
+this.type = TYPE_BULLET;
+this.damage = damage;
+this.speed = speed;
+this.removed = false;
+this.width = width
+this.height = height
+this.color = color
+this.angleRotation = angleRotation
+
+    // draw the bullet
+this.shape = this.drawBullet( args );
+this.setupPhysics( args );
 
 
 STAGE.addChild( this.shape );
-
 ZIndex.update();
 
 Bullet.all_bullets.push( this );
@@ -90,45 +108,42 @@ this.moveTo( x + addX, y + addY );
 }
 
 
-abstract drawBullet( angleRotation );
+abstract drawBullet( args: Args & AdditionalBulletArgs );
 
 
-setupPhysics()
+setupPhysics(args: Args & AdditionalBulletArgs)
 {
-var width = this.width;
-var height = this.height;
+const { width, height, ship } = args
 
     // physics
-var fixDef = new b2FixtureDef;
+const fixDef = new b2FixtureDef;
 
 fixDef.density = 1;
 fixDef.friction = 0.5;
 fixDef.restitution = 0.2;
-fixDef.filter.categoryBits = this.shipObject.category_bits;
-fixDef.filter.maskBits = this.shipObject.mask_bits;
+fixDef.filter.categoryBits = ship.category_bits;
+fixDef.filter.maskBits = ship.mask_bits;
 
     // so that it doesn't have a reaction when it collides (but we still need to detect the collision)
     // useful for example for the sniper, to be able to continue moving through
 fixDef.isSensor = true;
 
-
-var bodyDef = new b2BodyDef;
+const bodyDef = new b2BodyDef;
 
 bodyDef.type = b2Body.b2_dynamicBody;
-
 bodyDef.position.x = 0;
 bodyDef.position.y = 0;
 
-fixDef.shape = new b2PolygonShape;
+const shape = new b2PolygonShape;
 
     // arguments: half width, half height
-fixDef.shape.SetAsBox( width / 2 / SCALE, height / 2 / SCALE );
+shape.SetAsBox( width / 2 / SCALE, height / 2 / SCALE );
+fixDef.shape = shape;
 
-var body = WORLD.CreateBody( bodyDef );
+const body = WORLD.CreateBody( bodyDef );
 
 body.CreateFixture( fixDef );
 body.SetBullet( true );
-
 body.SetUserData( this );
 
 this.body = body;
@@ -191,7 +206,6 @@ this.remove();
 rotate( degrees )
 {
 this.shape.rotation = degrees;
-
 this.body.SetAngle( degrees * Math.PI / 180 );
 };
 

@@ -6,51 +6,41 @@ export type Bullet2_sniperArgs = {
     color: string
 } & BulletArgs
 
-export default class Bullet2_sniper extends Bullet {
+export default class Bullet2_sniper extends Bullet<Bullet2_sniperArgs> {
 
-color;
-speed;
 
 constructor( args: Bullet2_sniperArgs )
 {
-    super( args);
-
-    let { angleRotation, ship, color } = args
-this.width = 10;
-this.height = 2;
-this.color = color;
-
-if ( typeof angleRotation == 'undefined' )
-    {
-    angleRotation = ship.getRotation();
-    }
+    super({
+        ...args,
+        width: 10,
+        height:  2,
+        damage: 40,
+        speed: 40,
+    });
 
 
-this.damage = 40;
-this.speed = 40;
 
-applyImpulse( this.body, angleRotation, this.speed * this.body.GetMass() );
+applyImpulse( this.body, this.angleRotation, this.speed * this.body.GetMass() );
 }
 
 
-drawBullet( angleRotation )
+drawBullet( args )
 {
-var width = this.width;
-var height = this.height;
+    const { width, height, angleRotation, color } = args
 
-var sniper = new createjs.Shape();
+const sniper = new createjs.Shape();
 
 sniper.regX = width / 2;
 sniper.regY = height / 2;
 sniper.rotation = angleRotation;
 
-var g = sniper.graphics;
+const g = sniper.graphics;
 
-g.beginFill( this.color );
+g.beginFill( color );
 g.drawRect( 0, 0, width, height );
 
-
-this.shape = sniper;
+return sniper;
 };
 
 

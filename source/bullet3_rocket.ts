@@ -7,55 +7,44 @@ export type Bullet3_rocketArgs = {
 } & BulletArgs
 
 
-export default class Bullet3_rocket extends Bullet {
+export default class Bullet3_rocket extends Bullet<Bullet3_rocketArgs> {
 
 speed: number;
 color;
 
 constructor( args: Bullet3_rocketArgs )
 {
-    super(args)
+    super({
+        ...args,
+        width: 15,
+        height: 7,
+        damage: 20,
+        speed: 9
+    })
 
-    let { color, angleRotation, ship} = args
-
-this.width = 15;
-this.height = 7;
-this.color = color;
-
-if ( typeof angleRotation == 'undefined' )
-    {
-    angleRotation = ship.getRotation();
-    }
-
-
-this.damage = 20;
-this.speed = 9;
-
-applyImpulse( this.body, angleRotation, this.speed * this.body.GetMass() );
+applyImpulse( this.body, this.angleRotation, this.speed * this.body.GetMass() );
 }
 
 
 
-drawBullet( angleRotation )
+drawBullet( args )
 {
-var width = this.width;
-var height = this.height;
+    const { width, height, angleRotation, color } = args
 
-var rocket = new createjs.Shape();
+const rocket = new createjs.Shape();
 
 rocket.regX = width / 2;
 rocket.regY = height / 2;
 rocket.rotation = angleRotation;
 
-var g = rocket.graphics;
+const g = rocket.graphics;
 
-g.beginFill( this.color );
+g.beginFill( color );
 g.drawRect( 0, 0, width / 2, height );
 g.moveTo( width / 2, 0 );
 g.bezierCurveTo( width, 0, width, height, width / 2, height );
 
-
-this.shape = rocket;
+return rocket;
 };
 
 

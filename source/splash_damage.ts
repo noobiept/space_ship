@@ -11,8 +11,7 @@ export type SplashDamageArgs = {
 /*
     The splash damage starts with radius of 1, then expands until it reaches the maximum value, then back again until 1, before being removed
  */
-export default class SplashDamage extends Bullet {
-
+export default class SplashDamage extends Bullet<SplashDamageArgs> {
 
     splashDuration;
     radiusPerTick: number;
@@ -26,9 +25,17 @@ export default class SplashDamage extends Bullet {
 
 constructor ( args: SplashDamageArgs )
 {
-    super( args);
+    const radius  = 1
 
-    const { color, splashDuration, maxRadius, x, y} = args
+    super({
+        ...args,
+        width: radius * 2,
+        height: radius * 2,
+        damage: 5,
+        speed: 0
+    });
+
+    const { splashDuration, maxRadius, x, y} = args
 
     // duration (in number of ticks) of the splash damage (for that time, any ship that goes into that area takes damage. after that, the splash is removed)
 this.splashDuration = splashDuration;
@@ -40,13 +47,7 @@ this.radiusPerTick = 2 * maxRadius / splashDuration;
 
 
     // start with radius of 1, and grow from there
-this.radius = 1;
-
-this.width = this.radius * 2;
-this.height = this.radius * 2;
-
-this.color = color;
-this.damage = 5;
+this.radius = radius;
 this.type = TYPE_BULLET;
 this.countTick = 0;
 
@@ -58,16 +59,16 @@ this.moveTo( x, y );
 
 
 
-drawBullet()
+drawBullet(args)
 {
-var radius = this.radius;
-var shape = new createjs.Shape();
-var g = shape.graphics;
+const { radius, color } = args
+const shape = new createjs.Shape();
+const g = shape.graphics;
 
-g.beginFill( this.color );
+g.beginFill( color );
 g.drawCircle( 0, 0, radius );
 
-this.shape = shape;
+return shape;
 };
 
 

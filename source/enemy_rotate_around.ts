@@ -1,17 +1,13 @@
-import EnemyShip from "./enemy_ship.js";
+import EnemyShip, { EnemyShipArgs } from "./enemy_ship.js";
 import { PRELOAD, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2CircleShape, SCALE, WORLD, MAIN_SHIP, b2Vec2 } from "./main.js";
 import { calculateAngleBetweenObjects } from "./utilities.js";
 import Bullet1_laser from "./bullet1_laser.js";
 
-/*
-    args = {
-        x: Number,
-        y: Number,
-        damage: Number,     (optional)
-        velocity: Number    (optional)
-    }
- */
-export default class EnemyRotateAround extends EnemyShip {
+
+
+export type EnemyRotateAroundArgs = {} & EnemyShipArgs
+
+export default class EnemyRotateAround extends EnemyShip<EnemyRotateAroundArgs> {
 
 ticksUntilNextBullet: number;
 countTicks: number;

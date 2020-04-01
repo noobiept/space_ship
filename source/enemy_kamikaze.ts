@@ -1,6 +1,9 @@
-import EnemyShip from "./enemy_ship.js";
+import EnemyShip, { EnemyShipArgs } from "./enemy_ship.js";
 import { PRELOAD, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2CircleShape, SCALE, WORLD, MAIN_SHIP, b2Vec2 } from "./main.js";
 import { calculateAngleBetweenObjects, toRadians } from "./utilities.js";
+
+
+export type EnemyKamikazeArgs = {} & EnemyShipArgs
 
 /*
     args = {
@@ -10,7 +13,7 @@ import { calculateAngleBetweenObjects, toRadians } from "./utilities.js";
         velocity: Number    (optional)
     }
  */
-export default class EnemyKamikaze extends EnemyShip {
+export default class EnemyKamikaze extends EnemyShip<EnemyKamikazeArgs> {
 
 constructor( args )
 {

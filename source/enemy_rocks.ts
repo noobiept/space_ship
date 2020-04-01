@@ -18,7 +18,7 @@ export type EnemyRocksArgs = {
 
         - scale: scale the original image (1 -> 100%, no scaling)
  */
-export default class EnemyRocks extends EnemyShip {
+export default class EnemyRocks extends EnemyShip<EnemyRocksArgs> {
 
 scale: number;
 angleRadians: number;
@@ -122,24 +122,20 @@ fixDef.filter.maskBits = MASK.enemy_spawning;
 this.category_bits = CATEGORY.enemy_spawning;
 this.mask_bits = MASK.enemy_spawning;
 
-
-var bodyDef = new b2BodyDef;
+const bodyDef = new b2BodyDef;
 
 bodyDef.type = b2Body.b2_dynamicBody;
-
 bodyDef.position.x = 0;
 bodyDef.position.y = 0;
 
-fixDef.shape = new b2PolygonShape;
+const shape = new b2PolygonShape;
 
-    // arguments: half width, half height
-fixDef.shape.SetAsBox( width / 2 / SCALE, height / 2 / SCALE );
+// arguments: half width, half height
+shape.SetAsBox( width / 2 / SCALE, height / 2 / SCALE );
+fixDef.shape = shape
 
-var body = WORLD.CreateBody( bodyDef );
-
+const body = WORLD.CreateBody( bodyDef );
 body.CreateFixture( fixDef );
-
-
 body.SetUserData( this );
 
 this.body = body;

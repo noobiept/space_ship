@@ -12,7 +12,7 @@ export type Bullet4_minesArgs = {
     color: string
 } & BulletArgs
 
-export default class Bullet4_mines extends Bullet {
+export default class Bullet4_mines extends Bullet<Bullet4_minesArgs> {
 
     speed;
     angle;
@@ -22,14 +22,13 @@ export default class Bullet4_mines extends Bullet {
 
 constructor(args: Bullet4_minesArgs)
 {
-    super(args);
-
-this.width = 15;
-this.height = 15;
-this.color = args.color;
-
-this.speed = 0;
-this.damage = 50;
+    super({
+        ...args,
+        width: 15,
+        height: 15,
+        damage: 50,
+        speed: 0
+    });
 
     // count the ticks, and when it reaches 0 remove the mine
 this.countTick = REMOVE_TICK;
@@ -41,27 +40,24 @@ this.angleTick = ANGLE_TICK;
 }
 
 
-drawBullet( angleRotation )
+drawBullet( args )
 {
-var width = this.width;
-var height = this.height;
+    const { width, height, angleRotation, color, angle } = args
 
-var mine = new createjs.Shape();
+const mine = new createjs.Shape();
 
 mine.regX = width / 2;
 mine.regY = height / 2;
 mine.rotation = angleRotation;
 
-var g = mine.graphics;
+const g = mine.graphics;
+const halfPoint = width / 2;  // width is same as height
 
-var halfPoint = width / 2;  // width is same as height
-
-g.beginFill( this.color );
-g.drawPolyStar( halfPoint, halfPoint, halfPoint, 5, 0.5, this.angle );
+g.beginFill( color );
+g.drawPolyStar( halfPoint, halfPoint, halfPoint, 5, 0.5, angle );
 g.drawCircle( halfPoint, halfPoint, 4 / 6 * halfPoint );
 
-
-this.shape = mine;
+return mine;
 };
 
 

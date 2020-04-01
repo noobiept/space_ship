@@ -1,15 +1,11 @@
-import EnemyShip from "./enemy_ship.js";
+import EnemyShip, { EnemyShipArgs } from "./enemy_ship.js";
 import { PRELOAD, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2PolygonShape, SCALE, WORLD, b2Vec2 } from "./main.js";
 
-/*
-    args = {
-        x: Number,
-        y: Number,
-        damage: Number,     (optional)
-        velocity: Number    (optional)
-    }
- */
-export default class EnemyMoveHorizontally extends EnemyShip {
+
+export type EnemyMoveHorizontallyArgs = {} & EnemyShipArgs
+
+
+export default class EnemyMoveHorizontally extends EnemyShip<EnemyMoveHorizontallyArgs> {
 
 constructor( args )
 {
@@ -105,22 +101,20 @@ bodyDef.type = b2Body.b2_dynamicBody;
 bodyDef.position.x = 0;
 bodyDef.position.y = 0;
 
-fixDef.shape = new b2PolygonShape;
+const shape = new b2PolygonShape;
 
-    // arguments: half width, half height
-fixDef.shape.SetAsBox( width / 2 / SCALE, height / 2 / SCALE );
+// arguments: half width, half height
+shape.SetAsBox( width / 2 / SCALE, height / 2 / SCALE );
+fixDef.shape = shape
 
-var body = WORLD.CreateBody( bodyDef );
+const body = WORLD.CreateBody( bodyDef );
 
 body.CreateFixture( fixDef );
-
-
 body.SetUserData( this );
 
 this.body = body;
 this.fixDef = fixDef;
 };
-
 
 
 afterSpawn()

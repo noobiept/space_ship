@@ -7,59 +7,40 @@ export type Bullet1_laserArgs  = {
     color: string
 } & BulletArgs
 
-export default class Bullet1_laser extends Bullet {
+export default class Bullet1_laser extends Bullet<Bullet1_laserArgs> {
 
-color;
-speed: number;
-
-constructor( args: Bullet1_laserArgs )
+constructor( args )
 {
-    super(args)
-
-    let { ship, damage, color, angleRotation } = args
-
-if ( typeof damage == 'undefined' )
-    {
-    damage = 10;
-    }
-
-this.width = 4;
-this.height = 2;
-this.color = color;
-
-if ( typeof angleRotation == 'undefined' )
-    {
-    angleRotation = ship.getRotation();
-    }
+    super({
+        ...args,
+        width: 4,
+        height: 2,
+        damage: args.damage ?? 10,
+        speed: 14
+    })
 
 
-
-this.damage = damage;
-this.speed = 14;
-
-
-applyImpulse( this.body, angleRotation, this.speed * this.body.GetMass() );
+applyImpulse( this.body, this.angleRotation, this.speed * this.body.GetMass() );
 }
 
 
 
-drawBullet( angleRotation )
+drawBullet( args )
 {
-var width = this.width;
-var height = this.height;
+    const { width, height, angleRotation, color } = args
 
-var laser = new createjs.Shape();
+const laser = new createjs.Shape();
 
 laser.regX = width / 2;
 laser.regY = height / 2;
 laser.rotation = angleRotation;
 
-var g = laser.graphics;
+const g = laser.graphics;
 
-g.beginFill( this.color );
+g.beginFill( color );
 g.drawRect( 0, 0, width, height );
 
 
-this.shape = laser;
+return laser;
 }
 }
