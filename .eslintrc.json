@@ -5,6 +5,6 @@
     },
     "extends": "eslint:recommended",
     "rules": {
-        "no-unused-vars": [ 2, { "args": "none" } ]
+        "no-unused-vars": [2, { "args": "none" }]
     }
 }

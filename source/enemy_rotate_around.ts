@@ -1,176 +1,166 @@
 import EnemyShip, { EnemyShipArgs } from "./enemy_ship.js";
-import { PRELOAD, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2CircleShape, SCALE, WORLD, MAIN_SHIP, b2Vec2 } from "./main.js";
+import {
+    PRELOAD,
+    b2FixtureDef,
+    CATEGORY,
+    MASK,
+    b2BodyDef,
+    b2Body,
+    b2CircleShape,
+    SCALE,
+    WORLD,
+    MAIN_SHIP,
+    b2Vec2,
+} from "./main.js";
 import { calculateAngleBetweenObjects } from "./utilities.js";
 import Bullet1_laser from "./bullet1_laser.js";
 
+export type EnemyRotateAroundArgs = {} & EnemyShipArgs;
 
+export default class EnemyRotateAround extends EnemyShip<
+    EnemyRotateAroundArgs
+> {
+    ticksUntilNextBullet: number;
+    countTicks: number;
 
-export type EnemyRotateAroundArgs = {} & EnemyShipArgs
+    constructor(args) {
+        super({
+            ...args,
+            width: 20,
+            height: 20,
+        });
 
-export default class EnemyRotateAround extends EnemyShip<EnemyRotateAroundArgs> {
+        if (typeof args.damage == "undefined") {
+            args.damage = 10;
+        }
 
-ticksUntilNextBullet: number;
-countTicks: number;
+        if (typeof args.velocity == "undefined") {
+            args.velocity = 1;
+        }
 
-constructor( args )
-{
-    super({
-        ...args,
-        width: 20,
-        height: 20
-    })
+        this.damage = args.damage;
+        this.velocity = args.velocity;
 
-if ( typeof args.damage == 'undefined' )
-    {
-    args.damage = 10;
+        this.ticksUntilNextBullet = 100;
+        this.countTicks = 0;
     }
 
-if ( typeof args.velocity == 'undefined' )
-    {
-    args.velocity = 1;
-    }
+    makeShape({ width, height }) {
+        const speed = 0.2;
+        const spriteSheet = {
+            animations: {
+                spawn: {
+                    frames: [0, 1, 2],
+                    next: "spawn",
+                    speed: speed,
+                },
 
-this.damage = args.damage;
-this.velocity = args.velocity;
-
-this.ticksUntilNextBullet = 100;
-this.countTicks = 0;
-}
-
-
-makeShape({ width, height })
-{
-const speed = 0.2;
-const spriteSheet = {
-
-    animations: {
-
-        spawn: {
-            frames: [0, 1, 2],
-            next: "spawn",
-            speed: speed
+                main: {
+                    frames: [3, 4],
+                    next: "main", // set up looping
+                    speed: speed,
+                },
             },
 
-        main: {
-            frames: [3, 4],
-            next: "main",    // set up looping
-            speed: speed
-            }
-        },
+            frames: {
+                width,
+                height,
+            },
 
-    frames: {
+            images: [PRELOAD.getResult("enemy_rotate_around")],
+        };
 
-        width,
-        height
-        },
+        const ss = new createjs.SpriteSheet(spriteSheet);
+        const enemy = new createjs.Sprite(ss);
 
-    images: [ PRELOAD.getResult( 'enemy_rotate_around' ) ]
+        // origin in the middle of the image
+        enemy.regX = width / 2;
+        enemy.regY = height / 2;
 
-    };
+        enemy.gotoAndPlay("spawn");
 
-const ss = new createjs.SpriteSheet( spriteSheet );
-const enemy = new createjs.Sprite( ss );
+        return enemy;
+    }
 
-    // origin in the middle of the image
-enemy.regX = width / 2;
-enemy.regY = height / 2;
+    setupPhysics() {
+        var width = this.width;
 
-enemy.gotoAndPlay("spawn");
+        // physics
+        var fixDef = new b2FixtureDef();
 
-return enemy;
-};
+        fixDef.density = 1;
+        fixDef.friction = 0.5;
+        fixDef.restitution = 0.2;
+        fixDef.filter.categoryBits = CATEGORY.enemy_spawning;
+        fixDef.filter.maskBits = MASK.enemy_spawning;
 
+        this.category_bits = CATEGORY.enemy_spawning;
+        this.mask_bits = MASK.enemy_spawning;
 
+        var bodyDef = new b2BodyDef();
 
-setupPhysics()
-{
-var width = this.width;
+        bodyDef.type = b2Body.b2_dynamicBody;
 
-    // physics
-var fixDef = new b2FixtureDef;
+        bodyDef.position.x = 0;
+        bodyDef.position.y = 0;
 
-fixDef.density = 1;
-fixDef.friction = 0.5;
-fixDef.restitution = 0.2;
-fixDef.filter.categoryBits = CATEGORY.enemy_spawning;
-fixDef.filter.maskBits = MASK.enemy_spawning;
+        fixDef.shape = new b2CircleShape(width / 2 / SCALE);
 
-this.category_bits = CATEGORY.enemy_spawning;
-this.mask_bits = MASK.enemy_spawning;
+        var body = WORLD.CreateBody(bodyDef);
 
+        body.CreateFixture(fixDef);
 
-var bodyDef = new b2BodyDef;
+        body.SetUserData(this);
 
-bodyDef.type = b2Body.b2_dynamicBody;
+        this.body = body;
+        this.fixDef = fixDef;
+    }
 
-bodyDef.position.x = 0;
-bodyDef.position.y = 0;
+    enemyBehaviour() {
+        var currentX = this.shape.x;
+        var currentY = this.shape.y;
 
-fixDef.shape = new b2CircleShape( width / 2 / SCALE );
+        // make a triangle from the position the ship is in, relative to the enemy position
+        var triangleOppositeSide = MAIN_SHIP.shape.y - currentY;
+        var triangleAdjacentSide = currentX - MAIN_SHIP.shape.x;
 
+        // find the angle, given the two sides (of a right triangle)
+        var angleRadians = Math.atan2(
+            triangleOppositeSide,
+            triangleAdjacentSide
+        );
 
-var body = WORLD.CreateBody( bodyDef );
+        var x = Math.sin(angleRadians) * this.velocity;
+        var y = Math.cos(angleRadians) * this.velocity;
 
-body.CreateFixture( fixDef );
+        this.body.SetLinearVelocity(new b2Vec2(x, y));
+    }
 
-
-body.SetUserData( this );
-
-this.body = body;
-this.fixDef = fixDef;
-};
-
-
-enemyBehaviour()
-{
-var currentX = this.shape.x;
-var currentY = this.shape.y;
-
-    // make a triangle from the position the ship is in, relative to the enemy position
-var triangleOppositeSide = MAIN_SHIP.shape.y - currentY;
-var triangleAdjacentSide = currentX - MAIN_SHIP.shape.x;
-
-
-
-    // find the angle, given the two sides (of a right triangle)
-var angleRadians = Math.atan2( triangleOppositeSide, triangleAdjacentSide );
-
-var x = Math.sin( angleRadians ) * this.velocity;
-var y = Math.cos( angleRadians ) * this.velocity;
-
-this.body.SetLinearVelocity( new b2Vec2( x, y ) );
-};
-
-
-
-
-/*
+    /*
     Gets called in the base class .tick() function
 
     Shoots the bullets
  */
-normalTick(event)
-{
-super.normalTick(event)
+    normalTick(event) {
+        super.normalTick(event);
 
-this.countTicks++;
+        this.countTicks++;
 
-    // fire a new bullet
-if (this.countTicks >= this.ticksUntilNextBullet)
-    {
-    this.countTicks = 0;
+        // fire a new bullet
+        if (this.countTicks >= this.ticksUntilNextBullet) {
+            this.countTicks = 0;
 
-    var angleRotation = calculateAngleBetweenObjects( this, MAIN_SHIP );
+            var angleRotation = calculateAngleBetweenObjects(this, MAIN_SHIP);
 
-        // we multiply by -1 because the .rotation property seems to have the angles in the other direction
-    angleRotation *= -1;
+            // we multiply by -1 because the .rotation property seems to have the angles in the other direction
+            angleRotation *= -1;
 
-    new Bullet1_laser({
-        ship: this,
-        color: 'red',
-        angleRotation,
-        damage: this.damage
-        });
+            new Bullet1_laser({
+                ship: this,
+                color: "red",
+                angleRotation,
+                damage: this.damage,
+            });
+        }
     }
-};
 }

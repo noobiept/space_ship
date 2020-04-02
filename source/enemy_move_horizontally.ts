@@ -1,126 +1,118 @@
 import EnemyShip, { EnemyShipArgs } from "./enemy_ship.js";
-import { PRELOAD, b2FixtureDef, CATEGORY, MASK, b2BodyDef, b2Body, b2PolygonShape, SCALE, WORLD, b2Vec2 } from "./main.js";
+import {
+    PRELOAD,
+    b2FixtureDef,
+    CATEGORY,
+    MASK,
+    b2BodyDef,
+    b2Body,
+    b2PolygonShape,
+    SCALE,
+    WORLD,
+    b2Vec2,
+} from "./main.js";
 
+export type EnemyMoveHorizontallyArgs = {} & EnemyShipArgs;
 
-export type EnemyMoveHorizontallyArgs = {} & EnemyShipArgs
+export default class EnemyMoveHorizontally extends EnemyShip<
+    EnemyMoveHorizontallyArgs
+> {
+    constructor(args) {
+        super({
+            ...args,
+            width: 20,
+            height: 20,
+        });
 
+        if (typeof args.damage == "undefined") {
+            args.damage = 10;
+        }
 
-export default class EnemyMoveHorizontally extends EnemyShip<EnemyMoveHorizontallyArgs> {
+        if (typeof args.velocity == "undefined") {
+            args.velocity = 1;
+        }
 
-constructor( args )
-{
-    super({
-        ...args,
-        width: 20,
-        height: 20
-    });
-
-if ( typeof args.damage == 'undefined' )
-    {
-    args.damage = 10;
+        this.damage = args.damage;
+        this.velocity = args.velocity;
     }
 
-if ( typeof args.velocity == 'undefined' )
-    {
-    args.velocity = 1;
-    }
+    makeShape({ width, height }) {
+        var speed = 0.2;
 
-this.damage = args.damage;
-this.velocity = args.velocity;
-}
+        var spriteSheet = {
+            animations: {
+                spawn: {
+                    frames: [0, 1, 2],
+                    next: "spawn",
+                    speed: speed,
+                },
 
-
-makeShape({ width, height })
-{
-var speed = 0.2;
-
-var spriteSheet = {
-
-    animations: {
-
-        spawn: {
-            frames: [ 0, 1, 2 ],
-            next: "spawn",
-            speed: speed
+                main: {
+                    frames: [3, 4],
+                    next: "main",
+                    speed: speed,
+                },
             },
 
-        main: {
+            frames: {
+                width,
+                height,
+            },
 
-            frames: [ 3, 4 ],
-            next: "main",
-            speed: speed
-            }
+            images: [PRELOAD.getResult("enemy_move_horizontally")],
+        };
 
-        },
+        const ss = new createjs.SpriteSheet(spriteSheet);
+        const enemy = new createjs.Sprite(ss);
 
-    frames: {
-        width,
-        height
-        },
+        // origin in the middle of the image
+        enemy.regX = width / 2;
+        enemy.regY = height / 2;
 
-    images: [ PRELOAD.getResult( 'enemy_move_horizontally' ) ]
-    };
+        enemy.gotoAndPlay("spawn");
 
-const ss = new createjs.SpriteSheet( spriteSheet );
-const enemy = new createjs.Sprite( ss );
+        return enemy;
+    }
 
+    setupPhysics() {
+        var width = this.width;
+        var height = this.height;
 
-    // origin in the middle of the image
-enemy.regX = width / 2;
-enemy.regY = height / 2;
+        // physics
+        var fixDef = new b2FixtureDef();
 
-enemy.gotoAndPlay("spawn");
+        fixDef.density = 1;
+        fixDef.friction = 0.5;
+        fixDef.restitution = 0.2;
+        fixDef.filter.categoryBits = CATEGORY.enemy_spawning;
+        fixDef.filter.maskBits = MASK.enemy_spawning;
 
-return enemy;
-};
+        this.category_bits = CATEGORY.enemy_spawning;
+        this.mask_bits = MASK.enemy_spawning;
 
+        var bodyDef = new b2BodyDef();
 
+        bodyDef.type = b2Body.b2_dynamicBody;
 
-setupPhysics()
-{
-var width = this.width;
-var height = this.height;
+        bodyDef.position.x = 0;
+        bodyDef.position.y = 0;
 
-    // physics
-var fixDef = new b2FixtureDef;
+        const shape = new b2PolygonShape();
 
-fixDef.density = 1;
-fixDef.friction = 0.5;
-fixDef.restitution = 0.2;
-fixDef.filter.categoryBits = CATEGORY.enemy_spawning;
-fixDef.filter.maskBits = MASK.enemy_spawning;
+        // arguments: half width, half height
+        shape.SetAsBox(width / 2 / SCALE, height / 2 / SCALE);
+        fixDef.shape = shape;
 
-this.category_bits = CATEGORY.enemy_spawning;
-this.mask_bits = MASK.enemy_spawning;
+        const body = WORLD.CreateBody(bodyDef);
 
+        body.CreateFixture(fixDef);
+        body.SetUserData(this);
 
-var bodyDef = new b2BodyDef;
+        this.body = body;
+        this.fixDef = fixDef;
+    }
 
-bodyDef.type = b2Body.b2_dynamicBody;
-
-bodyDef.position.x = 0;
-bodyDef.position.y = 0;
-
-const shape = new b2PolygonShape;
-
-// arguments: half width, half height
-shape.SetAsBox( width / 2 / SCALE, height / 2 / SCALE );
-fixDef.shape = shape
-
-const body = WORLD.CreateBody( bodyDef );
-
-body.CreateFixture( fixDef );
-body.SetUserData( this );
-
-this.body = body;
-this.fixDef = fixDef;
-};
-
-
-afterSpawn()
-{
-this.body.SetLinearVelocity( new b2Vec2( this.velocity, 0 ) );
-};
-
-
+    afterSpawn() {
+        this.body.SetLinearVelocity(new b2Vec2(this.velocity, 0));
+    }
 }

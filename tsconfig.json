@@ -6,5 +6,5 @@
         "sourceMap": true,
         "allowSyntheticDefaultImports": true
     },
-    "include": [ "source/**/*"]
+    "include": ["source/**/*"]
 }

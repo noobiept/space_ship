@@ -1,38 +1,41 @@
-import * as Options from './options.js'
-import * as GameStatistics from './game_statistics.js'
-import * as ZIndex from './z_index.js'
-import * as MainMenu from './main_menu.js'
-import * as AppStorage from './app_storage.js'
-import * as GameMenu from './game_menu.js'
-import Message from './message.js'
-import Music from './music.js'
-import EnemyMoveHorizontally from './enemy_move_horizontally.js'
-import EnemyRotateAround from './enemy_rotate_around.js'
-import EnemyKamikaze from './enemy_kamikaze.js'
-import EnemyRocks from './enemy_rocks.js'
-import Ship from './ship.js'
-import { handleKeyDown, handleKeyUp, clearKeysHeld } from './keyboard_events.js'
-import EnemyShip from './enemy_ship.js'
-import Bullet from './bullet.js'
-import { MapType } from './shared/types.js'
-import { hideElement, showElement } from './utilities.js'
+import * as Options from "./options.js";
+import * as GameStatistics from "./game_statistics.js";
+import * as ZIndex from "./z_index.js";
+import * as MainMenu from "./main_menu.js";
+import * as AppStorage from "./app_storage.js";
+import * as GameMenu from "./game_menu.js";
+import Message from "./message.js";
+import Music from "./music.js";
+import EnemyMoveHorizontally from "./enemy_move_horizontally.js";
+import EnemyRotateAround from "./enemy_rotate_around.js";
+import EnemyKamikaze from "./enemy_kamikaze.js";
+import EnemyRocks from "./enemy_rocks.js";
+import Ship from "./ship.js";
+import {
+    handleKeyDown,
+    handleKeyUp,
+    clearKeysHeld,
+} from "./keyboard_events.js";
+import EnemyShip from "./enemy_ship.js";
+import Bullet from "./bullet.js";
+import { MapType } from "./shared/types.js";
+import { hideElement, showElement } from "./utilities.js";
 
-
-    // global variables
+// global variables
 
 export var CANVAS;
 var CANVAS_DEBUG;
 
 var DEBUG = false;
 
-var BASE_URL = '';
+var BASE_URL = "";
 
-    // createjs
+// createjs
 
 export var STAGE;
 export var PRELOAD;
 
-    // box2d physics
+// box2d physics
 
 export const b2Vec2 = Box2D.Common.Math.b2Vec2;
 export const b2BodyDef = Box2D.Dynamics.b2BodyDef;
@@ -45,13 +48,12 @@ export const b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
 export const b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
 export const b2ContactListener = Box2D.Dynamics.b2ContactListener;
 
-    // scale from meters/kilograms/seconds into pixels
+// scale from meters/kilograms/seconds into pixels
 export const SCALE = 30;
 
 export var WORLD = null;
 
-
-    // playable dimensions (the rest of the canvas is for menus/etc)
+// playable dimensions (the rest of the canvas is for menus/etc)
 export var GAME_WIDTH;
 export var GAME_HEIGHT;
 
@@ -61,473 +63,406 @@ export const ENEMY_TYPES = [
     EnemyMoveHorizontally,
     EnemyRotateAround,
     EnemyKamikaze,
-    EnemyRocks
-    ];
-
+    EnemyRocks,
+];
 
 var MAP_MODE = null;
 var GAME_OBJECT = null;
 
-    // :: Collision Detection :: //
+// :: Collision Detection :: //
 
-    // objects identification (for the collision detection)
+// objects identification (for the collision detection)
 export const TYPE_SHIP = 0;
 export const TYPE_ENEMY = 1;
 export const TYPE_BULLET = 2;
 
-    // has functions to be called later (related to a collision). Have to remove the elements after executing the function
+// has functions to be called later (related to a collision). Have to remove the elements after executing the function
 var COLLISION_F = [];
 
-
-    // categories
+// categories
 export const CATEGORY = {
-    ship: 1,          // 0001
-    enemy: 2,           // 0010
-    enemy_spawning: 4   // 0100
-    };
+    ship: 1, // 0001
+    enemy: 2, // 0010
+    enemy_spawning: 4, // 0100
+};
 
 export const MASK = {
-    ship: CATEGORY.enemy,   // ship can collide with enemies
-    enemy: CATEGORY.ship,   // enemies can collide with the ship
-    enemy_spawning: 0,      // doesn't collide with anything, during the spawn phase
-    dontCollide: 0
-    };
-
+    ship: CATEGORY.enemy, // ship can collide with enemies
+    enemy: CATEGORY.ship, // enemies can collide with the ship
+    enemy_spawning: 0, // doesn't collide with anything, during the spawn phase
+    dontCollide: 0,
+};
 
 var LOADING_MESSAGE;
 
-window.onload = function()
-{
-AppStorage.getData( [ 'space_ship_options' ], initApp );
+window.onload = function () {
+    AppStorage.getData(["space_ship_options"], initApp);
 };
 
-
-function initApp( data )
-{
-Options.load( data[ 'space_ship_options' ] );
-MainMenu.init();
+function initApp(data) {
+    Options.load(data["space_ship_options"]);
+    MainMenu.init();
 
     // get a reference to the canvas we'll be working with
-CANVAS = document.querySelector( "#mainCanvas" );
+    CANVAS = document.querySelector("#mainCanvas");
 
     // canvas for debugging the physics
-CANVAS_DEBUG = document.querySelector( '#debugCanvas' );
+    CANVAS_DEBUG = document.querySelector("#debugCanvas");
 
     // create a stage object to work with the canvas. This is the top level node in the display list
-STAGE = new createjs.Stage( CANVAS );
+    STAGE = new createjs.Stage(CANVAS);
 
-WORLD = new b2World(
-    new b2Vec2(0, 0),   // zero-gravity
-    true                // allow sleep
+    WORLD = new b2World(
+        new b2Vec2(0, 0), // zero-gravity
+        true // allow sleep
     );
 
+    createjs.Ticker.setInterval(50);
 
-createjs.Ticker.setInterval( 50 );
-
-if ( DEBUG )
-    {
-    showElement(CANVAS_DEBUG);
-    centerCanvas( CANVAS_DEBUG );
+    if (DEBUG) {
+        showElement(CANVAS_DEBUG);
+        centerCanvas(CANVAS_DEBUG);
 
         // setup debug draw
-    var debugDraw = new b2DebugDraw();
+        var debugDraw = new b2DebugDraw();
 
-    debugDraw.SetSprite( CANVAS_DEBUG.getContext('2d') );
-    debugDraw.SetDrawScale( SCALE );
-    debugDraw.SetFillAlpha(0.4);
-    debugDraw.SetLineThickness(1);
-    debugDraw.SetFlags( b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit );
+        debugDraw.SetSprite(CANVAS_DEBUG.getContext("2d"));
+        debugDraw.SetDrawScale(SCALE);
+        debugDraw.SetFillAlpha(0.4);
+        debugDraw.SetLineThickness(1);
+        debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
 
-    WORLD.SetDebugDraw( debugDraw );
+        WORLD.SetDebugDraw(debugDraw);
     }
 
+    PRELOAD = new createjs.LoadQueue();
 
-PRELOAD = new createjs.LoadQueue();
+    var manifest = [
+        { id: "level1", src: BASE_URL + "maps/level1.json" },
+        { id: "level2", src: BASE_URL + "maps/level2.json" },
+        { id: "level3", src: BASE_URL + "maps/level3.json" },
+        { id: "level4", src: BASE_URL + "maps/level4.json" },
+        { id: "level5", src: BASE_URL + "maps/level5.json" },
+        { id: "level6", src: BASE_URL + "maps/level6.json" },
+        { id: "level7", src: BASE_URL + "maps/level7.json" },
+        { id: "level8", src: BASE_URL + "maps/level8.json" },
+        { id: "level9", src: BASE_URL + "maps/level9.json" },
+        { id: "level10", src: BASE_URL + "maps/level10.json" },
 
-var manifest = [
-    { id: "level1",                  src: BASE_URL + "maps/level1.json" },
-    { id: "level2",                  src: BASE_URL + "maps/level2.json" },
-    { id: "level3",                  src: BASE_URL + "maps/level3.json" },
-    { id: "level4",                  src: BASE_URL + "maps/level4.json" },
-    { id: "level5",                  src: BASE_URL + "maps/level5.json" },
-    { id: "level6",                  src: BASE_URL + "maps/level6.json" },
-    { id: "level7",                  src: BASE_URL + "maps/level7.json" },
-    { id: "level8",                  src: BASE_URL + "maps/level8.json" },
-    { id: "level9",                  src: BASE_URL + "maps/level9.json" },
-    { id: "level10",                 src: BASE_URL + "maps/level10.json" },
+        { id: "scumm_bar", src: BASE_URL + "sound/scumm_bar.ogg" },
+        { id: "space_ship_1", src: BASE_URL + "sound/space_ship_1.ogg" },
+        { id: "dry_fire", src: BASE_URL + "sound/dry_fire.ogg" },
 
-    { id: "scumm_bar",               src: BASE_URL + "sound/scumm_bar.ogg" },
-    { id: "space_ship_1",            src: BASE_URL + "sound/space_ship_1.ogg" },
-    { id: "dry_fire",                src: BASE_URL + "sound/dry_fire.ogg" },
-
-    { id: 'enemy_move_horizontally', src: BASE_URL + 'images/enemy_move_horizontally.png' },
-    { id: 'enemy_rocks',             src: BASE_URL + 'images/enemy_rocks.png' },
-    { id: 'enemy_rotate_around',     src: BASE_URL + 'images/enemy_rotate_around.png' },
-    { id: 'enemy_kamikaze',          src: BASE_URL + 'images/enemy_kamikaze.png' },
-    { id: 'ship',                    src: BASE_URL + 'images/ship.png' }
+        {
+            id: "enemy_move_horizontally",
+            src: BASE_URL + "images/enemy_move_horizontally.png",
+        },
+        { id: "enemy_rocks", src: BASE_URL + "images/enemy_rocks.png" },
+        {
+            id: "enemy_rotate_around",
+            src: BASE_URL + "images/enemy_rotate_around.png",
+        },
+        { id: "enemy_kamikaze", src: BASE_URL + "images/enemy_kamikaze.png" },
+        { id: "ship", src: BASE_URL + "images/ship.png" },
     ];
 
+    LOADING_MESSAGE = new Message({ text: "Loading", centerWindow: true });
 
-LOADING_MESSAGE = new Message({ text: 'Loading', centerWindow: true });
-
-PRELOAD.installPlugin( createjs.Sound );
-PRELOAD.addEventListener( 'progress', updateLoading );
-PRELOAD.addEventListener( 'complete', MainMenu.open );
-PRELOAD.loadManifest( manifest, true );
+    PRELOAD.installPlugin(createjs.Sound);
+    PRELOAD.addEventListener("progress", updateLoading);
+    PRELOAD.addEventListener("complete", MainMenu.open);
+    PRELOAD.loadManifest(manifest, true);
 }
 
-
-function updateLoading( event )
-{
-LOADING_MESSAGE.setText( "Loading " + ( event.progress*100 | 0 ) + "%" );
+function updateLoading(event) {
+    LOADING_MESSAGE.setText("Loading " + ((event.progress * 100) | 0) + "%");
 }
-
 
 export function removeLoadingMessage() {
-    if (LOADING_MESSAGE ) {
+    if (LOADING_MESSAGE) {
         LOADING_MESSAGE.remove();
         LOADING_MESSAGE = null;
     }
 }
 
+export function initGame() {
+    resetStuff();
 
-export function initGame()
-{
-resetStuff();
+    GameStatistics.start();
 
-GameStatistics.start();
+    GAME_WIDTH = CANVAS.width;
+    GAME_HEIGHT = CANVAS.height;
 
-
-GAME_WIDTH = CANVAS.width;
-GAME_HEIGHT = CANVAS.height;
-
-
-MAIN_SHIP = new Ship();
-
+    MAIN_SHIP = new Ship();
 
     // so that .tick() of EnemyShip/Ship/... is called automatically
-createjs.Ticker.on( 'tick', tick );
-
+    createjs.Ticker.on("tick", tick);
 
     // call update on the stage to make it render the current display list to the canvas
-STAGE.update();
-
+    STAGE.update();
 
     // set up collision detection
-var listener = new b2ContactListener;
+    var listener = new b2ContactListener();
 
-listener.BeginContact = collisionDetection;
+    listener.BeginContact = collisionDetection;
 
-WORLD.SetContactListener( listener );
-
+    WORLD.SetContactListener(listener);
 
     //register key functions
-document.onkeydown = handleKeyDown;
-document.onkeyup = handleKeyUp;
+    document.onkeydown = handleKeyDown;
+    document.onkeyup = handleKeyUp;
 
-new Music( 0 );
+    new Music(0);
 
-GameMenu.init();
+    GameMenu.init();
 }
 
 /**
     @param {Boolean} [fromPreviousLevel=false] restarting the game, starting at same level it was before
  */
-export function startGameMode( fromPreviousLevel?: boolean )
-{
-if ( typeof fromPreviousLevel == 'undefined' )
-    {
-    fromPreviousLevel = false;
+export function startGameMode(fromPreviousLevel?: boolean) {
+    if (typeof fromPreviousLevel == "undefined") {
+        fromPreviousLevel = false;
     }
 
-var startingLevel = 0;
+    var startingLevel = 0;
 
-if ( GAME_OBJECT )
-    {
-    if ( fromPreviousLevel )
-        {
-        startingLevel = GAME_OBJECT.CURRENT_MAP;
+    if (GAME_OBJECT) {
+        if (fromPreviousLevel) {
+            startingLevel = GAME_OBJECT.CURRENT_MAP;
         }
     }
 
-resetStuff();
+    resetStuff();
 
-showElement(CANVAS);
-GAME_OBJECT = new MAP_MODE();
+    showElement(CANVAS);
+    GAME_OBJECT = new MAP_MODE();
 
-//HERE
-if ( GAME_OBJECT.loadMap) {
-    GAME_OBJECT.loadMap(startingLevel);
+    //HERE
+    if (GAME_OBJECT.loadMap) {
+        GAME_OBJECT.loadMap(startingLevel);
+    }
 }
-}
 
-
-
-export function pause()
-{
-if ( MAIN_SHIP )
-    {
-    MAIN_SHIP.clearEvents();
+export function pause() {
+    if (MAIN_SHIP) {
+        MAIN_SHIP.clearEvents();
     }
 
-createjs.Ticker.setPaused( true );
+    createjs.Ticker.setPaused(true);
 }
 
-
-export function resume()
-{
-if ( MAIN_SHIP )
-    {
-    MAIN_SHIP.setEvents();
+export function resume() {
+    if (MAIN_SHIP) {
+        MAIN_SHIP.setEvents();
     }
 
-createjs.Ticker.setPaused( false );
+    createjs.Ticker.setPaused(false);
 }
-
 
 /*
     Called on 'BeginContact' between box2d bodies
 
     Warning: You cannot create/destroy Box2D entities inside these callbacks.
  */
-function collisionDetection( contact )
-{
-var objectA = contact.GetFixtureA().GetBody().GetUserData();
-var objectB = contact.GetFixtureB().GetBody().GetUserData();
+function collisionDetection(contact) {
+    var objectA = contact.GetFixtureA().GetBody().GetUserData();
+    var objectB = contact.GetFixtureB().GetBody().GetUserData();
 
-var typeA = objectA.type;
-var typeB = objectB.type;
+    var typeA = objectA.type;
+    var typeB = objectB.type;
 
-var shipObject;
-var enemyObject;
-var bulletObject;
+    var shipObject;
+    var enemyObject;
+    var bulletObject;
 
     // collision between the main ship and an enemy
-if ( (typeA === TYPE_SHIP && typeB === TYPE_ENEMY) ||
-     (typeB === TYPE_SHIP && typeA === TYPE_ENEMY) )
-    {
+    if (
+        (typeA === TYPE_SHIP && typeB === TYPE_ENEMY) ||
+        (typeB === TYPE_SHIP && typeA === TYPE_ENEMY)
+    ) {
         // determine which one is which
-    if ( typeA === TYPE_SHIP )
-        {
-        shipObject = objectA;
-        enemyObject = objectB;
-        }
-
-    else
-        {
-        shipObject = objectB;
-        enemyObject = objectA;
+        if (typeA === TYPE_SHIP) {
+            shipObject = objectA;
+            enemyObject = objectB;
+        } else {
+            shipObject = objectB;
+            enemyObject = objectA;
         }
 
         // already was added to the collision array (don't add the same collision twice)
-    if ( enemyObject.alreadyInCollision )
-        {
-        return;
+        if (enemyObject.alreadyInCollision) {
+            return;
         }
 
-    enemyObject.alreadyInCollision = true;
+        enemyObject.alreadyInCollision = true;
 
         // make it not collidable anymore
-    enemyObject.fixDef.mask_bits = MASK.dontCollide;
-    enemyObject.body.CreateFixture( enemyObject.fixDef );
+        enemyObject.fixDef.mask_bits = MASK.dontCollide;
+        enemyObject.body.CreateFixture(enemyObject.fixDef);
 
-    COLLISION_F.push(
-        function()
-            {
-            shipObject.tookDamage( enemyObject.damageGiven() );
+        COLLISION_F.push(function () {
+            shipObject.tookDamage(enemyObject.damageGiven());
 
             enemyObject.tookDamage();
-            }
-        );
+        });
     }
 
     // collision between the main ship and a bullet
-else if ( (typeA === TYPE_SHIP && typeB === TYPE_BULLET) ||
-          (typeB === TYPE_SHIP && typeA === TYPE_BULLET) )
-    {
+    else if (
+        (typeA === TYPE_SHIP && typeB === TYPE_BULLET) ||
+        (typeB === TYPE_SHIP && typeA === TYPE_BULLET)
+    ) {
         // determine which one is which
-    if ( typeA === TYPE_SHIP )
-        {
-        shipObject = objectA;
-        bulletObject = objectB;
+        if (typeA === TYPE_SHIP) {
+            shipObject = objectA;
+            bulletObject = objectB;
+        } else {
+            shipObject = objectB;
+            bulletObject = objectA;
         }
-
-    else
-        {
-        shipObject = objectB;
-        bulletObject = objectA;
-        }
-
 
         // already was added to the collision array (don't add the same collision twice)
-    if ( bulletObject.alreadyInCollision )
-        {
-        return;
+        if (bulletObject.alreadyInCollision) {
+            return;
         }
 
-    bulletObject.alreadyInCollision = true;
+        bulletObject.alreadyInCollision = true;
 
         // make it not collidable anymore
-    bulletObject.fixDef.mask_bits = MASK.dontCollide;
-    bulletObject.body.CreateFixture( bulletObject.fixDef );
+        bulletObject.fixDef.mask_bits = MASK.dontCollide;
+        bulletObject.body.CreateFixture(bulletObject.fixDef);
 
-    COLLISION_F.push(
-        function()
-            {
+        COLLISION_F.push(function () {
             bulletObject.collisionResponse();
 
-                // remove the EnemyShip
-            shipObject.tookDamage( bulletObject.damageGiven() );
-            }
-        );
+            // remove the EnemyShip
+            shipObject.tookDamage(bulletObject.damageGiven());
+        });
     }
 
     // collision between a bullet and an enemy
-else if ( (typeA === TYPE_BULLET && typeB === TYPE_ENEMY) ||
-          (typeB === TYPE_BULLET && typeA === TYPE_ENEMY) )
-    {
+    else if (
+        (typeA === TYPE_BULLET && typeB === TYPE_ENEMY) ||
+        (typeB === TYPE_BULLET && typeA === TYPE_ENEMY)
+    ) {
         // determine which one is which
-    if ( typeA === TYPE_BULLET )
-        {
-        bulletObject = objectA;
-        enemyObject = objectB;
-        }
-
-    else
-        {
-        bulletObject = objectB;
-        enemyObject = objectA;
+        if (typeA === TYPE_BULLET) {
+            bulletObject = objectA;
+            enemyObject = objectB;
+        } else {
+            bulletObject = objectB;
+            enemyObject = objectA;
         }
 
         // already was added to the collision array (don't add the same collision twice)
-    if ( enemyObject.alreadyInCollision )
-        {
-        return;
+        if (enemyObject.alreadyInCollision) {
+            return;
         }
 
-    enemyObject.alreadyInCollision = true;
+        enemyObject.alreadyInCollision = true;
 
         // make it not collidable anymore
-    enemyObject.fixDef.mask_bits = MASK.dontCollide;
-    enemyObject.body.CreateFixture( enemyObject.fixDef );
+        enemyObject.fixDef.mask_bits = MASK.dontCollide;
+        enemyObject.body.CreateFixture(enemyObject.fixDef);
 
-
-    COLLISION_F.push(
-        function()
-            {
+        COLLISION_F.push(function () {
             bulletObject.collisionResponse();
 
-                // remove the EnemyShip
-            enemyObject.tookDamage( bulletObject.damageGiven() );
-            }
-        );
+            // remove the EnemyShip
+            enemyObject.tookDamage(bulletObject.damageGiven());
+        });
     }
 }
-
 
 /*
     center the canvas in the middle of window
  */
 
-function centerCanvas( canvasElement )
-{
-var left = window.innerWidth / 2 - canvasElement.width / 2;
-var top = window.innerHeight / 2 - canvasElement.height / 2;
+function centerCanvas(canvasElement) {
+    var left = window.innerWidth / 2 - canvasElement.width / 2;
+    var top = window.innerHeight / 2 - canvasElement.height / 2;
 
-$( canvasElement ).css( 'left', left + 'px' );
-$( canvasElement ).css( 'top', top + 'px' );
+    $(canvasElement).css("left", left + "px");
+    $(canvasElement).css("top", top + "px");
 }
-
 
 export function setMapMode(mode: MapType) {
     MAP_MODE = mode;
 }
 
-
-
 /*
     Resets the configurations (for when restarting the game)
  */
 
-export function resetStuff()
-{
-STAGE.removeAllChildren();
+export function resetStuff() {
+    STAGE.removeAllChildren();
 
     // unbind the event
-STAGE.onMouseDown = null;
+    STAGE.onMouseDown = null;
 
-createjs.Ticker.removeAllEventListeners();
+    createjs.Ticker.removeAllEventListeners();
 
-ZIndex.clear();
+    ZIndex.clear();
 
-EnemyShip.removeAll();
-Bullet.removeAllBullets();
-Ship.removeAll();
+    EnemyShip.removeAll();
+    Bullet.removeAllBullets();
+    Ship.removeAll();
 
-clearKeysHeld();
-Message.removeAll();
+    clearKeysHeld();
+    Message.removeAll();
 
-hideElement('GameMenu')
+    hideElement("GameMenu");
 
-COLLISION_F.length = 0;
-createjs.Ticker.setPaused( false );
+    COLLISION_F.length = 0;
+    createjs.Ticker.setPaused(false);
 
-WORLD.DrawDebugData();
-STAGE.update();
+    WORLD.DrawDebugData();
+    STAGE.update();
 }
 
-
-function tick( event )
-{
-if ( event.paused )
-    {
-    return;
+function tick(event) {
+    if (event.paused) {
+        return;
     }
 
-var a;
+    var a;
 
     // check if there's collisions to deal with
-for (a = COLLISION_F.length - 1 ; a >= 0 ; a--)
-    {
-    COLLISION_F[ a ]();
+    for (a = COLLISION_F.length - 1; a >= 0; a--) {
+        COLLISION_F[a]();
     }
 
-COLLISION_F.length = 0;
+    COLLISION_F.length = 0;
 
-Bullet.cleanAll();
+    Bullet.cleanAll();
 
     // call the ticks of the ships/bullets/etc
-for (a = Ship.all.length - 1 ; a >= 0 ; a--)
-    {
-    Ship.all[ a ].tick( event );
+    for (a = Ship.all.length - 1; a >= 0; a--) {
+        Ship.all[a].tick(event);
     }
 
-for (a = EnemyShip.all.length - 1 ; a >= 0 ; a--)
-    {
-    EnemyShip.all[ a ].tick( event );
+    for (a = EnemyShip.all.length - 1; a >= 0; a--) {
+        EnemyShip.all[a].tick(event);
     }
 
-for (a = EnemyShip.all_spawning.length - 1 ; a >= 0 ; a--)
-    {
-    EnemyShip.all_spawning[ a ].tick( event );
+    for (a = EnemyShip.all_spawning.length - 1; a >= 0; a--) {
+        EnemyShip.all_spawning[a].tick(event);
     }
 
-for (a = Bullet.all_bullets.length - 1 ; a >= 0 ; a--)
-    {
-    Bullet.all_bullets[ a ].tick( event );
+    for (a = Bullet.all_bullets.length - 1; a >= 0; a--) {
+        Bullet.all_bullets[a].tick(event);
     }
 
-GAME_OBJECT.tick( event );
+    GAME_OBJECT.tick(event);
 
-WORLD.Step(
-    1 / 60,     // frame-rate
-    10,         // velocity iterations
-    10          // position iterations
+    WORLD.Step(
+        1 / 60, // frame-rate
+        10, // velocity iterations
+        10 // position iterations
     );
-WORLD.DrawDebugData();
-WORLD.ClearForces();
+    WORLD.DrawDebugData();
+    WORLD.ClearForces();
 
-STAGE.update();
+    STAGE.update();
 }
-
-

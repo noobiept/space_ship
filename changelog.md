@@ -7,4 +7,3 @@
 ## Changed
 
 -   Build script to webpack.
-

@@ -1,17 +1,23 @@
-import { TYPE_ENEMY, STAGE, SCALE, b2Vec2, WORLD, GAME_WIDTH, GAME_HEIGHT, CATEGORY, MASK } from "./main.js";
-import * as ZIndex from './z_index.js'
-import * as GameStatistics from './game_statistics.js'
-
-
+import {
+    TYPE_ENEMY,
+    STAGE,
+    SCALE,
+    b2Vec2,
+    WORLD,
+    GAME_WIDTH,
+    GAME_HEIGHT,
+    CATEGORY,
+    MASK,
+} from "./main.js";
+import * as ZIndex from "./z_index.js";
+import * as GameStatistics from "./game_statistics.js";
 
 export type EnemyShipArgs = {
-    x: number
-    y: number
-    width: number
-    height: number
-}
-
-
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+};
 
 /*
     Don't use directly, use as a base class, and write these functions:
@@ -45,7 +51,6 @@ export type EnemyShipArgs = {
 
  */
 export default abstract class EnemyShip<Args extends EnemyShipArgs> {
-
     static all = [];
     static all_spawning = [];
 
@@ -60,252 +65,204 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs> {
     velocity: number;
     width: number;
     height: number;
-    tick: (event) => void;  // this will point to spawningTick() or normalTick()
+    tick: (event) => void; // this will point to spawningTick() or normalTick()
 
-constructor( args: Args )
-{
-const {x, y, width, height} = args
+    constructor(args: Args) {
+        const { x, y, width, height } = args;
 
-this.type = TYPE_ENEMY;
+        this.type = TYPE_ENEMY;
 
-    // the number of ticks it takes until the enemy can start moving/firing/being killed
-this.spawnTicks_int = 20;
-this.width = width
-this.height = height
+        // the number of ticks it takes until the enemy can start moving/firing/being killed
+        this.spawnTicks_int = 20;
+        this.width = width;
+        this.height = height;
 
-    // make the tick function deal with spawning the enemy
-this.tick = this.spawningTick;
-EnemyShip.all_spawning.push( this );
+        // make the tick function deal with spawning the enemy
+        this.tick = this.spawningTick;
+        EnemyShip.all_spawning.push(this);
 
+        // draw the shape (spawn phase animation first)
+        this.shape = this.makeShape(args);
+        this.setupPhysics();
+        this.beforeAddToStage();
 
-    // draw the shape (spawn phase animation first)
-this.shape = this.makeShape(args);
-this.setupPhysics();
-this.beforeAddToStage();
+        // add to Container()
+        STAGE.addChild(this.shape);
 
-    // add to Container()
-STAGE.addChild( this.shape );
+        ZIndex.update();
+        GameStatistics.updateNumberOfEnemies(
+            GameStatistics.getNumberOfEnemies() + 1
+        );
 
-ZIndex.update();
-GameStatistics.updateNumberOfEnemies( GameStatistics.getNumberOfEnemies() + 1 );
+        this.moveTo(x, y);
+    }
 
-this.moveTo( x, y );
-}
+    abstract makeShape(args: Args);
+    abstract setupPhysics();
 
+    enemyBehaviour() {}
 
-abstract makeShape(args: Args);
-abstract setupPhysics();
-
-enemyBehaviour() {};
-
-
-/*
+    /*
     Gets called once after the spawn phase ended, and is going to the normal phase
  */
-afterSpawn() {};
+    afterSpawn() {}
 
-
-/*
+    /*
     Its called right before the enemy is added to the Stage
  */
-beforeAddToStage() {};
+    beforeAddToStage() {}
 
-
-/*
+    /*
     Updates the shape position to match the physic body
  */
-updateShape()
-{
-this.shape.rotation = this.body.GetAngle() * (180 / Math.PI);
+    updateShape() {
+        this.shape.rotation = this.body.GetAngle() * (180 / Math.PI);
 
-this.shape.x = this.body.GetWorldCenter().x * SCALE;
-this.shape.y = this.body.GetWorldCenter().y * SCALE;
-};
-
-
-getPosition()
-{
-return {
-    x: this.shape.x,
-    y: this.shape.y
-    };
-};
-
-getX()
-{
-return this.shape.x;
-};
-
-
-getY()
-{
-return this.shape.y;
-};
-
-
-moveTo( x, y )
-{
-this.shape.x = x;
-this.shape.y = y;
-
-var position = new b2Vec2(x / SCALE, y / SCALE);
-
-this.body.SetPosition( position );
-};
-
-
-
-rotate( degrees )
-{
-this.shape.rotation = degrees;
-
-this.body.SetAngle( degrees * Math.PI / 180 );
-};
-
-
-
-damageGiven()
-{
-return this.damage;
-};
-
-tookDamage()
-{
-    // do this
-
-    // just remove it (override this for something different)
-this.remove();
-};
-
-
-
-checkLimits()
-{
-var x = this.getX();
-var y = this.getY();
-
-if (x < 0)
-    {
-    this.moveTo( GAME_WIDTH, y );
+        this.shape.x = this.body.GetWorldCenter().x * SCALE;
+        this.shape.y = this.body.GetWorldCenter().y * SCALE;
     }
 
-else if (x > GAME_WIDTH)
-    {
-    this.moveTo( 0, y );
+    getPosition() {
+        return {
+            x: this.shape.x,
+            y: this.shape.y,
+        };
     }
 
-else if (y < 0)
-    {
-    this.moveTo( x, GAME_HEIGHT );
+    getX() {
+        return this.shape.x;
     }
 
-else if (y > GAME_HEIGHT)
-    {
-    this.moveTo( x, 0 );
+    getY() {
+        return this.shape.y;
     }
-};
 
+    moveTo(x, y) {
+        this.shape.x = x;
+        this.shape.y = y;
 
-/*
+        var position = new b2Vec2(x / SCALE, y / SCALE);
+
+        this.body.SetPosition(position);
+    }
+
+    rotate(degrees) {
+        this.shape.rotation = degrees;
+
+        this.body.SetAngle((degrees * Math.PI) / 180);
+    }
+
+    damageGiven() {
+        return this.damage;
+    }
+
+    tookDamage() {
+        // do this
+
+        // just remove it (override this for something different)
+        this.remove();
+    }
+
+    checkLimits() {
+        var x = this.getX();
+        var y = this.getY();
+
+        if (x < 0) {
+            this.moveTo(GAME_WIDTH, y);
+        } else if (x > GAME_WIDTH) {
+            this.moveTo(0, y);
+        } else if (y < 0) {
+            this.moveTo(x, GAME_HEIGHT);
+        } else if (y > GAME_HEIGHT) {
+            this.moveTo(x, 0);
+        }
+    }
+
+    /*
     Remove the enemy ship, and update the game statistics
  */
-remove()
-{
-STAGE.removeChild( this.shape );
-WORLD.DestroyBody( this.body );
+    remove() {
+        STAGE.removeChild(this.shape);
+        WORLD.DestroyBody(this.body);
 
-var position = EnemyShip.all.indexOf( this );
+        var position = EnemyShip.all.indexOf(this);
 
-EnemyShip.all.splice( position, 1 );
+        EnemyShip.all.splice(position, 1);
 
+        GameStatistics.updateNumberOfEnemies(
+            GameStatistics.getNumberOfEnemies() - 1
+        );
 
-GameStatistics.updateNumberOfEnemies( GameStatistics.getNumberOfEnemies() - 1 );
+        GameStatistics.updateScore(GameStatistics.getScore() + 1);
+    }
 
-GameStatistics.updateScore( GameStatistics.getScore() + 1 );
-};
-
-
-
-/*
+    /*
     Remove everything
  */
-static removeAll()
-{
-$( EnemyShip.all ).each(function(index, ship)
-    {
-    ship.remove( index );
-    });
+    static removeAll() {
+        $(EnemyShip.all).each(function (index, ship) {
+            ship.remove(index);
+        });
 
-$( EnemyShip.all_spawning ).each(function( index, ship )
-    {
-    STAGE.removeChild( ship.shape );
-    WORLD.DestroyBody( ship.body );
+        $(EnemyShip.all_spawning).each(function (index, ship) {
+            STAGE.removeChild(ship.shape);
+            WORLD.DestroyBody(ship.body);
 
-    var position = EnemyShip.all_spawning.indexOf( ship );
+            var position = EnemyShip.all_spawning.indexOf(ship);
 
-    EnemyShip.all_spawning.splice( position, 1 );
-    });
-};
+            EnemyShip.all_spawning.splice(position, 1);
+        });
+    }
 
-
-
-/*
+    /*
     The idea here is to have a time when the enemy ship can't do damage (or receive), since its still spawning.
     This prevents problems like a ship spawning right under the main ship (and so taking damage without any chance to prevent it)
  */
-spawningTick( event )
-{
-if ( event.paused )
-    {
-    return;
-    }
+    spawningTick(event) {
+        if (event.paused) {
+            return;
+        }
 
-this.spawnTicks_int--;
+        this.spawnTicks_int--;
 
+        if (this.spawnTicks_int < 0) {
+            // play the main animation
+            this.shape.gotoAndPlay("main");
 
-if (this.spawnTicks_int < 0)
-    {
-        // play the main animation
-    this.shape.gotoAndPlay("main");
-
-        // only add now to the enemies list (so, only from now on will the bullets be able to kill it, etc)
-    EnemyShip.all.push( this );
+            // only add now to the enemies list (so, only from now on will the bullets be able to kill it, etc)
+            EnemyShip.all.push(this);
 
             // remove from the spawn array
-    var spawnIndex = EnemyShip.all_spawning.indexOf( this );
-    EnemyShip.all_spawning.splice( spawnIndex, 1 );
+            var spawnIndex = EnemyShip.all_spawning.indexOf(this);
+            EnemyShip.all_spawning.splice(spawnIndex, 1);
 
-    var fixDef = this.fixDef;
+            var fixDef = this.fixDef;
 
-    fixDef.filter.categoryBits = CATEGORY.enemy;
-    fixDef.filter.maskBits = MASK.enemy;
+            fixDef.filter.categoryBits = CATEGORY.enemy;
+            fixDef.filter.maskBits = MASK.enemy;
 
-    this.category_bits = CATEGORY.enemy;
-    this.mask_bits = MASK.enemy;
+            this.category_bits = CATEGORY.enemy;
+            this.mask_bits = MASK.enemy;
 
-    this.body.CreateFixture( fixDef );
+            this.body.CreateFixture(fixDef);
 
-    this.afterSpawn();
+            this.afterSpawn();
 
-        // now execute the normal tick function
-    this.tick = this.normalTick;
-    }
-};
-
-
-normalTick( event )
-{
-if ( event.paused )
-    {
-    return;
+            // now execute the normal tick function
+            this.tick = this.normalTick;
+        }
     }
 
-this.enemyBehaviour();
+    normalTick(event) {
+        if (event.paused) {
+            return;
+        }
 
-this.updateShape();
+        this.enemyBehaviour();
 
-    // the limits of the canvas
-this.checkLimits();
-};
+        this.updateShape();
 
+        // the limits of the canvas
+        this.checkLimits();
+    }
 }

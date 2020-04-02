@@ -17,93 +17,67 @@ const ALL_MESSAGES = [];
     If x/y isn't provided, the message is centered in the middle of the canvas
  */
 
-export default class Message
-{
-private message: HTMLElement;
-private container: HTMLElement; //HERE not used?
+export default class Message {
+    private message: HTMLElement;
+    private container: HTMLElement; //HERE not used?
 
-constructor( stuff )
-    {
-    const container = document.getElementById( 'Message-container' );
-    const message = document.createElement( 'div' );
+    constructor(stuff) {
+        const container = document.getElementById("Message-container");
+        const message = document.createElement("div");
 
-    message.className = 'Message';
+        message.className = "Message";
 
-    $( message ).html( stuff.text );
-    container.appendChild( message );
+        $(message).html(stuff.text);
+        container.appendChild(message);
 
-    if ( typeof stuff.x == 'undefined' )
-        {
-        if ( stuff.centerWindow === true )
-            {
-            centerElement( message, document.body );
+        if (typeof stuff.x == "undefined") {
+            if (stuff.centerWindow === true) {
+                centerElement(message, document.body);
+            } else {
+                centerElement(message);
             }
-
-        else
-            {
-            centerElement( message );
-            }
+        } else {
+            $(message).css("left", stuff.x + "px");
+            $(message).css("top", stuff.y + "px");
         }
 
-    else
-        {
-        $( message ).css( 'left', stuff.x + 'px' );
-        $( message ).css( 'top', stuff.y + 'px' );
+        if (typeof stuff.cssClass != "undefined") {
+            $(message).addClass(stuff.cssClass);
         }
 
+        if (typeof stuff.timeOut !== "undefined") {
+            window.setTimeout(() => {
+                this.remove();
 
-    if ( typeof stuff.cssClass != 'undefined' )
-        {
-        $( message ).addClass( stuff.cssClass );
-        }
-
-
-    if ( typeof stuff.timeOut !== 'undefined' )
-        {
-        window.setTimeout( () =>
-            {
-            this.remove();
-
-            if ( stuff.timeOut_f )
-                {
-                stuff.timeOut_f();
+                if (stuff.timeOut_f) {
+                    stuff.timeOut_f();
                 }
-
-            }, stuff.timeOut );
+            }, stuff.timeOut);
         }
 
+        this.container = container;
+        this.message = message;
 
-    this.container = container;
-    this.message = message;
-
-    ALL_MESSAGES.push( this );
+        ALL_MESSAGES.push(this);
     }
 
-
-setText( text )
-    {
-    $( this.message ).html( text );
+    setText(text) {
+        $(this.message).html(text);
     }
 
-remove()
-    {
-    $( this.message ).remove();
+    remove() {
+        $(this.message).remove();
 
-    var position = ALL_MESSAGES.indexOf( this );
+        var position = ALL_MESSAGES.indexOf(this);
 
-    ALL_MESSAGES.splice( position, 1 );
+        ALL_MESSAGES.splice(position, 1);
     }
 
-static removeAll()
-{
-for (var i = 0 ; i < ALL_MESSAGES.length ; i++)
-    {
-    ALL_MESSAGES[ i ].remove();
+    static removeAll() {
+        for (var i = 0; i < ALL_MESSAGES.length; i++) {
+            ALL_MESSAGES[i].remove();
 
-    i--;
+            i--;
+        }
     }
 }
-}
-
-
-

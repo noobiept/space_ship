@@ -1,1 +1,1 @@
-export type MapType = {}
+export type MapType = {};

@@ -1,38 +1,35 @@
 {
-    "damage":
+    "damage": {
+        "EnemyMoveHorizontally": 10
+    },
+    "velocity": {
+        "EnemyMoveHorizontally": 4
+    },
+    "map": [
         {
-            "EnemyMoveHorizontally": 10
+            "tick": 0,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 8
         },
-    "velocity":
         {
-            "EnemyMoveHorizontally": 4
+            "tick": 65,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 8
         },
-    "map":
-        [
-            {
-                "tick"      : 0,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 65,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 130,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 195,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 260,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 8
-            }
-        ]
+        {
+            "tick": 130,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 8
+        },
+        {
+            "tick": 195,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 8
+        },
+        {
+            "tick": 260,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 8
+        }
+    ]
 }
