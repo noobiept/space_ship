@@ -2,8 +2,6 @@
     "name": "space_ship",
     "version": "2.0.0",
     "scripts": {
-        "start": "webpack-dev-server --mode development",
-        "build": "webpack --mode production",
         "tsc": "tsc --watch",
         "server": "http-server . -c-1",
         "format:check": "prettier --check \"**/*.{html,css,json,js,ts,tsx,md}\"",
@@ -14,25 +12,10 @@
         "@types/createjs": "0.0.29",
         "@types/jquery": "^3.3.34",
         "@types/jqueryui": "^1.12.10",
-        "eslint": "~2.11.0",
-        "grunt": "~1.0.1",
-        "grunt-contrib-clean": "~1.0.0",
-        "grunt-contrib-concat": "~1.0.0",
-        "grunt-contrib-copy": "~1.0.0",
-        "grunt-contrib-cssmin": "~1.0.1",
-        "grunt-contrib-uglify": "~1.0.1",
-        "grunt-eslint": "~18.1.0",
-        "grunt-usemin": "~3.1.1",
         "http-server": "^0.12.1",
         "prettier": "^2.0.2",
         "ts-loader": "^6.2.2",
-        "typescript": "^3.8.3",
-        "webpack": "^4.42.1",
-        "webpack-cli": "^3.3.11",
-        "webpack-dev-server": "^3.10.3"
-    },
-    "dependencies": {
-        "box2dweb": "^2.1.0-b"
+        "typescript": "^3.8.3"
     },
     "prettier": {
         "printWidth": 80,
