@@ -1,0 +1,7 @@
+.git/
+node_modules/
+output/
+sound/
+libraries/
+release/
+package-lock.json

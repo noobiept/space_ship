@@ -5,7 +5,9 @@
         "start": "webpack-dev-server --mode development",
         "build": "webpack --mode production",
         "tsc": "tsc --watch",
-        "server": "http-server . -c-1"
+        "server": "http-server . -c-1",
+        "format:check": "prettier --check \"**/*.{html,css,json,js,ts,tsx,md}\"",
+        "format:run": "prettier --write \"**/*.{html,css,json,js,ts,tsx,md}\""
     },
     "devDependencies": {
         "@types/box2d": "0.0.33",
@@ -22,6 +24,7 @@
         "grunt-eslint": "~18.1.0",
         "grunt-usemin": "~3.1.1",
         "http-server": "^0.12.1",
+        "prettier": "^2.0.2",
         "ts-loader": "^6.2.2",
         "typescript": "^3.8.3",
         "webpack": "^4.42.1",
@@ -30,5 +33,17 @@
     },
     "dependencies": {
         "box2dweb": "^2.1.0-b"
+    },
+    "prettier": {
+        "printWidth": 80,
+        "tabWidth": 4,
+        "useTabs": false,
+        "semi": true,
+        "singleQuote": false,
+        "trailingComma": "es5",
+        "bracketSpacing": true,
+        "arrowParens": "always",
+        "htmlWhitespaceSensitivity": "strict",
+        "endOfLine": "lf"
     }
 }
