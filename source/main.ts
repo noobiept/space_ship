@@ -15,6 +15,7 @@ import { handleKeyDown, handleKeyUp, clearKeysHeld } from './keyboard_events.js'
 import EnemyShip from './enemy_ship.js'
 import Bullet from './bullet.js'
 import { MapType } from './shared/types.js'
+import { hideElement, showElement } from './utilities.js'
 
 
     // global variables
@@ -104,6 +105,7 @@ AppStorage.getData( [ 'space_ship_options' ], initApp );
 function initApp( data )
 {
 Options.load( data[ 'space_ship_options' ] );
+MainMenu.init();
 
     // get a reference to the canvas we'll be working with
 CANVAS = document.querySelector( "#mainCanvas" );
@@ -124,7 +126,7 @@ createjs.Ticker.setInterval( 50 );
 
 if ( DEBUG )
     {
-    $( CANVAS_DEBUG ).css('display', 'block');
+    showElement(CANVAS_DEBUG);
     centerCanvas( CANVAS_DEBUG );
 
         // setup debug draw
@@ -231,7 +233,6 @@ GameMenu.init();
 /**
     @param {Boolean} [fromPreviousLevel=false] restarting the game, starting at same level it was before
  */
-
 export function startGameMode( fromPreviousLevel?: boolean )
 {
 if ( typeof fromPreviousLevel == 'undefined' )
@@ -251,7 +252,7 @@ if ( GAME_OBJECT )
 
 resetStuff();
 
-CANVAS.style.display = 'block'; //HERE
+showElement(CANVAS);
 GAME_OBJECT = new MAP_MODE();
 
 //HERE
@@ -466,11 +467,10 @@ Ship.removeAll();
 clearKeysHeld();
 Message.removeAll();
 
-$( '#GameMenu' ).css( 'display', 'none' );
+hideElement('GameMenu')
 
 COLLISION_F.length = 0;
 createjs.Ticker.setPaused( false );
-
 
 WORLD.DrawDebugData();
 STAGE.update();

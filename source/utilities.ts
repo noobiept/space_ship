@@ -246,3 +246,26 @@ else
     return 'Off';
     }
 }
+
+
+/**
+ * Show an HTML element.
+ */
+export function showElement(elementOrID: HTMLElement | string) {
+    if (typeof elementOrID === 'string') {
+        elementOrID = document.getElementById(elementOrID)
+    }
+
+    elementOrID.classList.remove('hidden');
+}
+
+/**
+ * Hide an HTML element.
+ */
+export function hideElement(elementOrID: HTMLElement | string) {
+    if (typeof elementOrID === 'string') {
+        elementOrID = document.getElementById(elementOrID)
+    }
+
+    elementOrID.classList.add('hidden')
+}

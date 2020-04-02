@@ -30,11 +30,6 @@ body
     border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-#mainCanvas, #debugCanvas
-    {
-    display: none;
-    }
-
 .Message
     {
     position: absolute;
@@ -54,6 +49,10 @@ body
     color: black;
     background-color: white;
     }
+
+.hidden {
+    display: none !important;
+}
 
     /* z-index */
 
@@ -76,7 +75,6 @@ body
 
 #MainMenu, #Options
     {
-    display: none;
     color: rgb(120, 120, 120);
     text-align: center;
     font-size: 28px;
@@ -112,26 +110,28 @@ body
 
 #GameMenu
     {
-    display: none;
+    display: flex;
+    justify-content: space-between;
     user-select: none;
     -webkit-user-select: none;
     color: white;
     }
 
-#GameMenu-right, #GameMenu-left
+#GameMenu-right, #GameMenu-left, #GameMenu-selectWeapon, #GameMenu-bulletsLeft
     {
-    display: inline-block;
+    display: flex;
     }
 
-#GameMenu-right
-    {
-    float: right;
-    }
+#GameMenu-right {
+    align-items: flex-start;
+}
+
+#GameMenu-left {
+    flex-direction: column;
+}
 
 #GameMenu-selectWeapon > *, #GameMenu-bulletsLeft > *, #GameMenu-right > *
     {
-    display: inline-block;
-
     text-align: center;
     padding: 5px 0;
     width: 100px;

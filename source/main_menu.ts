@@ -1,56 +1,59 @@
 import { CANVAS, resetStuff, startGameMode, STAGE, setMapMode, removeLoadingMessage } from './main.js'
 import * as Music from './music.js'
 import * as Options from './options.js'
-import { EVENT_KEY } from './utilities.js';
+import { EVENT_KEY, hideElement, showElement } from './utilities.js';
 import RandomMaps from './random_maps.js';
 import PredefinedMaps from './predefined_maps.js';
 import EndlessMode from './endless_mode.js';
 
 
-var ENTRY_SELECTED = 0;
+let ENTRY_SELECTED = 0;
 
     // has the functions to call when choosing an entry
-var ENTRIES = [];
+const ENTRIES: ((e) => void)[] = [];
 
     // has the html elements of the entries
-var ENTRIES_ELEMENTS = [];
+const ENTRIES_ELEMENTS: HTMLElement[] = [];
 
 
-export function open()
-{
-removeLoadingMessage();
+export function init() {
 
-CANVAS.style.display = 'none';
+    const predefinedMaps = document.getElementById( 'MainMenu-predefinedMaps' );
+    const randomMaps = document.getElementById( 'MainMenu-randomMaps' );
+    const endlessMode = document.getElementById( 'MainMenu-endlessMode' );
+    const options = document.getElementById( 'MainMenu-options' );
+    const donate = document.getElementById( 'MainMenu-donate' );
 
-Music.stop();
-resetStuff();
-cleanUp();
-
-var menu = document.querySelector( '#MainMenu' );
-
-const predefinedMaps = document.getElementById( 'MainMenu-predefinedMaps' );
-const randomMaps = document.getElementById( 'MainMenu-randomMaps' );
-const endlessMode = document.getElementById( 'MainMenu-endlessMode' );
-const options = document.getElementById( 'MainMenu-options' );
-const donate = document.getElementById( 'MainMenu-donate' );
-
-ENTRIES.push( predefinedMaps, randomMaps, endlessMode, openOptions, openDonate );
+    ENTRIES.push( openPredefinedMaps, openRandomMaps, openEndlessMode, openOptions, openDonate );
 
 ENTRIES_ELEMENTS.push( predefinedMaps, randomMaps, endlessMode, options, donate );
-
-$( menu ).css( 'display', 'block' );
 
 predefinedMaps.onclick = openPredefinedMaps;
 randomMaps.onclick = openRandomMaps;
 endlessMode.onclick = openEndlessMode;
 options.onclick = openOptions;
 
-ENTRY_SELECTED = 0;
-$( predefinedMaps ).addClass( 'MainMenu-entrySelected' );
-
 $( document ).bind( "keyup", keyboardEvents );
+}
 
-STAGE.update();
+
+export function open()
+{
+removeLoadingMessage();
+hideElement(CANVAS)
+
+Music.stop();
+resetStuff();
+cleanUp();
+
+showElement('MainMenu');
+
+ENTRY_SELECTED = 0;
+
+const predefinedMaps = document.getElementById( 'MainMenu-predefinedMaps' );
+predefinedMaps.classList.add( 'MainMenu-entrySelected' );
+
+STAGE.update(); //HERE
 };
 
 
@@ -90,18 +93,16 @@ function openOptions( event )
 {
 cleanUp();
 
-var options = document.querySelector( '#Options' );
-
     // :: Music Volume :: //
 
-var musicVolume = options.querySelector( '#Options-musicVolume' );
-var musicVolumeSpan = musicVolume.querySelector( 'span' );
+const musicVolume = document.getElementById( 'Options-musicVolume' );
+const musicVolumeSpan = musicVolume.querySelector( 'span' );
 
-var musicVolumeValue = Math.round( Options.getMusicVolume() * 100 );
+const musicVolumeValue = Math.round( Options.getMusicVolume() * 100 );
 
 $( musicVolumeSpan ).text( musicVolumeValue + '%' );
 
-var musicVolumeSlider = musicVolume.querySelector( '#Options-musicVolume-slider' );
+const musicVolumeSlider = musicVolume.querySelector( '#Options-musicVolume-slider' );
 
 $( musicVolumeSlider ).slider({
     min: 0,
@@ -124,7 +125,7 @@ back.onclick = function()
     open();
     };
 
-$( options ).css( 'display', 'block' );
+showElement('Options');
 };
 
 
@@ -190,9 +191,11 @@ if (ENTRY_SELECTED < 0)
         ENTRY_SELECTED = ENTRIES.length - 1;
     }
 
-$( ENTRIES_ELEMENTS[ previousEntry ] ).removeClass( 'MainMenu-entrySelected' );
+const previous = ENTRIES_ELEMENTS[ previousEntry ]
+previous.classList.remove('MainMenu-entrySelected')
 
-$( ENTRIES_ELEMENTS[ ENTRY_SELECTED ] ).addClass( 'MainMenu-entrySelected' );
+const selected = ENTRIES_ELEMENTS[ ENTRY_SELECTED ]
+selected.classList.add('MainMenu-entrySelected')
 };
 
 
@@ -201,12 +204,13 @@ $( ENTRIES_ELEMENTS[ ENTRY_SELECTED ] ).addClass( 'MainMenu-entrySelected' );
  */
 function cleanUp()
 {
-$( '#MainMenu' ).css( 'display', 'none' );
-$( '#Options' ).css( 'display', 'none' );
+hideElement('MainMenu')
+hideElement('Options')
 
 $( document ).unbind( "keyup" );
 
-$( ENTRIES_ELEMENTS[ ENTRY_SELECTED ] ).removeClass( 'MainMenu-entrySelected' );
+const selected = ENTRIES_ELEMENTS[ ENTRY_SELECTED ];
+selected.classList.remove('MainMenu-entrySelected');
 
 ENTRY_SELECTED = 0;
 ENTRIES.length = 0;

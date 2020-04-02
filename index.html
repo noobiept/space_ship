@@ -23,11 +23,11 @@
     </head>
 <body>
 
-    <canvas id="mainCanvas" width="800" height="400"></canvas>
-    <canvas id="debugCanvas" width="800" height="400"></canvas>
+    <canvas id="mainCanvas" class="hidden" width="800" height="400"></canvas>
+    <canvas id="debugCanvas" class="hidden" width="800" height="400"></canvas>
 
 
-    <div id="MainMenu">
+    <div id="MainMenu" class="hidden">
         <div id="MainMenu-predefinedMaps" class="MainMenu-entrySelected button">Start Game</div>
         <div id="MainMenu-randomMaps" class="button">Random Maps</div>
         <div id="MainMenu-endlessMode" class="button">Endless Mode</div>
@@ -35,7 +35,7 @@
         <a id="MainMenu-donate" class="button" href="http://nbpt.eu/donate/" target="_blank">Donate</a>
     </div>
 
-    <div id="Options">
+    <div id="Options" class="hidden">
         <div id="Options-container">
             <div id="Options-musicVolume">Music Volume: <span></span>
             <div id="Options-musicVolume-slider"></div></div>
@@ -46,8 +46,7 @@
         <div id="Options-back" class="button">Back</div>
     </div>
 
-    <div id="GameMenu">
-
+    <div id="GameMenu" class="hidden">
         <div id="GameMenu-left">
             <div id="GameMenu-selectWeapon">
                 <div id="GameMenu-weapon1" class="WeaponsSelected">1 - Laser</div>

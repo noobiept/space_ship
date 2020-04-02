@@ -1,6 +1,7 @@
 import * as MainMenu from './main_menu.js'
 import { MAIN_SHIP, startGameMode, resume, pause, CANVAS } from './main.js'
 import Message from './message.js'
+import { hideElement, showElement } from './utilities.js';
 
 let WEAPON_SELECTED = 0;
 const WEAPON_ELEMENTS = [];
@@ -71,8 +72,7 @@ restart.onclick = function( event )
 
     // :: Quit :: //
 
-var quit = document.getElementById( 'GameMenu-quit' );
-
+const quit = document.getElementById( 'GameMenu-quit' );
 quit.onclick = function( event )
     {
     MainMenu.open();
@@ -80,9 +80,8 @@ quit.onclick = function( event )
     event.stopPropagation();
     };
 
-$( quit ).css( 'display', 'none' );
-$( restart ).css( 'display', 'none' );
-
+hideElement(quit);
+hideElement(restart);
 
     // :: Open the Menu :: //
 
@@ -102,8 +101,8 @@ openMenu.onclick = function( event )
 
         $( openMenu ).text( 'Menu' );
 
-        $( quit ).css( 'display', 'none' );
-        $( restart ).css( 'display', 'none' );
+        hideElement(quit);
+        hideElement(restart);
 
         resume();
         }
@@ -119,8 +118,8 @@ openMenu.onclick = function( event )
 
         $( openMenu ).text( 'Back' );
 
-        $( quit ).css( 'display', 'inline-block' );
-        $( restart ).css( 'display', 'inline-block' );
+        showElement(quit);
+        showElement(restart);
 
         pause();
         }
@@ -129,8 +128,8 @@ openMenu.onclick = function( event )
     };
 
     // :: Position the menu :: //
-$( menu ).css( 'width', CANVAS.width + 'px' );
-$( menu ).css( 'display', 'block' );
+menu.style.width = CANVAS.width + 'px';
+showElement(menu);
 }
 
 
