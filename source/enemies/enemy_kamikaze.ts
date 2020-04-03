@@ -2,8 +2,6 @@ import EnemyShip, { EnemyShipArgs } from "./enemy_ship.js";
 import {
     PRELOAD,
     b2FixtureDef,
-    CATEGORY,
-    MASK,
     b2BodyDef,
     b2Body,
     b2CircleShape,
@@ -16,6 +14,7 @@ import {
     calculateAngleBetweenObjects,
     toRadians,
 } from "../shared/utilities.js";
+import { CATEGORY, MASK } from "../collision_detection.js";
 
 export type EnemyKamikazeArgs = {} & EnemyShipArgs;
 

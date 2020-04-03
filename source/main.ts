@@ -20,6 +20,7 @@ import EnemyShip from "./enemies/enemy_ship.js";
 import Bullet from "./bullets/bullet.js";
 import { MapType } from "./shared/types.js";
 import { hideElement, showElement } from "./shared/utilities.js";
+import * as CollisionDetection from "./collision_detection.js";
 
 // global variables
 
@@ -68,31 +69,6 @@ export const ENEMY_TYPES = [
 
 var MAP_MODE = null;
 var GAME_OBJECT = null;
-
-// :: Collision Detection :: //
-
-// objects identification (for the collision detection)
-export const TYPE_SHIP = 0;
-export const TYPE_ENEMY = 1;
-export const TYPE_BULLET = 2;
-
-// has functions to be called later (related to a collision). Have to remove the elements after executing the function
-var COLLISION_F = [];
-
-// categories
-export const CATEGORY = {
-    ship: 1, // 0001
-    enemy: 2, // 0010
-    enemy_spawning: 4, // 0100
-};
-
-export const MASK = {
-    ship: CATEGORY.enemy, // ship can collide with enemies
-    enemy: CATEGORY.ship, // enemies can collide with the ship
-    enemy_spawning: 0, // doesn't collide with anything, during the spawn phase
-    dontCollide: 0,
-};
-
 var LOADING_MESSAGE;
 
 window.onload = function () {
@@ -203,8 +179,7 @@ export function initGame() {
 
     // set up collision detection
     var listener = new b2ContactListener();
-
-    listener.BeginContact = collisionDetection;
+    listener.BeginContact = CollisionDetection.onContact;
 
     WORLD.SetContactListener(listener);
 
@@ -261,121 +236,6 @@ export function resume() {
 }
 
 /*
-    Called on 'BeginContact' between box2d bodies
-
-    Warning: You cannot create/destroy Box2D entities inside these callbacks.
- */
-function collisionDetection(contact) {
-    var objectA = contact.GetFixtureA().GetBody().GetUserData();
-    var objectB = contact.GetFixtureB().GetBody().GetUserData();
-
-    var typeA = objectA.type;
-    var typeB = objectB.type;
-
-    var shipObject;
-    var enemyObject;
-    var bulletObject;
-
-    // collision between the main ship and an enemy
-    if (
-        (typeA === TYPE_SHIP && typeB === TYPE_ENEMY) ||
-        (typeB === TYPE_SHIP && typeA === TYPE_ENEMY)
-    ) {
-        // determine which one is which
-        if (typeA === TYPE_SHIP) {
-            shipObject = objectA;
-            enemyObject = objectB;
-        } else {
-            shipObject = objectB;
-            enemyObject = objectA;
-        }
-
-        // already was added to the collision array (don't add the same collision twice)
-        if (enemyObject.alreadyInCollision) {
-            return;
-        }
-
-        enemyObject.alreadyInCollision = true;
-
-        // make it not collidable anymore
-        enemyObject.fixDef.mask_bits = MASK.dontCollide;
-        enemyObject.body.CreateFixture(enemyObject.fixDef);
-
-        COLLISION_F.push(function () {
-            shipObject.tookDamage(enemyObject.damageGiven());
-
-            enemyObject.tookDamage();
-        });
-    }
-
-    // collision between the main ship and a bullet
-    else if (
-        (typeA === TYPE_SHIP && typeB === TYPE_BULLET) ||
-        (typeB === TYPE_SHIP && typeA === TYPE_BULLET)
-    ) {
-        // determine which one is which
-        if (typeA === TYPE_SHIP) {
-            shipObject = objectA;
-            bulletObject = objectB;
-        } else {
-            shipObject = objectB;
-            bulletObject = objectA;
-        }
-
-        // already was added to the collision array (don't add the same collision twice)
-        if (bulletObject.alreadyInCollision) {
-            return;
-        }
-
-        bulletObject.alreadyInCollision = true;
-
-        // make it not collidable anymore
-        bulletObject.fixDef.mask_bits = MASK.dontCollide;
-        bulletObject.body.CreateFixture(bulletObject.fixDef);
-
-        COLLISION_F.push(function () {
-            bulletObject.collisionResponse();
-
-            // remove the EnemyShip
-            shipObject.tookDamage(bulletObject.damageGiven());
-        });
-    }
-
-    // collision between a bullet and an enemy
-    else if (
-        (typeA === TYPE_BULLET && typeB === TYPE_ENEMY) ||
-        (typeB === TYPE_BULLET && typeA === TYPE_ENEMY)
-    ) {
-        // determine which one is which
-        if (typeA === TYPE_BULLET) {
-            bulletObject = objectA;
-            enemyObject = objectB;
-        } else {
-            bulletObject = objectB;
-            enemyObject = objectA;
-        }
-
-        // already was added to the collision array (don't add the same collision twice)
-        if (enemyObject.alreadyInCollision) {
-            return;
-        }
-
-        enemyObject.alreadyInCollision = true;
-
-        // make it not collidable anymore
-        enemyObject.fixDef.mask_bits = MASK.dontCollide;
-        enemyObject.body.CreateFixture(enemyObject.fixDef);
-
-        COLLISION_F.push(function () {
-            bulletObject.collisionResponse();
-
-            // remove the EnemyShip
-            enemyObject.tookDamage(bulletObject.damageGiven());
-        });
-    }
-}
-
-/*
     center the canvas in the middle of window
  */
 
@@ -414,7 +274,7 @@ export function resetStuff() {
 
     hideElement("GameMenu");
 
-    COLLISION_F.length = 0;
+    CollisionDetection.reset();
     createjs.Ticker.setPaused(false);
 
     WORLD.DrawDebugData();
@@ -426,31 +286,23 @@ function tick(event) {
         return;
     }
 
-    var a;
-
-    // check if there's collisions to deal with
-    for (a = COLLISION_F.length - 1; a >= 0; a--) {
-        COLLISION_F[a]();
-    }
-
-    COLLISION_F.length = 0;
-
+    CollisionDetection.tick();
     Bullet.cleanAll();
 
     // call the ticks of the ships/bullets/etc
-    for (a = Ship.all.length - 1; a >= 0; a--) {
+    for (let a = Ship.all.length - 1; a >= 0; a--) {
         Ship.all[a].tick(event);
     }
 
-    for (a = EnemyShip.all.length - 1; a >= 0; a--) {
+    for (let a = EnemyShip.all.length - 1; a >= 0; a--) {
         EnemyShip.all[a].tick(event);
     }
 
-    for (a = EnemyShip.all_spawning.length - 1; a >= 0; a--) {
+    for (let a = EnemyShip.all_spawning.length - 1; a >= 0; a--) {
         EnemyShip.all_spawning[a].tick(event);
     }
 
-    for (a = Bullet.all_bullets.length - 1; a >= 0; a--) {
+    for (let a = Bullet.all_bullets.length - 1; a >= 0; a--) {
         Bullet.all_bullets[a].tick(event);
     }
 

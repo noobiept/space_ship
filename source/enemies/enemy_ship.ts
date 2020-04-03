@@ -1,16 +1,19 @@
 import {
-    TYPE_ENEMY,
     STAGE,
     SCALE,
     b2Vec2,
     WORLD,
     GAME_WIDTH,
     GAME_HEIGHT,
-    CATEGORY,
-    MASK,
 } from "../main.js";
 import * as ZIndex from "../z_index.js";
 import * as GameStatistics from "../menus/game_statistics.js";
+import {
+    CollisionID,
+    CATEGORY,
+    MASK,
+    CollisionElement,
+} from "../collision_detection.js";
 
 export type EnemyShipArgs = {
     x: number;
@@ -50,11 +53,12 @@ export type EnemyShipArgs = {
         .fixDef
 
  */
-export default abstract class EnemyShip<Args extends EnemyShipArgs> {
+export default abstract class EnemyShip<Args extends EnemyShipArgs>
+    implements CollisionElement {
     static all = [];
     static all_spawning = [];
 
-    type;
+    type: CollisionID;
     spawnTicks_int: number;
     shape;
     body;
@@ -70,7 +74,7 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs> {
     constructor(args: Args) {
         const { x, y, width, height } = args;
 
-        this.type = TYPE_ENEMY;
+        this.type = CollisionID.enemy;
 
         // the number of ticks it takes until the enemy can start moving/firing/being killed
         this.spawnTicks_int = 20;

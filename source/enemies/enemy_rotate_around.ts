@@ -2,8 +2,6 @@ import EnemyShip, { EnemyShipArgs } from "./enemy_ship.js";
 import {
     PRELOAD,
     b2FixtureDef,
-    CATEGORY,
-    MASK,
     b2BodyDef,
     b2Body,
     b2CircleShape,
@@ -14,6 +12,7 @@ import {
 } from "../main.js";
 import { calculateAngleBetweenObjects } from "../shared/utilities.js";
 import Bullet1_laser from "../bullets/bullet1_laser.js";
+import { CATEGORY, MASK } from "../collision_detection.js";
 
 export type EnemyRotateAroundArgs = {} & EnemyShipArgs;
 

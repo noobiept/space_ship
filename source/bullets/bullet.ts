@@ -1,6 +1,5 @@
 import {
     STAGE,
-    TYPE_BULLET,
     MAIN_SHIP,
     b2FixtureDef,
     b2BodyDef,
@@ -12,6 +11,7 @@ import {
 } from "../main.js";
 import * as ZIndex from "../z_index.js";
 import { toRadians, outOfBounds } from "../shared/utilities.js";
+import { CollisionID, CollisionElement } from "../collision_detection.js";
 
 export type BulletArgs = {
     ship;
@@ -47,10 +47,11 @@ export type AdditionalBulletArgs = {
 
         .shape
  */
-export default abstract class Bullet<Args extends BulletArgs> {
+export default abstract class Bullet<Args extends BulletArgs>
+    implements CollisionElement {
     shape;
     shipObject;
-    type;
+    type: CollisionID;
     body;
     fixDef;
     damage: number;
@@ -82,7 +83,7 @@ export default abstract class Bullet<Args extends BulletArgs> {
         } = args;
 
         this.shipObject = ship;
-        this.type = TYPE_BULLET;
+        this.type = CollisionID.bullet;
         this.damage = damage;
         this.speed = speed;
         this.removed = false;

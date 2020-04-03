@@ -1,6 +1,5 @@
 import Bullet, { BulletArgs } from "./bullet.js";
 import {
-    TYPE_BULLET,
     b2FixtureDef,
     b2BodyDef,
     b2Body,
@@ -8,6 +7,7 @@ import {
     SCALE,
     WORLD,
 } from "../main.js";
+import { CollisionID } from "../collision_detection.js";
 
 export type SplashDamageArgs = {
     maxRadius: number;
@@ -51,7 +51,7 @@ export default class SplashDamage extends Bullet<SplashDamageArgs> {
 
         // start with radius of 1, and grow from there
         this.radius = radius;
-        this.type = TYPE_BULLET;
+        this.type = CollisionID.bullet;
         this.countTick = 0;
 
         this.x = x;

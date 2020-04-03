@@ -1,11 +1,8 @@
 import {
-    TYPE_SHIP,
     GAME_WIDTH,
     GAME_HEIGHT,
     STAGE,
     b2FixtureDef,
-    CATEGORY,
-    MASK,
     b2BodyDef,
     b2Body,
     b2CircleShape,
@@ -27,6 +24,12 @@ import * as GameStatistics from "./menus/game_statistics.js";
 import * as ZIndex from "./z_index.js";
 import * as GameMenu from "./menus/game_menu.js";
 import * as Options from "./shared/options.js";
+import {
+    CollisionID,
+    CATEGORY,
+    MASK,
+    CollisionElement,
+} from "./collision_detection.js";
 
 const VELOCITY = 5;
 
@@ -40,12 +43,12 @@ const MAX_AMMO = [50, 10, 25, 20];
 var CLICK_F = null;
 var MOUSE_MOVE_F = null;
 
-export default class Ship {
-    shape;
+export default class Ship implements CollisionElement {
+    shape: createjs.DisplayObject;
     width = 10;
     height = 10;
     color: string;
-    type;
+    type: CollisionID;
     weaponSelected: number;
     tick_count: [number, number, number, number];
     bullets_left: [number, number, number, number];
@@ -56,10 +59,8 @@ export default class Ship {
     static all = [];
 
     constructor() {
-        this.shape = null;
         this.color = "rgb(81, 139, 255)";
-
-        this.type = TYPE_SHIP;
+        this.type = CollisionID.ship;
 
         this.makeShape();
         this.setupPhysics();

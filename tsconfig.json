@@ -3,6 +3,7 @@
         "outDir": "./output/",
         "target": "es2019",
         "module": "ES2015",
+        "strict": false,
         "sourceMap": true,
         "allowSyntheticDefaultImports": true
     },

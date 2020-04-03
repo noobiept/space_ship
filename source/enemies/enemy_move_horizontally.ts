@@ -2,8 +2,6 @@ import EnemyShip, { EnemyShipArgs } from "./enemy_ship.js";
 import {
     PRELOAD,
     b2FixtureDef,
-    CATEGORY,
-    MASK,
     b2BodyDef,
     b2Body,
     b2PolygonShape,
@@ -11,6 +9,7 @@ import {
     WORLD,
     b2Vec2,
 } from "../main.js";
+import { CATEGORY, MASK } from "../collision_detection.js";
 
 export type EnemyMoveHorizontallyArgs = {} & EnemyShipArgs;
 
