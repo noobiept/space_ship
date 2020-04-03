@@ -1,5 +1,6 @@
 export type CollisionElement = {
     type: CollisionID;
+    alreadyInCollision: boolean;
 };
 
 // objects identification (for the collision detection)
@@ -24,7 +25,7 @@ export const MASK = {
 };
 
 // has functions to be called later (related to a collision). Have to remove the elements after executing the function
-const COLLISION_F = [];
+const COLLISION_F: (() => void)[] = [];
 
 /*
     Called on 'BeginContact' between box2d bodies

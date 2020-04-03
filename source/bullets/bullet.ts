@@ -61,6 +61,7 @@ export default abstract class Bullet<Args extends BulletArgs>
     color: string;
     speed: number;
     angleRotation: number;
+    alreadyInCollision = false;
 
     // all the bullets (from the enemies or the main ship)
     static all_bullets = [];

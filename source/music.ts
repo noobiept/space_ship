@@ -4,7 +4,7 @@ const SONG_NAMES = ["scumm_bar", "space_ship_1"];
 let CURRENT_SONG = 0;
 
 // has the reference to the current music being played
-let MUSIC_OBJ = null;
+let MUSIC_OBJ: Music | null = null;
 
 /**
     @param {Number} [musicNumber] Position (0 based) in the 'SONG_NAMES' array above, which tells the song to play
@@ -13,7 +13,7 @@ export default class Music {
     increase_interval?: number;
     sound_obj: createjs.AbstractSoundInstance;
 
-    constructor(musicNumber) {
+    constructor(musicNumber: number) {
         stop();
 
         if (musicNumber < 0 || musicNumber >= SONG_NAMES.length) {

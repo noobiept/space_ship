@@ -69,6 +69,7 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     velocity: number;
     width: number;
     height: number;
+    alreadyInCollision = false;
     tick: (event) => void; // this will point to spawningTick() or normalTick()
 
     constructor(args: Args) {

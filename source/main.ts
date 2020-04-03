@@ -291,7 +291,7 @@ function tick(event) {
 
     // call the ticks of the ships/bullets/etc
     for (let a = Ship.all.length - 1; a >= 0; a--) {
-        Ship.all[a].tick(event);
+        Ship.all[a].tick();
     }
 
     for (let a = EnemyShip.all.length - 1; a >= 0; a--) {

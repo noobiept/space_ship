@@ -22,11 +22,11 @@ const ENTRIES: ((e) => void)[] = [];
 const ENTRIES_ELEMENTS: HTMLElement[] = [];
 
 export function init() {
-    const predefinedMaps = document.getElementById("MainMenu-predefinedMaps");
-    const randomMaps = document.getElementById("MainMenu-randomMaps");
-    const endlessMode = document.getElementById("MainMenu-endlessMode");
-    const options = document.getElementById("MainMenu-options");
-    const donate = document.getElementById("MainMenu-donate");
+    const predefinedMaps = document.getElementById("MainMenu-predefinedMaps")!;
+    const randomMaps = document.getElementById("MainMenu-randomMaps")!;
+    const endlessMode = document.getElementById("MainMenu-endlessMode")!;
+    const options = document.getElementById("MainMenu-options")!;
+    const donate = document.getElementById("MainMenu-donate")!;
 
     ENTRIES.push(
         openPredefinedMaps,
@@ -64,13 +64,13 @@ export function open() {
 
     ENTRY_SELECTED = 0;
 
-    const predefinedMaps = document.getElementById("MainMenu-predefinedMaps");
+    const predefinedMaps = document.getElementById("MainMenu-predefinedMaps")!;
     predefinedMaps.classList.add("MainMenu-entrySelected");
 
     STAGE.update(); //HERE
 }
 
-function openPredefinedMaps(event) {
+function openPredefinedMaps(event: MouseEvent) {
     cleanUp();
     setMapMode(PredefinedMaps);
     startGameMode();
@@ -79,7 +79,7 @@ function openPredefinedMaps(event) {
     event.stopPropagation();
 }
 
-function openRandomMaps(event) {
+function openRandomMaps(event: MouseEvent) {
     cleanUp();
     setMapMode(RandomMaps);
     startGameMode();
@@ -87,7 +87,7 @@ function openRandomMaps(event) {
     event.stopPropagation();
 }
 
-function openEndlessMode(event) {
+function openEndlessMode(event: MouseEvent) {
     cleanUp();
     setMapMode(EndlessMode);
     startGameMode();
@@ -96,22 +96,20 @@ function openEndlessMode(event) {
     event.stopPropagation();
 }
 
-function openOptions(event) {
+function openOptions(event: MouseEvent) {
     cleanUp();
 
     // :: Music Volume :: //
 
-    const musicVolume = document.getElementById("Options-musicVolume");
-    const musicVolumeSpan = musicVolume.querySelector("span");
+    const musicVolume = document.getElementById("Options-musicVolume")!;
+    const musicVolumeSpan = musicVolume.querySelector("span")!;
 
     const musicVolumeValue = Math.round(Options.getMusicVolume() * 100);
-
     $(musicVolumeSpan).text(musicVolumeValue + "%");
 
     const musicVolumeSlider = musicVolume.querySelector(
         "#Options-musicVolume-slider"
-    );
-
+    )!;
     $(musicVolumeSlider).slider({
         min: 0,
         max: 100,
@@ -125,7 +123,7 @@ function openOptions(event) {
         },
     });
 
-    const back = document.getElementById("Options-back");
+    const back = document.getElementById("Options-back")!;
     back.onclick = function () {
         Options.save();
         open();
@@ -135,7 +133,7 @@ function openOptions(event) {
 }
 
 function openDonate() {
-    document.getElementById("MainMenu-donate").click();
+    document.getElementById("MainMenu-donate")!.click();
 }
 
 function keyboardEvents(event) {

@@ -40,9 +40,6 @@ const AMMO_UPDATE_TICK = [10, 28, 11, 21];
 // maximum number of bullets per weapon
 const MAX_AMMO = [50, 10, 25, 20];
 
-var CLICK_F = null;
-var MOUSE_MOVE_F = null;
-
 export default class Ship implements CollisionElement {
     shape: createjs.DisplayObject;
     width = 10;
@@ -54,18 +51,19 @@ export default class Ship implements CollisionElement {
     bullets_left: [number, number, number, number];
     category_bits;
     mask_bits;
-    body;
+    body: Box2D.Dynamics.b2Body;
+    alreadyInCollision = false;
+    onClick: (e) => void;
+    onMouseMove: (e) => void;
 
-    static all = [];
+    static all: Ship[] = [];
 
     constructor() {
         this.color = "rgb(81, 139, 255)";
         this.type = CollisionID.ship;
-
-        this.makeShape();
-        this.setupPhysics();
-
         this.weaponSelected = 0;
+        this.shape = this.makeShape();
+        this.body = this.setupPhysics();
 
         // counter, until it can add a new ammo to the weapon
         this.tick_count = [
@@ -88,14 +86,13 @@ export default class Ship implements CollisionElement {
         this.moveTo(GAME_WIDTH / 2, GAME_HEIGHT / 2);
 
         STAGE.addChild(this.shape);
-
         ZIndex.add(this.shape);
 
         this.setEvents();
     }
 
     makeShape() {
-        var spriteSheet = {
+        const spriteSheet = {
             animations: {
                 main: {
                     frames: [0],
@@ -108,10 +105,8 @@ export default class Ship implements CollisionElement {
             },
             images: [PRELOAD.getResult("ship")],
         };
-
-        var ss = new createjs.SpriteSheet(spriteSheet);
-
-        var ship = new createjs.Sprite(ss);
+        const ss = new createjs.SpriteSheet(spriteSheet);
+        const ship = new createjs.Sprite(ss);
 
         ship.gotoAndPlay("main");
 
@@ -119,7 +114,7 @@ export default class Ship implements CollisionElement {
         ship.regX = this.width / 2;
         ship.regY = this.height / 2;
 
-        this.shape = ship;
+        return ship;
     }
 
     setupPhysics() {
@@ -149,35 +144,32 @@ export default class Ship implements CollisionElement {
         var body = WORLD.CreateBody(bodyDef);
 
         body.CreateFixture(fixDef);
-
-        this.body = body;
-
         body.SetUserData(this);
+
+        return body;
     }
 
     /*
     Sets Ship's events, that handle the firing of the weapons (click event) and the rotation of the ship (mousemove event)
  */
     setEvents() {
-        var shipObject = this;
-
-        CLICK_F = function (event) {
-            shipObject.handleClick(event);
+        this.onClick = (event) => {
+            this.handleClick(event);
         };
-        MOUSE_MOVE_F = function (event) {
-            shipObject.handleMouseMove(event);
+        this.onMouseMove = (event) => {
+            this.handleMouseMove(event);
         };
 
-        window.addEventListener("click", CLICK_F, false);
-        window.addEventListener("mousemove", MOUSE_MOVE_F, false);
+        window.addEventListener("click", this.onClick, false);
+        window.addEventListener("mousemove", this.onMouseMove, false);
     }
 
     /*
     Clear the events of the Ship, call .setEvents() later to set them back
  */
     clearEvents() {
-        window.removeEventListener("click", CLICK_F);
-        window.removeEventListener("mousemove", MOUSE_MOVE_F);
+        window.removeEventListener("click", this.onClick);
+        window.removeEventListener("mousemove", this.onMouseMove);
     }
 
     /*
@@ -192,7 +184,7 @@ export default class Ship implements CollisionElement {
         this.shape.y = bodyCenter.y * SCALE;
     }
 
-    moveTo(x, y) {
+    moveTo(x: number, y: number) {
         this.shape.x = x;
         this.shape.y = y;
 
@@ -213,7 +205,7 @@ export default class Ship implements CollisionElement {
         return this.shape.rotation;
     }
 
-    static inTopLimit(y) {
+    static inTopLimit(y: number) {
         if (y < 0) {
             return true;
         }
@@ -221,7 +213,7 @@ export default class Ship implements CollisionElement {
         return false;
     }
 
-    static inLeftLimit(x) {
+    static inLeftLimit(x: number) {
         if (x < 0) {
             return true;
         }
@@ -229,7 +221,7 @@ export default class Ship implements CollisionElement {
         return false;
     }
 
-    static inRightLimit(x) {
+    static inRightLimit(x: number) {
         if (x > GAME_WIDTH) {
             return true;
         }
@@ -237,7 +229,7 @@ export default class Ship implements CollisionElement {
         return false;
     }
 
-    static inBottomLimit(y) {
+    static inBottomLimit(y: number) {
         if (y > GAME_HEIGHT) {
             return true;
         }
@@ -245,8 +237,8 @@ export default class Ship implements CollisionElement {
         return false;
     }
 
-    tookDamage(damage) {
-        var energy = GameStatistics.getShipEnergy() - damage;
+    tookDamage(damage: number) {
+        const energy = GameStatistics.getShipEnergy() - damage;
 
         GameStatistics.updateShipEnergy(energy);
 
@@ -257,7 +249,7 @@ export default class Ship implements CollisionElement {
             createjs.Ticker.removeAllEventListeners();
             window.onclick = null; // so that you can't fire anymore
 
-            var endMessage = new Message({
+            const endMessage = new Message({
                 text: "Game Over: Press enter to restart",
             });
 
@@ -271,7 +263,7 @@ export default class Ship implements CollisionElement {
         }
     }
 
-    selectWeapon(weaponNumber) {
+    selectWeapon(weaponNumber: number) {
         this.weaponSelected = weaponNumber;
 
         GameMenu.selectWeapon(weaponNumber);
@@ -311,9 +303,8 @@ export default class Ship implements CollisionElement {
         this.rotate(-1 * angleDegrees);
     }
 
-    rotate(degrees) {
+    rotate(degrees: number) {
         this.shape.rotation = degrees;
-
         this.body.SetAngle((degrees * Math.PI) / 180);
     }
 
@@ -377,7 +368,7 @@ export default class Ship implements CollisionElement {
     /*
     Returns the number of bullets left from a particular weapon (zero-based)
  */
-    getBulletsLeft(weapon) {
+    getBulletsLeft(weapon: number) {
         return this.bullets_left[weapon];
     }
 
@@ -415,8 +406,8 @@ export default class Ship implements CollisionElement {
     Remove all the ships
  */
     static removeAll() {
-        $(Ship.all).each(function (index, value) {
-            value.remove();
+        Ship.all.forEach((ship) => {
+            ship.remove();
         });
     }
 
