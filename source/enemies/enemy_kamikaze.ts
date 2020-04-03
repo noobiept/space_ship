@@ -1,20 +1,17 @@
 import EnemyShip, { EnemyShipArgs } from "./enemy_ship.js";
-import {
-    PRELOAD,
-    b2FixtureDef,
-    b2BodyDef,
-    b2Body,
-    b2CircleShape,
-    SCALE,
-    WORLD,
-    MAIN_SHIP,
-    b2Vec2,
-} from "../main.js";
+import { PRELOAD, SCALE, WORLD, MAIN_SHIP } from "../main.js";
 import {
     calculateAngleBetweenObjects,
     toRadians,
 } from "../shared/utilities.js";
-import { CATEGORY, MASK } from "../collision_detection.js";
+import { CATEGORY, MASK } from "../game/collision_detection.js";
+import {
+    b2FixtureDef,
+    b2BodyDef,
+    b2Body,
+    b2CircleShape,
+    b2Vec2,
+} from "../shared/constants.js";
 
 export type EnemyKamikazeArgs = {} & EnemyShipArgs;
 
@@ -95,19 +92,17 @@ export default class EnemyKamikaze extends EnemyShip<EnemyKamikazeArgs> {
         this.category_bits = CATEGORY.enemy_spawning;
         this.mask_bits = MASK.enemy_spawning;
 
-        var bodyDef = new b2BodyDef();
+        const bodyDef = new b2BodyDef();
 
         bodyDef.type = b2Body.b2_dynamicBody;
-
         bodyDef.position.x = 0;
         bodyDef.position.y = 0;
 
         fixDef.shape = new b2CircleShape(width / 2 / SCALE);
 
-        var body = WORLD.CreateBody(bodyDef);
+        const body = WORLD.createBody(bodyDef);
 
         body.CreateFixture(fixDef);
-
         body.SetUserData(this);
 
         this.body = body;

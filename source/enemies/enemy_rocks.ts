@@ -1,16 +1,14 @@
 import EnemyShip, { EnemyShipArgs } from "./enemy_ship.js";
+import { PRELOAD, SCALE, WORLD } from "../main.js";
+import { getRandomFloat } from "../shared/utilities.js";
+import { CATEGORY, MASK } from "../game/collision_detection.js";
 import {
-    PRELOAD,
     b2FixtureDef,
     b2BodyDef,
     b2Body,
     b2PolygonShape,
-    SCALE,
-    WORLD,
     b2Vec2,
-} from "../main.js";
-import { getRandomFloat } from "../shared/utilities.js";
-import { CATEGORY, MASK } from "../collision_detection.js";
+} from "../shared/constants.js";
 
 export type EnemyRocksArgs = {
     scale?: number;
@@ -119,7 +117,7 @@ export default class EnemyRocks extends EnemyShip<EnemyRocksArgs> {
         shape.SetAsBox(width / 2 / SCALE, height / 2 / SCALE);
         fixDef.shape = shape;
 
-        const body = WORLD.CreateBody(bodyDef);
+        const body = WORLD.createBody(bodyDef);
         body.CreateFixture(fixDef);
         body.SetUserData(this);
 

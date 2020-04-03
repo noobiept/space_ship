@@ -20,7 +20,9 @@ import EnemyShip from "./enemies/enemy_ship.js";
 import Bullet from "./bullets/bullet.js";
 import { MapType } from "./shared/types.js";
 import { hideElement, showElement } from "./shared/utilities.js";
-import * as CollisionDetection from "./collision_detection.js";
+import * as CollisionDetection from "./game/collision_detection.js";
+import World from "./game/world.js";
+import { b2DebugDraw, b2ContactListener } from "./shared/constants.js";
 
 // global variables
 
@@ -37,22 +39,10 @@ export var STAGE;
 export var PRELOAD;
 
 // box2d physics
-
-export const b2Vec2 = Box2D.Common.Math.b2Vec2;
-export const b2BodyDef = Box2D.Dynamics.b2BodyDef;
-export const b2Body = Box2D.Dynamics.b2Body;
-export const b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
-export const b2Fixture = Box2D.Dynamics.b2Fixture;
-export const b2World = Box2D.Dynamics.b2World;
-export const b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
-export const b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
-export const b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
-export const b2ContactListener = Box2D.Dynamics.b2ContactListener;
+export const WORLD = new World();
 
 // scale from meters/kilograms/seconds into pixels
 export const SCALE = 30;
-
-export var WORLD = null;
 
 // playable dimensions (the rest of the canvas is for menus/etc)
 export var GAME_WIDTH;
@@ -88,11 +78,6 @@ function initApp(data) {
     // create a stage object to work with the canvas. This is the top level node in the display list
     STAGE = new createjs.Stage(CANVAS);
 
-    WORLD = new b2World(
-        new b2Vec2(0, 0), // zero-gravity
-        true // allow sleep
-    );
-
     createjs.Ticker.setInterval(50);
 
     if (DEBUG) {
@@ -108,7 +93,7 @@ function initApp(data) {
         debugDraw.SetLineThickness(1);
         debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
 
-        WORLD.SetDebugDraw(debugDraw);
+        WORLD.setDebugDraw(debugDraw);
     }
 
     PRELOAD = new createjs.LoadQueue();
@@ -178,10 +163,10 @@ export function initGame() {
     STAGE.update();
 
     // set up collision detection
-    var listener = new b2ContactListener();
+    const listener = new b2ContactListener();
     listener.BeginContact = CollisionDetection.onContact;
 
-    WORLD.SetContactListener(listener);
+    WORLD.setContactListener(listener);
 
     //register key functions
     document.onkeydown = handleKeyDown;
@@ -277,7 +262,7 @@ export function resetStuff() {
     CollisionDetection.reset();
     createjs.Ticker.setPaused(false);
 
-    WORLD.DrawDebugData();
+    WORLD.drawDebugData();
     STAGE.update();
 }
 
@@ -307,14 +292,7 @@ function tick(event) {
     }
 
     GAME_OBJECT.tick(event);
-
-    WORLD.Step(
-        1 / 60, // frame-rate
-        10, // velocity iterations
-        10 // position iterations
-    );
-    WORLD.DrawDebugData();
-    WORLD.ClearForces();
+    WORLD.tick();
 
     STAGE.update();
 }

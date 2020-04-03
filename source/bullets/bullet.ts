@@ -1,17 +1,14 @@
+import { STAGE, MAIN_SHIP, SCALE, WORLD } from "../main.js";
+import * as ZIndex from "../z_index.js";
+import { toRadians, outOfBounds } from "../shared/utilities.js";
+import { CollisionID, CollisionElement } from "../game/collision_detection.js";
 import {
-    STAGE,
-    MAIN_SHIP,
     b2FixtureDef,
     b2BodyDef,
     b2Body,
     b2PolygonShape,
     b2Vec2,
-    SCALE,
-    WORLD,
-} from "../main.js";
-import * as ZIndex from "../z_index.js";
-import { toRadians, outOfBounds } from "../shared/utilities.js";
-import { CollisionID, CollisionElement } from "../collision_detection.js";
+} from "../shared/constants.js";
 
 export type BulletArgs = {
     ship;
@@ -149,7 +146,7 @@ export default abstract class Bullet<Args extends BulletArgs>
         shape.SetAsBox(width / 2 / SCALE, height / 2 / SCALE);
         fixDef.shape = shape;
 
-        const body = WORLD.CreateBody(bodyDef);
+        const body = WORLD.createBody(bodyDef);
 
         body.CreateFixture(fixDef);
         body.SetBullet(true);
@@ -211,13 +208,12 @@ export default abstract class Bullet<Args extends BulletArgs>
     }
 
     removeNow() {
-        var all = Bullet.all_bullets;
+        const all = Bullet.all_bullets;
 
         STAGE.removeChild(this.shape);
-        WORLD.DestroyBody(this.body);
+        WORLD.destroyBody(this.body);
 
-        var position = all.indexOf(this);
-
+        const position = all.indexOf(this);
         all.splice(position, 1);
     }
 

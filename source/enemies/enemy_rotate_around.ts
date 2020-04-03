@@ -1,18 +1,15 @@
 import EnemyShip, { EnemyShipArgs } from "./enemy_ship.js";
+import { PRELOAD, SCALE, WORLD, MAIN_SHIP } from "../main.js";
+import { calculateAngleBetweenObjects } from "../shared/utilities.js";
+import Bullet1_laser from "../bullets/bullet1_laser.js";
+import { CATEGORY, MASK } from "../game/collision_detection.js";
 import {
-    PRELOAD,
     b2FixtureDef,
     b2BodyDef,
     b2Body,
     b2CircleShape,
-    SCALE,
-    WORLD,
-    MAIN_SHIP,
     b2Vec2,
-} from "../main.js";
-import { calculateAngleBetweenObjects } from "../shared/utilities.js";
-import Bullet1_laser from "../bullets/bullet1_laser.js";
-import { CATEGORY, MASK } from "../collision_detection.js";
+} from "../shared/constants.js";
 
 export type EnemyRotateAroundArgs = {} & EnemyShipArgs;
 
@@ -105,10 +102,9 @@ export default class EnemyRotateAround extends EnemyShip<
 
         fixDef.shape = new b2CircleShape(width / 2 / SCALE);
 
-        var body = WORLD.CreateBody(bodyDef);
+        const body = WORLD.createBody(bodyDef);
 
         body.CreateFixture(fixDef);
-
         body.SetUserData(this);
 
         this.body = body;

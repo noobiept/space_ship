@@ -1,4 +1,5 @@
-import { CANVAS, b2Vec2 } from "../main.js";
+import { CANVAS } from "../main.js";
+import { b2Vec2 } from "./constants.js";
 
 export const EVENT_KEY = {
     backspace: 8,

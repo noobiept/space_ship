@@ -1,13 +1,12 @@
 import Bullet, { BulletArgs } from "./bullet.js";
+import { SCALE, WORLD } from "../main.js";
+import { CollisionID } from "../game/collision_detection.js";
 import {
     b2FixtureDef,
     b2BodyDef,
     b2Body,
     b2CircleShape,
-    SCALE,
-    WORLD,
-} from "../main.js";
-import { CollisionID } from "../collision_detection.js";
+} from "../shared/constants.js";
 
 export type SplashDamageArgs = {
     maxRadius: number;
@@ -91,7 +90,7 @@ export default class SplashDamage extends Bullet<SplashDamageArgs> {
 
         fixDef.shape = new b2CircleShape(this.radius / SCALE);
 
-        var body = WORLD.CreateBody(bodyDef);
+        var body = WORLD.createBody(bodyDef);
 
         body.CreateFixture(fixDef);
         body.SetUserData(this);
@@ -103,9 +102,9 @@ export default class SplashDamage extends Bullet<SplashDamageArgs> {
 
     setRadius(radius) {
         // box2dweb doesn't seem to be able to resize existing bodies, so we create again the body (kind of stupid but oh well.. >.>)
-        WORLD.DestroyBody(this.body);
+        WORLD.destroyBody(this.body);
 
-        this.body = WORLD.CreateBody(this.bodyDef);
+        this.body = WORLD.createBody(this.bodyDef);
         this.body.SetUserData(this);
 
         this.fixDef.shape = new b2CircleShape(radius / SCALE);

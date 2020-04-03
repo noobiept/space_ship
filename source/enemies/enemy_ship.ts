@@ -1,11 +1,4 @@
-import {
-    STAGE,
-    SCALE,
-    b2Vec2,
-    WORLD,
-    GAME_WIDTH,
-    GAME_HEIGHT,
-} from "../main.js";
+import { STAGE, SCALE, WORLD, GAME_WIDTH, GAME_HEIGHT } from "../main.js";
 import * as ZIndex from "../z_index.js";
 import * as GameStatistics from "../menus/game_statistics.js";
 import {
@@ -13,7 +6,8 @@ import {
     CATEGORY,
     MASK,
     CollisionElement,
-} from "../collision_detection.js";
+} from "../game/collision_detection.js";
+import { b2Vec2 } from "../shared/constants.js";
 
 export type EnemyShipArgs = {
     x: number;
@@ -188,7 +182,7 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
  */
     remove() {
         STAGE.removeChild(this.shape);
-        WORLD.DestroyBody(this.body);
+        WORLD.destroyBody(this.body);
 
         var position = EnemyShip.all.indexOf(this);
 
@@ -211,7 +205,7 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
 
         $(EnemyShip.all_spawning).each(function (index, ship) {
             STAGE.removeChild(ship.shape);
-            WORLD.DestroyBody(ship.body);
+            WORLD.destroyBody(ship.body);
 
             var position = EnemyShip.all_spawning.indexOf(ship);
 

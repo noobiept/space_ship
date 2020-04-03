@@ -2,16 +2,11 @@ import {
     GAME_WIDTH,
     GAME_HEIGHT,
     STAGE,
-    b2FixtureDef,
-    b2BodyDef,
-    b2Body,
-    b2CircleShape,
     SCALE,
-    WORLD,
-    b2Vec2,
     startGameMode,
     CANVAS,
     PRELOAD,
+    WORLD,
 } from "./main.js";
 import { KEYS_HELD } from "./keyboard_events.js";
 import Message from "./shared/message.js";
@@ -29,7 +24,14 @@ import {
     CATEGORY,
     MASK,
     CollisionElement,
-} from "./collision_detection.js";
+} from "./game/collision_detection.js";
+import {
+    b2FixtureDef,
+    b2BodyDef,
+    b2Body,
+    b2CircleShape,
+    b2Vec2,
+} from "./shared/constants.js";
 
 const VELOCITY = 5;
 
@@ -141,7 +143,7 @@ export default class Ship implements CollisionElement {
 
         fixDef.shape = new b2CircleShape(width / 2 / SCALE);
 
-        var body = WORLD.CreateBody(bodyDef);
+        const body = WORLD.createBody(bodyDef);
 
         body.CreateFixture(fixDef);
         body.SetUserData(this);
@@ -392,7 +394,7 @@ export default class Ship implements CollisionElement {
  */
     remove() {
         STAGE.removeChild(this.shape);
-        WORLD.DestroyBody(this.body);
+        WORLD.destroyBody(this.body);
 
         var position = Ship.all.indexOf(this);
 
