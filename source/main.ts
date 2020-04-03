@@ -1,25 +1,25 @@
-import * as Options from "./options.js";
-import * as GameStatistics from "./game_statistics.js";
+import * as Options from "./shared/options.js";
+import * as GameStatistics from "./menus/game_statistics.js";
 import * as ZIndex from "./z_index.js";
-import * as MainMenu from "./main_menu.js";
+import * as MainMenu from "./menus/main_menu.js";
 import * as AppStorage from "./app_storage.js";
-import * as GameMenu from "./game_menu.js";
-import Message from "./message.js";
+import * as GameMenu from "./menus/game_menu.js";
+import Message from "./shared/message.js";
 import Music from "./music.js";
-import EnemyMoveHorizontally from "./enemy_move_horizontally.js";
-import EnemyRotateAround from "./enemy_rotate_around.js";
-import EnemyKamikaze from "./enemy_kamikaze.js";
-import EnemyRocks from "./enemy_rocks.js";
+import EnemyMoveHorizontally from "./enemies/enemy_move_horizontally.js";
+import EnemyRotateAround from "./enemies/enemy_rotate_around.js";
+import EnemyKamikaze from "./enemies/enemy_kamikaze.js";
+import EnemyRocks from "./enemies/enemy_rocks.js";
 import Ship from "./ship.js";
 import {
     handleKeyDown,
     handleKeyUp,
     clearKeysHeld,
 } from "./keyboard_events.js";
-import EnemyShip from "./enemy_ship.js";
-import Bullet from "./bullet.js";
+import EnemyShip from "./enemies/enemy_ship.js";
+import Bullet from "./bullets/bullet.js";
 import { MapType } from "./shared/types.js";
-import { hideElement, showElement } from "./utilities.js";
+import { hideElement, showElement } from "./shared/utilities.js";
 
 // global variables
 

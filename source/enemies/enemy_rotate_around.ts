@@ -11,9 +11,9 @@ import {
     WORLD,
     MAIN_SHIP,
     b2Vec2,
-} from "./main.js";
-import { calculateAngleBetweenObjects } from "./utilities.js";
-import Bullet1_laser from "./bullet1_laser.js";
+} from "../main.js";
+import { calculateAngleBetweenObjects } from "../shared/utilities.js";
+import Bullet1_laser from "../bullets/bullet1_laser.js";
 
 export type EnemyRotateAroundArgs = {} & EnemyShipArgs;
 

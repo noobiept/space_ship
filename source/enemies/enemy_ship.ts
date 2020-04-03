@@ -8,9 +8,9 @@ import {
     GAME_HEIGHT,
     CATEGORY,
     MASK,
-} from "./main.js";
-import * as ZIndex from "./z_index.js";
-import * as GameStatistics from "./game_statistics.js";
+} from "../main.js";
+import * as ZIndex from "../z_index.js";
+import * as GameStatistics from "../menus/game_statistics.js";
 
 export type EnemyShipArgs = {
     x: number;

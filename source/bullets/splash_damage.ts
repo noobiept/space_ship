@@ -7,7 +7,7 @@ import {
     b2CircleShape,
     SCALE,
     WORLD,
-} from "./main.js";
+} from "../main.js";
 
 export type SplashDamageArgs = {
     maxRadius: number;

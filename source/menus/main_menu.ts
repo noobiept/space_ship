@@ -5,13 +5,13 @@ import {
     STAGE,
     setMapMode,
     removeLoadingMessage,
-} from "./main.js";
-import * as Music from "./music.js";
-import * as Options from "./options.js";
-import { EVENT_KEY, hideElement, showElement } from "./utilities.js";
-import RandomMaps from "./random_maps.js";
-import PredefinedMaps from "./predefined_maps.js";
-import EndlessMode from "./endless_mode.js";
+} from "../main.js";
+import * as Music from "../music.js";
+import * as Options from "../shared/options.js";
+import { EVENT_KEY, hideElement, showElement } from "../shared/utilities.js";
+import RandomMaps from "../maps/random_maps.js";
+import PredefinedMaps from "../maps/predefined_maps.js";
+import EndlessMode from "../maps/endless_mode.js";
 
 let ENTRY_SELECTED = 0;
 

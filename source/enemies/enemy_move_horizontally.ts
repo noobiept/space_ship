@@ -10,7 +10,7 @@ import {
     SCALE,
     WORLD,
     b2Vec2,
-} from "./main.js";
+} from "../main.js";
 
 export type EnemyMoveHorizontallyArgs = {} & EnemyShipArgs;
 

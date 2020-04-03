@@ -6,4 +6,5 @@
 
 ## Changed
 
--   Build script to webpack.
+-   Convert the codebase to typescript.
+-   Refactor part of the code.

@@ -10,8 +10,8 @@ import {
     SCALE,
     WORLD,
     b2Vec2,
-} from "./main.js";
-import { getRandomFloat } from "./utilities.js";
+} from "../main.js";
+import { getRandomFloat } from "../shared/utilities.js";
 
 export type EnemyRocksArgs = {
     scale?: number;

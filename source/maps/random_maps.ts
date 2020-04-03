@@ -1,7 +1,7 @@
 import Maps from "./maps.js";
-import { getRandomInt } from "./utilities.js";
-import Message from "./message.js";
-import { ENEMY_TYPES } from "./main.js";
+import { getRandomInt } from "../shared/utilities.js";
+import Message from "../shared/message.js";
+import { ENEMY_TYPES } from "../main.js";
 
 export default class RandomMaps extends Maps {
     map_length: number;

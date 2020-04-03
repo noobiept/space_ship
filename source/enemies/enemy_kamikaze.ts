@@ -11,8 +11,11 @@ import {
     WORLD,
     MAIN_SHIP,
     b2Vec2,
-} from "./main.js";
-import { calculateAngleBetweenObjects, toRadians } from "./utilities.js";
+} from "../main.js";
+import {
+    calculateAngleBetweenObjects,
+    toRadians,
+} from "../shared/utilities.js";
 
 export type EnemyKamikazeArgs = {} & EnemyShipArgs;
 

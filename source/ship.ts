@@ -17,16 +17,16 @@ import {
     PRELOAD,
 } from "./main.js";
 import { KEYS_HELD } from "./keyboard_events.js";
-import Message from "./message.js";
-import { EVENT_KEY } from "./utilities.js";
-import Bullet1_laser from "./bullet1_laser.js";
-import Bullet2_sniper from "./bullet2_sniper.js";
-import Bullet3_rocket from "./bullet3_rocket.js";
-import Bullet4_mines from "./bullet4_mines.js";
-import * as GameStatistics from "./game_statistics.js";
+import Message from "./shared/message.js";
+import { EVENT_KEY } from "./shared/utilities.js";
+import Bullet1_laser from "./bullets/bullet1_laser.js";
+import Bullet2_sniper from "./bullets/bullet2_sniper.js";
+import Bullet3_rocket from "./bullets/bullet3_rocket.js";
+import Bullet4_mines from "./bullets/bullet4_mines.js";
+import * as GameStatistics from "./menus/game_statistics.js";
 import * as ZIndex from "./z_index.js";
-import * as GameMenu from "./game_menu.js";
-import * as Options from "./options.js";
+import * as GameMenu from "./menus/game_menu.js";
+import * as Options from "./shared/options.js";
 
 const VELOCITY = 5;
 

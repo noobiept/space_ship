@@ -1,4 +1,4 @@
-import { EVENT_KEY } from "./utilities.js";
+import { EVENT_KEY } from "./shared/utilities.js";
 import { MAIN_SHIP } from "./main.js";
 
 // keys being pressed/held

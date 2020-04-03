@@ -9,9 +9,9 @@ import {
     b2Vec2,
     SCALE,
     WORLD,
-} from "./main.js";
-import * as ZIndex from "./z_index.js";
-import { toRadians, outOfBounds } from "./utilities.js";
+} from "../main.js";
+import * as ZIndex from "../z_index.js";
+import { toRadians, outOfBounds } from "../shared/utilities.js";
 
 export type BulletArgs = {
     ship;

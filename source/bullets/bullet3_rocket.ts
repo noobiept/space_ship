@@ -1,5 +1,5 @@
 import Bullet, { BulletArgs } from "./bullet.js";
-import { applyImpulse } from "./utilities.js";
+import { applyImpulse } from "../shared/utilities.js";
 import SplashDamage from "./splash_damage.js";
 
 export type Bullet3_rocketArgs = {
