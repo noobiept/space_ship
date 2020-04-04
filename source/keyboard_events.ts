@@ -16,11 +16,7 @@ export function clearKeysHeld() {
     KEYS_HELD.down = false;
 }
 
-export function handleKeyDown(event) {
-    if (!event) {
-        event = window.event;
-    }
-
+export function handleKeyDown(event: KeyboardEvent) {
     switch (event.keyCode) {
         case KEY_CODE.a:
         case KEY_CODE.leftArrow:
@@ -44,11 +40,7 @@ export function handleKeyDown(event) {
     }
 }
 
-export function handleKeyUp(event) {
-    if (!event) {
-        event = window.event;
-    }
-
+export function handleKeyUp(event: KeyboardEvent) {
     switch (event.keyCode) {
         case KEY_CODE.a:
         case KEY_CODE.leftArrow:

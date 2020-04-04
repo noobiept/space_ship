@@ -10,11 +10,14 @@ import {
     b2Vec2,
 } from "../shared/constants";
 
-export type EnemyRocksArgs = {
+export type FullEnemyRocksArgs = {
     scale?: number;
     damage?: number;
     velocity?: number;
 } & EnemyShipArgs;
+
+// we define the width/height directly on the constructor, so no need to pass them
+export type EnemyRocksArgs = Omit<FullEnemyRocksArgs, "width" | "height">;
 
 /*
     args = {
@@ -27,29 +30,24 @@ export type EnemyRocksArgs = {
 
         - scale: scale the original image (1 -> 100%, no scaling)
  */
-export default class EnemyRocks extends EnemyShip<EnemyRocksArgs> {
-    scale: number;
-    angleRadians: number;
+export default class EnemyRocks extends EnemyShip<FullEnemyRocksArgs> {
+    scale = 1;
+    angleRadians = 0;
 
-    constructor(args) {
-        const scale = args.scale ?? 1;
-
+    constructor(args: EnemyRocksArgs) {
         super({
             ...args,
             width: 50,
             height: 50,
-            scale,
         });
 
-        this.scale = scale;
-        this.damage = args.damage ?? 5;
-        this.velocity = args.velocity ?? 1;
+        this.damage = args.damage ?? 5; //HERE  move to EnemyShip
+        this.velocity = args.velocity ?? 1; //HERE
     }
 
-    makeShape({ width, height, scale }: EnemyRocksArgs) {
-        var speed = 0.2;
-
-        var spriteConfig = {
+    makeShape({ width, height, scale = 1 }: FullEnemyRocksArgs) {
+        const speed = 0.2;
+        const spriteConfig = {
             animations: {
                 spawn: {
                     frames: [0, 1, 2],
@@ -69,8 +67,8 @@ export default class EnemyRocks extends EnemyShip<EnemyRocksArgs> {
             images: [PRELOAD.getResult("enemy_rocks")],
         };
 
-        var sprite = new createjs.SpriteSheet(spriteConfig);
-        var rock = new createjs.Sprite(sprite);
+        const sprite = new createjs.SpriteSheet(spriteConfig);
+        const rock = new createjs.Sprite(sprite);
 
         // origin in the middle of the image
         rock.regX = width / 2;
@@ -82,6 +80,7 @@ export default class EnemyRocks extends EnemyShip<EnemyRocksArgs> {
         // don't update these variables before the scaling (they're are used in the config above, and the scaling is applied later)
         this.width *= scale;
         this.height *= scale;
+        this.scale = scale;
 
         // it moves
         this.angleRadians = getRandomFloat(0, 2 * Math.PI);

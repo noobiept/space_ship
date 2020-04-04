@@ -9,12 +9,20 @@ import {
     b2Vec2,
 } from "../shared/constants";
 
-export type EnemyMoveHorizontallyArgs = {} & EnemyShipArgs;
+export type FullEnemyMoveHorizontallyArgs = {
+    damage?: number;
+    velocity?: number;
+} & EnemyShipArgs;
+
+export type EnemyMoveHorizontallyArgs = Omit<
+    FullEnemyMoveHorizontallyArgs,
+    "width" | "height"
+>;
 
 export default class EnemyMoveHorizontally extends EnemyShip<
-    EnemyMoveHorizontallyArgs
+    FullEnemyMoveHorizontallyArgs
 > {
-    constructor(args) {
+    constructor(args: EnemyMoveHorizontallyArgs) {
         super({
             ...args,
             width: 20,
@@ -33,7 +41,7 @@ export default class EnemyMoveHorizontally extends EnemyShip<
         this.velocity = args.velocity;
     }
 
-    makeShape({ width, height }) {
+    makeShape({ width, height }: FullEnemyMoveHorizontallyArgs) {
         var speed = 0.2;
 
         var spriteSheet = {

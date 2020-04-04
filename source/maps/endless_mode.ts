@@ -49,7 +49,7 @@ export default class EndlessMode implements MapType {
     Gets called after the main tick()
  */
 
-    tick(event) {
+    tick(event: createjs.TickerEvent) {
         if (event.paused) {
             return;
         }

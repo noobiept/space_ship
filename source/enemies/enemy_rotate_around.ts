@@ -11,15 +11,23 @@ import {
     b2Vec2,
 } from "../shared/constants";
 
-export type EnemyRotateAroundArgs = {} & EnemyShipArgs;
+export type FullEnemyRotateAroundArgs = {
+    damage?: number;
+    velocity?: number;
+} & EnemyShipArgs;
+
+export type EnemyRotateAroundArgs = Omit<
+    FullEnemyRotateAroundArgs,
+    "width" | "height"
+>;
 
 export default class EnemyRotateAround extends EnemyShip<
-    EnemyRotateAroundArgs
+    FullEnemyRotateAroundArgs
 > {
     ticksUntilNextBullet: number;
     countTicks: number;
 
-    constructor(args) {
+    constructor(args: EnemyRotateAroundArgs) {
         super({
             ...args,
             width: 20,
@@ -41,7 +49,7 @@ export default class EnemyRotateAround extends EnemyShip<
         this.countTicks = 0;
     }
 
-    makeShape({ width, height }) {
+    makeShape({ width, height }: FullEnemyRotateAroundArgs) {
         const speed = 0.2;
         const spriteSheet = {
             animations: {

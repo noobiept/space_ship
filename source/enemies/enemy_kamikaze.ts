@@ -11,18 +11,15 @@ import {
     b2Vec2,
 } from "../shared/constants";
 
-export type EnemyKamikazeArgs = {} & EnemyShipArgs;
+export type FullEnemyKamikazeArgs = {
+    damage?: number;
+    velocity?: number;
+} & EnemyShipArgs;
 
-/*
-    args = {
-        x: Number,
-        y: Number,
-        damage: Number,     (optional)
-        velocity: Number    (optional)
-    }
- */
-export default class EnemyKamikaze extends EnemyShip<EnemyKamikazeArgs> {
-    constructor(args) {
+export type EnemyKamikazeArgs = Omit<FullEnemyKamikazeArgs, "width" | "height">;
+
+export default class EnemyKamikaze extends EnemyShip<FullEnemyKamikazeArgs> {
+    constructor(args: EnemyKamikazeArgs) {
         super({
             ...args,
             width: 14,
@@ -41,7 +38,7 @@ export default class EnemyKamikaze extends EnemyShip<EnemyKamikazeArgs> {
         this.velocity = args.velocity;
     }
 
-    makeShape({ width, height }) {
+    makeShape({ width, height }: FullEnemyKamikazeArgs) {
         const speed = 0.2;
         const spriteSheet = {
             animations: {
@@ -139,7 +136,7 @@ export default class EnemyKamikaze extends EnemyShip<EnemyKamikazeArgs> {
         this.rotate(-1 * angleDegrees);
     }
 
-    spawningTick(event) {
+    spawningTick(event: createjs.TickerEvent) {
         super.spawningTick(event);
         this.updateRotation();
     }

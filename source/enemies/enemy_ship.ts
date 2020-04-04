@@ -12,37 +12,6 @@ export type EnemyShipArgs = {
     height: number;
 };
 
-/*
-    Don't use directly, use as a base class, and write these functions:
-
-    --- to the prototype ---
-
-        .makeShape()
-        .setupPhysics()
-        .enemyBehaviour()
-        .updateShape()          (optional)
-        .tookDamage()           (optional)
-        .beforeAddToStage()     (optional)
-
-    and change these properties:
-
-        .damage
-        .velocity
-        .width
-        .height
-        .category_bits
-        .mask_bits
-
-    Add reference of the drawn element to:
-
-        .shape
-
-    Physics body
-
-        .body
-        .fixDef
-
- */
 export default abstract class EnemyShip<Args extends EnemyShipArgs>
     implements GameElement {
     static all: EnemyShip<EnemyShipArgs>[] = [];

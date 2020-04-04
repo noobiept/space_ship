@@ -36,7 +36,7 @@ export function init() {
     );
 
     const listener = (callback: () => void) => {
-        return (event) => {
+        return (event: MouseEvent) => {
             callback();
 
             // prevent the click to select the entry, to also fire a bullet once the game starts
@@ -179,7 +179,7 @@ function cleanUp() {
     hideElement("MainMenu");
     hideElement("Options");
 
-    document.onkeyup = undefined;
+    document.onkeyup = null;
 
     const selected = ENTRIES_ELEMENTS[ENTRY_SELECTED];
     selected.classList.remove("MainMenu-entrySelected");
