@@ -1,5 +1,5 @@
 import { STAGE, SCALE, WORLD, GAME_WIDTH, GAME_HEIGHT } from "../main";
-import * as ZIndex from "../z_index";
+import * as ZIndex from "../game/z_index";
 import * as GameStatistics from "../menus/game_statistics";
 import { CollisionID, CATEGORY, MASK } from "../game/collision_detection";
 import { b2Vec2 } from "../shared/constants";

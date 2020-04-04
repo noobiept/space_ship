@@ -8,26 +8,26 @@ import {
     CANVAS,
     PRELOAD,
     WORLD,
-} from "./main";
-import { KEYS_HELD } from "./keyboard_events";
-import Message from "./shared/message";
-import Bullet1_laser from "./bullets/bullet1_laser";
-import Bullet2_sniper from "./bullets/bullet2_sniper";
-import Bullet3_rocket from "./bullets/bullet3_rocket";
-import Bullet4_mines from "./bullets/bullet4_mines";
-import * as GameStatistics from "./menus/game_statistics";
+} from "../main";
+import { KEYS_HELD } from "../keyboard_events";
+import Message from "../shared/message";
+import Bullet1_laser from "../bullets/bullet1_laser";
+import Bullet2_sniper from "../bullets/bullet2_sniper";
+import Bullet3_rocket from "../bullets/bullet3_rocket";
+import Bullet4_mines from "../bullets/bullet4_mines";
+import * as GameStatistics from "../menus/game_statistics";
 import * as ZIndex from "./z_index";
-import * as GameMenu from "./menus/game_menu";
-import * as Options from "./shared/options";
-import { CollisionID, CATEGORY, MASK } from "./game/collision_detection";
+import * as GameMenu from "../menus/game_menu";
+import * as Options from "../shared/options";
+import { CollisionID, CATEGORY, MASK } from "./collision_detection";
 import {
     b2FixtureDef,
     b2BodyDef,
     b2Body,
     b2CircleShape,
     b2Vec2,
-} from "./shared/constants";
-import { GameElement } from "./shared/types";
+} from "../shared/constants";
+import { GameElement } from "../shared/types";
 
 const VELOCITY = 5;
 

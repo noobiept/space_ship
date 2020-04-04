@@ -1,5 +1,5 @@
 import { STAGE, CANVAS, MAIN_SHIP } from "../main";
-import * as ZIndex from "../z_index";
+import * as ZIndex from "../game/z_index";
 import * as GameMenu from "./game_menu";
 
 let SCORE = 0;

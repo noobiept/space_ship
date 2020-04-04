@@ -1,6 +1,6 @@
 import { toRadians } from "@drk4/utilities";
 import { STAGE, MAIN_SHIP, SCALE, WORLD } from "../main";
-import * as ZIndex from "../z_index";
+import * as ZIndex from "../game/z_index";
 import { outOfBounds } from "../shared/utilities";
 import { CollisionID } from "../game/collision_detection";
 import {
@@ -11,7 +11,7 @@ import {
     b2Vec2,
 } from "../shared/constants";
 import { GameElement } from "../shared/types";
-import Ship from "../ship";
+import Ship from "../game/ship";
 
 export type BulletArgs = {
     ship: Ship;

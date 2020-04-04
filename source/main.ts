@@ -1,6 +1,6 @@
 import * as Options from "./shared/options";
 import * as GameStatistics from "./menus/game_statistics";
-import * as ZIndex from "./z_index";
+import * as ZIndex from "./game/z_index";
 import * as MainMenu from "./menus/main_menu";
 import * as AppStorage from "./app_storage";
 import * as GameMenu from "./menus/game_menu";
@@ -10,7 +10,7 @@ import EnemyMoveHorizontally from "./enemies/enemy_move_horizontally";
 import EnemyRotateAround from "./enemies/enemy_rotate_around";
 import EnemyKamikaze from "./enemies/enemy_kamikaze";
 import EnemyRocks from "./enemies/enemy_rocks";
-import Ship from "./ship";
+import Ship from "./game/ship";
 import { handleKeyDown, handleKeyUp, clearKeysHeld } from "./keyboard_events";
 import EnemyShip from "./enemies/enemy_ship";
 import Bullet from "./bullets/bullet";
