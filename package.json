@@ -2,6 +2,8 @@
     "name": "space_ship",
     "version": "2.0.0",
     "scripts": {
+        "start": "webpack --mode development --watch",
+        "build": "webpack --mode production",
         "tsc": "tsc --watch",
         "server": "http-server . -c-1",
         "format:check": "prettier --check \"**/*.{html,css,json,js,ts,tsx,md}\"",
@@ -15,7 +17,12 @@
         "http-server": "^0.12.1",
         "prettier": "^2.0.2",
         "ts-loader": "^6.2.2",
-        "typescript": "^3.8.3"
+        "typescript": "^3.8.3",
+        "webpack": "^4.42.1",
+        "webpack-cli": "^3.3.11"
+    },
+    "dependencies": {
+        "@drk4/utilities": "^3.4.1"
     },
     "prettier": {
         "printWidth": 80,

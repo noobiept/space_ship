@@ -1,4 +1,4 @@
-import { getMusicVolume } from "./shared/options.js";
+import { getMusicVolume } from "./shared/options";
 
 const SONG_NAMES = ["scumm_bar", "space_ship_1"];
 let CURRENT_SONG = 0;

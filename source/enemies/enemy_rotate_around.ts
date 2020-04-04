@@ -1,15 +1,15 @@
-import EnemyShip, { EnemyShipArgs } from "./enemy_ship.js";
-import { PRELOAD, SCALE, WORLD, MAIN_SHIP } from "../main.js";
-import { calculateAngleBetweenObjects } from "../shared/utilities.js";
-import Bullet1_laser from "../bullets/bullet1_laser.js";
-import { CATEGORY, MASK } from "../game/collision_detection.js";
+import EnemyShip, { EnemyShipArgs } from "./enemy_ship";
+import { PRELOAD, SCALE, WORLD, MAIN_SHIP } from "../main";
+import { calculateAngleBetweenObjects } from "../shared/utilities";
+import Bullet1_laser from "../bullets/bullet1_laser";
+import { CATEGORY, MASK } from "../game/collision_detection";
 import {
     b2FixtureDef,
     b2BodyDef,
     b2Body,
     b2CircleShape,
     b2Vec2,
-} from "../shared/constants.js";
+} from "../shared/constants";
 
 export type EnemyRotateAroundArgs = {} & EnemyShipArgs;
 

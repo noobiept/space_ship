@@ -1,28 +1,24 @@
-import * as Options from "./shared/options.js";
-import * as GameStatistics from "./menus/game_statistics.js";
-import * as ZIndex from "./z_index.js";
-import * as MainMenu from "./menus/main_menu.js";
-import * as AppStorage from "./app_storage.js";
-import * as GameMenu from "./menus/game_menu.js";
-import Message from "./shared/message.js";
-import Music from "./music.js";
-import EnemyMoveHorizontally from "./enemies/enemy_move_horizontally.js";
-import EnemyRotateAround from "./enemies/enemy_rotate_around.js";
-import EnemyKamikaze from "./enemies/enemy_kamikaze.js";
-import EnemyRocks from "./enemies/enemy_rocks.js";
-import Ship from "./ship.js";
-import {
-    handleKeyDown,
-    handleKeyUp,
-    clearKeysHeld,
-} from "./keyboard_events.js";
-import EnemyShip from "./enemies/enemy_ship.js";
-import Bullet from "./bullets/bullet.js";
-import { MapType } from "./shared/types.js";
-import { hideElement, showElement } from "./shared/utilities.js";
-import * as CollisionDetection from "./game/collision_detection.js";
-import World from "./game/world.js";
-import { b2DebugDraw, b2ContactListener } from "./shared/constants.js";
+import * as Options from "./shared/options";
+import * as GameStatistics from "./menus/game_statistics";
+import * as ZIndex from "./z_index";
+import * as MainMenu from "./menus/main_menu";
+import * as AppStorage from "./app_storage";
+import * as GameMenu from "./menus/game_menu";
+import Message from "./shared/message";
+import Music from "./music";
+import EnemyMoveHorizontally from "./enemies/enemy_move_horizontally";
+import EnemyRotateAround from "./enemies/enemy_rotate_around";
+import EnemyKamikaze from "./enemies/enemy_kamikaze";
+import EnemyRocks from "./enemies/enemy_rocks";
+import Ship from "./ship";
+import { handleKeyDown, handleKeyUp, clearKeysHeld } from "./keyboard_events";
+import EnemyShip from "./enemies/enemy_ship";
+import Bullet from "./bullets/bullet";
+import { MapType } from "./shared/types";
+import { hideElement, showElement } from "./shared/utilities";
+import * as CollisionDetection from "./game/collision_detection";
+import World from "./game/world";
+import { b2DebugDraw, b2ContactListener } from "./shared/constants";
 
 // global variables
 

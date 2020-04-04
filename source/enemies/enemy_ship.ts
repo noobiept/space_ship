@@ -1,13 +1,13 @@
-import { STAGE, SCALE, WORLD, GAME_WIDTH, GAME_HEIGHT } from "../main.js";
-import * as ZIndex from "../z_index.js";
-import * as GameStatistics from "../menus/game_statistics.js";
+import { STAGE, SCALE, WORLD, GAME_WIDTH, GAME_HEIGHT } from "../main";
+import * as ZIndex from "../z_index";
+import * as GameStatistics from "../menus/game_statistics";
 import {
     CollisionID,
     CATEGORY,
     MASK,
     CollisionElement,
-} from "../game/collision_detection.js";
-import { b2Vec2 } from "../shared/constants.js";
+} from "../game/collision_detection";
+import { b2Vec2 } from "../shared/constants";
 
 export type EnemyShipArgs = {
     x: number;

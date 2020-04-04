@@ -1,6 +1,6 @@
-import { initGame, ENEMY_TYPES, GAME_WIDTH, GAME_HEIGHT } from "../main.js";
-import { getRandomInt } from "../shared/utilities.js";
-import { MapType } from "../shared/types.js";
+import { getRandomInt } from "@drk4/utilities";
+import { initGame, ENEMY_TYPES, GAME_WIDTH, GAME_HEIGHT } from "../main";
+import { MapType } from "../shared/types";
 
 /*
     Doesn't have levels/maps

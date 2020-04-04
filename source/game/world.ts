@@ -1,4 +1,4 @@
-import { b2Vec2 } from "../shared/constants.js";
+import { b2Vec2 } from "../shared/constants";
 
 export default class World {
     private world: Box2D.Dynamics.b2World;

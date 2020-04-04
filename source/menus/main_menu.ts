@@ -1,3 +1,4 @@
+import { KEY_CODE } from "@drk4/utilities";
 import {
     CANVAS,
     resetStuff,
@@ -5,13 +6,13 @@ import {
     STAGE,
     setMapMode,
     removeLoadingMessage,
-} from "../main.js";
-import * as Music from "../music.js";
-import * as Options from "../shared/options.js";
-import { EVENT_KEY, hideElement, showElement } from "../shared/utilities.js";
-import RandomMaps from "../maps/random_maps.js";
-import PredefinedMaps from "../maps/predefined_maps.js";
-import EndlessMode from "../maps/endless_mode.js";
+} from "../main";
+import * as Music from "../music";
+import * as Options from "../shared/options";
+import { hideElement, showElement } from "../shared/utilities";
+import RandomMaps from "../maps/random_maps";
+import PredefinedMaps from "../maps/predefined_maps";
+import EndlessMode from "../maps/endless_mode";
 
 let ENTRY_SELECTED = 0;
 
@@ -140,11 +141,11 @@ function keyboardEvents(event) {
     var key = event.keyCode;
 
     // start the game
-    if (key === EVENT_KEY.enter) {
+    if (key === KEY_CODE.enter) {
         ENTRIES[ENTRY_SELECTED](event);
-    } else if (key === EVENT_KEY.downArrow) {
+    } else if (key === KEY_CODE.downArrow) {
         selectNextEntry();
-    } else if (key === EVENT_KEY.upArrow) {
+    } else if (key === KEY_CODE.upArrow) {
         selectPreviousEntry();
     }
 }

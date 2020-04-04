@@ -1,6 +1,6 @@
-import Bullet, { BulletArgs } from "./bullet.js";
-import { applyImpulse } from "../shared/utilities.js";
-import SplashDamage from "./splash_damage.js";
+import Bullet, { BulletArgs } from "./bullet";
+import { applyImpulse } from "../shared/utilities";
+import SplashDamage from "./splash_damage";
 
 export type Bullet3_rocketArgs = {
     color: string;

@@ -1,12 +1,12 @@
-import Bullet, { BulletArgs } from "./bullet.js";
-import { SCALE, WORLD } from "../main.js";
-import { CollisionID } from "../game/collision_detection.js";
+import Bullet, { BulletArgs } from "./bullet";
+import { SCALE, WORLD } from "../main";
+import { CollisionID } from "../game/collision_detection";
 import {
     b2FixtureDef,
     b2BodyDef,
     b2Body,
     b2CircleShape,
-} from "../shared/constants.js";
+} from "../shared/constants";
 
 export type SplashDamageArgs = {
     maxRadius: number;

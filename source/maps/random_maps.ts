@@ -1,7 +1,7 @@
-import Maps from "./maps.js";
-import { getRandomInt } from "../shared/utilities.js";
-import Message from "../shared/message.js";
-import { ENEMY_TYPES } from "../main.js";
+import { getRandomInt } from "@drk4/utilities";
+import Maps from "./maps";
+import Message from "../shared/message";
+import { ENEMY_TYPES } from "../main";
 
 export default class RandomMaps extends Maps {
     map_length: number;
@@ -31,12 +31,12 @@ export default class RandomMaps extends Maps {
         this.velocity = 5;
     }
 
-    /*
-    Generates a map in a similar format as the one used in PredefinedMaps
-
-    Differences:
-        - the EnemyType is the class reference here, while in the PredefinedMaps is a string
- */
+    /**
+     * Generates a map in a similar format as the one used in PredefinedMaps
+     *
+     * Differences:
+     *   - the EnemyType is the class reference here, while in the PredefinedMaps is a string
+     */
     generateMap() {
         this.increaseDifficulty();
 
@@ -53,7 +53,6 @@ export default class RandomMaps extends Maps {
 
         for (var i = 0; i < length; i++) {
             tick += getRandomInt(this.tick_min, this.tick_max);
-
             temp = getRandomInt(0, ENEMY_TYPES.length - 1);
 
             enemyType = ENEMY_TYPES[temp];

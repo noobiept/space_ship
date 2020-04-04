@@ -1,5 +1,5 @@
-import Bullet, { BulletArgs } from "./bullet.js";
-import { applyImpulse } from "../shared/utilities.js";
+import Bullet, { BulletArgs } from "./bullet";
+import { applyImpulse } from "../shared/utilities";
 
 export type Bullet1_laserArgs = {
     damage?: number;

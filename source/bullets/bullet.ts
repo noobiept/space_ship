@@ -1,14 +1,15 @@
-import { STAGE, MAIN_SHIP, SCALE, WORLD } from "../main.js";
-import * as ZIndex from "../z_index.js";
-import { toRadians, outOfBounds } from "../shared/utilities.js";
-import { CollisionID, CollisionElement } from "../game/collision_detection.js";
+import { toRadians } from "@drk4/utilities";
+import { STAGE, MAIN_SHIP, SCALE, WORLD } from "../main";
+import * as ZIndex from "../z_index";
+import { outOfBounds } from "../shared/utilities";
+import { CollisionID, CollisionElement } from "../game/collision_detection";
 import {
     b2FixtureDef,
     b2BodyDef,
     b2Body,
     b2PolygonShape,
     b2Vec2,
-} from "../shared/constants.js";
+} from "../shared/constants";
 
 export type BulletArgs = {
     ship;

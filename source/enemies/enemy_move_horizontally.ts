@@ -1,13 +1,13 @@
-import EnemyShip, { EnemyShipArgs } from "./enemy_ship.js";
-import { PRELOAD, SCALE, WORLD } from "../main.js";
-import { CATEGORY, MASK } from "../game/collision_detection.js";
+import EnemyShip, { EnemyShipArgs } from "./enemy_ship";
+import { PRELOAD, SCALE, WORLD } from "../main";
+import { CATEGORY, MASK } from "../game/collision_detection";
 import {
     b2FixtureDef,
     b2BodyDef,
     b2Body,
     b2PolygonShape,
     b2Vec2,
-} from "../shared/constants.js";
+} from "../shared/constants";
 
 export type EnemyMoveHorizontallyArgs = {} & EnemyShipArgs;
 

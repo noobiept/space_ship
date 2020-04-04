@@ -1,11 +1,11 @@
-import { initGame, GAME_WIDTH, GAME_HEIGHT, MAIN_SHIP } from "../main.js";
-import Message from "../shared/message.js";
-import * as MainMenu from "../menus/main_menu.js";
-import { getRandomInt } from "../shared/utilities.js";
-import EnemyShip from "../enemies/enemy_ship.js";
-import * as Music from "../music.js";
-import { MapType } from "../shared/types.js";
-import { EnemyMapping } from "../shared/constants.js";
+import { getRandomInt } from "@drk4/utilities";
+import { initGame, GAME_WIDTH, GAME_HEIGHT, MAIN_SHIP } from "../main";
+import Message from "../shared/message";
+import * as MainMenu from "../menus/main_menu";
+import EnemyShip from "../enemies/enemy_ship";
+import * as Music from "../music";
+import { MapType } from "../shared/types";
+import { EnemyMapping } from "../shared/constants";
 
 export type MapsArgs = {
     maps?;

@@ -1,7 +1,7 @@
-import * as MainMenu from "./main_menu.js";
-import { MAIN_SHIP, startGameMode, resume, pause, CANVAS } from "../main.js";
-import Message from "../shared/message.js";
-import { hideElement, showElement } from "../shared/utilities.js";
+import * as MainMenu from "./main_menu";
+import { MAIN_SHIP, startGameMode, resume, pause, CANVAS } from "../main";
+import Message from "../shared/message";
+import { hideElement, showElement } from "../shared/utilities";
 
 let WEAPON_SELECTED = 0;
 const WEAPON_ELEMENTS = [];

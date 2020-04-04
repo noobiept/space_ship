@@ -1,17 +1,15 @@
-import EnemyShip, { EnemyShipArgs } from "./enemy_ship.js";
-import { PRELOAD, SCALE, WORLD, MAIN_SHIP } from "../main.js";
-import {
-    calculateAngleBetweenObjects,
-    toRadians,
-} from "../shared/utilities.js";
-import { CATEGORY, MASK } from "../game/collision_detection.js";
+import { toRadians } from "@drk4/utilities";
+import EnemyShip, { EnemyShipArgs } from "./enemy_ship";
+import { PRELOAD, SCALE, WORLD, MAIN_SHIP } from "../main";
+import { calculateAngleBetweenObjects } from "../shared/utilities";
+import { CATEGORY, MASK } from "../game/collision_detection";
 import {
     b2FixtureDef,
     b2BodyDef,
     b2Body,
     b2CircleShape,
     b2Vec2,
-} from "../shared/constants.js";
+} from "../shared/constants";
 
 export type EnemyKamikazeArgs = {} & EnemyShipArgs;
 

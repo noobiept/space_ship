@@ -1,3 +1,4 @@
+import { KEY_CODE } from "@drk4/utilities";
 import {
     GAME_WIDTH,
     GAME_HEIGHT,
@@ -7,31 +8,30 @@ import {
     CANVAS,
     PRELOAD,
     WORLD,
-} from "./main.js";
-import { KEYS_HELD } from "./keyboard_events.js";
-import Message from "./shared/message.js";
-import { EVENT_KEY } from "./shared/utilities.js";
-import Bullet1_laser from "./bullets/bullet1_laser.js";
-import Bullet2_sniper from "./bullets/bullet2_sniper.js";
-import Bullet3_rocket from "./bullets/bullet3_rocket.js";
-import Bullet4_mines from "./bullets/bullet4_mines.js";
-import * as GameStatistics from "./menus/game_statistics.js";
-import * as ZIndex from "./z_index.js";
-import * as GameMenu from "./menus/game_menu.js";
-import * as Options from "./shared/options.js";
+} from "./main";
+import { KEYS_HELD } from "./keyboard_events";
+import Message from "./shared/message";
+import Bullet1_laser from "./bullets/bullet1_laser";
+import Bullet2_sniper from "./bullets/bullet2_sniper";
+import Bullet3_rocket from "./bullets/bullet3_rocket";
+import Bullet4_mines from "./bullets/bullet4_mines";
+import * as GameStatistics from "./menus/game_statistics";
+import * as ZIndex from "./z_index";
+import * as GameMenu from "./menus/game_menu";
+import * as Options from "./shared/options";
 import {
     CollisionID,
     CATEGORY,
     MASK,
     CollisionElement,
-} from "./game/collision_detection.js";
+} from "./game/collision_detection";
 import {
     b2FixtureDef,
     b2BodyDef,
     b2Body,
     b2CircleShape,
     b2Vec2,
-} from "./shared/constants.js";
+} from "./shared/constants";
 
 const VELOCITY = 5;
 
@@ -256,7 +256,7 @@ export default class Ship implements CollisionElement {
             });
 
             $(document).bind("keyup", function (event) {
-                if (event.keyCode === EVENT_KEY.enter) {
+                if (event.keyCode === KEY_CODE.enter) {
                     endMessage.remove();
 
                     startGameMode(true);

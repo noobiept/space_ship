@@ -1,4 +1,4 @@
-import { centerElement } from "./utilities.js";
+import { centerElement } from "./utilities";
 
 const ALL_MESSAGES = [];
 

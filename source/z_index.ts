@@ -1,4 +1,4 @@
-import { STAGE } from "./main.js";
+import { STAGE } from "./main";
 
 /*
     Keep these elements on top (last ones being added to stage)
