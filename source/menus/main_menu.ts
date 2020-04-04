@@ -17,7 +17,7 @@ import EndlessMode from "../maps/endless_mode";
 let ENTRY_SELECTED = 0;
 
 // has the functions to call when choosing an entry
-const ENTRIES: ((e) => void)[] = [];
+const ENTRIES: (() => void)[] = [];
 
 // has the html elements of the entries
 const ENTRIES_ELEMENTS: HTMLElement[] = [];
@@ -35,14 +35,21 @@ export function init() {
         openOptions
     );
 
+    const listener = (callback: () => void) => {
+        return (event) => {
+            callback();
+
+            // prevent the click to select the entry, to also fire a bullet once the game starts
+            event.stopPropagation();
+        };
+    };
+
     ENTRIES_ELEMENTS.push(predefinedMaps, randomMaps, endlessMode, options);
 
-    predefinedMaps.onclick = openPredefinedMaps;
-    randomMaps.onclick = openRandomMaps;
-    endlessMode.onclick = openEndlessMode;
-    options.onclick = openOptions;
-
-    $(document).bind("keyup", keyboardEvents);
+    predefinedMaps.onclick = listener(openPredefinedMaps);
+    randomMaps.onclick = listener(openRandomMaps);
+    endlessMode.onclick = listener(openEndlessMode);
+    options.onclick = listener(openOptions);
 }
 
 export function open() {
@@ -60,36 +67,29 @@ export function open() {
     const predefinedMaps = document.getElementById("MainMenu-predefinedMaps")!;
     predefinedMaps.classList.add("MainMenu-entrySelected");
 
+    document.onkeyup = keyboardEvents;
     STAGE.update(); //HERE
 }
 
-function openPredefinedMaps(event: MouseEvent) {
+function openPredefinedMaps() {
     cleanUp();
     setMapMode(PredefinedMaps);
     startGameMode();
-
-    // prevent the click to select the entry, to also fire a bullet once the game starts
-    event.stopPropagation();
 }
 
-function openRandomMaps(event: MouseEvent) {
+function openRandomMaps() {
     cleanUp();
     setMapMode(RandomMaps);
     startGameMode();
-
-    event.stopPropagation();
 }
 
-function openEndlessMode(event: MouseEvent) {
+function openEndlessMode() {
     cleanUp();
     setMapMode(EndlessMode);
     startGameMode();
-
-    // prevent the click to select the entry, to also fire a bullet once the game starts
-    event.stopPropagation();
 }
 
-function openOptions(event: MouseEvent) {
+function openOptions() {
     cleanUp();
 
     // :: Music Volume :: //
@@ -111,8 +111,7 @@ function openOptions(event: MouseEvent) {
         range: "min",
         slide: function (event, ui) {
             $(musicVolumeSpan).text(ui.value + "%");
-
-            Options.setMusicVolume(ui.value / 100);
+            Options.setMusicVolume(ui.value! / 100);
         },
     });
 
@@ -125,12 +124,12 @@ function openOptions(event: MouseEvent) {
     showElement("Options");
 }
 
-function keyboardEvents(event) {
+function keyboardEvents(event: KeyboardEvent) {
     var key = event.keyCode;
 
     // start the game
     if (key === KEY_CODE.enter) {
-        ENTRIES[ENTRY_SELECTED](event);
+        ENTRIES[ENTRY_SELECTED]();
     } else if (key === KEY_CODE.downArrow) {
         selectNextEntry();
     } else if (key === KEY_CODE.upArrow) {
@@ -151,7 +150,6 @@ function selectNextEntry() {
     }
 
     $(ENTRIES_ELEMENTS[previousEntry]).removeClass("MainMenu-entrySelected");
-
     $(ENTRIES_ELEMENTS[ENTRY_SELECTED]).addClass("MainMenu-entrySelected");
 }
 
@@ -181,11 +179,10 @@ function cleanUp() {
     hideElement("MainMenu");
     hideElement("Options");
 
-    $(document).unbind("keyup");
+    document.onkeyup = undefined;
 
     const selected = ENTRIES_ELEMENTS[ENTRY_SELECTED];
     selected.classList.remove("MainMenu-entrySelected");
 
     ENTRY_SELECTED = 0;
-    ENTRIES.length = 0;
 }
