@@ -48,7 +48,7 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     static all: EnemyShip<EnemyShipArgs>[] = [];
     static all_spawning: EnemyShip<EnemyShipArgs>[] = [];
 
-    type: CollisionID;
+    type = CollisionID.enemy;
     spawnTicks_int: number;
     shape: createjs.Sprite;
     body: Box2D.Dynamics.b2Body;
@@ -64,8 +64,6 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
 
     constructor(args: Args) {
         const { x, y, width, height } = args;
-
-        this.type = CollisionID.enemy;
 
         // the number of ticks it takes until the enemy can start moving/firing/being killed
         this.spawnTicks_int = 20;
@@ -148,6 +146,10 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     rotate(degrees: number) {
         this.shape.rotation = degrees;
         this.body.SetAngle((degrees * Math.PI) / 180);
+    }
+
+    getRotation() {
+        return this.shape.rotation;
     }
 
     damageGiven() {
@@ -241,9 +243,7 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
 
             this.category_bits = CATEGORY.enemy;
             this.mask_bits = MASK.enemy;
-
             this.body.CreateFixture(fixDef);
-
             this.afterSpawn();
 
             // now execute the normal tick function

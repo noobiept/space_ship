@@ -43,7 +43,7 @@ export default class Ship implements GameElement {
     width = 10;
     height = 10;
     color: string;
-    type: CollisionID;
+    type = CollisionID.ship;
     weaponSelected: number;
     tick_count: [number, number, number, number];
     bullets_left: [number, number, number, number];
@@ -58,7 +58,6 @@ export default class Ship implements GameElement {
 
     constructor() {
         this.color = "rgb(81, 139, 255)";
-        this.type = CollisionID.ship;
         this.weaponSelected = 0;
         this.shape = this.makeShape();
         this.body = this.setupPhysics();

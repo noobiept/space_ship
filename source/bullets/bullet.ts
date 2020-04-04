@@ -12,9 +12,10 @@ import {
 } from "../shared/constants";
 import { GameElement } from "../shared/types";
 import Ship from "../game/ship";
+import EnemyShip from "../enemies/enemy_ship";
 
 export type BulletArgs = {
-    ship: Ship;
+    ship: Ship | EnemyShip<any>;
     color: string;
     angleRotation?: number;
     x?: number;
@@ -50,8 +51,8 @@ export type AdditionalBulletArgs = {
 export default abstract class Bullet<Args extends BulletArgs>
     implements GameElement {
     shape: createjs.Shape;
-    shipObject: Ship;
-    type: CollisionID;
+    shipObject: Ship | EnemyShip<any>;
+    type = CollisionID.bullet;
     body: Box2D.Dynamics.b2Body;
     fixDef: Box2D.Dynamics.b2FixtureDef;
     damage: number;
@@ -84,7 +85,6 @@ export default abstract class Bullet<Args extends BulletArgs>
         } = args;
 
         this.shipObject = ship;
-        this.type = CollisionID.bullet;
         this.damage = damage;
         this.speed = speed;
         this.removed = false;

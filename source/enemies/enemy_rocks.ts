@@ -140,9 +140,7 @@ export default class EnemyRocks extends EnemyShip<EnemyRocksArgs> {
  */
     tookDamage() {
         if (this.width >= 50) {
-            var i;
-
-            for (i = 0; i < 3; i++) {
+            for (let i = 0; i < 3; i++) {
                 // spawn from the current position
                 new EnemyRocks({
                     x: this.shape.x,

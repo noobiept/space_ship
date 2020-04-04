@@ -1,4 +1,7 @@
 import { GameElement } from "../shared/types";
+import EnemyShip from "../enemies/enemy_ship";
+import Bullet from "../bullets/bullet";
+import Ship from "./ship";
 
 // objects identification (for the collision detection)
 export const enum CollisionID {
@@ -7,7 +10,12 @@ export const enum CollisionID {
     bullet = 2,
 }
 
-// categories
+type DetermineType = {
+    ship?: Ship;
+    bullet?: Bullet<any>;
+    enemy?: EnemyShip<any>;
+};
+
 export const CATEGORY = {
     ship: 1, // 0001
     enemy: 2, // 0010
@@ -24,121 +32,28 @@ export const MASK = {
 // has functions to be called later (related to a collision). Have to remove the elements after executing the function
 const COLLISION_F: (() => void)[] = [];
 
-/*
-    Called on 'BeginContact' between box2d bodies
-
-    Warning: You cannot create/destroy Box2D entities inside these callbacks.
+/**
+ * Called on 'BeginContact' between box2d bodies
+ * Warning: You cannot create/destroy Box2D entities inside these callbacks.
  */
-export function onContact(contact) {
-    var objectA = contact.GetFixtureA().GetBody().GetUserData() as GameElement;
-    var objectB = contact.GetFixtureB().GetBody().GetUserData() as GameElement;
+export function onContact(contact: Box2D.Dynamics.Contacts.b2Contact) {
+    const objectA = contact
+        .GetFixtureA()
+        .GetBody()
+        .GetUserData() as GameElement;
+    const objectB = contact
+        .GetFixtureB()
+        .GetBody()
+        .GetUserData() as GameElement;
 
-    var typeA = objectA.type;
-    var typeB = objectB.type;
+    const { ship, bullet, enemy } = determineElementsType([objectA, objectB]);
 
-    var shipObject;
-    var enemyObject;
-    var bulletObject;
-
-    const shipType = CollisionID.ship;
-    const enemyType = CollisionID.enemy;
-    const bulletType = CollisionID.bullet;
-
-    // collision between the main ship and an enemy
-    if (
-        (typeA === shipType && typeB === enemyType) ||
-        (typeB === shipType && typeA === enemyType)
-    ) {
-        // determine which one is which
-        if (typeA === shipType) {
-            shipObject = objectA;
-            enemyObject = objectB;
-        } else {
-            shipObject = objectB;
-            enemyObject = objectA;
-        }
-
-        // already was added to the collision array (don't add the same collision twice)
-        if (enemyObject.alreadyInCollision) {
-            return;
-        }
-
-        enemyObject.alreadyInCollision = true;
-
-        // make it not collidable anymore
-        enemyObject.fixDef.mask_bits = MASK.dontCollide;
-        enemyObject.body.CreateFixture(enemyObject.fixDef);
-
-        COLLISION_F.push(function () {
-            shipObject.tookDamage(enemyObject.damageGiven());
-            enemyObject.tookDamage();
-        });
-    }
-
-    // collision between the main ship and a bullet
-    else if (
-        (typeA === shipType && typeB === bulletType) ||
-        (typeB === shipType && typeA === bulletType)
-    ) {
-        // determine which one is which
-        if (typeA === shipType) {
-            shipObject = objectA;
-            bulletObject = objectB;
-        } else {
-            shipObject = objectB;
-            bulletObject = objectA;
-        }
-
-        // already was added to the collision array (don't add the same collision twice)
-        if (bulletObject.alreadyInCollision) {
-            return;
-        }
-
-        bulletObject.alreadyInCollision = true;
-
-        // make it not collidable anymore
-        bulletObject.fixDef.mask_bits = MASK.dontCollide;
-        bulletObject.body.CreateFixture(bulletObject.fixDef);
-
-        COLLISION_F.push(function () {
-            bulletObject.collisionResponse();
-
-            // remove the EnemyShip
-            shipObject.tookDamage(bulletObject.damageGiven());
-        });
-    }
-
-    // collision between a bullet and an enemy
-    else if (
-        (typeA === bulletType && typeB === enemyType) ||
-        (typeB === bulletType && typeA === enemyType)
-    ) {
-        // determine which one is which
-        if (typeA === bulletType) {
-            bulletObject = objectA;
-            enemyObject = objectB;
-        } else {
-            bulletObject = objectB;
-            enemyObject = objectA;
-        }
-
-        // already was added to the collision array (don't add the same collision twice)
-        if (enemyObject.alreadyInCollision) {
-            return;
-        }
-
-        enemyObject.alreadyInCollision = true;
-
-        // make it not collidable anymore
-        enemyObject.fixDef.mask_bits = MASK.dontCollide;
-        enemyObject.body.CreateFixture(enemyObject.fixDef);
-
-        COLLISION_F.push(function () {
-            bulletObject.collisionResponse();
-
-            // remove the EnemyShip
-            enemyObject.tookDamage(bulletObject.damageGiven());
-        });
+    if (ship && enemy) {
+        shipOnEnemyCollision(ship, enemy);
+    } else if (ship && bullet) {
+        shipOnBulletCollision(ship, bullet);
+    } else if (bullet && enemy) {
+        bulletOnEnemyCollision(bullet, enemy);
     }
 }
 
@@ -153,4 +68,91 @@ export function tick() {
     }
 
     COLLISION_F.length = 0;
+}
+
+function determineElementsType(elements: GameElement[]) {
+    return elements.reduce<DetermineType>((acc, element) => {
+        const type = element.type;
+
+        if (type === CollisionID.ship) {
+            return {
+                ...acc,
+                ship: element as Ship,
+            };
+        }
+        if (type === CollisionID.bullet) {
+            return {
+                ...acc,
+                bullet: element as Bullet<any>,
+            };
+        }
+        if (type === CollisionID.enemy) {
+            return {
+                ...acc,
+                enemy: element as EnemyShip<any>,
+            };
+        }
+
+        return acc;
+    }, {});
+}
+
+/**
+ * Collision between the main ship and an enemy.
+ */
+function shipOnEnemyCollision(ship: Ship, enemy: EnemyShip<any>) {
+    // already was added to the collision array (don't add the same collision twice)
+    if (enemy.alreadyInCollision) {
+        return;
+    }
+
+    enemy.alreadyInCollision = true;
+
+    // make it not collidable anymore
+    enemy.fixDef.filter.maskBits = MASK.dontCollide;
+    enemy.body.CreateFixture(enemy.fixDef);
+
+    COLLISION_F.push(function () {
+        ship.tookDamage(enemy.damageGiven());
+        enemy.tookDamage();
+    });
+}
+
+/**
+ * Collision between the main ship and a bullet.
+ */
+function shipOnBulletCollision(ship: Ship, bullet: Bullet<any>) {
+    // already was added to the collision array (don't add the same collision twice)
+    if (bullet.alreadyInCollision) {
+        return;
+    }
+
+    bullet.alreadyInCollision = true;
+
+    // make it not collidable anymore
+    bullet.fixDef.filter.maskBits = MASK.dontCollide;
+    bullet.body.CreateFixture(bullet.fixDef);
+
+    COLLISION_F.push(function () {
+        bullet.collisionResponse();
+        ship.tookDamage(bullet.damageGiven());
+    });
+}
+
+function bulletOnEnemyCollision(bullet: Bullet<any>, enemy: EnemyShip<any>) {
+    // already was added to the collision array (don't add the same collision twice)
+    if (enemy.alreadyInCollision) {
+        return;
+    }
+
+    enemy.alreadyInCollision = true;
+
+    // make it not collidable anymore
+    enemy.fixDef.filter.maskBits = MASK.dontCollide;
+    enemy.body.CreateFixture(enemy.fixDef);
+
+    COLLISION_F.push(function () {
+        bullet.collisionResponse();
+        enemy.tookDamage();
+    });
 }

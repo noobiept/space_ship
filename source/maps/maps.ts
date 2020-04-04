@@ -125,7 +125,7 @@ export default class Maps implements MapType {
         new Message({
             text: "Congratulations, you finished the game!<br />Too easy huh?",
             timeOut: 4000,
-            timeOut_f: function () {
+            onTimeout: function () {
                 MainMenu.open();
             },
         });
