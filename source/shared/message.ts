@@ -1,67 +1,68 @@
 import { centerElement } from "./utilities";
 
-const ALL_MESSAGES = [];
+const ALL_MESSAGES: Message[] = [];
 
-/*
-    Argument:
-        {
-            text: string,
-            x: number,             ( optional )
-            y: number,             ( optional )
-            centerWindow: boolean, ( optional ) -- if x/y isn't provided, specify whether to center in the middle of the canvas or the window (default is canvas).
-            cssClass: string,      ( optional ) -- adds a css class to the html element
-            timeOut: number        ( optional ) -- the message is removed after this time (in milliseconds) has passed (otherwise it has to be removed manually)
-            timeOut_f: function    ( optional ) -- to be called when timeout ends
-        }
-
-    If x/y isn't provided, the message is centered in the middle of the canvas
- */
+export type MessageArgs = {
+    text: string;
+    x?: number;
+    y?: number;
+    centerWindow?: boolean; // if x/y isn't provided, specify whether to center in the middle of the canvas or the window (default is canvas)
+    cssClass?: string; // adds a css class to the html element
+    timeOut?: number; // the message is removed after this time (in milliseconds) has passed (otherwise it has to be removed manually)
+    onTimeout?: () => void; // to be called when timeout ends
+};
 
 export default class Message {
     private message: HTMLElement;
-    private container: HTMLElement; //HERE not used?
 
-    constructor(stuff) {
-        const container = document.getElementById("Message-container");
+    constructor({
+        x,
+        y,
+        text,
+        centerWindow,
+        cssClass,
+        timeOut,
+        onTimeout,
+    }: MessageArgs) {
+        const container = document.getElementById("Message-container")!;
         const message = document.createElement("div");
 
         message.className = "Message";
 
-        $(message).html(stuff.text);
+        $(message).html(text);
         container.appendChild(message);
 
-        if (typeof stuff.x == "undefined") {
-            if (stuff.centerWindow === true) {
+        if (typeof x === "undefined") {
+            if (centerWindow === true) {
                 centerElement(message, document.body);
             } else {
                 centerElement(message);
             }
         } else {
-            $(message).css("left", stuff.x + "px");
-            $(message).css("top", stuff.y + "px");
+            $(message).css("left", x + "px");
+            $(message).css("top", y + "px");
         }
 
-        if (typeof stuff.cssClass != "undefined") {
-            $(message).addClass(stuff.cssClass);
+        if (typeof cssClass != "undefined") {
+            $(message).addClass(cssClass);
         }
 
-        if (typeof stuff.timeOut !== "undefined") {
+        if (typeof timeOut !== "undefined") {
             window.setTimeout(() => {
                 this.remove();
 
-                if (stuff.timeOut_f) {
-                    stuff.timeOut_f();
+                if (onTimeout) {
+                    onTimeout();
                 }
-            }, stuff.timeOut);
+            }, timeOut);
         }
 
-        this.container = container;
         this.message = message;
 
         ALL_MESSAGES.push(this);
     }
 
-    setText(text) {
+    setText(text: string) {
         $(this.message).html(text);
     }
 

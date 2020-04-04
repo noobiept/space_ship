@@ -7,19 +7,17 @@ import { GameElement } from "./types";
  * Centers an html element in the middle of a given reference element (assumes html element has in its css 'position: absolute;').
  * If 'refElement' isn't given, its assumed to be the 'CANVAS'.
  */
-export function centerElement(element, refElement?) {
-    if (typeof refElement === "undefined") {
-        refElement = CANVAS;
-    }
+export function centerElement(element: HTMLElement, refElement?: HTMLElement) {
+    const reference = refElement ?? CANVAS;
 
-    var width = $(refElement).width();
-    var height = $(refElement).height();
+    const width = $(reference).width()!;
+    const height = $(reference).height()!;
 
     // the reference element may not be starting at 0,0 position, so we need to account for that
-    var canvasPosition = $(refElement).position();
+    const canvasPosition = $(reference).position();
 
-    var left = width / 2 - $(element).width() / 2 + canvasPosition.left;
-    var top = height / 2 - $(element).height() / 2 + canvasPosition.top;
+    const left = width / 2 - $(element).width()! / 2 + canvasPosition.left;
+    const top = height / 2 - $(element).height()! / 2 + canvasPosition.top;
 
     $(element).css({
         top: top + "px",
@@ -30,7 +28,11 @@ export function centerElement(element, refElement?) {
 /**
  * Applies an impulse to a body (box2d).
  */
-export function applyImpulse(body, degrees, power) {
+export function applyImpulse(
+    body: Box2D.Dynamics.b2Body,
+    degrees: number,
+    power: number
+) {
     const rads = toRadians(degrees);
     const impulse = new b2Vec2(Math.cos(rads) * power, Math.sin(rads) * power);
     const point = body.GetWorldCenter();
@@ -41,7 +43,11 @@ export function applyImpulse(body, degrees, power) {
 /**
  * Applies a force to a body (box2d).
  */
-export function applyForce(body, degrees, power) {
+export function applyForce(
+    body: Box2D.Dynamics.b2Body,
+    degrees: number,
+    power: number
+) {
     const rads = toRadians(degrees);
     const impulse = new b2Vec2(Math.cos(rads) * power, Math.sin(rads) * power);
     const point = body.GetWorldCenter();
