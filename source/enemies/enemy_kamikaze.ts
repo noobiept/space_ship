@@ -103,8 +103,7 @@ export default class EnemyKamikaze extends EnemyShip<EnemyKamikazeArgs> {
         body.CreateFixture(fixDef);
         body.SetUserData(this);
 
-        this.body = body;
-        this.fixDef = fixDef;
+        return { body, fixDef };
     }
 
     enemyBehaviour() {

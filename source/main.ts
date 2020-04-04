@@ -14,7 +14,7 @@ import Ship from "./ship";
 import { handleKeyDown, handleKeyUp, clearKeysHeld } from "./keyboard_events";
 import EnemyShip from "./enemies/enemy_ship";
 import Bullet from "./bullets/bullet";
-import { MapType } from "./shared/types";
+import { MapType, AppData } from "./shared/types";
 import { hideElement, showElement } from "./shared/utilities";
 import * as CollisionDetection from "./game/collision_detection";
 import World from "./game/world";
@@ -61,7 +61,7 @@ window.onload = function () {
     AppStorage.getData(["space_ship_options"], initApp);
 };
 
-function initApp(data) {
+function initApp(data: AppData) {
     Options.load(data["space_ship_options"]);
     MainMenu.init();
 
@@ -262,7 +262,7 @@ export function resetStuff() {
     STAGE.update();
 }
 
-function tick(event) {
+function tick(event: createjs.TickerEvent) {
     if (event.paused) {
         return;
     }

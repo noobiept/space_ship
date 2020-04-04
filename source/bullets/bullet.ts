@@ -11,9 +11,10 @@ import {
     b2Vec2,
 } from "../shared/constants";
 import { GameElement } from "../shared/types";
+import Ship from "../ship";
 
 export type BulletArgs = {
-    ship;
+    ship: Ship;
     color: string;
     angleRotation?: number;
     x?: number;
@@ -48,11 +49,11 @@ export type AdditionalBulletArgs = {
  */
 export default abstract class Bullet<Args extends BulletArgs>
     implements GameElement {
-    shape;
-    shipObject;
+    shape: createjs.Shape;
+    shipObject: Ship;
     type: CollisionID;
-    body;
-    fixDef;
+    body: Box2D.Dynamics.b2Body;
+    fixDef: Box2D.Dynamics.b2FixtureDef;
     damage: number;
     removed: boolean;
     width: number;
@@ -63,7 +64,7 @@ export default abstract class Bullet<Args extends BulletArgs>
     alreadyInCollision = false;
 
     // all the bullets (from the enemies or the main ship)
-    static all_bullets = [];
+    static all_bullets: Bullet<BulletArgs>[] = [];
 
     constructor(args: Args & AdditionalBulletArgs) {
         if (typeof args.angleRotation === "undefined") {
@@ -94,7 +95,11 @@ export default abstract class Bullet<Args extends BulletArgs>
 
         // draw the bullet
         this.shape = this.drawBullet(args);
-        this.setupPhysics(args);
+
+        const { body, fixDef } = this.setupPhysics(args);
+
+        this.body = body;
+        this.fixDef = fixDef;
 
         STAGE.addChild(this.shape);
         ZIndex.update();
@@ -103,6 +108,8 @@ export default abstract class Bullet<Args extends BulletArgs>
 
         if (typeof x === "undefined") {
             x = ship.getX();
+        }
+        if (typeof y === "undefined") {
             y = ship.getY();
         }
 
@@ -118,7 +125,7 @@ export default abstract class Bullet<Args extends BulletArgs>
         this.moveTo(x + addX, y + addY);
     }
 
-    abstract drawBullet(args: Args & AdditionalBulletArgs);
+    abstract drawBullet(args: Args & AdditionalBulletArgs): createjs.Shape;
 
     setupPhysics(args: Args & AdditionalBulletArgs) {
         const { width, height, ship } = args;
@@ -154,8 +161,7 @@ export default abstract class Bullet<Args extends BulletArgs>
         body.SetBullet(true);
         body.SetUserData(this);
 
-        this.body = body;
-        this.fixDef = fixDef;
+        return { body, fixDef };
     }
 
     getX() {
@@ -166,11 +172,11 @@ export default abstract class Bullet<Args extends BulletArgs>
         return this.shape.y;
     }
 
-    moveTo(x, y) {
+    moveTo(x: number, y: number) {
         this.shape.x = x;
         this.shape.y = y;
 
-        var position = new b2Vec2(x / SCALE, y / SCALE);
+        const position = new b2Vec2(x / SCALE, y / SCALE);
 
         this.body.SetPosition(position);
     }
@@ -197,7 +203,7 @@ export default abstract class Bullet<Args extends BulletArgs>
         this.remove();
     }
 
-    rotate(degrees) {
+    rotate(degrees: number) {
         this.shape.rotation = degrees;
         this.body.SetAngle((degrees * Math.PI) / 180);
     }
@@ -219,7 +225,7 @@ export default abstract class Bullet<Args extends BulletArgs>
         all.splice(position, 1);
     }
 
-    tick(event) {
+    tick(event: createjs.TickerEvent) {
         if (event.paused || this.removed) {
             return;
         }

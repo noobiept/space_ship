@@ -94,7 +94,7 @@ export function boolToOnOff(value: boolean) {
  */
 export function showElement(elementOrID: HTMLElement | string) {
     if (typeof elementOrID === "string") {
-        elementOrID = document.getElementById(elementOrID);
+        elementOrID = document.getElementById(elementOrID)!;
     }
 
     elementOrID.classList.remove("hidden");
@@ -105,7 +105,7 @@ export function showElement(elementOrID: HTMLElement | string) {
  */
 export function hideElement(elementOrID: HTMLElement | string) {
     if (typeof elementOrID === "string") {
-        elementOrID = document.getElementById(elementOrID);
+        elementOrID = document.getElementById(elementOrID)!;
     }
 
     elementOrID.classList.add("hidden");

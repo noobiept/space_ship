@@ -3,7 +3,7 @@ import * as ZIndex from "../z_index";
 import * as GameStatistics from "../menus/game_statistics";
 import { CollisionID, CATEGORY, MASK } from "../game/collision_detection";
 import { b2Vec2 } from "../shared/constants";
-import { GameElement } from "../shared/types";
+import { GameElement, PhysicsObjects } from "../shared/types";
 
 export type EnemyShipArgs = {
     x: number;
@@ -45,14 +45,14 @@ export type EnemyShipArgs = {
  */
 export default abstract class EnemyShip<Args extends EnemyShipArgs>
     implements GameElement {
-    static all = [];
-    static all_spawning = [];
+    static all: EnemyShip<EnemyShipArgs>[] = [];
+    static all_spawning: EnemyShip<EnemyShipArgs>[] = [];
 
     type: CollisionID;
     spawnTicks_int: number;
-    shape;
-    body;
-    fixDef;
+    shape: createjs.Sprite;
+    body: Box2D.Dynamics.b2Body;
+    fixDef: Box2D.Dynamics.b2FixtureDef;
     category_bits;
     mask_bits;
     damage: number;
@@ -60,7 +60,7 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     width: number;
     height: number;
     alreadyInCollision = false;
-    tick: (event) => void; // this will point to spawningTick() or normalTick()
+    tick: (event: createjs.TickerEvent) => void; // this will point to spawningTick() or normalTick()
 
     constructor(args: Args) {
         const { x, y, width, height } = args;
@@ -78,7 +78,11 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
 
         // draw the shape (spawn phase animation first)
         this.shape = this.makeShape(args);
-        this.setupPhysics();
+        const { body, fixDef } = this.setupPhysics();
+
+        this.body = body;
+        this.fixDef = fixDef;
+
         this.beforeAddToStage();
 
         // add to Container()
@@ -92,8 +96,8 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
         this.moveTo(x, y);
     }
 
-    abstract makeShape(args: Args);
-    abstract setupPhysics();
+    abstract makeShape(args: Args): createjs.Sprite;
+    abstract setupPhysics(): PhysicsObjects;
 
     enemyBehaviour() {}
 
@@ -132,7 +136,7 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
         return this.shape.y;
     }
 
-    moveTo(x, y) {
+    moveTo(x: number, y: number) {
         this.shape.x = x;
         this.shape.y = y;
 
@@ -141,9 +145,8 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
         this.body.SetPosition(position);
     }
 
-    rotate(degrees) {
+    rotate(degrees: number) {
         this.shape.rotation = degrees;
-
         this.body.SetAngle((degrees * Math.PI) / 180);
     }
 
@@ -195,11 +198,11 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     Remove everything
  */
     static removeAll() {
-        $(EnemyShip.all).each(function (index, ship) {
-            ship.remove(index);
+        EnemyShip.all.forEach((ship) => {
+            ship.remove();
         });
 
-        $(EnemyShip.all_spawning).each(function (index, ship) {
+        EnemyShip.all_spawning.forEach((ship) => {
             STAGE.removeChild(ship.shape);
             WORLD.destroyBody(ship.body);
 
@@ -213,7 +216,7 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     The idea here is to have a time when the enemy ship can't do damage (or receive), since its still spawning.
     This prevents problems like a ship spawning right under the main ship (and so taking damage without any chance to prevent it)
  */
-    spawningTick(event) {
+    spawningTick(event: createjs.TickerEvent) {
         if (event.paused) {
             return;
         }
@@ -248,7 +251,7 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
         }
     }
 
-    normalTick(event) {
+    normalTick(event: createjs.TickerEvent) {
         if (event.paused) {
             return;
         }

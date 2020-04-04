@@ -95,9 +95,12 @@ export default class SplashDamage extends Bullet<SplashDamageArgs> {
         body.CreateFixture(fixDef);
         body.SetUserData(this);
 
-        this.body = body;
-        this.bodyDef = bodyDef;
-        this.fixDef = fixDef;
+        this.bodyDef = bodyDef; //HERE
+
+        return {
+            body,
+            fixDef,
+        };
     }
 
     setRadius(radius) {

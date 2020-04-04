@@ -105,8 +105,7 @@ export default class EnemyMoveHorizontally extends EnemyShip<
         body.CreateFixture(fixDef);
         body.SetUserData(this);
 
-        this.body = body;
-        this.fixDef = fixDef;
+        return { body, fixDef };
     }
 
     afterSpawn() {

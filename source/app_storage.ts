@@ -1,17 +1,23 @@
+import { OptionsData } from "./shared/options";
+import { AppData } from "./shared/types";
+
 /**
  * Calls the `callback` with a dictionary that has all the requested keys/values from `localStorage`.
  */
-export function getData(keys, callback) {
-    var objects = {};
+export function getData(
+    keys: (keyof AppData)[],
+    callback: (data: AppData) => void
+) {
+    const appData = keys.reduce<AppData>((data, key) => {
+        const value = localStorage.getItem(key);
 
-    for (var a = 0; a < keys.length; a++) {
-        var key = keys[a];
-        var value = localStorage.getItem(key);
+        return {
+            ...data,
+            [key]: value && JSON.parse(value),
+        };
+    }, {});
 
-        objects[key] = value && JSON.parse(value);
-    }
-
-    callback(objects);
+    callback(appData);
 }
 
 /**

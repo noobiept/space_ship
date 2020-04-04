@@ -12,6 +12,8 @@ import {
 
 export type EnemyRocksArgs = {
     scale?: number;
+    damage?: number;
+    velocity?: number;
 } & EnemyShipArgs;
 
 /*
@@ -121,8 +123,7 @@ export default class EnemyRocks extends EnemyShip<EnemyRocksArgs> {
         body.CreateFixture(fixDef);
         body.SetUserData(this);
 
-        this.body = body;
-        this.fixDef = fixDef;
+        return { body, fixDef };
     }
 
     enemyBehaviour() {
