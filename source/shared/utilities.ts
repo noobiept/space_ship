@@ -1,6 +1,7 @@
-import { toRadians } from "@drk4/utilities";
+import { toRadians, calculateAngle, toDegrees } from "@drk4/utilities";
 import { CANVAS } from "../main";
 import { b2Vec2 } from "./constants";
+import { GameElement } from "./types";
 
 /**
  * Centers an html element in the middle of a given reference element (assumes html element has in its css 'position: absolute;').
@@ -30,11 +31,9 @@ export function centerElement(element, refElement?) {
  * Applies an impulse to a body (box2d).
  */
 export function applyImpulse(body, degrees, power) {
-    var rads = toRadians(degrees);
-
-    var impulse = new b2Vec2(Math.cos(rads) * power, Math.sin(rads) * power);
-
-    var point = body.GetWorldCenter();
+    const rads = toRadians(degrees);
+    const impulse = new b2Vec2(Math.cos(rads) * power, Math.sin(rads) * power);
+    const point = body.GetWorldCenter();
 
     body.ApplyImpulse(impulse, point);
 }
@@ -43,53 +42,37 @@ export function applyImpulse(body, degrees, power) {
  * Applies a force to a body (box2d).
  */
 export function applyForce(body, degrees, power) {
-    var rads = toRadians(degrees);
-
-    var impulse = new b2Vec2(Math.cos(rads) * power, Math.sin(rads) * power);
-
-    var point = body.GetWorldCenter();
+    const rads = toRadians(degrees);
+    const impulse = new b2Vec2(Math.cos(rads) * power, Math.sin(rads) * power);
+    const point = body.GetWorldCenter();
 
     body.ApplyForce(impulse, point);
 }
 
 /*
-    objectA and objectB has to have a .getX() and .getY() method
+ * Calculate the angle in degrees between both elements.
  */
+export function calculateAngleBetweenObjects(
+    objectA: GameElement,
+    objectB: GameElement
+) {
+    const aX = objectA.getX();
+    const aY = objectA.getY();
 
-export function calculateAngleBetweenObjects(objectA, objectB) {
-    var aX = objectA.getX();
-    var aY = objectA.getY();
+    const bX = objectB.getX();
+    const bY = objectB.getY();
 
-    var bX = objectB.getX();
-    var bY = objectB.getY();
+    const angleRadians = calculateAngle(aX, aY, bX, bY);
 
-    return calculateAngleBetweenObjects2(aX, aY, bX, bY);
+    return toDegrees(angleRadians);
 }
 
-/*
-    Called with the x/y directly
- */
+export function outOfBounds(object: GameElement) {
+    const width = CANVAS.width;
+    const height = CANVAS.height;
 
-function calculateAngleBetweenObjects2(aX, aY, bX, bY) {
-    // make a triangle from the position the objectA is in, relative to the objectB position
-    var triangleOppositeSide = aY - bY;
-    var triangleAdjacentSide = bX - aX;
-
-    // find the angle, given the two sides (of a right triangle)
-    var angleRadians = Math.atan2(triangleOppositeSide, triangleAdjacentSide);
-
-    // convert to degrees
-    var angleDegrees = (angleRadians * 180) / Math.PI;
-
-    return angleDegrees;
-}
-
-export function outOfBounds(object) {
-    var width = CANVAS.width;
-    var height = CANVAS.height;
-
-    var x = object.getX();
-    var y = object.getY();
+    const x = object.getX();
+    const y = object.getY();
 
     if (x < 0 || x > width || y < 0 || y > height) {
         return true;
@@ -98,8 +81,8 @@ export function outOfBounds(object) {
     return false;
 }
 
-export function boolToOnOff(value) {
-    if (value == true) {
+export function boolToOnOff(value: boolean) {
+    if (value === true) {
         return "On";
     } else {
         return "Off";

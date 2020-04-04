@@ -2,7 +2,7 @@ import { toRadians } from "@drk4/utilities";
 import { STAGE, MAIN_SHIP, SCALE, WORLD } from "../main";
 import * as ZIndex from "../z_index";
 import { outOfBounds } from "../shared/utilities";
-import { CollisionID, CollisionElement } from "../game/collision_detection";
+import { CollisionID } from "../game/collision_detection";
 import {
     b2FixtureDef,
     b2BodyDef,
@@ -10,6 +10,7 @@ import {
     b2PolygonShape,
     b2Vec2,
 } from "../shared/constants";
+import { GameElement } from "../shared/types";
 
 export type BulletArgs = {
     ship;
@@ -46,7 +47,7 @@ export type AdditionalBulletArgs = {
         .shape
  */
 export default abstract class Bullet<Args extends BulletArgs>
-    implements CollisionElement {
+    implements GameElement {
     shape;
     shipObject;
     type: CollisionID;

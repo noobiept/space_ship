@@ -1,7 +1,4 @@
-export type CollisionElement = {
-    type: CollisionID;
-    alreadyInCollision: boolean;
-};
+import { GameElement } from "../shared/types";
 
 // objects identification (for the collision detection)
 export const enum CollisionID {
@@ -33,14 +30,8 @@ const COLLISION_F: (() => void)[] = [];
     Warning: You cannot create/destroy Box2D entities inside these callbacks.
  */
 export function onContact(contact) {
-    var objectA = contact
-        .GetFixtureA()
-        .GetBody()
-        .GetUserData() as CollisionElement;
-    var objectB = contact
-        .GetFixtureB()
-        .GetBody()
-        .GetUserData() as CollisionElement;
+    var objectA = contact.GetFixtureA().GetBody().GetUserData() as GameElement;
+    var objectB = contact.GetFixtureB().GetBody().GetUserData() as GameElement;
 
     var typeA = objectA.type;
     var typeB = objectB.type;
