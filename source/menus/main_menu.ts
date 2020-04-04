@@ -27,23 +27,15 @@ export function init() {
     const randomMaps = document.getElementById("MainMenu-randomMaps")!;
     const endlessMode = document.getElementById("MainMenu-endlessMode")!;
     const options = document.getElementById("MainMenu-options")!;
-    const donate = document.getElementById("MainMenu-donate")!;
 
     ENTRIES.push(
         openPredefinedMaps,
         openRandomMaps,
         openEndlessMode,
-        openOptions,
-        openDonate
+        openOptions
     );
 
-    ENTRIES_ELEMENTS.push(
-        predefinedMaps,
-        randomMaps,
-        endlessMode,
-        options,
-        donate
-    );
+    ENTRIES_ELEMENTS.push(predefinedMaps, randomMaps, endlessMode, options);
 
     predefinedMaps.onclick = openPredefinedMaps;
     randomMaps.onclick = openRandomMaps;
@@ -131,10 +123,6 @@ function openOptions(event: MouseEvent) {
     };
 
     showElement("Options");
-}
-
-function openDonate() {
-    document.getElementById("MainMenu-donate")!.click();
 }
 
 function keyboardEvents(event) {
