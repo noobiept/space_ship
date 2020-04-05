@@ -1,7 +1,7 @@
 import { getRandomFloat } from "@drk4/utilities";
 import EnemyShip, { EnemyShipArgs } from "./enemy_ship";
 import { PRELOAD, SCALE, WORLD } from "../main";
-import { CATEGORY, MASK } from "../game/collision_detection";
+import { Category, Mask } from "../game/collision_detection";
 import {
     b2FixtureDef,
     b2BodyDef,
@@ -86,11 +86,11 @@ export default class EnemyRocks extends EnemyShip<FullEnemyRocksArgs> {
         fixDef.density = 1;
         fixDef.friction = 0.5;
         fixDef.restitution = 0.2;
-        fixDef.filter.categoryBits = CATEGORY.enemy_spawning;
-        fixDef.filter.maskBits = MASK.enemy_spawning;
+        fixDef.filter.categoryBits = Category.enemy_spawning;
+        fixDef.filter.maskBits = Mask.enemy_spawning;
 
-        this.category_bits = CATEGORY.enemy_spawning;
-        this.mask_bits = MASK.enemy_spawning;
+        this.category_bits = Category.enemy_spawning;
+        this.mask_bits = Mask.enemy_spawning;
 
         const bodyDef = new b2BodyDef();
 

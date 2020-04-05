@@ -1,7 +1,7 @@
 import { STAGE, SCALE, WORLD, GAME_WIDTH, GAME_HEIGHT } from "../main";
 import * as ZIndex from "../game/z_index";
 import * as GameStatistics from "../menus/game_statistics";
-import { CollisionID, CATEGORY, MASK } from "../game/collision_detection";
+import { CollisionID, Category, Mask } from "../game/collision_detection";
 import { b2Vec2 } from "../shared/constants";
 import { GameElement, PhysicsObjects } from "../shared/types";
 
@@ -24,8 +24,8 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     shape: createjs.Sprite;
     body: Box2D.Dynamics.b2Body;
     fixDef: Box2D.Dynamics.b2FixtureDef;
-    category_bits; //HERE
-    mask_bits;
+    category_bits: Category;
+    mask_bits: Mask;
     damage: number;
     velocity: number;
     width: number;
@@ -211,11 +211,11 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
 
             var fixDef = this.fixDef;
 
-            fixDef.filter.categoryBits = CATEGORY.enemy;
-            fixDef.filter.maskBits = MASK.enemy;
+            fixDef.filter.categoryBits = Category.enemy;
+            fixDef.filter.maskBits = Mask.enemy;
 
-            this.category_bits = CATEGORY.enemy;
-            this.mask_bits = MASK.enemy;
+            this.category_bits = Category.enemy;
+            this.mask_bits = Mask.enemy;
             this.body.CreateFixture(fixDef);
             this.afterSpawn();
 

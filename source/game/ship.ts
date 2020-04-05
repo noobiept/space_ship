@@ -19,7 +19,7 @@ import * as GameStatistics from "../menus/game_statistics";
 import * as ZIndex from "./z_index";
 import * as GameMenu from "../menus/game_menu";
 import * as Options from "../shared/options";
-import { CollisionID, CATEGORY, MASK } from "./collision_detection";
+import { CollisionID, Category, Mask } from "./collision_detection";
 import {
     b2FixtureDef,
     b2BodyDef,
@@ -47,8 +47,8 @@ export default class Ship implements GameElement {
     weaponSelected: number;
     tick_count: [number, number, number, number];
     bullets_left: [number, number, number, number];
-    category_bits;
-    mask_bits;
+    category_bits: Category;
+    mask_bits: Mask;
     body: Box2D.Dynamics.b2Body;
     alreadyInCollision = false;
     onClick: (e) => void;
@@ -123,11 +123,11 @@ export default class Ship implements GameElement {
         fixDef.density = 1;
         fixDef.friction = 0.5;
         fixDef.restitution = 0.2;
-        fixDef.filter.categoryBits = CATEGORY.ship;
-        fixDef.filter.maskBits = MASK.ship;
+        fixDef.filter.categoryBits = Category.ship;
+        fixDef.filter.maskBits = Mask.ship;
 
-        this.category_bits = CATEGORY.ship;
-        this.mask_bits = MASK.ship;
+        this.category_bits = Category.ship;
+        this.mask_bits = Mask.ship;
 
         var bodyDef = new b2BodyDef();
 

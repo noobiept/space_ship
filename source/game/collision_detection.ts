@@ -16,18 +16,18 @@ type DetermineType = {
     enemy?: EnemyShip<any>;
 };
 
-export const CATEGORY = {
-    ship: 1, // 0001
-    enemy: 2, // 0010
-    enemy_spawning: 4, // 0100
-};
+export const enum Category {
+    ship = 1, // 0001
+    enemy = 2, // 0010
+    enemy_spawning = 4, // 0100
+}
 
-export const MASK = {
-    ship: CATEGORY.enemy, // ship can collide with enemies
-    enemy: CATEGORY.ship, // enemies can collide with the ship
-    enemy_spawning: 0, // doesn't collide with anything, during the spawn phase
-    dontCollide: 0,
-};
+export const enum Mask {
+    ship = Category.enemy, // ship can collide with enemies
+    enemy = Category.ship, // enemies can collide with the ship
+    enemy_spawning = 0, // doesn't collide with anything, during the spawn phase
+    dontCollide = 0,
+}
 
 // has functions to be called later (related to a collision). Have to remove the elements after executing the function
 const COLLISION_F: (() => void)[] = [];
@@ -109,7 +109,7 @@ function shipOnEnemyCollision(ship: Ship, enemy: EnemyShip<any>) {
     enemy.alreadyInCollision = true;
 
     // make it not collidable anymore
-    enemy.fixDef.filter.maskBits = MASK.dontCollide;
+    enemy.fixDef.filter.maskBits = Mask.dontCollide;
     enemy.body.CreateFixture(enemy.fixDef);
 
     COLLISION_F.push(function () {
@@ -130,7 +130,7 @@ function shipOnBulletCollision(ship: Ship, bullet: Bullet<any>) {
     bullet.alreadyInCollision = true;
 
     // make it not collidable anymore
-    bullet.fixDef.filter.maskBits = MASK.dontCollide;
+    bullet.fixDef.filter.maskBits = Mask.dontCollide;
     bullet.body.CreateFixture(bullet.fixDef);
 
     COLLISION_F.push(function () {
@@ -148,7 +148,7 @@ function bulletOnEnemyCollision(bullet: Bullet<any>, enemy: EnemyShip<any>) {
     enemy.alreadyInCollision = true;
 
     // make it not collidable anymore
-    enemy.fixDef.filter.maskBits = MASK.dontCollide;
+    enemy.fixDef.filter.maskBits = Mask.dontCollide;
     enemy.body.CreateFixture(enemy.fixDef);
 
     COLLISION_F.push(function () {
