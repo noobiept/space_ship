@@ -11,10 +11,7 @@ import {
     b2Vec2,
 } from "../shared/constants";
 
-export type FullEnemyKamikazeArgs = {
-    damage?: number;
-    velocity?: number;
-} & EnemyShipArgs;
+export type FullEnemyKamikazeArgs = {} & EnemyShipArgs;
 
 export type EnemyKamikazeArgs = Omit<FullEnemyKamikazeArgs, "width" | "height">;
 
@@ -24,18 +21,9 @@ export default class EnemyKamikaze extends EnemyShip<FullEnemyKamikazeArgs> {
             ...args,
             width: 14,
             height: 14,
+            damage: args.damage ?? 10,
+            velocity: args.velocity ?? 2,
         });
-
-        if (typeof args.damage == "undefined") {
-            args.damage = 10;
-        }
-
-        if (typeof args.velocity == "undefined") {
-            args.velocity = 2;
-        }
-
-        this.damage = args.damage;
-        this.velocity = args.velocity;
     }
 
     makeShape({ width, height }: FullEnemyKamikazeArgs) {

@@ -11,10 +11,7 @@ import {
     b2Vec2,
 } from "../shared/constants";
 
-export type FullEnemyRotateAroundArgs = {
-    damage?: number;
-    velocity?: number;
-} & EnemyShipArgs;
+export type FullEnemyRotateAroundArgs = {} & EnemyShipArgs;
 
 export type EnemyRotateAroundArgs = Omit<
     FullEnemyRotateAroundArgs,
@@ -32,18 +29,9 @@ export default class EnemyRotateAround extends EnemyShip<
             ...args,
             width: 20,
             height: 20,
+            damage: args.damage ?? 10,
+            velocity: args.velocity ?? 1,
         });
-
-        if (typeof args.damage == "undefined") {
-            args.damage = 10;
-        }
-
-        if (typeof args.velocity == "undefined") {
-            args.velocity = 1;
-        }
-
-        this.damage = args.damage;
-        this.velocity = args.velocity;
 
         this.ticksUntilNextBullet = 100;
         this.countTicks = 0;
@@ -146,7 +134,7 @@ export default class EnemyRotateAround extends EnemyShip<
 
     Shoots the bullets
  */
-    normalTick(event) {
+    normalTick(event: createjs.TickerEvent) {
         super.normalTick(event);
 
         this.countTicks++;

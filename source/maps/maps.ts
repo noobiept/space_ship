@@ -131,7 +131,7 @@ export default class Maps implements MapType {
         });
     }
 
-    tick(event) {
+    tick(event: createjs.TickerEvent) {
         if (event.paused) {
             return;
         }

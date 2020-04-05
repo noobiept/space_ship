@@ -11,25 +11,12 @@ import {
 } from "../shared/constants";
 
 export type FullEnemyRocksArgs = {
-    scale?: number;
-    damage?: number;
-    velocity?: number;
+    scale?: number; // scale the original image (1 -> 100%, no scaling)
 } & EnemyShipArgs;
 
 // we define the width/height directly on the constructor, so no need to pass them
 export type EnemyRocksArgs = Omit<FullEnemyRocksArgs, "width" | "height">;
 
-/*
-    args = {
-        x: Number,
-        y: Number,
-        scale: Number,      (optional)
-        damage: Number,     (optional)
-        velocity: Number    (optional)
-    }
-
-        - scale: scale the original image (1 -> 100%, no scaling)
- */
 export default class EnemyRocks extends EnemyShip<FullEnemyRocksArgs> {
     scale = 1;
     angleRadians = 0;
@@ -39,10 +26,9 @@ export default class EnemyRocks extends EnemyShip<FullEnemyRocksArgs> {
             ...args,
             width: 50,
             height: 50,
+            damage: args.damage ?? 5,
+            velocity: args.velocity ?? 1,
         });
-
-        this.damage = args.damage ?? 5; //HERE  move to EnemyShip
-        this.velocity = args.velocity ?? 1; //HERE
     }
 
     makeShape({ width, height, scale = 1 }: FullEnemyRocksArgs) {

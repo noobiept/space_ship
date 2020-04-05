@@ -9,10 +9,7 @@ import {
     b2Vec2,
 } from "../shared/constants";
 
-export type FullEnemyMoveHorizontallyArgs = {
-    damage?: number;
-    velocity?: number;
-} & EnemyShipArgs;
+export type FullEnemyMoveHorizontallyArgs = {} & EnemyShipArgs;
 
 export type EnemyMoveHorizontallyArgs = Omit<
     FullEnemyMoveHorizontallyArgs,
@@ -27,18 +24,9 @@ export default class EnemyMoveHorizontally extends EnemyShip<
             ...args,
             width: 20,
             height: 20,
+            damage: args.damage ?? 10,
+            velocity: args.velocity ?? 1,
         });
-
-        if (typeof args.damage == "undefined") {
-            args.damage = 10;
-        }
-
-        if (typeof args.velocity == "undefined") {
-            args.velocity = 1;
-        }
-
-        this.damage = args.damage;
-        this.velocity = args.velocity;
     }
 
     makeShape({ width, height }: FullEnemyMoveHorizontallyArgs) {

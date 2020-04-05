@@ -8,6 +8,8 @@ import { GameElement, PhysicsObjects } from "../shared/types";
 export type EnemyShipArgs = {
     x: number;
     y: number;
+    damage: number;
+    velocity: number;
     width: number;
     height: number;
 };
@@ -22,7 +24,7 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     shape: createjs.Sprite;
     body: Box2D.Dynamics.b2Body;
     fixDef: Box2D.Dynamics.b2FixtureDef;
-    category_bits;
+    category_bits; //HERE
     mask_bits;
     damage: number;
     velocity: number;
@@ -32,12 +34,14 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     tick: (event: createjs.TickerEvent) => void; // this will point to spawningTick() or normalTick()
 
     constructor(args: Args) {
-        const { x, y, width, height } = args;
+        const { x, y, width, height, damage, velocity } = args;
 
         // the number of ticks it takes until the enemy can start moving/firing/being killed
         this.spawnTicks_int = 20;
         this.width = width;
         this.height = height;
+        this.damage = damage;
+        this.velocity = velocity;
 
         // make the tick function deal with spawning the enemy
         this.tick = this.spawningTick;
