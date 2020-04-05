@@ -2,7 +2,7 @@ import { toRadians } from "@drk4/utilities";
 import { STAGE, MAIN_SHIP, SCALE, WORLD } from "../main";
 import * as ZIndex from "../game/z_index";
 import { outOfBounds } from "../shared/utilities";
-import { CollisionID } from "../game/collision_detection";
+import { CollisionID, Category, Mask } from "../game/collision_detection";
 import {
     b2FixtureDef,
     b2BodyDef,
@@ -11,15 +11,14 @@ import {
     b2Vec2,
 } from "../shared/constants";
 import { GameElement } from "../shared/types";
-import Ship from "../game/ship";
-import EnemyShip from "../enemies/enemy_ship";
 
 export type BulletArgs = {
-    ship: Ship | EnemyShip<any>;
+    x: number;
+    y: number;
+    angleRotation: number;
     color: string;
-    angleRotation?: number;
-    x?: number;
-    y?: number;
+    category: Category;
+    mask: Mask;
 };
 
 export type AdditionalBulletArgs = {
@@ -29,29 +28,9 @@ export type AdditionalBulletArgs = {
     speed: number;
 };
 
-/*
-    Use as base class for all the bullet types
-
-    Functions to write (in derived class):
-
-        .drawBullet()
-        .setupPhysics()         (optional -- the default is a rectangle from the width/height properties)
-
-    Properties:
-
-        .width
-        .height
-        .damage
-        .speed
-
-    Add reference of the drawn element to:
-
-        .shape
- */
 export default abstract class Bullet<Args extends BulletArgs>
     implements GameElement {
     shape: createjs.Shape;
-    shipObject: Ship | EnemyShip<any>;
     type = CollisionID.bullet;
     body: Box2D.Dynamics.b2Body;
     fixDef: Box2D.Dynamics.b2FixtureDef;
@@ -68,13 +47,8 @@ export default abstract class Bullet<Args extends BulletArgs>
     static all_bullets: Bullet<BulletArgs>[] = [];
 
     constructor(args: Args & AdditionalBulletArgs) {
-        if (typeof args.angleRotation === "undefined") {
-            args.angleRotation = args.ship.getRotation();
-        }
-
-        let {
+        const {
             angleRotation,
-            ship,
             x,
             y,
             width,
@@ -84,7 +58,6 @@ export default abstract class Bullet<Args extends BulletArgs>
             speed,
         } = args;
 
-        this.shipObject = ship;
         this.damage = damage;
         this.speed = speed;
         this.removed = false;
@@ -106,13 +79,6 @@ export default abstract class Bullet<Args extends BulletArgs>
 
         Bullet.all_bullets.push(this);
 
-        if (typeof x === "undefined") {
-            x = ship.getX();
-        }
-        if (typeof y === "undefined") {
-            y = ship.getY();
-        }
-
         // fire from outside the main ship radius (so it doesn't collide immediately with it)
         var shipRadius = MAIN_SHIP.width / 2;
 
@@ -128,7 +94,7 @@ export default abstract class Bullet<Args extends BulletArgs>
     abstract drawBullet(args: Args & AdditionalBulletArgs): createjs.Shape;
 
     setupPhysics(args: Args & AdditionalBulletArgs) {
-        const { width, height, ship } = args;
+        const { category, mask, width, height } = args;
 
         // physics
         const fixDef = new b2FixtureDef();
@@ -136,8 +102,8 @@ export default abstract class Bullet<Args extends BulletArgs>
         fixDef.density = 1;
         fixDef.friction = 0.5;
         fixDef.restitution = 0.2;
-        fixDef.filter.categoryBits = ship.category_bits;
-        fixDef.filter.maskBits = ship.mask_bits;
+        fixDef.filter.categoryBits = category;
+        fixDef.filter.maskBits = mask;
 
         // so that it doesn't have a reaction when it collides (but we still need to detect the collision)
         // useful for example for the sniper, to be able to continue moving through

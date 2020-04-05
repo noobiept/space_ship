@@ -53,11 +53,13 @@ export default class Bullet3_rocket extends Bullet<Bullet3_rocketArgs> {
         this.remove();
 
         new SplashDamage({
-            ship: this.shipObject,
             x: this.getX(),
             y: this.getY(),
-            maxRadius: 17,
+            angleRotation: 0,
             color: this.color,
+            category: this.fixDef.filter.categoryBits,
+            mask: this.fixDef.filter.maskBits,
+            maxRadius: 17,
             splashDuration: 30,
         });
     }

@@ -321,7 +321,14 @@ export default class Ship implements GameElement {
         var bulletsLeft = this.bullets_left;
 
         if (bulletsLeft[weaponSelected] > 0) {
-            new weapons[this.weaponSelected]({ ship: this, color: this.color });
+            new weapons[this.weaponSelected]({
+                x: this.getX(),
+                y: this.getY(),
+                angleRotation: this.getRotation(),
+                color: this.color,
+                category: this.category_bits,
+                mask: this.mask_bits,
+            });
 
             bulletsLeft[weaponSelected]--;
             GameStatistics.updateBulletsLeft(weaponSelected);

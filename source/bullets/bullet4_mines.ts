@@ -12,11 +12,9 @@ export type Bullet4_minesArgs = {
 } & BulletArgs;
 
 export default class Bullet4_mines extends Bullet<Bullet4_minesArgs> {
-    speed;
-    angle;
-    angleTick;
-    color;
-    countTick;
+    angle: number;
+    angleTick: number;
+    countTick: number;
 
     constructor(args: Bullet4_minesArgs) {
         super({
@@ -32,7 +30,6 @@ export default class Bullet4_mines extends Bullet<Bullet4_minesArgs> {
 
         // angle of the mine points (for the animation, keep rotating the mine)
         this.angle = 0;
-
         this.angleTick = ANGLE_TICK;
     }
 
@@ -88,12 +85,14 @@ export default class Bullet4_mines extends Bullet<Bullet4_minesArgs> {
         this.remove();
 
         new SplashDamage({
-            ship: this.shipObject,
             x: this.getX(),
             y: this.getY(),
-            maxRadius: 40,
+            angleRotation: 0,
             color: this.color,
+            category: this.fixDef.filter.categoryBits,
+            mask: this.fixDef.filter.maskBits,
             splashDuration: 40,
+            maxRadius: 40,
         });
     }
 

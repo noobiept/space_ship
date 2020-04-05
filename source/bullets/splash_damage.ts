@@ -18,10 +18,9 @@ export type SplashDamageArgs = {
     The splash damage starts with radius of 1, then expands until it reaches the maximum value, then back again until 1, before being removed
  */
 export default class SplashDamage extends Bullet<SplashDamageArgs> {
-    splashDuration;
+    splashDuration: number;
     radiusPerTick: number;
     radius: number;
-    color;
     bodyDef;
     countTick: number;
     x: number;
@@ -70,28 +69,24 @@ export default class SplashDamage extends Bullet<SplashDamageArgs> {
         return shape;
     }
 
-    setupPhysics() {
-        var fixDef = new b2FixtureDef();
+    setupPhysics(args: SplashDamageArgs) {
+        const { category, mask } = args;
 
+        const fixDef = new b2FixtureDef();
         fixDef.density = 1;
         fixDef.friction = 0.5;
         fixDef.restitution = 0.2;
-        fixDef.filter.categoryBits = this.shipObject.category_bits;
-        fixDef.filter.maskBits = this.shipObject.mask_bits;
-
+        fixDef.filter.categoryBits = category;
+        fixDef.filter.maskBits = mask;
         fixDef.isSensor = true;
+        fixDef.shape = new b2CircleShape(this.radius / SCALE);
 
-        var bodyDef = new b2BodyDef();
-
+        const bodyDef = new b2BodyDef();
         bodyDef.type = b2Body.b2_dynamicBody;
-
         bodyDef.position.x = 0;
         bodyDef.position.y = 0;
 
-        fixDef.shape = new b2CircleShape(this.radius / SCALE);
-
-        var body = WORLD.createBody(bodyDef);
-
+        const body = WORLD.createBody(bodyDef);
         body.CreateFixture(fixDef);
         body.SetUserData(this);
 

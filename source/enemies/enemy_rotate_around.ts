@@ -149,10 +149,13 @@ export default class EnemyRotateAround extends EnemyShip<
             angleRotation *= -1;
 
             new Bullet1_laser({
-                ship: this,
-                color: "red",
+                x: this.getX(),
+                y: this.getY(),
                 angleRotation,
+                color: "red",
                 damage: this.damage,
+                category: this.category_bits,
+                mask: this.mask_bits,
             });
         }
     }

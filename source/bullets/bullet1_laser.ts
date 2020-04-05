@@ -1,4 +1,4 @@
-import Bullet, { BulletArgs } from "./bullet";
+import Bullet, { BulletArgs, AdditionalBulletArgs } from "./bullet";
 import { applyImpulse } from "../shared/utilities";
 
 export type Bullet1_laserArgs = {
@@ -7,7 +7,7 @@ export type Bullet1_laserArgs = {
 } & BulletArgs;
 
 export default class Bullet1_laser extends Bullet<Bullet1_laserArgs> {
-    constructor(args) {
+    constructor(args: Bullet1_laserArgs) {
         super({
             ...args,
             width: 4,
@@ -23,7 +23,7 @@ export default class Bullet1_laser extends Bullet<Bullet1_laserArgs> {
         );
     }
 
-    drawBullet(args) {
+    drawBullet(args: Bullet1_laserArgs & AdditionalBulletArgs) {
         const { width, height, angleRotation, color } = args;
 
         const laser = new createjs.Shape();
