@@ -3,13 +3,13 @@ import * as ZIndex from "../game/z_index";
 import * as GameMenu from "./game_menu";
 
 let SCORE = 0;
-let SCORE_TEXT = null;
+let SCORE_TEXT: createjs.Text;
 
 let ENERGY = 100;
-let ENERGY_TEXT = null;
+let ENERGY_TEXT: createjs.Text;
 
 let NUMBER_OF_ENEMIES = 0;
-let NUMBER_OF_ENEMIES_TEXT = null;
+let NUMBER_OF_ENEMIES_TEXT: createjs.Text;
 
 export function start() {
     SCORE = 0;
@@ -64,7 +64,7 @@ export function getScore() {
     return SCORE;
 }
 
-export function updateScore(newScore) {
+export function updateScore(newScore: number) {
     SCORE = newScore;
     SCORE_TEXT.text = "Score: " + newScore;
 }
@@ -73,7 +73,7 @@ export function getNumberOfEnemies() {
     return NUMBER_OF_ENEMIES;
 }
 
-export function updateNumberOfEnemies(newNumber) {
+export function updateNumberOfEnemies(newNumber: number) {
     NUMBER_OF_ENEMIES = newNumber;
     NUMBER_OF_ENEMIES_TEXT.text = "Enemies: " + newNumber;
 }
@@ -82,7 +82,7 @@ export function getShipEnergy() {
     return ENERGY;
 }
 
-export function updateShipEnergy(newEnergy) {
+export function updateShipEnergy(newEnergy: number) {
     ENERGY = newEnergy;
     ENERGY_TEXT.text = "Energy: " + newEnergy;
 }
@@ -92,7 +92,7 @@ export function updateShipEnergy(newEnergy) {
 
         weapon (number) : zero-based weapon to update
  */
-export function updateBulletsLeft(weapon) {
+export function updateBulletsLeft(weapon: number) {
     const bulletsLeft = MAIN_SHIP.getBulletsLeft(weapon);
 
     GameMenu.updateBulletsLeft(weapon, bulletsLeft);

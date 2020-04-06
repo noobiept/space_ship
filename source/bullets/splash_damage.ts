@@ -21,7 +21,7 @@ export default class SplashDamage extends Bullet<SplashDamageArgs> {
     splashDuration: number;
     radiusPerTick: number;
     radius: number;
-    bodyDef;
+    bodyDef!: Box2D.Dynamics.b2BodyDef; //TODO
     countTick: number;
     x: number;
     y: number;
@@ -58,10 +58,11 @@ export default class SplashDamage extends Bullet<SplashDamageArgs> {
         this.moveTo(x, y);
     }
 
-    drawBullet(args) {
-        const { radius, color } = args;
+    drawBullet(args: SplashDamageArgs) {
+        const { color } = args;
         const shape = new createjs.Shape();
         const g = shape.graphics;
+        const radius = 1; //TODO
 
         g.beginFill(color);
         g.drawCircle(0, 0, radius);
@@ -98,7 +99,7 @@ export default class SplashDamage extends Bullet<SplashDamageArgs> {
         };
     }
 
-    setRadius(radius) {
+    setRadius(radius: number) {
         // box2dweb doesn't seem to be able to resize existing bodies, so we create again the body (kind of stupid but oh well.. >.>)
         WORLD.destroyBody(this.body);
 
@@ -124,7 +125,7 @@ export default class SplashDamage extends Bullet<SplashDamageArgs> {
         // the element will be removed in other place, keep it for now
     }
 
-    tick(event) {
+    tick(event: createjs.TickerEvent) {
         super.tick(event);
 
         this.countTick++;

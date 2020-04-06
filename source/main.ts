@@ -14,15 +14,15 @@ import Ship from "./game/ship";
 import { handleKeyDown, handleKeyUp, clearKeysHeld } from "./keyboard_events";
 import EnemyShip from "./enemies/enemy_ship";
 import Bullet from "./bullets/bullet";
-import { MapType, AppData } from "./shared/types";
-import { hideElement, showElement } from "./shared/utilities";
+import { MapType, AppData, MapTypeClass } from "./shared/types";
+import { hideElement, showElement, centerCanvas } from "./shared/utilities";
 import * as CollisionDetection from "./game/collision_detection";
 import World from "./game/world";
 import { b2DebugDraw, b2ContactListener } from "./shared/constants";
 
 // global variables
 
-export var CANVAS;
+export var CANVAS: HTMLCanvasElement;
 var CANVAS_DEBUG;
 
 var DEBUG = false;
@@ -31,8 +31,8 @@ var BASE_URL = "";
 
 // createjs
 
-export var STAGE;
-export var PRELOAD;
+export var STAGE: createjs.Stage;
+export var PRELOAD: createjs.LoadQueue;
 
 // box2d physics
 export const WORLD = new World();
@@ -41,10 +41,10 @@ export const WORLD = new World();
 export const SCALE = 30;
 
 // playable dimensions (the rest of the canvas is for menus/etc)
-export var GAME_WIDTH;
-export var GAME_HEIGHT;
+export var GAME_WIDTH: number;
+export var GAME_HEIGHT: number;
 
-export var MAIN_SHIP;
+export var MAIN_SHIP: Ship;
 
 export const ENEMY_TYPES = [
     EnemyMoveHorizontally,
@@ -53,9 +53,9 @@ export const ENEMY_TYPES = [
     EnemyRocks,
 ];
 
-var MAP_MODE = null;
-var GAME_OBJECT = null;
-var LOADING_MESSAGE;
+let MAP_MODE: MapTypeClass | null = null;
+let GAME_OBJECT: MapType | null = null;
+let LOADING_MESSAGE: Message | null = null;
 
 window.onload = function () {
     AppStorage.getData(["space_ship_options"], initApp);
@@ -66,10 +66,10 @@ function initApp(data: AppData) {
     MainMenu.init();
 
     // get a reference to the canvas we'll be working with
-    CANVAS = document.querySelector("#mainCanvas");
+    CANVAS = document.getElementById("mainCanvas") as HTMLCanvasElement;
 
     // canvas for debugging the physics
-    CANVAS_DEBUG = document.querySelector("#debugCanvas");
+    CANVAS_DEBUG = document.getElementById("debugCanvas") as HTMLCanvasElement;
 
     // create a stage object to work with the canvas. This is the top level node in the display list
     STAGE = new createjs.Stage(CANVAS);
@@ -81,9 +81,10 @@ function initApp(data: AppData) {
         centerCanvas(CANVAS_DEBUG);
 
         // setup debug draw
-        var debugDraw = new b2DebugDraw();
+        const debugDraw = new b2DebugDraw();
+        const debugContext = CANVAS_DEBUG.getContext("2d")!;
 
-        debugDraw.SetSprite(CANVAS_DEBUG.getContext("2d"));
+        debugDraw.SetSprite(debugContext);
         debugDraw.SetDrawScale(SCALE);
         debugDraw.SetFillAlpha(0.4);
         debugDraw.SetLineThickness(1);
@@ -126,13 +127,16 @@ function initApp(data: AppData) {
     LOADING_MESSAGE = new Message({ text: "Loading", centerWindow: true });
 
     PRELOAD.installPlugin(createjs.Sound);
-    PRELOAD.addEventListener("progress", updateLoading);
+    PRELOAD.addEventListener(
+        "progress",
+        updateLoading as (event: Object) => void
+    );
     PRELOAD.addEventListener("complete", MainMenu.open);
     PRELOAD.loadManifest(manifest, true);
 }
 
-function updateLoading(event) {
-    LOADING_MESSAGE.setText("Loading " + ((event.progress * 100) | 0) + "%");
+function updateLoading(event: createjs.ProgressEvent) {
+    LOADING_MESSAGE?.setText("Loading " + ((event.progress * 100) | 0) + "%");
 }
 
 export function removeLoadingMessage() {
@@ -153,7 +157,7 @@ export function initGame() {
     MAIN_SHIP = new Ship();
 
     // so that .tick() of EnemyShip/Ship/... is called automatically
-    createjs.Ticker.on("tick", tick);
+    createjs.Ticker.on("tick", tick as (event: Object) => void);
 
     // call update on the stage to make it render the current display list to the canvas
     STAGE.update();
@@ -216,19 +220,7 @@ export function resume() {
     createjs.Ticker.setPaused(false);
 }
 
-/*
-    center the canvas in the middle of window
- */
-
-function centerCanvas(canvasElement) {
-    var left = window.innerWidth / 2 - canvasElement.width / 2;
-    var top = window.innerHeight / 2 - canvasElement.height / 2;
-
-    $(canvasElement).css("left", left + "px");
-    $(canvasElement).css("top", top + "px");
-}
-
-export function setMapMode(mode: MapType) {
+export function setMapMode(mode: MapTypeClass) {
     MAP_MODE = mode;
 }
 
@@ -238,10 +230,6 @@ export function setMapMode(mode: MapType) {
 
 export function resetStuff() {
     STAGE.removeAllChildren();
-
-    // unbind the event
-    STAGE.onMouseDown = null;
-
     createjs.Ticker.removeAllEventListeners();
 
     ZIndex.clear();
@@ -289,6 +277,5 @@ function tick(event: createjs.TickerEvent) {
 
     GAME_OBJECT.tick(event);
     WORLD.tick();
-
     STAGE.update();
 }

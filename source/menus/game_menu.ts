@@ -4,19 +4,19 @@ import Message from "../shared/message";
 import { hideElement, showElement } from "../shared/utilities";
 
 let WEAPON_SELECTED = 0;
-const WEAPON_ELEMENTS = [];
-const BULLETS_LEFT_ELEMENTS = [];
+const WEAPON_ELEMENTS: HTMLElement[] = [];
+const BULLETS_LEFT_ELEMENTS: HTMLElement[] = [];
 
 export function init() {
     clear();
 
-    const menu = document.getElementById("GameMenu");
+    const menu = document.getElementById("GameMenu")!;
 
     // :: Weapons Selection :: //
-    const weapon1 = document.getElementById("GameMenu-weapon1");
-    const weapon2 = document.getElementById("GameMenu-weapon2");
-    const weapon3 = document.getElementById("GameMenu-weapon3");
-    const weapon4 = document.getElementById("GameMenu-weapon4");
+    const weapon1 = document.getElementById("GameMenu-weapon1")!;
+    const weapon2 = document.getElementById("GameMenu-weapon2")!;
+    const weapon3 = document.getElementById("GameMenu-weapon3")!;
+    const weapon4 = document.getElementById("GameMenu-weapon4")!;
 
     WEAPON_ELEMENTS.push(weapon1, weapon2, weapon3, weapon4);
 
@@ -41,10 +41,10 @@ export function init() {
 
     // :: Bullets Left :: //
 
-    const bulletsLeft1 = document.getElementById("GameMenu-bullets1");
-    const bulletsLeft2 = document.getElementById("GameMenu-bullets2");
-    const bulletsLeft3 = document.getElementById("GameMenu-bullets3");
-    const bulletsLeft4 = document.getElementById("GameMenu-bullets4");
+    const bulletsLeft1 = document.getElementById("GameMenu-bullets1")!;
+    const bulletsLeft2 = document.getElementById("GameMenu-bullets2")!;
+    const bulletsLeft3 = document.getElementById("GameMenu-bullets3")!;
+    const bulletsLeft4 = document.getElementById("GameMenu-bullets4")!;
 
     BULLETS_LEFT_ELEMENTS.push(
         bulletsLeft1,
@@ -57,7 +57,7 @@ export function init() {
 
     // :: Restart :: //
 
-    var restart = document.getElementById("GameMenu-restart");
+    var restart = document.getElementById("GameMenu-restart")!;
 
     restart.onclick = function (event) {
         startGameMode(true);
@@ -68,7 +68,7 @@ export function init() {
 
     // :: Quit :: //
 
-    const quit = document.getElementById("GameMenu-quit");
+    const quit = document.getElementById("GameMenu-quit")!;
     quit.onclick = function (event) {
         MainMenu.open();
 
@@ -80,17 +80,17 @@ export function init() {
 
     // :: Open the Menu :: //
 
-    var openMenu = document.getElementById("GameMenu-openMenu");
+    const openMenu = document.getElementById("GameMenu-openMenu")!;
 
     $(openMenu).text("Menu");
 
-    var isOpened = false;
-    var pausedMessage = null;
+    let isOpened = false;
+    let pausedMessage: Message | null = null;
 
     openMenu.onclick = function (event) {
         if (isOpened) {
             isOpened = false;
-            pausedMessage.remove();
+            pausedMessage?.remove();
 
             $(openMenu).text("Menu");
 
@@ -125,7 +125,7 @@ export function init() {
 /*
     number is zero-based
  */
-export function selectWeapon(number) {
+export function selectWeapon(number: number) {
     if (number !== WEAPON_SELECTED) {
         // remove the css class from the previous element
         $(WEAPON_ELEMENTS[WEAPON_SELECTED]).removeClass("WeaponsSelected");
@@ -140,14 +140,13 @@ export function selectWeapon(number) {
 /*
     Updates the number of bullets left (zero-based)
  */
-export function updateBulletsLeft(weapon, bulletsLeft) {
-    var bulletsElement = BULLETS_LEFT_ELEMENTS[weapon];
-
+export function updateBulletsLeft(weapon: number, bulletsLeft: number) {
+    const bulletsElement = BULLETS_LEFT_ELEMENTS[weapon];
     $(bulletsElement).text(bulletsLeft);
 }
 
 export function updateAllBulletsLeft() {
-    for (var i = 0; i < BULLETS_LEFT_ELEMENTS.length; i++) {
+    for (let i = 0; i < BULLETS_LEFT_ELEMENTS.length; i++) {
         updateBulletsLeft(i, MAIN_SHIP.getBulletsLeft(i));
     }
 }

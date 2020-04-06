@@ -1,4 +1,4 @@
-import Bullet, { BulletArgs } from "./bullet";
+import Bullet, { BulletArgs, AdditionalBulletArgs } from "./bullet";
 import SplashDamage from "./splash_damage";
 
 // remove the mines after some time
@@ -33,8 +33,8 @@ export default class Bullet4_mines extends Bullet<Bullet4_minesArgs> {
         this.angleTick = ANGLE_TICK;
     }
 
-    drawBullet(args) {
-        const { width, height, angleRotation, color, angle } = args;
+    drawBullet(args: Bullet4_minesArgs & AdditionalBulletArgs) {
+        const { width, height, angleRotation, color } = args;
 
         const mine = new createjs.Shape();
 
@@ -46,7 +46,7 @@ export default class Bullet4_mines extends Bullet<Bullet4_minesArgs> {
         const halfPoint = width / 2; // width is same as height
 
         g.beginFill(color);
-        g.drawPolyStar(halfPoint, halfPoint, halfPoint, 5, 0.5, angle);
+        g.drawPolyStar(halfPoint, halfPoint, halfPoint, 5, 0.5, 0);
         g.drawCircle(halfPoint, halfPoint, (4 / 6) * halfPoint);
 
         return mine;
@@ -96,7 +96,7 @@ export default class Bullet4_mines extends Bullet<Bullet4_minesArgs> {
         });
     }
 
-    tick(event) {
+    tick(event: createjs.TickerEvent) {
         super.tick(event);
 
         this.countTick--;

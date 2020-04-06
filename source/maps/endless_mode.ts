@@ -8,6 +8,7 @@ import { MapType } from "../shared/types";
     Difficulty increases with time
  */
 export default class EndlessMode implements MapType {
+    CURRENT_MAP = 0;
     next_enemy: number;
     damage: number;
     velocity: number;
