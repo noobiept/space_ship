@@ -2,6 +2,7 @@ import { toRadians, calculateAngle, toDegrees } from "@drk4/utilities";
 import { CANVAS } from "../main";
 import { b2Vec2 } from "./constants";
 import { GameElement } from "./types";
+import { getMusicVolume } from "./options";
 
 /**
  * Centers an html element in the middle of a given reference element (assumes html element has in its css 'position: absolute;').
@@ -126,4 +127,15 @@ export function hideElement(elementOrID: HTMLElement | string) {
     }
 
     elementOrID.classList.add("hidden");
+}
+
+/**
+ * Play a sound from an existing audio element.
+ */
+export function playSound(id: string) {
+    const volume = getMusicVolume();
+    const music = document.getElementById(id) as HTMLAudioElement;
+    music.currentTime = 0;
+    music.volume = volume;
+    music.play();
 }

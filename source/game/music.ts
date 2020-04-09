@@ -30,6 +30,7 @@ export default class Music {
         ) as HTMLAudioElement;
         music.currentTime = 0;
         music.volume = 0;
+        music.loop = true;
         music.play();
 
         this.currentSong = songPosition;

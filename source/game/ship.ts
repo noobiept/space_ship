@@ -28,6 +28,7 @@ import {
     b2Vec2,
 } from "../shared/constants";
 import { GameElement } from "../shared/types";
+import { playSound } from "../shared/utilities";
 
 const VELOCITY = 5;
 
@@ -333,16 +334,7 @@ export default class Ship implements GameElement {
             bulletsLeft[weaponSelected]--;
             GameStatistics.updateBulletsLeft(weaponSelected);
         } else {
-            var volume = Options.getMusicVolume();
-
-            createjs.Sound.play(
-                "dry_fire",
-                createjs.Sound.INTERRUPT_NONE,
-                0,
-                0,
-                0,
-                volume
-            );
+            playSound("Audio-dryFire");
         }
     }
 
