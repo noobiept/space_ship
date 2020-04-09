@@ -7,7 +7,6 @@ import {
     setMapMode,
     removeLoadingMessage,
 } from "../main";
-import * as Music from "../music";
 import * as Options from "../shared/options";
 import { hideElement, showElement } from "../shared/utilities";
 import RandomMaps from "../maps/random_maps";
@@ -56,7 +55,6 @@ export function open() {
     removeLoadingMessage();
     hideElement(CANVAS);
 
-    Music.stop();
     resetStuff();
     cleanUp();
 

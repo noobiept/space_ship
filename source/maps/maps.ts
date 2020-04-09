@@ -1,9 +1,15 @@
 import { getRandomInt } from "@drk4/utilities";
-import { initGame, GAME_WIDTH, GAME_HEIGHT, MAIN_SHIP } from "../main";
+import {
+    initGame,
+    GAME_WIDTH,
+    GAME_HEIGHT,
+    MAIN_SHIP,
+    nextSong,
+} from "../main";
 import Message from "../shared/message";
 import * as MainMenu from "../menus/main_menu";
 import EnemyShip from "../enemies/enemy_ship";
-import * as Music from "../music";
+import * as Music from "../game/music";
 import { MapType } from "../shared/types";
 import { EnemyMapping } from "../shared/constants";
 
@@ -231,7 +237,7 @@ export default class Maps implements MapType {
             EnemyShip.all_spawning.length === 0
         ) {
             this.loadMap();
-            Music.next();
+            nextSong();
 
             MAIN_SHIP.refreshAmmo();
         }

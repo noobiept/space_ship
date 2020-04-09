@@ -5,7 +5,7 @@ import * as MainMenu from "./menus/main_menu";
 import * as AppStorage from "./app_storage";
 import * as GameMenu from "./menus/game_menu";
 import Message from "./shared/message";
-import Music from "./music";
+import Music from "./game/music";
 import EnemyMoveHorizontally from "./enemies/enemy_move_horizontally";
 import EnemyRotateAround from "./enemies/enemy_rotate_around";
 import EnemyKamikaze from "./enemies/enemy_kamikaze";
@@ -28,6 +28,10 @@ var CANVAS_DEBUG;
 var DEBUG = false;
 
 var BASE_URL = "";
+
+const MUSIC = new Music({
+    songIDs: ["Audio-music1", "Audio-music2"],
+});
 
 // createjs
 
@@ -107,10 +111,6 @@ function initApp(data: AppData) {
         { id: "level9", src: BASE_URL + "maps/level9.json" },
         { id: "level10", src: BASE_URL + "maps/level10.json" },
 
-        { id: "scumm_bar", src: BASE_URL + "sound/scumm_bar.ogg" },
-        { id: "space_ship_1", src: BASE_URL + "sound/space_ship_1.ogg" },
-        { id: "dry_fire", src: BASE_URL + "sound/dry_fire.ogg" },
-
         {
             id: "enemy_move_horizontally",
             src: BASE_URL + "images/enemy_move_horizontally.png",
@@ -172,8 +172,7 @@ export function initGame() {
     document.onkeydown = handleKeyDown;
     document.onkeyup = handleKeyUp;
 
-    new Music(0);
-
+    MUSIC.play(0);
     GameMenu.init();
 }
 
@@ -232,6 +231,7 @@ export function resetStuff() {
     STAGE.removeAllChildren();
     createjs.Ticker.removeAllEventListeners();
 
+    MUSIC.stop();
     ZIndex.clear();
 
     EnemyShip.removeAll();
@@ -278,4 +278,11 @@ function tick(event: createjs.TickerEvent) {
     GAME_OBJECT.tick(event);
     WORLD.tick();
     STAGE.update();
+}
+
+/**
+ * Start playing the next song.
+ */
+export function nextSong() {
+    MUSIC.next();
 }
