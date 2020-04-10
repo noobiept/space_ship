@@ -1,0 +1,21 @@
+name: space_ship
+
+on: push
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: "12.x"
+
+            - run: npm install
+            - run: npm run format:check
+            - run: npm run build
+
+            - uses: actions/upload-artifact@master
+              with:
+                  name: space_ship
+                  path: dist/
