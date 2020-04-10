@@ -9,12 +9,18 @@ import {
 import Message from "../shared/message";
 import * as MainMenu from "../menus/main_menu";
 import EnemyShip from "../enemies/enemy_ship";
-import * as Music from "../game/music";
-import { MapType } from "../shared/types";
+import {
+    MapType,
+    LevelInfo,
+    EnemyClass,
+    GeneratedLevelInfo,
+    LevelInfoPhase,
+    GeneratedLevelInfoPhase,
+} from "../shared/types";
 import { EnemyMapping } from "../shared/constants";
 
 export type MapsArgs = {
-    maps?;
+    maps?: LevelInfo[];
 };
 
 /*
@@ -53,7 +59,7 @@ export type MapsArgs = {
  */
 export default class Maps implements MapType {
     NUMBER_OF_MAPS: number;
-    MAPS;
+    MAPS: (LevelInfo | GeneratedLevelInfo)[];
     CURRENT_MAP: number;
     CURRENT_MAP_TICK: number;
     CURRENT_MAP_PHASE: number;
@@ -137,12 +143,80 @@ export default class Maps implements MapType {
         });
     }
 
+    addEnemiesInPhase(
+        map: LevelInfo | GeneratedLevelInfo,
+        phase: LevelInfoPhase | GeneratedLevelInfoPhase
+    ) {
+        // get the enemy type
+        let enemyType: EnemyClass;
+
+        if (typeof phase.enemyType === "string") {
+            // get the variable/reference from a string (the class, for example a reference to EnemyKamikaze)
+            enemyType = EnemyMapping[phase.enemyType];
+        } else {
+            // its already a reference
+            enemyType = phase.enemyType;
+        }
+
+        // other information
+        const howMany = phase.howMany;
+        let damage;
+
+        // see if there's a specific damage set for this type
+        if (phase.damage) {
+            damage = phase.damage;
+        }
+
+        // otherwise use the global value
+        else {
+            damage = map.damage[phase.enemyType];
+        }
+
+        var velocity;
+
+        // again like with the damage, the value in the map has precedence
+        if (phase.velocity) {
+            velocity = phase.velocity;
+        }
+
+        // otherwise we use the global value
+        else {
+            velocity = map.velocity[phase.enemyType];
+        }
+
+        // get the x/y and create the enemy
+        var x, y;
+
+        for (var i = 0; i < howMany; i++) {
+            // random x position
+            if (!phase.x || phase.x < 0) {
+                x = getRandomInt(0, GAME_WIDTH);
+            } else {
+                x = phase.x;
+            }
+
+            // random y position
+            if (!phase.y || phase.y < 0) {
+                y = getRandomInt(0, GAME_HEIGHT);
+            } else {
+                y = phase.y;
+            }
+
+            new enemyType({
+                x: x,
+                y: y,
+                damage: damage,
+                velocity: velocity,
+            });
+        }
+    }
+
     tick(event: createjs.TickerEvent) {
         if (event.paused) {
             return;
         }
 
-        var currentMap = this.MAPS[this.CURRENT_MAP];
+        const currentMap = this.MAPS[this.CURRENT_MAP];
 
         if (!currentMap) {
             return;
@@ -150,75 +224,10 @@ export default class Maps implements MapType {
 
         this.CURRENT_MAP_TICK++;
 
-        var phase = currentMap.map[this.CURRENT_MAP_PHASE];
+        const phase = currentMap.map[this.CURRENT_MAP_PHASE];
 
         if (!this.NO_MORE_PHASES && this.CURRENT_MAP_TICK >= phase.tick) {
-            // get the enemy type
-            var enemyType;
-
-            if ($.type(phase.enemyType) == "string") {
-                // get the variable/reference from a string (the class, for example a reference to EnemyKamikaze)
-                enemyType = EnemyMapping[phase.enemyType];
-            } else {
-                // its already a reference
-                enemyType = phase.enemyType;
-            }
-
-            // other information
-            var howMany = parseInt(phase.howMany);
-            var damage;
-
-            // see if there's a specific damage set for this type
-            if (phase.damage) {
-                damage = parseInt(phase.damage);
-            }
-
-            // otherwise use the global value
-            else {
-                damage = parseInt(
-                    currentMap.damage[phase.enemyType.toString()]
-                );
-            }
-
-            var velocity;
-
-            // again like with the damage, the value in the map has precedence
-            if (phase.velocity) {
-                velocity = parseInt(phase.velocity);
-            }
-
-            // otherwise we use the global value
-            else {
-                velocity = parseInt(
-                    currentMap.velocity[phase.enemyType.toString()]
-                );
-            }
-
-            // get the x/y and create the enemy
-            var x, y;
-
-            for (var i = 0; i < howMany; i++) {
-                // random x position
-                if (!phase.x || phase.x < 0) {
-                    x = getRandomInt(0, GAME_WIDTH);
-                } else {
-                    x = phase.x;
-                }
-
-                // random y position
-                if (!phase.y || phase.y < 0) {
-                    y = getRandomInt(0, GAME_HEIGHT);
-                } else {
-                    y = phase.y;
-                }
-
-                new enemyType({
-                    x: x,
-                    y: y,
-                    damage: damage,
-                    velocity: velocity,
-                });
-            }
+            this.addEnemiesInPhase(currentMap, phase);
 
             // advance to the next phase of the map
             this.CURRENT_MAP_PHASE++;

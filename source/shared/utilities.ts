@@ -1,6 +1,11 @@
-import { toRadians, calculateAngle, toDegrees } from "@drk4/utilities";
+import {
+    toRadians,
+    calculateAngle,
+    toDegrees,
+    getRandomInt,
+} from "@drk4/utilities";
 import { CANVAS } from "../main";
-import { b2Vec2 } from "./constants";
+import { b2Vec2, EnemyClasses } from "./constants";
 import { GameElement } from "./types";
 import { getMusicVolume } from "./options";
 
@@ -138,4 +143,13 @@ export function playSound(id: string) {
     music.currentTime = 0;
     music.volume = volume;
     music.play();
+}
+
+/**
+ * Get a random enemy class.
+ */
+export function getRandomEnemy() {
+    const position = getRandomInt(0, EnemyClasses.length - 1);
+
+    return EnemyClasses[position];
 }

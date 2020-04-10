@@ -50,13 +50,6 @@ export var GAME_HEIGHT: number;
 
 export var MAIN_SHIP: Ship;
 
-export const ENEMY_TYPES = [
-    EnemyMoveHorizontally,
-    EnemyRotateAround,
-    EnemyKamikaze,
-    EnemyRocks,
-];
-
 let MAP_MODE: MapTypeClass | null = null;
 let GAME_OBJECT: MapType | null = null;
 let LOADING_MESSAGE: Message | null = null;

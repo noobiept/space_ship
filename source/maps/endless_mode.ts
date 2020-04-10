@@ -1,6 +1,7 @@
 import { getRandomInt } from "@drk4/utilities";
-import { initGame, ENEMY_TYPES, GAME_WIDTH, GAME_HEIGHT } from "../main";
+import { initGame, GAME_WIDTH, GAME_HEIGHT } from "../main";
 import { MapType } from "../shared/types";
+import { getRandomEnemy } from "../shared/utilities";
 
 /*
     Doesn't have levels/maps
@@ -63,14 +64,12 @@ export default class EndlessMode implements MapType {
         if (this.count_next_enemy >= this.next_enemy) {
             this.count_next_enemy = 0;
 
-            var enemy = ENEMY_TYPES[getRandomInt(0, ENEMY_TYPES.length - 1)];
-
-            var numberOfEnemies = 3;
-            var x, y;
+            const enemy = getRandomEnemy();
+            const numberOfEnemies = 3;
 
             for (var i = 0; i < numberOfEnemies; i++) {
-                x = getRandomInt(0, GAME_WIDTH);
-                y = getRandomInt(0, GAME_HEIGHT);
+                const x = getRandomInt(0, GAME_WIDTH);
+                const y = getRandomInt(0, GAME_HEIGHT);
 
                 new enemy({
                     x: x,
@@ -91,13 +90,11 @@ export default class EndlessMode implements MapType {
 
         if (this.count_increase_damage >= this.increase_damage_step) {
             this.count_increase_damage = 0;
-
             this.damage++;
         }
 
         if (this.count_increase_velocity >= this.increase_velocity_step) {
             this.count_increase_velocity = 0;
-
             this.velocity++;
         }
     }

@@ -1,7 +1,7 @@
 import { getRandomInt } from "@drk4/utilities";
 import Maps from "./maps";
 import Message from "../shared/message";
-import { ENEMY_TYPES } from "../main";
+import { getRandomEnemy } from "../shared/utilities";
 
 export default class RandomMaps extends Maps {
     map_length: number;
@@ -47,22 +47,18 @@ export default class RandomMaps extends Maps {
 
         // the game tick, from the start of the map
         var tick = 0;
-        var enemyType;
-        var temp;
-        var howMany;
 
         for (var i = 0; i < length; i++) {
             tick += getRandomInt(this.tick_min, this.tick_max);
-            temp = getRandomInt(0, ENEMY_TYPES.length - 1);
 
-            enemyType = ENEMY_TYPES[temp];
-            howMany = getRandomInt(this.how_many_min, this.how_many_max);
+            const howMany = getRandomInt(this.how_many_min, this.how_many_max);
+            const enemy = getRandomEnemy();
 
             map.push({
                 tick: tick,
-                enemyType: enemyType,
+                enemyType: enemy,
                 howMany: howMany,
-                x: -1,
+                x: -1, //HERE is it being used?
                 y: -1,
                 damage: this.damage,
                 velocity: this.velocity,

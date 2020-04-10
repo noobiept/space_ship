@@ -2,6 +2,7 @@ import EnemyMoveHorizontally from "../enemies/enemy_move_horizontally";
 import EnemyKamikaze from "../enemies/enemy_kamikaze";
 import EnemyRotateAround from "../enemies/enemy_rotate_around";
 import EnemyRocks from "../enemies/enemy_rocks";
+import { EnemyName, EnemyClass } from "./types";
 
 export const EnemyMapping = {
     EnemyMoveHorizontally: EnemyMoveHorizontally,
@@ -9,6 +10,9 @@ export const EnemyMapping = {
     EnemyRotateAround: EnemyRotateAround,
     EnemyRocks: EnemyRocks,
 };
+
+export const EnemyNames = Object.keys(EnemyMapping) as EnemyName[];
+export const EnemyClasses = Object.values(EnemyMapping) as EnemyClass[];
 
 export const b2World = Box2D.Dynamics.b2World;
 export const b2Vec2 = Box2D.Common.Math.b2Vec2;
