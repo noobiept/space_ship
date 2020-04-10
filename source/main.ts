@@ -188,7 +188,7 @@ export function startGameMode(fromPreviousLevel?: boolean) {
     resetStuff();
 
     showElement(CANVAS);
-    GAME_OBJECT = new MAP_MODE();
+    GAME_OBJECT = new MAP_MODE!();
 
     //HERE
     if (GAME_OBJECT.loadMap) {
@@ -268,7 +268,7 @@ function tick(event: createjs.TickerEvent) {
         Bullet.all_bullets[a].tick(event);
     }
 
-    GAME_OBJECT.tick(event);
+    GAME_OBJECT!.tick(event);
     WORLD.tick();
     STAGE.update();
 }

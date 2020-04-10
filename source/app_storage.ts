@@ -1,4 +1,3 @@
-import { OptionsData } from "./shared/options";
 import { AppData } from "./shared/types";
 
 /**
@@ -24,10 +23,13 @@ export function getData(
  * Sets the given key/value into `localStorage`. Calls the `callback` when its done.
  * Converts the value to string (with json).
  */
-export function setData(items) {
-    for (var key in items) {
+export function setData(items: AppData) {
+    for (let key in items) {
         if (items.hasOwnProperty(key)) {
-            localStorage.setItem(key, JSON.stringify(items[key]));
+            localStorage.setItem(
+                key,
+                JSON.stringify(items[key as keyof AppData])
+            );
         }
     }
 }

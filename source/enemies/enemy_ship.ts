@@ -24,8 +24,8 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     shape: createjs.Sprite;
     body: Box2D.Dynamics.b2Body;
     fixDef: Box2D.Dynamics.b2FixtureDef;
-    category_bits: Category;
-    mask_bits: Mask;
+    category_bits!: Category;
+    mask_bits!: Mask;
     damage: number;
     velocity: number;
     width: number;

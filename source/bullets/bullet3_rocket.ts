@@ -1,15 +1,10 @@
-import Bullet, { BulletArgs } from "./bullet";
+import Bullet, { BulletArgs, AdditionalBulletArgs } from "./bullet";
 import { applyImpulse } from "../shared/utilities";
 import SplashDamage from "./splash_damage";
 
-export type Bullet3_rocketArgs = {
-    color: string;
-} & BulletArgs;
+export type Bullet3_rocketArgs = {} & BulletArgs;
 
 export default class Bullet3_rocket extends Bullet<Bullet3_rocketArgs> {
-    speed: number;
-    color;
-
     constructor(args: Bullet3_rocketArgs) {
         super({
             ...args,
@@ -26,7 +21,7 @@ export default class Bullet3_rocket extends Bullet<Bullet3_rocketArgs> {
         );
     }
 
-    drawBullet(args) {
+    drawBullet(args: Bullet3_rocketArgs & AdditionalBulletArgs) {
         const { width, height, angleRotation, color } = args;
 
         const rocket = new createjs.Shape();

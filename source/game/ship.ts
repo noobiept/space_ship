@@ -48,12 +48,12 @@ export default class Ship implements GameElement {
     weaponSelected: number;
     tick_count: [number, number, number, number];
     bullets_left: [number, number, number, number];
-    category_bits: Category;
-    mask_bits: Mask;
+    category_bits!: Category;
+    mask_bits!: Mask;
     body: Box2D.Dynamics.b2Body;
     alreadyInCollision = false;
-    onClick: (e) => void;
-    onMouseMove: (e) => void;
+    onClick!: (e: MouseEvent) => void;
+    onMouseMove!: (e: MouseEvent) => void;
 
     static all: Ship[] = [];
 
@@ -273,11 +273,7 @@ export default class Ship implements GameElement {
         event : (MouseEvent -- easelJS)
         ship  : (Ship object)
  */
-    handleMouseMove(event) {
-        if (!event) {
-            event = window.event;
-        }
-
+    handleMouseMove(event: MouseEvent) {
         var canvasPosition = $(CANVAS).position();
 
         // mouse position in the canvas (assume origin point in top/left of canvas element)
@@ -306,11 +302,7 @@ export default class Ship implements GameElement {
         this.body.SetAngle((degrees * Math.PI) / 180);
     }
 
-    handleClick(event) {
-        if (!event) {
-            event = window.event;
-        }
-
+    handleClick(event: MouseEvent) {
         var weapons = [
             Bullet1_laser,
             Bullet2_sniper,

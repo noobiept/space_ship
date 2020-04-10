@@ -1,9 +1,7 @@
-import Bullet, { BulletArgs } from "./bullet";
+import Bullet, { BulletArgs, AdditionalBulletArgs } from "./bullet";
 import { applyImpulse } from "../shared/utilities";
 
-export type Bullet2_sniperArgs = {
-    color: string;
-} & BulletArgs;
+export type Bullet2_sniperArgs = {} & BulletArgs;
 
 export default class Bullet2_sniper extends Bullet<Bullet2_sniperArgs> {
     constructor(args: Bullet2_sniperArgs) {
@@ -22,7 +20,7 @@ export default class Bullet2_sniper extends Bullet<Bullet2_sniperArgs> {
         );
     }
 
-    drawBullet(args) {
+    drawBullet(args: Bullet2_sniperArgs & AdditionalBulletArgs) {
         const { width, height, angleRotation, color } = args;
 
         const sniper = new createjs.Shape();
