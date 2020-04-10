@@ -71,7 +71,7 @@ export default class EndlessMode implements MapType {
                 const x = getRandomInt(0, GAME_WIDTH);
                 const y = getRandomInt(0, GAME_HEIGHT);
 
-                new enemy({
+                new enemy.class({
                     x: x,
                     y: y,
                     damage: this.damage,

@@ -35,26 +35,16 @@ export type LevelInfoPhase = {
     howMany: number;
 };
 
+export type LevelInfoDamage = {
+    [name in EnemyName]: number;
+};
+
+export type LevelInfoVelocity = {
+    [name in EnemyName]: number;
+};
+
 export type LevelInfo = {
-    damage: {
-        [name in EnemyName]: number;
-    };
-    velocity: {
-        [name in EnemyName]: number;
-    };
+    damage: LevelInfoDamage;
+    velocity: LevelInfoVelocity;
     map: LevelInfoPhase[];
-};
-
-export type GeneratedLevelInfoPhase = {
-    tick: number;
-    enemyType: EnemyClass;
-    howMany: number;
-    x: number;
-    y: number;
-    damage: number;
-    velocity: number;
-};
-
-export type GeneratedLevelInfo = {
-    map: GeneratedLevelInfoPhase[];
 };

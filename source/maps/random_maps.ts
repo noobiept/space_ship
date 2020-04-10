@@ -2,6 +2,13 @@ import { getRandomInt } from "@drk4/utilities";
 import Maps from "./maps";
 import Message from "../shared/message";
 import { getRandomEnemy } from "../shared/utilities";
+import { EnemyNames } from "../shared/constants";
+import {
+    LevelInfo,
+    LevelInfoDamage,
+    LevelInfoVelocity,
+    LevelInfoPhase,
+} from "../shared/types";
 
 export default class RandomMaps extends Maps {
     map_length: number;
@@ -37,7 +44,7 @@ export default class RandomMaps extends Maps {
      * Differences:
      *   - the EnemyType is the class reference here, while in the PredefinedMaps is a string
      */
-    generateMap() {
+    generateMap(): LevelInfo {
         this.increaseDifficulty();
 
         var map = [];
@@ -56,17 +63,24 @@ export default class RandomMaps extends Maps {
 
             map.push({
                 tick: tick,
-                enemyType: enemy,
+                enemyType: enemy.name,
                 howMany: howMany,
-                x: -1, //HERE is it being used?
-                y: -1,
-                damage: this.damage,
-                velocity: this.velocity,
             });
         }
 
+        const damage = EnemyNames.reduce(
+            (acc, name) => ({ ...acc, [name]: this.damage }),
+            {} as LevelInfoDamage
+        );
+        const velocity = EnemyNames.reduce(
+            (acc, name) => ({ ...acc, [name]: this.velocity }),
+            {} as LevelInfoVelocity
+        );
+
         return {
-            map: map,
+            damage,
+            velocity,
+            map,
         };
     }
 

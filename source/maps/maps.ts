@@ -13,9 +13,7 @@ import {
     MapType,
     LevelInfo,
     EnemyClass,
-    GeneratedLevelInfo,
     LevelInfoPhase,
-    GeneratedLevelInfoPhase,
 } from "../shared/types";
 import { EnemyMapping } from "../shared/constants";
 
@@ -59,7 +57,7 @@ export type MapsArgs = {
  */
 export default class Maps implements MapType {
     NUMBER_OF_MAPS: number;
-    MAPS: (LevelInfo | GeneratedLevelInfo)[];
+    MAPS: LevelInfo[];
     CURRENT_MAP: number;
     CURRENT_MAP_TICK: number;
     CURRENT_MAP_PHASE: number;
@@ -143,64 +141,19 @@ export default class Maps implements MapType {
         });
     }
 
-    addEnemiesInPhase(
-        map: LevelInfo | GeneratedLevelInfo,
-        phase: LevelInfoPhase | GeneratedLevelInfoPhase
-    ) {
+    addEnemiesInPhase(map: LevelInfo, phase: LevelInfoPhase) {
         // get the enemy type
-        let enemyType: EnemyClass;
-
-        if (typeof phase.enemyType === "string") {
-            // get the variable/reference from a string (the class, for example a reference to EnemyKamikaze)
-            enemyType = EnemyMapping[phase.enemyType];
-        } else {
-            // its already a reference
-            enemyType = phase.enemyType;
-        }
+        const enemyType = EnemyMapping[phase.enemyType];
 
         // other information
         const howMany = phase.howMany;
-        let damage;
-
-        // see if there's a specific damage set for this type
-        if (phase.damage) {
-            damage = phase.damage;
-        }
-
-        // otherwise use the global value
-        else {
-            damage = map.damage[phase.enemyType];
-        }
-
-        var velocity;
-
-        // again like with the damage, the value in the map has precedence
-        if (phase.velocity) {
-            velocity = phase.velocity;
-        }
-
-        // otherwise we use the global value
-        else {
-            velocity = map.velocity[phase.enemyType];
-        }
+        const damage = map.damage[phase.enemyType];
+        const velocity = map.velocity[phase.enemyType];
 
         // get the x/y and create the enemy
-        var x, y;
-
-        for (var i = 0; i < howMany; i++) {
-            // random x position
-            if (!phase.x || phase.x < 0) {
-                x = getRandomInt(0, GAME_WIDTH);
-            } else {
-                x = phase.x;
-            }
-
-            // random y position
-            if (!phase.y || phase.y < 0) {
-                y = getRandomInt(0, GAME_HEIGHT);
-            } else {
-                y = phase.y;
-            }
+        for (let i = 0; i < howMany; i++) {
+            const x = getRandomInt(0, GAME_WIDTH);
+            const y = getRandomInt(0, GAME_HEIGHT);
 
             new enemyType({
                 x: x,
