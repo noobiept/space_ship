@@ -3,7 +3,7 @@
 A shooter type game, you can check it out here:
 
 -   [chrome store](https://chrome.google.com/webstore/detail/space-ship-game/degnjhilepodhhbfomolhhohphgidmnn "chrome store")
--   [personal website](http://nbpt.eu/games/space_ship "personal website")
+-   [personal website](https://nbpt.eu/games/space_ship "personal website")
 
 ![Promotion 1](images/promotion1.png "Promotion 1")
 ![Promotion 2](images/promotion2.png "Promotion 2")
@@ -60,5 +60,6 @@ Mines:
 # Development
 
 -   `npm install`
--   `npm start` (runs a local server at `localhost:8080/`)
--   `npm build` (build the release build)
+-   `npm run start` (start the development build script on watch mode)
+-   `npm run server` (run a local server (needs `npm start` to also be running))
+-   `npm run build` (build the release build)
