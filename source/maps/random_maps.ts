@@ -3,12 +3,7 @@ import Maps from "./maps";
 import Message from "../shared/message";
 import { getRandomEnemy } from "../shared/utilities";
 import { EnemyNames } from "../shared/constants";
-import {
-    LevelInfo,
-    LevelInfoDamage,
-    LevelInfoVelocity,
-    LevelInfoPhase,
-} from "../shared/types";
+import { LevelInfo, LevelInfoDamage, LevelInfoVelocity } from "../shared/types";
 
 export default class RandomMaps extends Maps {
     map_length: number;

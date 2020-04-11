@@ -1,8 +1,8 @@
-import { STAGE, SCALE, WORLD, GAME_WIDTH, GAME_HEIGHT } from "../main";
+import { STAGE, WORLD, GAME_WIDTH, GAME_HEIGHT } from "../main";
 import * as ZIndex from "../game/z_index";
 import * as GameStatistics from "../menus/game_statistics";
 import { CollisionID, Category, Mask } from "../game/collision_detection";
-import { b2Vec2 } from "../shared/constants";
+import { b2Vec2, SCALE } from "../shared/constants";
 import { GameElement, PhysicsObjects } from "../shared/types";
 
 export type EnemyShipArgs = {

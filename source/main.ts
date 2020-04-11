@@ -6,10 +6,6 @@ import * as AppStorage from "./app_storage";
 import * as GameMenu from "./menus/game_menu";
 import Message from "./shared/message";
 import Music from "./game/music";
-import EnemyMoveHorizontally from "./enemies/enemy_move_horizontally";
-import EnemyRotateAround from "./enemies/enemy_rotate_around";
-import EnemyKamikaze from "./enemies/enemy_kamikaze";
-import EnemyRocks from "./enemies/enemy_rocks";
 import Ship from "./game/ship";
 import { handleKeyDown, handleKeyUp, clearKeysHeld } from "./keyboard_events";
 import EnemyShip from "./enemies/enemy_ship";
@@ -18,7 +14,7 @@ import { MapType, AppData, MapTypeClass } from "./shared/types";
 import { hideElement, showElement, centerCanvas } from "./shared/utilities";
 import * as CollisionDetection from "./game/collision_detection";
 import World from "./game/world";
-import { b2DebugDraw, b2ContactListener } from "./shared/constants";
+import { b2DebugDraw, b2ContactListener, SCALE } from "./shared/constants";
 
 // global variables
 
@@ -27,22 +23,16 @@ var CANVAS_DEBUG;
 
 var DEBUG = false;
 
-var BASE_URL = "";
-
 const MUSIC = new Music({
     songIDs: ["Audio-music1", "Audio-music2"],
 });
 
 // createjs
-
 export var STAGE: createjs.Stage;
 export var PRELOAD: createjs.LoadQueue;
 
 // box2d physics
 export const WORLD = new World();
-
-// scale from meters/kilograms/seconds into pixels
-export const SCALE = 30;
 
 // playable dimensions (the rest of the canvas is for menus/etc)
 export var GAME_WIDTH: number;
@@ -93,28 +83,28 @@ function initApp(data: AppData) {
     PRELOAD = new createjs.LoadQueue();
 
     var manifest = [
-        { id: "level1", src: BASE_URL + "maps/level1.json" },
-        { id: "level2", src: BASE_URL + "maps/level2.json" },
-        { id: "level3", src: BASE_URL + "maps/level3.json" },
-        { id: "level4", src: BASE_URL + "maps/level4.json" },
-        { id: "level5", src: BASE_URL + "maps/level5.json" },
-        { id: "level6", src: BASE_URL + "maps/level6.json" },
-        { id: "level7", src: BASE_URL + "maps/level7.json" },
-        { id: "level8", src: BASE_URL + "maps/level8.json" },
-        { id: "level9", src: BASE_URL + "maps/level9.json" },
-        { id: "level10", src: BASE_URL + "maps/level10.json" },
+        { id: "level1", src: "maps/level1.json" },
+        { id: "level2", src: "maps/level2.json" },
+        { id: "level3", src: "maps/level3.json" },
+        { id: "level4", src: "maps/level4.json" },
+        { id: "level6", src: "maps/level6.json" },
+        { id: "level5", src: "maps/level5.json" },
+        { id: "level7", src: "maps/level7.json" },
+        { id: "level8", src: "maps/level8.json" },
+        { id: "level9", src: "maps/level9.json" },
+        { id: "level10", src: "maps/level10.json" },
 
         {
             id: "enemy_move_horizontally",
-            src: BASE_URL + "images/enemy_move_horizontally.png",
+            src: "images/enemy_move_horizontally.png",
         },
-        { id: "enemy_rocks", src: BASE_URL + "images/enemy_rocks.png" },
+        { id: "enemy_rocks", src: "images/enemy_rocks.png" },
         {
             id: "enemy_rotate_around",
-            src: BASE_URL + "images/enemy_rotate_around.png",
+            src: "images/enemy_rotate_around.png",
         },
-        { id: "enemy_kamikaze", src: BASE_URL + "images/enemy_kamikaze.png" },
-        { id: "ship", src: BASE_URL + "images/ship.png" },
+        { id: "enemy_kamikaze", src: "images/enemy_kamikaze.png" },
+        { id: "ship", src: "images/ship.png" },
     ];
 
     LOADING_MESSAGE = new Message({ text: "Loading", centerWindow: true });

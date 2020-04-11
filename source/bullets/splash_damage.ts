@@ -1,11 +1,12 @@
 import Bullet, { BulletArgs } from "./bullet";
-import { SCALE, WORLD } from "../main";
+import { WORLD } from "../main";
 import { CollisionID } from "../game/collision_detection";
 import {
     b2FixtureDef,
     b2BodyDef,
     b2Body,
     b2CircleShape,
+    SCALE,
 } from "../shared/constants";
 
 export type SplashDamageArgs = {

@@ -1,6 +1,6 @@
 import { getRandomFloat } from "@drk4/utilities";
 import EnemyShip, { EnemyShipArgs } from "./enemy_ship";
-import { PRELOAD, SCALE, WORLD } from "../main";
+import { PRELOAD, WORLD } from "../main";
 import { Category, Mask } from "../game/collision_detection";
 import {
     b2FixtureDef,
@@ -8,6 +8,7 @@ import {
     b2Body,
     b2PolygonShape,
     b2Vec2,
+    SCALE,
 } from "../shared/constants";
 
 export type FullEnemyRocksArgs = {

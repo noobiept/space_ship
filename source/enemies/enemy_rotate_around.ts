@@ -1,5 +1,5 @@
 import EnemyShip, { EnemyShipArgs } from "./enemy_ship";
-import { PRELOAD, SCALE, WORLD, MAIN_SHIP } from "../main";
+import { PRELOAD, WORLD, MAIN_SHIP } from "../main";
 import { calculateAngleBetweenObjects } from "../shared/utilities";
 import Bullet1_laser from "../bullets/bullet1_laser";
 import { Category, Mask } from "../game/collision_detection";
@@ -9,6 +9,7 @@ import {
     b2Body,
     b2CircleShape,
     b2Vec2,
+    SCALE,
 } from "../shared/constants";
 
 export type FullEnemyRotateAroundArgs = {} & EnemyShipArgs;

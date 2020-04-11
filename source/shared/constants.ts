@@ -25,3 +25,6 @@ export const b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
 export const b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
 export const b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
 export const b2ContactListener = Box2D.Dynamics.b2ContactListener;
+
+// scale from meters/kilograms/seconds into pixels
+export const SCALE = 30;

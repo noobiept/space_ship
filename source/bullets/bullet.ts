@@ -1,5 +1,5 @@
 import { toRadians } from "@drk4/utilities";
-import { STAGE, MAIN_SHIP, SCALE, WORLD } from "../main";
+import { STAGE, MAIN_SHIP, WORLD } from "../main";
 import * as ZIndex from "../game/z_index";
 import { outOfBounds } from "../shared/utilities";
 import { CollisionID, Category, Mask } from "../game/collision_detection";
@@ -9,6 +9,7 @@ import {
     b2Body,
     b2PolygonShape,
     b2Vec2,
+    SCALE,
 } from "../shared/constants";
 import { GameElement } from "../shared/types";
 

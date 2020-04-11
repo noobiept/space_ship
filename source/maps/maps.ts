@@ -9,12 +9,7 @@ import {
 import Message from "../shared/message";
 import * as MainMenu from "../menus/main_menu";
 import EnemyShip from "../enemies/enemy_ship";
-import {
-    MapType,
-    LevelInfo,
-    EnemyClass,
-    LevelInfoPhase,
-} from "../shared/types";
+import { MapType, LevelInfo, LevelInfoPhase } from "../shared/types";
 import { EnemyMapping } from "../shared/constants";
 
 export type MapsArgs = {
