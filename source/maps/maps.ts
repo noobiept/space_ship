@@ -16,40 +16,6 @@ export type MapsArgs = {
     maps?: LevelInfo[];
 };
 
-/*
-    Base class for PredefinedMaps and RandomMaps
-
-    args has:
-        .maps           (optional)
-        .startingLevel  (optional)
-
-        .maps = {
-            "damage":   // globally sets the damage/velocity of a certain type of enemy. it can be overridden in the individual tick in the "map"
-                {
-                    "EnemyMoveHorizontally": 10,
-                    "EnemyKamikaze": 5,
-                    ...
-                },
-            "velocity":
-                {
-                    "EnemyMoveHorizontally": 4,
-                    ...
-                },
-            "map":  // a list of the ticks, where we add enemies, counting from the start of the map
-                [
-                    {
-                        "tick": 0,
-                        "enemyType": "EnemyMoveHorizontally",
-                        "howMany": 10,
-                        "x": 100,       (optional, if not provided or if its less than zero then its randomized)
-                        "y": 100,       (optional, same as with "x")
-                        "damage": 15,   (optional, if not provided it uses the global value)
-                        "velocity": 6   (optional, same as with "damage")
-                    },
-                    ...
-                ]
-        }
- */
 export default class Maps implements MapType {
     NUMBER_OF_MAPS: number;
     MAPS: LevelInfo[];

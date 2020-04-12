@@ -7,9 +7,7 @@ const REMOVE_TICK = 250;
 // rotate the mine
 const ANGLE_TICK = 15;
 
-export type Bullet4_minesArgs = {
-    color: string;
-} & BulletArgs;
+export type Bullet4_minesArgs = {} & BulletArgs;
 
 export default class Bullet4_mines extends Bullet<Bullet4_minesArgs> {
     angle: number;

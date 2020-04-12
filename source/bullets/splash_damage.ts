@@ -11,7 +11,6 @@ import {
 
 export type SplashDamageArgs = {
     maxRadius: number;
-    color: string;
     splashDuration: number;
 } & BulletArgs;
 

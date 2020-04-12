@@ -3,7 +3,6 @@ import { applyImpulse } from "../shared/utilities";
 
 export type Bullet1_laserArgs = {
     damage?: number;
-    color: string;
 } & BulletArgs;
 
 export default class Bullet1_laser extends Bullet<Bullet1_laserArgs> {

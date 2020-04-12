@@ -1,6 +1,6 @@
 import { getMusicVolume } from "../shared/options";
 
-type MusicArgs = {
+export type MusicArgs = {
     songIDs: string[]; // list with IDs of the audio html elements
 };
 
