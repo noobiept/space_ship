@@ -4,6 +4,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = function (env, argv) {
     const mode = argv.mode;
+    const inDevMode = mode === "development";
 
     return {
         entry: "./source/main.ts",
@@ -20,12 +21,14 @@ module.exports = function (env, argv) {
                 },
             ],
         },
-        devtool: mode === "development" ? "source-map" : false,
+        devtool: inDevMode ? "source-map" : false,
         resolve: {
             extensions: [".tsx", ".ts", ".js"],
         },
         plugins: [
-            new CleanWebpackPlugin(),
+            new CleanWebpackPlugin({
+                cleanStaleWebpackAssets: !inDevMode,
+            }),
             new CopyWebpackPlugin([
                 {
                     from: "index.html",
