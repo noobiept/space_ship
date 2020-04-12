@@ -5,7 +5,6 @@ export type MusicArgs = {
 };
 
 export default class Music {
-    private increase_interval?: number;
     private songIDs: string[];
     private currentSong = 0;
     private isPlaying = false;
@@ -36,18 +35,9 @@ export default class Music {
         this.currentSong = songPosition;
         this.isPlaying = true;
 
-        this.startInterval(() => {
-            const newVolume = music.volume + 0.2;
-
-            // we achieved the volume we wanted
-            if (newVolume > volume) {
-                music.volume = volume;
-                return true;
-            }
-
-            // keep raising the volume
-            music.volume = newVolume;
-            return false;
+        // keep raising the volume
+        this.startInterval(music, 0, volume, () => {
+            music.volume = volume;
         });
     }
 
@@ -73,34 +63,41 @@ export default class Music {
         ) as HTMLAudioElement;
 
         this.isPlaying = false;
-        this.startInterval(() => {
-            const volume = music.volume - 0.2;
-
-            if (volume < 0) {
-                music.pause();
-                return true;
-            }
-
-            music.volume = volume;
-            return false;
+        this.startInterval(music, music.volume, 0, () => {
+            music.pause();
         });
     }
 
     /**
-     * 'updateVolume' returns a boolean that tells if we should cancel (true) the interval or continue (false).
+     * Update the volume from the start value to the end.
      */
-    private startInterval(updateVolume: () => boolean) {
-        window.clearInterval(this.increase_interval);
+    private startInterval(
+        element: HTMLAudioElement,
+        startVolume: number,
+        endVolume: number,
+        onEnd: () => void
+    ) {
+        let count = 0;
+        const ticks = 5; // number of updates to the volume
+        const duration = 1000;
+        const delta = duration / ticks;
+        const changeEachTick = (endVolume - startVolume) / ticks;
 
-        // call from the start
-        updateVolume();
-
-        this.increase_interval = window.setInterval(() => {
-            const cancel = updateVolume();
-
-            if (cancel) {
-                window.clearInterval(this.increase_interval);
+        const intervalID = window.setInterval(() => {
+            let newVolume = element.volume + changeEachTick;
+            if (newVolume < 0) {
+                newVolume = 0;
+            } else if (newVolume > 1) {
+                newVolume = 1;
             }
-        }, 250);
+
+            element.volume = newVolume;
+            count += delta;
+
+            if (count >= duration) {
+                window.clearInterval(intervalID);
+                onEnd();
+            }
+        }, delta);
     }
 }
