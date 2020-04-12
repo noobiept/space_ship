@@ -1,95 +1,92 @@
 {
-    "damage":
+    "damage": {
+        "EnemyMoveHorizontally": 10,
+        "EnemyKamikaze": 10
+    },
+    "velocity": {
+        "EnemyMoveHorizontally": 5,
+        "EnemyKamikaze": 5
+    },
+    "map": [
         {
-            "EnemyMoveHorizontally": 10,
-            "EnemyKamikaze": 10
+            "tick": 0,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 8
         },
-    "velocity":
         {
-            "EnemyMoveHorizontally": 5,
-            "EnemyKamikaze": 5
+            "tick": 60,
+            "enemyType": "EnemyKamikaze",
+            "howMany": 8
         },
-    "map":
-        [
-            {
-                "tick"      : 0,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 60,
-                "enemyType" : "EnemyKamikaze",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 120,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 180,
-                "enemyType" : "EnemyKamikaze",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 240,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 300,
-                "enemyType" : "EnemyKamikaze",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 360,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 420,
-                "enemyType" : "EnemyKamikaze",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 480,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 540,
-                "enemyType" : "EnemyKamikaze",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 600,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 660,
-                "enemyType" : "EnemyKamikaze",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 720,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 780,
-                "enemyType" : "EnemyKamikaze",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 840,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 8
-            },
-            {
-                "tick"      : 900,
-                "enemyType" : "EnemyKamikaze",
-                "howMany"   : 8
-            }
-        ]
+        {
+            "tick": 120,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 8
+        },
+        {
+            "tick": 180,
+            "enemyType": "EnemyKamikaze",
+            "howMany": 8
+        },
+        {
+            "tick": 240,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 8
+        },
+        {
+            "tick": 300,
+            "enemyType": "EnemyKamikaze",
+            "howMany": 8
+        },
+        {
+            "tick": 360,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 8
+        },
+        {
+            "tick": 420,
+            "enemyType": "EnemyKamikaze",
+            "howMany": 8
+        },
+        {
+            "tick": 480,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 8
+        },
+        {
+            "tick": 540,
+            "enemyType": "EnemyKamikaze",
+            "howMany": 8
+        },
+        {
+            "tick": 600,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 8
+        },
+        {
+            "tick": 660,
+            "enemyType": "EnemyKamikaze",
+            "howMany": 8
+        },
+        {
+            "tick": 720,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 8
+        },
+        {
+            "tick": 780,
+            "enemyType": "EnemyKamikaze",
+            "howMany": 8
+        },
+        {
+            "tick": 840,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 8
+        },
+        {
+            "tick": 900,
+            "enemyType": "EnemyKamikaze",
+            "howMany": 8
+        }
+    ]
 }

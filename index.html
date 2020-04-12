@@ -5,110 +5,119 @@
         <title>Space Ship</title>
 
         <!-- styling -->
-        <link rel="stylesheet" type="text/css" href="libraries/jquery-ui.min.css" />
-
-        <!-- build:css style.css -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="libraries/jquery-ui.min.css"
+        />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
-        <!-- endbuild -->
 
         <!-- libraries -->
-        <script type="text/javascript" src="libraries/jquery-2.2.4.min.js"></script>
-        <script type="text/javascript" src="libraries/jquery-ui.min.js"></script>
+        <script
+            type="text/javascript"
+            src="libraries/jquery-2.2.4.min.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="libraries/jquery-ui.min.js"
+        ></script>
 
-        <script type="text/javascript" src="libraries/easeljs-0.8.2.min.js"></script>
-        <script type="text/javascript" src="libraries/preloadjs-0.6.2.min.js"></script>
-        <script type="text/javascript" src="libraries/soundjs-0.6.2.min.js"></script>
+        <script
+            type="text/javascript"
+            src="libraries/easeljs-0.8.2.min.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="libraries/preloadjs-0.6.2.min.js"
+        ></script>
 
-        <script type="text/javascript" src="libraries/Box2dWeb-2.1.a.3.min.js"></script>
+        <script
+            type="text/javascript"
+            src="libraries/Box2dWeb-2.1.a.3.min.js"
+        ></script>
 
         <!-- my stuff -->
-        <!-- build:js min.js -->
-        <script type="text/javascript" src="js/app_storage.js"></script>
-        <script type="text/javascript" src="js/utilities.js"></script>
-        <script type="text/javascript" src="js/message.js"></script>
-        <script type="text/javascript" src="js/options.js"></script>
-        <script type="text/javascript" src="js/music.js"></script>
-        <script type="text/javascript" src="js/ship.js"></script>
-
-        <script type="text/javascript" src="js/bullet.js"></script>
-        <script type="text/javascript" src="js/bullet1_laser.js"></script>
-        <script type="text/javascript" src="js/bullet2_sniper.js"></script>
-        <script type="text/javascript" src="js/bullet3_rocket.js"></script>
-        <script type="text/javascript" src="js/bullet4_mines.js"></script>
-        <script type="text/javascript" src="js/splash_damage.js"></script>
-
-        <script type="text/javascript" src="js/enemy.js"></script>
-        <script type="text/javascript" src="js/enemy_rotate_around.js"></script>
-        <script type="text/javascript" src="js/enemy_move_horizontally.js"></script>
-        <script type="text/javascript" src="js/enemy_kamikaze.js"></script>
-        <script type="text/javascript" src="js/enemy_rocks.js"></script>
-
-        <script type="text/javascript" src="js/keyboard_events.js"></script>
-        <script type="text/javascript" src="js/game_menu.js"></script>
-        <script type="text/javascript" src="js/game_statistics.js"></script>
-        <script type="text/javascript" src="js/z_index.js"></script>
-
-        <script type="text/javascript" src="js/maps.js"></script>
-        <script type="text/javascript" src="js/predefined_maps.js"></script>
-        <script type="text/javascript" src="js/random_maps.js"></script>
-        <script type="text/javascript" src="js/endless_mode.js"></script>
-
-        <script type="text/javascript" src="js/main.js"></script>
-        <script type="text/javascript" src="js/main_menu.js"></script>
-        <!-- endbuild -->
+        <script type="text/javascript" src="bundle.js"></script>
     </head>
-<body>
+    <body>
+        <canvas
+            id="mainCanvas"
+            class="hidden"
+            width="800"
+            height="400"
+        ></canvas>
+        <canvas
+            id="debugCanvas"
+            class="hidden"
+            width="800"
+            height="400"
+        ></canvas>
 
-    <canvas id="mainCanvas" width="800" height="400"></canvas>
-    <canvas id="debugCanvas" width="800" height="400"></canvas>
-
-
-    <div id="MainMenu">
-        <div id="MainMenu-predefinedMaps" class="MainMenu-entrySelected button">Start Game</div>
-        <div id="MainMenu-randomMaps" class="button">Random Maps</div>
-        <div id="MainMenu-endlessMode" class="button">Endless Mode</div>
-        <div id="MainMenu-options" class="button">Options</div>
-        <a id="MainMenu-donate" class="button" href="http://nbpt.eu/donate/" target="_blank">Donate</a>
-    </div>
-
-    <div id="Options">
-        <div id="Options-container">
-            <div id="Options-musicVolume">Music Volume: <span></span>
-            <div id="Options-musicVolume-slider"></div></div>
+        <div id="MainMenu" class="hidden">
+            <div
+                id="MainMenu-predefinedMaps"
+                class="MainMenu-entrySelected button"
+                >Start Game</div
+            >
+            <div id="MainMenu-randomMaps" class="button">Random Maps</div>
+            <div id="MainMenu-endlessMode" class="button">Endless Mode</div>
+            <div id="MainMenu-options" class="button">Options</div>
         </div>
 
-        <br />
-
-        <div id="Options-back" class="button">Back</div>
-    </div>
-
-    <div id="GameMenu">
-
-        <div id="GameMenu-left">
-            <div id="GameMenu-selectWeapon">
-                <div id="GameMenu-weapon1" class="WeaponsSelected">1 - Laser</div>
-                <div id="GameMenu-weapon2">2 - Sniper</div>
-                <div id="GameMenu-weapon3">3 - Rocket</div>
-                <div id="GameMenu-weapon4">4 - Mines</div>
+        <div id="Options" class="hidden">
+            <div id="Options-container">
+                <div id="Options-musicVolume"
+                    >Music Volume: <span></span>
+                    <div id="Options-musicVolume-slider"></div
+                ></div>
             </div>
 
-            <div id="GameMenu-bulletsLeft">
-                <div><span id="GameMenu-bullets1">x</span> Bullets</div>
-                <div><span id="GameMenu-bullets2">x</span> Bullets</div>
-                <div><span id="GameMenu-bullets3">x</span> Bullets</div>
-                <div><span id="GameMenu-bullets4">x</span> Bullets</div>
+            <br />
+
+            <div id="Options-back" class="button">Back</div>
+        </div>
+
+        <div id="GameMenu" class="hidden">
+            <div id="GameMenu-left">
+                <div id="GameMenu-selectWeapon">
+                    <div id="GameMenu-weapon1" class="WeaponsSelected"
+                        >1 - Laser</div
+                    >
+                    <div id="GameMenu-weapon2">2 - Sniper</div>
+                    <div id="GameMenu-weapon3">3 - Rocket</div>
+                    <div id="GameMenu-weapon4">4 - Mines</div>
+                </div>
+
+                <div id="GameMenu-bulletsLeft">
+                    <div><span id="GameMenu-bullets1">x</span> Bullets</div>
+                    <div><span id="GameMenu-bullets2">x</span> Bullets</div>
+                    <div><span id="GameMenu-bullets3">x</span> Bullets</div>
+                    <div><span id="GameMenu-bullets4">x</span> Bullets</div>
+                </div>
+            </div>
+
+            <div id="GameMenu-right">
+                <div id="GameMenu-restart" class="button">Restart</div>
+                <div id="GameMenu-quit" class="button">Quit</div>
+
+                <div id="GameMenu-openMenu" class="button">Menu</div>
             </div>
         </div>
 
-        <div id="GameMenu-right">
-            <div id="GameMenu-restart" class="button">Restart</div>
-            <div id="GameMenu-quit" class="button">Quit</div>
+        <div id="Message-container"></div>
 
-            <div id="GameMenu-openMenu" class="button">Menu</div>
-        </div>
-    </div>
-
-    <div id="Message-container"></div>
-
-</body>
+        <!-- audio elements -->
+        <audio preload="auto" id="Audio-music1" loop>
+            <source src="sound/scumm_bar.ogg" type="audio/ogg" />
+            <source src="sound/scumm_bar.mp3" type="audio/mp3" />
+        </audio>
+        <audio preload="auto" id="Audio-music2" loop>
+            <source src="sound/space_ship_1.ogg" type="audio/ogg" />
+            <source src="sound/space_ship_1.mp3" type="audio/mp3" />
+        </audio>
+        <audio preload="auto" id="Audio-dryFire">
+            <source src="sound/dry_fire.ogg" type="audio/ogg" />
+            <source src="sound/dry_fire.mp3" type="audio/mp3" />
+        </audio>
+    </body>
 </html>

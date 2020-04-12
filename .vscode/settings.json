@@ -8,5 +8,6 @@
     },
     "search.exclude": {
         "**/libraries": true
-    }
+    },
+    "editor.formatOnSave": true
 }

@@ -1,122 +1,119 @@
 {
-    "damage":
+    "damage": {
+        "EnemyMoveHorizontally": 10,
+        "EnemyKamikaze": 10,
+        "EnemyRotateAround": 6
+    },
+    "velocity": {
+        "EnemyMoveHorizontally": 5,
+        "EnemyKamikaze": 6,
+        "EnemyRotateAround": 3
+    },
+    "map": [
         {
-            "EnemyMoveHorizontally": 10,
-            "EnemyKamikaze": 10,
-            "EnemyRotateAround": 6
+            "tick": 0,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 10
         },
-    "velocity":
         {
-            "EnemyMoveHorizontally": 5,
-            "EnemyKamikaze": 6,
-            "EnemyRotateAround": 3
+            "tick": 55,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 10
         },
-    "map":
-        [
-            {
-                "tick"      : 0,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 10
-            },
-            {
-                "tick"      : 55,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 10
-            },
-            {
-                "tick"      : 110,
-                "enemyType" : "EnemyKamikaze",
-                "howMany"   : 10
-            },
-            {
-                "tick"      : 165,
-                "enemyType" : "EnemyRotateAround",
-                "howMany"   : 5
-            },
-            {
-                "tick"      : 220,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 10
-            },
-            {
-                "tick"      : 275,
-                "enemyType" : "EnemyRotateAround",
-                "howMany"   : 5
-            },
-            {
-                "tick"      : 330,
-                "enemyType" : "EnemyRotateAround",
-                "howMany"   : 5
-            },
-            {
-                "tick"      : 385,
-                "enemyType" : "EnemyKamikaze",
-                "howMany"   : 10
-            },
-            {
-                "tick"      : 440,
-                "enemyType" : "EnemyKamikaze",
-                "howMany"   : 10
-            },
-            {
-                "tick"      : 495,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 10
-            },
-            {
-                "tick"      : 550,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 10
-            },
-            {
-                "tick"      : 605,
-                "enemyType" : "EnemyKamikaze",
-                "howMany"   : 10
-            },
-            {
-                "tick"      : 660,
-                "enemyType" : "EnemyKamikaze",
-                "howMany"   : 10
-            },
-            {
-                "tick"      : 715,
-                "enemyType" : "EnemyKamikaze",
-                "howMany"   : 10
-            },
-            {
-                "tick"      : 770,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 10
-            },
-            {
-                "tick"      : 825,
-                "enemyType" : "EnemyRotateAround",
-                "howMany"   : 5
-            },
-            {
-                "tick"      : 880,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 10
-            },
-            {
-                "tick"      : 935,
-                "enemyType" : "EnemyMoveHorizontally",
-                "howMany"   : 10
-            },
-            {
-                "tick"      : 990,
-                "enemyType" : "EnemyRotateAround",
-                "howMany"   : 5
-            },
-            {
-                "tick"      : 1045,
-                "enemyType" : "EnemyRotateAround",
-                "howMany"   : 5
-            },
-            {
-                "tick"      : 1100,
-                "enemyType" : "EnemyKamikaze",
-                "howMany"   : 10
-            }
-        ]
+        {
+            "tick": 110,
+            "enemyType": "EnemyKamikaze",
+            "howMany": 10
+        },
+        {
+            "tick": 165,
+            "enemyType": "EnemyRotateAround",
+            "howMany": 5
+        },
+        {
+            "tick": 220,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 10
+        },
+        {
+            "tick": 275,
+            "enemyType": "EnemyRotateAround",
+            "howMany": 5
+        },
+        {
+            "tick": 330,
+            "enemyType": "EnemyRotateAround",
+            "howMany": 5
+        },
+        {
+            "tick": 385,
+            "enemyType": "EnemyKamikaze",
+            "howMany": 10
+        },
+        {
+            "tick": 440,
+            "enemyType": "EnemyKamikaze",
+            "howMany": 10
+        },
+        {
+            "tick": 495,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 10
+        },
+        {
+            "tick": 550,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 10
+        },
+        {
+            "tick": 605,
+            "enemyType": "EnemyKamikaze",
+            "howMany": 10
+        },
+        {
+            "tick": 660,
+            "enemyType": "EnemyKamikaze",
+            "howMany": 10
+        },
+        {
+            "tick": 715,
+            "enemyType": "EnemyKamikaze",
+            "howMany": 10
+        },
+        {
+            "tick": 770,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 10
+        },
+        {
+            "tick": 825,
+            "enemyType": "EnemyRotateAround",
+            "howMany": 5
+        },
+        {
+            "tick": 880,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 10
+        },
+        {
+            "tick": 935,
+            "enemyType": "EnemyMoveHorizontally",
+            "howMany": 10
+        },
+        {
+            "tick": 990,
+            "enemyType": "EnemyRotateAround",
+            "howMany": 5
+        },
+        {
+            "tick": 1045,
+            "enemyType": "EnemyRotateAround",
+            "howMany": 5
+        },
+        {
+            "tick": 1100,
+            "enemyType": "EnemyKamikaze",
+            "howMany": 10
+        }
+    ]
 }
