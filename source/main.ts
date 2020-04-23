@@ -42,7 +42,6 @@ export var MAIN_SHIP: Ship;
 
 let MAP_MODE: MapTypeClass | null = null;
 let GAME_OBJECT: MapType | null = null;
-let LOADING_MESSAGE: Message | null = null;
 
 window.onload = function () {
     AppStorage.getData(["space_ship_options"], initApp);
@@ -80,23 +79,17 @@ function initApp(data: AppData) {
         WORLD.setDebugDraw(debugDraw);
     }
 
-    LOADING_MESSAGE = new Message({ text: "Loading", centerWindow: true });
+    const loading = new Message({ text: "Loading", centerWindow: true });
 
     Assets.init({
-        onComplete: MainMenu.open,
-        onLoading: updateLoading,
+        onComplete: () => {
+            loading.remove();
+            MainMenu.open();
+        },
+        onLoading: (progress) => {
+            loading.setText("Loading " + progress + "%");
+        },
     });
-}
-
-function updateLoading(progress: number) {
-    LOADING_MESSAGE?.setText("Loading " + progress + "%");
-}
-
-export function removeLoadingMessage() {
-    if (LOADING_MESSAGE) {
-        LOADING_MESSAGE.remove();
-        LOADING_MESSAGE = null;
-    }
 }
 
 export function initGame() {
