@@ -1,6 +1,6 @@
 import { getRandomFloat } from "@drk4/utilities";
 import EnemyShip, { EnemyShipArgs } from "./enemy_ship";
-import { PRELOAD, WORLD } from "../main";
+import { WORLD } from "../main";
 import { Category, Mask } from "../game/collision_detection";
 import {
     b2FixtureDef,
@@ -10,6 +10,7 @@ import {
     b2Vec2,
     SCALE,
 } from "../shared/constants";
+import { getAsset } from "../shared/assets";
 
 export type FullEnemyRocksArgs = {
     scale?: number; // scale the original image (1 -> 100%, no scaling)
@@ -51,7 +52,7 @@ export default class EnemyRocks extends EnemyShip<FullEnemyRocksArgs> {
                 width,
                 height,
             },
-            images: [PRELOAD.getResult("enemy_rocks")],
+            images: [getAsset("enemy_rocks")],
         };
 
         const sprite = new createjs.SpriteSheet(spriteConfig);

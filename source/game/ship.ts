@@ -5,7 +5,6 @@ import {
     STAGE,
     startGameMode,
     CANVAS,
-    PRELOAD,
     WORLD,
 } from "../main";
 import { KEYS_HELD } from "../keyboard_events";
@@ -28,6 +27,7 @@ import {
 } from "../shared/constants";
 import { GameElement } from "../shared/types";
 import { playSound } from "../shared/utilities";
+import { getAsset } from "../shared/assets";
 
 const VELOCITY = 5;
 
@@ -100,7 +100,7 @@ export default class Ship implements GameElement {
                 width: 10,
                 height: 10,
             },
-            images: [PRELOAD.getResult("ship")],
+            images: [getAsset("ship")],
         };
         const ss = new createjs.SpriteSheet(spriteSheet);
         const ship = new createjs.Sprite(ss);

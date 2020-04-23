@@ -1,5 +1,5 @@
 import EnemyShip, { EnemyShipArgs } from "./enemy_ship";
-import { PRELOAD, WORLD } from "../main";
+import { WORLD } from "../main";
 import { Category, Mask } from "../game/collision_detection";
 import {
     b2FixtureDef,
@@ -9,6 +9,7 @@ import {
     b2Vec2,
     SCALE,
 } from "../shared/constants";
+import { getAsset } from "../shared/assets";
 
 export type FullEnemyMoveHorizontallyArgs = {} & EnemyShipArgs;
 
@@ -53,7 +54,7 @@ export default class EnemyMoveHorizontally extends EnemyShip<
                 height,
             },
 
-            images: [PRELOAD.getResult("enemy_move_horizontally")],
+            images: [getAsset("enemy_move_horizontally")],
         };
 
         const ss = new createjs.SpriteSheet(spriteSheet);

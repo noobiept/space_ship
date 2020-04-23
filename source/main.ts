@@ -4,6 +4,7 @@ import * as ZIndex from "./game/z_index";
 import * as MainMenu from "./menus/main_menu";
 import * as AppStorage from "./app_storage";
 import * as GameMenu from "./menus/game_menu";
+import * as Assets from "./shared/assets";
 import Message from "./shared/message";
 import Music from "./game/music";
 import Ship from "./game/ship";
@@ -29,7 +30,6 @@ const MUSIC = new Music({
 
 // createjs
 export var STAGE: createjs.Stage;
-export var PRELOAD: createjs.LoadQueue;
 
 // box2d physics
 export const WORLD = new World();
@@ -80,46 +80,16 @@ function initApp(data: AppData) {
         WORLD.setDebugDraw(debugDraw);
     }
 
-    PRELOAD = new createjs.LoadQueue();
-
-    var manifest = [
-        { id: "level1", src: "maps/level1.json" },
-        { id: "level2", src: "maps/level2.json" },
-        { id: "level3", src: "maps/level3.json" },
-        { id: "level4", src: "maps/level4.json" },
-        { id: "level6", src: "maps/level6.json" },
-        { id: "level5", src: "maps/level5.json" },
-        { id: "level7", src: "maps/level7.json" },
-        { id: "level8", src: "maps/level8.json" },
-        { id: "level9", src: "maps/level9.json" },
-        { id: "level10", src: "maps/level10.json" },
-
-        {
-            id: "enemy_move_horizontally",
-            src: "images/enemy_move_horizontally.png",
-        },
-        { id: "enemy_rocks", src: "images/enemy_rocks.png" },
-        {
-            id: "enemy_rotate_around",
-            src: "images/enemy_rotate_around.png",
-        },
-        { id: "enemy_kamikaze", src: "images/enemy_kamikaze.png" },
-        { id: "ship", src: "images/ship.png" },
-    ];
-
     LOADING_MESSAGE = new Message({ text: "Loading", centerWindow: true });
 
-    PRELOAD.installPlugin(createjs.Sound);
-    PRELOAD.addEventListener(
-        "progress",
-        updateLoading as (event: Object) => void
-    );
-    PRELOAD.addEventListener("complete", MainMenu.open);
-    PRELOAD.loadManifest(manifest, true);
+    Assets.init({
+        onComplete: MainMenu.open,
+        onLoading: updateLoading,
+    });
 }
 
-function updateLoading(event: createjs.ProgressEvent) {
-    LOADING_MESSAGE?.setText("Loading " + ((event.progress * 100) | 0) + "%");
+function updateLoading(progress: number) {
+    LOADING_MESSAGE?.setText("Loading " + progress + "%");
 }
 
 export function removeLoadingMessage() {

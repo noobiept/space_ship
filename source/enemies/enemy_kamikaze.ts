@@ -1,6 +1,6 @@
 import { toRadians } from "@drk4/utilities";
 import EnemyShip, { EnemyShipArgs } from "./enemy_ship";
-import { PRELOAD, WORLD, MAIN_SHIP } from "../main";
+import { WORLD, MAIN_SHIP } from "../main";
 import { calculateAngleBetweenObjects } from "../shared/utilities";
 import { Category, Mask } from "../game/collision_detection";
 import {
@@ -11,6 +11,7 @@ import {
     b2Vec2,
     SCALE,
 } from "../shared/constants";
+import { getAsset } from "../shared/assets";
 
 export type FullEnemyKamikazeArgs = {} & EnemyShipArgs;
 
@@ -46,7 +47,7 @@ export default class EnemyKamikaze extends EnemyShip<FullEnemyKamikazeArgs> {
                 width,
                 height,
             },
-            images: [PRELOAD.getResult("enemy_kamikaze")],
+            images: [getAsset("enemy_kamikaze")],
         };
 
         const ss = new createjs.SpriteSheet(spriteSheet);

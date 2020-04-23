@@ -1,5 +1,5 @@
 import EnemyShip, { EnemyShipArgs } from "./enemy_ship";
-import { PRELOAD, WORLD, MAIN_SHIP } from "../main";
+import { WORLD, MAIN_SHIP } from "../main";
 import { calculateAngleBetweenObjects } from "../shared/utilities";
 import Bullet1_laser from "../bullets/bullet1_laser";
 import { Category, Mask } from "../game/collision_detection";
@@ -11,6 +11,7 @@ import {
     b2Vec2,
     SCALE,
 } from "../shared/constants";
+import { getAsset } from "../shared/assets";
 
 export type FullEnemyRotateAroundArgs = {} & EnemyShipArgs;
 
@@ -60,7 +61,7 @@ export default class EnemyRotateAround extends EnemyShip<
                 height,
             },
 
-            images: [PRELOAD.getResult("enemy_rotate_around")],
+            images: [getAsset("enemy_rotate_around")],
         };
 
         const ss = new createjs.SpriteSheet(spriteSheet);
