@@ -4,6 +4,9 @@ import Message from "../shared/message";
 import { hideElement, showElement } from "../shared/utilities";
 
 let WEAPON_SELECTED = 0;
+let SUB_MENU_OPENED = false;
+let PAUSED_MESSAGE: Message | null = null;
+
 const WEAPON_ELEMENTS: HTMLElement[] = [];
 const BULLETS_LEFT_ELEMENTS: HTMLElement[] = [];
 
@@ -51,7 +54,7 @@ export function init() {
 
     // :: Restart :: //
 
-    var restart = document.getElementById("GameMenu-restart")!;
+    const restart = document.getElementById("GameMenu-restart")!;
 
     restart.onclick = function (event) {
         startGameMode(true);
@@ -77,37 +80,8 @@ export function init() {
     const openMenu = document.getElementById("GameMenu-openMenu")!;
 
     openMenu.innerText = "Menu";
-
-    let isOpened = false;
-    let pausedMessage: Message | null = null;
-
-    openMenu.onclick = function (event) {
-        if (isOpened) {
-            isOpened = false;
-            pausedMessage?.remove();
-
-            openMenu.innerText = "Menu";
-
-            hideElement(quit);
-            hideElement(restart);
-
-            resume();
-        } else {
-            isOpened = true;
-
-            pausedMessage = new Message({
-                text: "Paused",
-                cssClass: "GamePausedMessage",
-            });
-
-            openMenu.innerText = "Back";
-
-            showElement(quit);
-            showElement(restart);
-
-            pause();
-        }
-
+    openMenu.onclick = (event) => {
+        toggleSubMenu();
         event.stopPropagation();
     };
 }
@@ -123,6 +97,45 @@ export function reset() {
     const menu = document.getElementById("GameMenu")!;
     menu.style.width = CANVAS.width + "px";
     showElement(menu);
+
+    toggleSubMenu(false);
+}
+
+function toggleSubMenu(forceState?: boolean) {
+    const openMenu = document.getElementById("GameMenu-openMenu")!;
+    const quit = document.getElementById("GameMenu-quit")!;
+    const restart = document.getElementById("GameMenu-restart")!;
+
+    let open = !SUB_MENU_OPENED;
+    if (typeof forceState === "boolean") {
+        open = forceState;
+    }
+
+    if (open) {
+        PAUSED_MESSAGE = new Message({
+            text: "Paused",
+            cssClass: "GamePausedMessage",
+        });
+
+        openMenu.innerText = "Back";
+
+        showElement(quit);
+        showElement(restart);
+
+        pause();
+    } else {
+        PAUSED_MESSAGE?.remove();
+        PAUSED_MESSAGE = null;
+
+        openMenu.innerText = "Menu";
+
+        hideElement(quit);
+        hideElement(restart);
+
+        resume();
+    }
+
+    SUB_MENU_OPENED = open;
 }
 
 /*

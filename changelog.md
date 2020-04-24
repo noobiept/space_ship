@@ -6,6 +6,7 @@
 
 -   Replace the preload library being used to load the assets.
 -   Rework the options page.
+-   Remove jquery and jqueryui.
 
 # v2.0.0 - 12/04/2020
 

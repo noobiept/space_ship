@@ -67,8 +67,8 @@ export default class Message {
     }
 
     remove() {
-        const container = document.getElementById("Message-container")!;
-        container.removeChild(this.message);
+        const container = this.message.parentElement;
+        container?.removeChild(this.message);
 
         const position = ALL_MESSAGES.indexOf(this);
         ALL_MESSAGES.splice(position, 1);

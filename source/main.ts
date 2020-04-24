@@ -151,18 +151,12 @@ export function startGameMode(fromPreviousLevel?: boolean) {
 }
 
 export function pause() {
-    if (MAIN_SHIP) {
-        MAIN_SHIP.clearEvents();
-    }
-
+    MAIN_SHIP.setDisabled(true);
     createjs.Ticker.setPaused(true);
 }
 
 export function resume() {
-    if (MAIN_SHIP) {
-        MAIN_SHIP.setEvents();
-    }
-
+    MAIN_SHIP.setDisabled(false);
     createjs.Ticker.setPaused(false);
 }
 
@@ -171,9 +165,8 @@ export function setMapMode(mode: MapTypeClass) {
 }
 
 /*
-    Resets the configurations (for when restarting the game)
+ * Resets the configurations (for when restarting the game).
  */
-
 export function resetStuff() {
     STAGE.removeAllChildren();
     createjs.Ticker.removeAllEventListeners();

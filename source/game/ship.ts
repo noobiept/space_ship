@@ -51,8 +51,9 @@ export default class Ship implements GameElement {
     mask_bits!: Mask;
     body: Box2D.Dynamics.b2Body;
     alreadyInCollision = false;
-    onClick!: (e: MouseEvent) => void;
-    onMouseMove!: (e: MouseEvent) => void;
+    onClick: (e: MouseEvent) => void;
+    onMouseMove: (e: MouseEvent) => void;
+    private disabled = false;
 
     static all: Ship[] = [];
 
@@ -85,7 +86,24 @@ export default class Ship implements GameElement {
         STAGE.addChild(this.shape);
         ZIndex.add(this.shape);
 
-        this.setEvents();
+        // add the event listeners
+        this.onClick = (event) => {
+            if (this.disabled) {
+                return;
+            }
+
+            this.handleClick(event);
+        };
+        this.onMouseMove = (event) => {
+            if (this.disabled) {
+                return;
+            }
+
+            this.handleMouseMove(event);
+        };
+
+        window.addEventListener("click", this.onClick, false);
+        window.addEventListener("mousemove", this.onMouseMove, false);
     }
 
     makeShape() {
@@ -147,23 +165,8 @@ export default class Ship implements GameElement {
     }
 
     /*
-    Sets Ship's events, that handle the firing of the weapons (click event) and the rotation of the ship (mousemove event)
- */
-    setEvents() {
-        this.onClick = (event) => {
-            this.handleClick(event);
-        };
-        this.onMouseMove = (event) => {
-            this.handleMouseMove(event);
-        };
-
-        window.addEventListener("click", this.onClick, false);
-        window.addEventListener("mousemove", this.onMouseMove, false);
-    }
-
-    /*
-    Clear the events of the Ship, call .setEvents() later to set them back
- */
+     * Clear the events of the Ship, call .setEvents() later to set them back
+     */
     clearEvents() {
         window.removeEventListener("click", this.onClick);
         window.removeEventListener("mousemove", this.onMouseMove);
@@ -375,9 +378,17 @@ export default class Ship implements GameElement {
         }
     }
 
+    /**
+     * Disable/enable the ship.
+     * When disabled the player's inputs don't have an effect (ie. can't fire a bullet).
+     */
+    setDisabled(state: boolean) {
+        this.disabled = state;
+    }
+
     /*
-    Remove this ship
- */
+     *  Remove this ship
+     */
     remove() {
         STAGE.removeChild(this.shape);
         WORLD.destroyBody(this.body);
@@ -390,8 +401,8 @@ export default class Ship implements GameElement {
     }
 
     /*
-    Remove all the ships
- */
+     * Remove all the ships
+     */
     static removeAll() {
         Ship.all.forEach((ship) => {
             ship.remove();
