@@ -8,10 +8,6 @@ const WEAPON_ELEMENTS: HTMLElement[] = [];
 const BULLETS_LEFT_ELEMENTS: HTMLElement[] = [];
 
 export function init() {
-    clear();
-
-    const menu = document.getElementById("GameMenu")!;
-
     // :: Weapons Selection :: //
     const weapon1 = document.getElementById("GameMenu-weapon1")!;
     const weapon2 = document.getElementById("GameMenu-weapon2")!;
@@ -21,7 +17,7 @@ export function init() {
     WEAPON_ELEMENTS.push(weapon1, weapon2, weapon3, weapon4);
 
     WEAPON_SELECTED = 0;
-    $(weapon1).addClass("WeaponsSelected");
+    weapon1.classList.add("WeaponsSelected");
 
     weapon1.onclick = function () {
         MAIN_SHIP.selectWeapon(0);
@@ -53,8 +49,6 @@ export function init() {
         bulletsLeft4
     );
 
-    updateAllBulletsLeft();
-
     // :: Restart :: //
 
     var restart = document.getElementById("GameMenu-restart")!;
@@ -82,7 +76,7 @@ export function init() {
 
     const openMenu = document.getElementById("GameMenu-openMenu")!;
 
-    $(openMenu).text("Menu");
+    openMenu.innerText = "Menu";
 
     let isOpened = false;
     let pausedMessage: Message | null = null;
@@ -92,7 +86,7 @@ export function init() {
             isOpened = false;
             pausedMessage?.remove();
 
-            $(openMenu).text("Menu");
+            openMenu.innerText = "Menu";
 
             hideElement(quit);
             hideElement(restart);
@@ -106,7 +100,7 @@ export function init() {
                 cssClass: "GamePausedMessage",
             });
 
-            $(openMenu).text("Back");
+            openMenu.innerText = "Back";
 
             showElement(quit);
             showElement(restart);
@@ -116,8 +110,17 @@ export function init() {
 
         event.stopPropagation();
     };
+}
+
+/**
+ * Reset the menu to the initial values.
+ */
+export function reset() {
+    selectWeapon(0);
+    updateAllBulletsLeft();
 
     // :: Position the menu :: //
+    const menu = document.getElementById("GameMenu")!;
     menu.style.width = CANVAS.width + "px";
     showElement(menu);
 }
@@ -128,12 +131,12 @@ export function init() {
 export function selectWeapon(number: number) {
     if (number !== WEAPON_SELECTED) {
         // remove the css class from the previous element
-        $(WEAPON_ELEMENTS[WEAPON_SELECTED]).removeClass("WeaponsSelected");
+        WEAPON_ELEMENTS[WEAPON_SELECTED].classList.remove("WeaponsSelected");
 
         WEAPON_SELECTED = number;
 
         // add to the new
-        $(WEAPON_ELEMENTS[WEAPON_SELECTED]).addClass("WeaponsSelected");
+        WEAPON_ELEMENTS[WEAPON_SELECTED].classList.add("WeaponsSelected");
     }
 }
 
@@ -142,7 +145,7 @@ export function selectWeapon(number: number) {
  */
 export function updateBulletsLeft(weapon: number, bulletsLeft: number) {
     const bulletsElement = BULLETS_LEFT_ELEMENTS[weapon];
-    $(bulletsElement).text(bulletsLeft);
+    bulletsElement.innerText = bulletsLeft.toString();
 }
 
 export function updateAllBulletsLeft() {
@@ -152,7 +155,7 @@ export function updateAllBulletsLeft() {
 }
 
 export function clear() {
-    $(WEAPON_ELEMENTS[WEAPON_SELECTED]).removeClass("WeaponsSelected");
+    WEAPON_ELEMENTS[WEAPON_SELECTED].classList.remove("WeaponsSelected");
 
     WEAPON_ELEMENTS.length = 0;
     BULLETS_LEFT_ELEMENTS.length = 0;

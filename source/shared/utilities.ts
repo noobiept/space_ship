@@ -16,30 +16,28 @@ import { getMusicVolume } from "./options";
 export function centerElement(element: HTMLElement, refElement?: HTMLElement) {
     const reference = refElement ?? CANVAS;
 
-    const width = $(reference).width()!;
-    const height = $(reference).height()!;
-
     // the reference element may not be starting at 0,0 position, so we need to account for that
-    const canvasPosition = $(reference).position();
+    const refRect = reference.getBoundingClientRect();
+    const elementRect = element.getBoundingClientRect();
+    const width = refRect.width;
+    const height = refRect.height;
 
-    const left = width / 2 - $(element).width()! / 2 + canvasPosition.left;
-    const top = height / 2 - $(element).height()! / 2 + canvasPosition.top;
+    const left = width / 2 - elementRect.width / 2 + refRect.left;
+    const top = height / 2 - elementRect.height / 2 + refRect.top;
 
-    $(element).css({
-        top: top + "px",
-        left: left + "px",
-    });
+    element.style.top = top + "px";
+    element.style.left = left + "px";
 }
 
 /**
  *  Center the canvas in the middle of window.
  */
 export function centerCanvas(canvasElement: HTMLCanvasElement) {
-    var left = window.innerWidth / 2 - canvasElement.width / 2;
-    var top = window.innerHeight / 2 - canvasElement.height / 2;
+    const left = window.innerWidth / 2 - canvasElement.width / 2;
+    const top = window.innerHeight / 2 - canvasElement.height / 2;
 
-    $(canvasElement).css("left", left + "px");
-    $(canvasElement).css("top", top + "px");
+    canvasElement.style.left = left + "px";
+    canvasElement.style.top = top + "px";
 }
 
 /**

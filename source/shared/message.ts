@@ -28,8 +28,8 @@ export default class Message {
         const message = document.createElement("div");
 
         message.className = "Message";
+        message.innerHTML = text;
 
-        $(message).html(text);
         container.appendChild(message);
 
         if (typeof x === "undefined") {
@@ -39,12 +39,12 @@ export default class Message {
                 centerElement(message);
             }
         } else {
-            $(message).css("left", x + "px");
-            $(message).css("top", y + "px");
+            message.style.left = x + "px";
+            message.style.top = y + "px";
         }
 
         if (typeof cssClass != "undefined") {
-            $(message).addClass(cssClass);
+            message.classList.add(cssClass);
         }
 
         if (typeof timeOut !== "undefined") {
@@ -63,19 +63,19 @@ export default class Message {
     }
 
     setText(text: string) {
-        $(this.message).html(text);
+        this.message.innerHTML = text;
     }
 
     remove() {
-        $(this.message).remove();
+        const container = document.getElementById("Message-container")!;
+        container.removeChild(this.message);
 
-        var position = ALL_MESSAGES.indexOf(this);
-
+        const position = ALL_MESSAGES.indexOf(this);
         ALL_MESSAGES.splice(position, 1);
     }
 
     static removeAll() {
-        for (var i = 0; i < ALL_MESSAGES.length; i++) {
+        for (let i = 0; i < ALL_MESSAGES.length; i++) {
             ALL_MESSAGES[i].remove();
 
             i--;

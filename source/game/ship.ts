@@ -250,13 +250,14 @@ export default class Ship implements GameElement {
                 text: "Game Over: Press enter to restart",
             });
 
-            $(document).bind("keyup", function (event) {
+            document.onkeyup = (event) => {
+                //TODO
                 if (event.keyCode === KEY_CODE.enter) {
                     endMessage.remove();
 
                     startGameMode(true);
                 }
-            });
+            };
         }
     }
 
@@ -273,24 +274,24 @@ export default class Ship implements GameElement {
         ship  : (Ship object)
  */
     handleMouseMove(event: MouseEvent) {
-        var canvasPosition = $(CANVAS).position();
+        const canvasPosition = CANVAS.getBoundingClientRect();
 
         // mouse position in the canvas (assume origin point in top/left of canvas element)
-        var mouseX = event.pageX - canvasPosition.left;
-        var mouseY = event.pageY - canvasPosition.top;
+        const mouseX = event.pageX - canvasPosition.left;
+        const mouseY = event.pageY - canvasPosition.top;
 
         // make a triangle from the position the ship is in, relative to the mouse position
-        var triangleOppositeSide = this.shape.y - mouseY;
-        var triangleAdjacentSide = mouseX - this.shape.x;
+        const triangleOppositeSide = this.shape.y - mouseY;
+        const triangleAdjacentSide = mouseX - this.shape.x;
 
         // find the angle, given the two sides (of a right triangle)
-        var angleRadians = Math.atan2(
+        const angleRadians = Math.atan2(
             triangleOppositeSide,
             triangleAdjacentSide
         );
 
         // convert to degrees
-        var angleDegrees = (angleRadians * 180) / Math.PI;
+        const angleDegrees = (angleRadians * 180) / Math.PI;
 
         // we multiply by -1 because the .rotation property seems to have the angles in the other direction
         this.rotate(-1 * angleDegrees);
@@ -385,7 +386,6 @@ export default class Ship implements GameElement {
 
         Ship.all.splice(position, 1);
 
-        $(this).unbind();
         this.clearEvents();
     }
 

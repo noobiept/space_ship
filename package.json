@@ -12,8 +12,6 @@
     "devDependencies": {
         "@types/box2d": "0.0.33",
         "@types/createjs": "0.0.29",
-        "@types/jquery": "^3.3.34",
-        "@types/jqueryui": "^1.12.10",
         "clean-webpack-plugin": "^3.0.0",
         "copy-webpack-plugin": "^5.1.1",
         "http-server": "^0.12.1",

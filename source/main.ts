@@ -50,6 +50,7 @@ window.onload = function () {
 function initApp(data: AppData) {
     Options.load(data["space_ship_options"]);
     MainMenu.init();
+    GameMenu.init();
 
     // get a reference to the canvas we'll be working with
     CANVAS = document.getElementById("mainCanvas") as HTMLCanvasElement;
@@ -119,7 +120,7 @@ export function initGame() {
     document.onkeyup = handleKeyUp;
 
     MUSIC.play(0);
-    GameMenu.init();
+    GameMenu.reset();
 }
 
 /**

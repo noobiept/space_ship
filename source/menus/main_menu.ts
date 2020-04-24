@@ -110,8 +110,8 @@ function selectNextEntry() {
         ENTRY_SELECTED = 0;
     }
 
-    $(ENTRIES_ELEMENTS[previousEntry]).removeClass("MainMenu-entrySelected");
-    $(ENTRIES_ELEMENTS[ENTRY_SELECTED]).addClass("MainMenu-entrySelected");
+    ENTRIES_ELEMENTS[previousEntry].classList.remove("MainMenu-entrySelected");
+    ENTRIES_ELEMENTS[ENTRY_SELECTED].classList.add("MainMenu-entrySelected");
 }
 
 /*
