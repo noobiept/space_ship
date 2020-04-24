@@ -1,5 +1,12 @@
 # Unreleased
 
+# v2.1.0 - ../04/2020
+
+## Changed
+
+-   Replace the preload library being used to load the assets.
+-   Rework the options page.
+
 # v2.0.0 - 12/04/2020
 
 ## Added

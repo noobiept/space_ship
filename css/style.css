@@ -143,3 +143,42 @@ body {
 .GamePausedMessage {
     font-size: 2em;
 }
+
+/* Music Volume Range Input */
+
+#Options-RangeInput {
+    -webkit-appearance: none;
+    appearance: none;
+    background: white;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+    border-radius: 5px;
+    width: 100%;
+    height: 25px;
+    margin: 10px 0;
+    outline: none;
+}
+
+#Options-RangeInput:hover {
+    opacity: 1;
+}
+
+#Options-RangeInput::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    background: rgb(140, 185, 220);
+    border-radius: 5px;
+}
+
+#Options-RangeInput::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    background: rgb(140, 185, 220);
+    border-radius: 5px;
+}

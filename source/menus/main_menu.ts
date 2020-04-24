@@ -42,6 +42,8 @@ export function init() {
     randomMaps.onclick = listener(openRandomMaps);
     endlessMode.onclick = listener(openEndlessMode);
     options.onclick = listener(openOptions);
+
+    initOptions();
 }
 
 export function open() {
@@ -80,36 +82,6 @@ function openEndlessMode() {
 
 function openOptions() {
     cleanUp();
-
-    // :: Music Volume :: //
-
-    const musicVolume = document.getElementById("Options-musicVolume")!;
-    const musicVolumeSpan = musicVolume.querySelector("span")!;
-
-    const musicVolumeValue = Math.round(Options.getMusicVolume() * 100);
-    $(musicVolumeSpan).text(musicVolumeValue + "%");
-
-    const musicVolumeSlider = musicVolume.querySelector(
-        "#Options-musicVolume-slider"
-    )!;
-    $(musicVolumeSlider).slider({
-        min: 0,
-        max: 100,
-        step: 1,
-        value: musicVolumeValue,
-        range: "min",
-        slide: function (event, ui) {
-            $(musicVolumeSpan).text(ui.value + "%");
-            Options.setMusicVolume(ui.value! / 100);
-        },
-    });
-
-    const back = document.getElementById("Options-back")!;
-    back.onclick = function () {
-        Options.save();
-        open();
-    };
-
     showElement("Options");
 }
 
@@ -174,4 +146,28 @@ function cleanUp() {
     selected.classList.remove("MainMenu-entrySelected");
 
     ENTRY_SELECTED = 0;
+}
+
+function initOptions() {
+    const musicVolumeValue = Math.round(Options.getMusicVolume() * 100);
+    const musicVolume = document.getElementById("Options-musicVolume")!;
+    const volume = document.getElementById(
+        "Options-RangeInput"
+    ) as HTMLInputElement;
+
+    volume.value = musicVolumeValue.toString();
+    musicVolume.innerText = musicVolumeValue + "%";
+
+    volume.oninput = () => {
+        const value = volume.value;
+
+        musicVolume.innerText = value + "%";
+        Options.setMusicVolume(parseInt(value) / 100);
+    };
+
+    const back = document.getElementById("Options-back")!;
+    back.onclick = function () {
+        Options.save();
+        open();
+    };
 }
