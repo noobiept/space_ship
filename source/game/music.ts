@@ -8,6 +8,7 @@ export default class Music {
     private songIDs: string[];
     private currentSong = 0;
     private isPlaying = false;
+    private intervalID = -1;
 
     constructor({ songIDs }: MusicArgs) {
         this.songIDs = songIDs;
@@ -77,13 +78,16 @@ export default class Music {
         endVolume: number,
         onEnd: () => void
     ) {
+        // stop any previous interval that might be running
+        window.clearInterval(this.intervalID);
+
         let count = 0;
         const ticks = 5; // number of updates to the volume
         const duration = 1000;
         const delta = duration / ticks;
         const changeEachTick = (endVolume - startVolume) / ticks;
 
-        const intervalID = window.setInterval(() => {
+        this.intervalID = window.setInterval(() => {
             let newVolume = element.volume + changeEachTick;
             if (newVolume < 0) {
                 newVolume = 0;
@@ -95,7 +99,7 @@ export default class Music {
             count += delta;
 
             if (count >= duration) {
-                window.clearInterval(intervalID);
+                window.clearInterval(this.intervalID);
                 onEnd();
             }
         }, delta);
