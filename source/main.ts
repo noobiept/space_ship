@@ -61,7 +61,7 @@ function initApp(data: AppData) {
     // create a stage object to work with the canvas. This is the top level node in the display list
     STAGE = new createjs.Stage(CANVAS);
 
-    createjs.Ticker.setInterval(50);
+    createjs.Ticker.interval = 50;
 
     if (DEBUG) {
         showElement(CANVAS_DEBUG);
@@ -152,12 +152,12 @@ export function startGameMode(fromPreviousLevel?: boolean) {
 
 export function pause() {
     MAIN_SHIP.setDisabled(true);
-    createjs.Ticker.setPaused(true);
+    createjs.Ticker.paused = true;
 }
 
 export function resume() {
     MAIN_SHIP.setDisabled(false);
-    createjs.Ticker.setPaused(false);
+    createjs.Ticker.paused = false;
 }
 
 export function setMapMode(mode: MapTypeClass) {
@@ -184,7 +184,7 @@ export function resetStuff() {
     hideElement("GameMenu");
 
     CollisionDetection.reset();
-    createjs.Ticker.setPaused(false);
+    createjs.Ticker.paused = false;
 
     WORLD.drawDebugData();
     STAGE.update();
