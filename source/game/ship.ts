@@ -1,14 +1,6 @@
-import { KEY_CODE } from "@drk4/utilities";
-import {
-    GAME_WIDTH,
-    GAME_HEIGHT,
-    STAGE,
-    startGameMode,
-    CANVAS,
-    WORLD,
-} from "../main";
+import { EventDispatcher } from "@drk4/utilities";
+import { GAME_WIDTH, GAME_HEIGHT, STAGE, CANVAS, WORLD } from "../main";
 import { KEYS_HELD } from "../keyboard_events";
-import Message from "../shared/message";
 import Bullet1_laser from "../bullets/bullet1_laser";
 import Bullet2_sniper from "../bullets/bullet2_sniper";
 import Bullet3_rocket from "../bullets/bullet3_rocket";
@@ -29,6 +21,8 @@ import { GameElement } from "../shared/types";
 import { playSound } from "../shared/utilities";
 import { getAsset } from "../shared/assets";
 
+type ShipEvent = "dead";
+
 const VELOCITY = 5;
 
 // ticks until we add + ammo to the weapons
@@ -38,7 +32,8 @@ const AMMO_UPDATE_TICK = [10, 28, 11, 21];
 // maximum number of bullets per weapon
 const MAX_AMMO = [50, 10, 25, 20];
 
-export default class Ship implements GameElement {
+export default class Ship extends EventDispatcher<ShipEvent>
+    implements GameElement {
     shape: createjs.DisplayObject;
     width = 10;
     height = 10;
@@ -58,6 +53,8 @@ export default class Ship implements GameElement {
     static all: Ship[] = [];
 
     constructor() {
+        super();
+
         this.color = "rgb(81, 139, 255)";
         this.weaponSelected = 0;
         this.shape = this.makeShape();
@@ -244,23 +241,7 @@ export default class Ship implements GameElement {
 
         // you loose
         if (energy <= 0) {
-            this.remove();
-
-            createjs.Ticker.removeAllEventListeners();
-            window.onclick = null; // so that you can't fire anymore
-
-            const endMessage = new Message({
-                text: "Game Over: Press enter to restart",
-            });
-
-            document.onkeyup = (event) => {
-                //TODO
-                if (event.keyCode === KEY_CODE.enter) {
-                    endMessage.remove();
-
-                    startGameMode(true);
-                }
-            };
+            this.dispatchEvent("dead");
         }
     }
 

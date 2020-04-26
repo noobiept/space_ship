@@ -1,3 +1,4 @@
+import { KEY_CODE } from "@drk4/utilities";
 import * as Options from "./shared/options";
 import * as GameStatistics from "./menus/game_statistics";
 import * as ZIndex from "./game/z_index";
@@ -102,6 +103,9 @@ export function initGame() {
     GAME_HEIGHT = CANVAS.height;
 
     MAIN_SHIP = new Ship();
+    MAIN_SHIP.addEventListener("dead", () => {
+        gameOver(MAIN_SHIP);
+    });
 
     // so that .tick() of EnemyShip/Ship/... is called automatically
     createjs.Ticker.on("tick", tick as (event: Object) => void);
@@ -121,6 +125,29 @@ export function initGame() {
 
     MUSIC.play(0);
     GameMenu.reset();
+}
+
+/**
+ * Game ended, show a message and then restart the game.
+ */
+function gameOver(ship: Ship) {
+    ship.remove();
+
+    createjs.Ticker.removeAllEventListeners();
+    window.onclick = null; // so that you can't fire anymore
+
+    const endMessage = new Message({
+        text: "Game Over: Press enter to restart",
+    });
+
+    document.onkeyup = (event) => {
+        //TODO
+        if (event.keyCode === KEY_CODE.enter) {
+            endMessage.remove();
+
+            startGameMode(true);
+        }
+    };
 }
 
 /**
