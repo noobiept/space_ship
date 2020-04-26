@@ -1,6 +1,4 @@
-import { STAGE, CANVAS, MAIN_SHIP } from "../main";
 import * as ZIndex from "../game/z_index";
-import * as GameMenu from "./game_menu";
 
 let SCORE = 0;
 let SCORE_TEXT: createjs.Text;
@@ -11,7 +9,7 @@ let ENERGY_TEXT: createjs.Text;
 let NUMBER_OF_ENEMIES = 0;
 let NUMBER_OF_ENEMIES_TEXT: createjs.Text;
 
-export function start() {
+export function start(canvas: HTMLCanvasElement, stage: createjs.Stage) {
     SCORE = 0;
     ENERGY = 100;
     NUMBER_OF_ENEMIES = 0;
@@ -22,20 +20,20 @@ export function start() {
 
     // add the text as a child of the stage. This means it will be drawn any time the stage is updated
     // and that it's transformations will be relative to the stage coordinates
-    STAGE.addChild(SCORE_TEXT);
+    stage.addChild(SCORE_TEXT);
 
     // we want this to always be drawn on top (of enemies, bullets, etc)
     ZIndex.add(SCORE_TEXT);
 
     // position the text on screen, relative to the stage coordinates
-    SCORE_TEXT.x = CANVAS.width - 100;
+    SCORE_TEXT.x = canvas.width - 100;
     SCORE_TEXT.y = 10;
 
     // :: Energy :: //
 
     ENERGY_TEXT = new createjs.Text("Energy: " + ENERGY, "16px Arial", "#777");
 
-    STAGE.addChild(ENERGY_TEXT);
+    stage.addChild(ENERGY_TEXT);
 
     // we want this to always be drawn on top (of enemies, bullets, etc)
     ZIndex.add(ENERGY_TEXT);
@@ -51,7 +49,7 @@ export function start() {
         "#777"
     );
 
-    STAGE.addChild(NUMBER_OF_ENEMIES_TEXT);
+    stage.addChild(NUMBER_OF_ENEMIES_TEXT);
 
     // we want this to always be drawn on top (of enemies, bullets, etc)
     ZIndex.add(NUMBER_OF_ENEMIES_TEXT);
@@ -85,15 +83,4 @@ export function getShipEnergy() {
 export function updateShipEnergy(newEnergy: number) {
     ENERGY = newEnergy;
     ENERGY_TEXT.text = "Energy: " + newEnergy;
-}
-
-/*
-    Arguments:
-
-        weapon (number) : zero-based weapon to update
- */
-export function updateBulletsLeft(weapon: number) {
-    const bulletsLeft = MAIN_SHIP.getBulletsLeft(weapon);
-
-    GameMenu.updateBulletsLeft(weapon, bulletsLeft);
 }

@@ -102,7 +102,7 @@ function initApp(data: AppData) {
 export function initGame() {
     resetStuff();
 
-    GameStatistics.start();
+    GameStatistics.start(CANVAS, STAGE);
 
     GAME_WIDTH = CANVAS.width;
     GAME_HEIGHT = CANVAS.height;

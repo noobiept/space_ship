@@ -308,18 +308,20 @@ export default class Ship extends EventDispatcher<ShipEvent>
             });
 
             bulletsLeft[weaponSelected]--;
-            GameStatistics.updateBulletsLeft(weaponSelected);
+            GameMenu.updateBulletsLeft(
+                weaponSelected,
+                this.getBulletsLeft(weaponSelected)
+            );
         } else {
             playSound("Audio-dryFire");
         }
     }
 
     updateAmmo() {
-        var i;
         var tickCount = this.tick_count;
         var bulletsLeft = this.bullets_left;
 
-        for (i = 0; i < AMMO_UPDATE_TICK.length; i++) {
+        for (let i = 0; i < AMMO_UPDATE_TICK.length; i++) {
             tickCount[i]--;
 
             if (tickCount[i] <= 0) {
@@ -331,7 +333,7 @@ export default class Ship extends EventDispatcher<ShipEvent>
                     // increase the number of bullets available
                     bulletsLeft[i]++;
 
-                    GameStatistics.updateBulletsLeft(i);
+                    GameMenu.updateBulletsLeft(i, this.getBulletsLeft(i));
                 }
             }
         }
