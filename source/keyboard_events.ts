@@ -1,5 +1,4 @@
 import { KEY_CODE } from "@drk4/utilities";
-import { MAIN_SHIP } from "./main";
 
 // keys being pressed/held
 export const KEYS_HELD = {
@@ -40,42 +39,52 @@ export function handleKeyDown(event: KeyboardEvent) {
     }
 }
 
-export function handleKeyUp(event: KeyboardEvent) {
-    switch (event.keyCode) {
-        case KEY_CODE.a:
-        case KEY_CODE.leftArrow:
-            KEYS_HELD.left = false;
-            break;
+export function handleKeyUp(selectWeapon: (position: number) => void) {
+    return (event: KeyboardEvent) => {
+        switch (event.keyCode) {
+            case KEY_CODE.a:
+            case KEY_CODE.leftArrow:
+                KEYS_HELD.left = false;
+                break;
 
-        case KEY_CODE.d:
-        case KEY_CODE.rightArrow:
-            KEYS_HELD.right = false;
-            break;
+            case KEY_CODE.d:
+            case KEY_CODE.rightArrow:
+                KEYS_HELD.right = false;
+                break;
 
-        case KEY_CODE.w:
-        case KEY_CODE.upArrow:
-            KEYS_HELD.up = false;
-            break;
+            case KEY_CODE.w:
+            case KEY_CODE.upArrow:
+                KEYS_HELD.up = false;
+                break;
 
-        case KEY_CODE.s:
-        case KEY_CODE.downArrow:
-            KEYS_HELD.down = false;
-            break;
+            case KEY_CODE.s:
+            case KEY_CODE.downArrow:
+                KEYS_HELD.down = false;
+                break;
 
-        case KEY_CODE["1"]:
-            MAIN_SHIP.selectWeapon(0);
-            break;
+            case KEY_CODE["1"]:
+                selectWeapon(0);
+                break;
 
-        case KEY_CODE["2"]:
-            MAIN_SHIP.selectWeapon(1);
-            break;
+            case KEY_CODE["2"]:
+                selectWeapon(1);
+                break;
 
-        case KEY_CODE["3"]:
-            MAIN_SHIP.selectWeapon(2);
-            break;
+            case KEY_CODE["3"]:
+                selectWeapon(2);
+                break;
 
-        case KEY_CODE["4"]:
-            MAIN_SHIP.selectWeapon(3);
-            break;
-    }
+            case KEY_CODE["4"]:
+                selectWeapon(3);
+                break;
+        }
+    };
+}
+
+export function gameOverShortcuts(onEnter: () => void) {
+    return (event: KeyboardEvent) => {
+        if (event.keyCode === KEY_CODE.enter) {
+            onEnter();
+        }
+    };
 }

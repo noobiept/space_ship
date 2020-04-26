@@ -9,7 +9,12 @@ import * as Assets from "./shared/assets";
 import Message from "./shared/message";
 import Music from "./game/music";
 import Ship from "./game/ship";
-import { handleKeyDown, handleKeyUp, clearKeysHeld } from "./keyboard_events";
+import {
+    handleKeyDown,
+    handleKeyUp,
+    clearKeysHeld,
+    gameOverShortcuts,
+} from "./keyboard_events";
 import EnemyShip from "./enemies/enemy_ship";
 import Bullet from "./bullets/bullet";
 import { MapType, AppData, MapTypeClass } from "./shared/types";
@@ -119,9 +124,11 @@ export function initGame() {
 
     WORLD.setContactListener(listener);
 
-    //register key functions
+    // register key functions
     document.onkeydown = handleKeyDown;
-    document.onkeyup = handleKeyUp;
+    document.onkeyup = handleKeyUp((position) =>
+        MAIN_SHIP.selectWeapon(position)
+    );
 
     MUSIC.play(0);
     GameMenu.reset();
@@ -140,14 +147,10 @@ function gameOver(ship: Ship) {
         text: "Game Over: Press enter to restart",
     });
 
-    document.onkeyup = (event) => {
-        //TODO
-        if (event.keyCode === KEY_CODE.enter) {
-            endMessage.remove();
-
-            startGameMode(true);
-        }
-    };
+    document.onkeyup = gameOverShortcuts(() => {
+        endMessage.remove();
+        startGameMode(true);
+    });
 }
 
 /**
