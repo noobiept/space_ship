@@ -20,7 +20,6 @@ export type FullEnemyRocksArgs = {
 export type EnemyRocksArgs = Omit<FullEnemyRocksArgs, "width" | "height">;
 
 export default class EnemyRocks extends EnemyShip<FullEnemyRocksArgs> {
-    private scale = 1; //TODO
     private angleRadians!: number;
 
     constructor(args: EnemyRocksArgs) {
@@ -68,7 +67,6 @@ export default class EnemyRocks extends EnemyShip<FullEnemyRocksArgs> {
         // don't update these variables before the scaling (they're are used in the config above, and the scaling is applied later)
         this.width *= scale;
         this.height *= scale;
-        this.scale = scale;
 
         // it moves
         this.angleRadians = getRandomFloat(0, 2 * Math.PI);

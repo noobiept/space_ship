@@ -33,13 +33,13 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     protected damage: number;
     protected velocity: number;
 
-    private spawnTicks_int: number;
+    private spawnTicks: number;
 
     constructor(args: Args) {
         const { x, y, width, height, damage, velocity } = args;
 
         // the number of ticks it takes until the enemy can start moving/firing/being killed
-        this.spawnTicks_int = 20;
+        this.spawnTicks = 20;
         this.width = width;
         this.height = height;
         this.damage = damage;
@@ -198,9 +198,9 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
             return;
         }
 
-        this.spawnTicks_int--;
+        this.spawnTicks--;
 
-        if (this.spawnTicks_int < 0) {
+        if (this.spawnTicks < 0) {
             // play the main animation
             this.shape.gotoAndPlay("main");
 

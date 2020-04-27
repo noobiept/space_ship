@@ -14,14 +14,18 @@ export type SplashDamageArgs = {
     splashDuration: number;
 } & BulletArgs;
 
+export type SplashDamageConstructorArgs = {
+    radius: number;
+} & SplashDamageArgs;
+
 /*
     The splash damage starts with radius of 1, then expands until it reaches the maximum value, then back again until 1, before being removed
  */
-export default class SplashDamage extends Bullet<SplashDamageArgs> {
+export default class SplashDamage extends Bullet<SplashDamageConstructorArgs> {
     private splashDuration: number;
     private radiusPerTick: number;
     private radius: number;
-    private bodyDef!: Box2D.Dynamics.b2BodyDef; //TODO
+    private bodyDef!: Box2D.Dynamics.b2BodyDef;
     private countTick: number;
     private x: number;
     private y: number;
@@ -35,6 +39,7 @@ export default class SplashDamage extends Bullet<SplashDamageArgs> {
             height: radius * 2,
             damage: 5,
             speed: 0,
+            radius,
         });
 
         const { splashDuration, maxRadius, x, y } = args;
@@ -58,11 +63,10 @@ export default class SplashDamage extends Bullet<SplashDamageArgs> {
         this.moveTo(x, y);
     }
 
-    drawBullet(args: SplashDamageArgs) {
-        const { color } = args;
+    drawBullet(args: SplashDamageConstructorArgs) {
+        const { color, radius } = args;
         const shape = new createjs.Shape();
         const g = shape.graphics;
-        const radius = 1; //TODO
 
         g.beginFill(color);
         g.drawCircle(0, 0, radius);
@@ -70,7 +74,7 @@ export default class SplashDamage extends Bullet<SplashDamageArgs> {
         return shape;
     }
 
-    setupPhysics(args: SplashDamageArgs) {
+    setupPhysics(args: SplashDamageConstructorArgs) {
         const { category, mask } = args;
 
         const fixDef = new b2FixtureDef();
@@ -91,7 +95,7 @@ export default class SplashDamage extends Bullet<SplashDamageArgs> {
         body.CreateFixture(fixDef);
         body.SetUserData(this);
 
-        this.bodyDef = bodyDef; //HERE
+        this.bodyDef = bodyDef;
 
         return {
             body,
