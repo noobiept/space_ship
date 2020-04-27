@@ -230,7 +230,6 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
         }
 
         this.enemyBehaviour();
-
         this.updateShape();
 
         // the limits of the canvas

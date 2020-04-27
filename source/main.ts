@@ -1,4 +1,3 @@
-import { KEY_CODE } from "@drk4/utilities";
 import * as Options from "./shared/options";
 import * as GameStatistics from "./menus/game_statistics";
 import * as ZIndex from "./game/z_index";
@@ -59,10 +58,10 @@ function initApp(data: AppData) {
     GameMenu.init();
 
     // get a reference to the canvas we'll be working with
-    CANVAS = document.getElementById("mainCanvas") as HTMLCanvasElement;
+    CANVAS = document.getElementById("MainCanvas") as HTMLCanvasElement;
 
     // canvas for debugging the physics
-    CANVAS_DEBUG = document.getElementById("debugCanvas") as HTMLCanvasElement;
+    CANVAS_DEBUG = document.getElementById("DebugCanvas") as HTMLCanvasElement;
 
     // create a stage object to work with the canvas. This is the top level node in the display list
     STAGE = new createjs.Stage(CANVAS);

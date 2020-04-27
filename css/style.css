@@ -18,11 +18,11 @@ body {
     user-select: none;
 }
 
-#debugCanvas {
+#DebugCanvas {
     position: absolute;
 }
 
-#mainCanvas {
+#MainCanvas {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -49,11 +49,11 @@ body {
 
 /* z-index */
 
-#mainCanvas {
+#MainCanvas {
     z-index: 100;
 }
 
-#debugCanvas {
+#DebugCanvas {
     z-index: 50;
 }
 
