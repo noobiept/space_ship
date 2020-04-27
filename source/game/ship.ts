@@ -34,20 +34,22 @@ const MAX_AMMO = [50, 10, 25, 20];
 
 export default class Ship extends EventDispatcher<ShipEvent>
     implements GameElement {
-    shape: createjs.DisplayObject;
-    width = 10;
-    height = 10;
-    color: string;
     type = CollisionID.ship;
-    weaponSelected: number;
-    tick_count: [number, number, number, number];
-    bullets_left: [number, number, number, number];
-    category_bits!: Category;
-    mask_bits!: Mask;
-    body: Box2D.Dynamics.b2Body;
     alreadyInCollision = false;
-    onClick: (e: MouseEvent) => void;
-    onMouseMove: (e: MouseEvent) => void;
+
+    readonly width = 10;
+    readonly height = 10;
+
+    private shape: createjs.DisplayObject;
+    private color: string;
+    private weaponSelected: number;
+    private tick_count: [number, number, number, number];
+    private bullets_left: [number, number, number, number];
+    private category_bits!: Category;
+    private mask_bits!: Mask;
+    private body: Box2D.Dynamics.b2Body;
+    private onClick: (e: MouseEvent) => void;
+    private onMouseMove: (e: MouseEvent) => void;
     private disabled = false;
 
     static all: Ship[] = [];

@@ -17,12 +17,13 @@ export type MapsArgs = {
 };
 
 export default class Maps implements MapType {
-    NUMBER_OF_MAPS: number;
-    MAPS: LevelInfo[];
     CURRENT_MAP: number;
-    CURRENT_MAP_TICK: number;
-    CURRENT_MAP_PHASE: number;
-    NO_MORE_PHASES: boolean;
+
+    private NUMBER_OF_MAPS: number;
+    protected MAPS: LevelInfo[];
+    protected CURRENT_MAP_TICK: number;
+    protected CURRENT_MAP_PHASE: number;
+    protected NO_MORE_PHASES: boolean;
 
     constructor(args: MapsArgs = {}) {
         if (typeof args.maps == "undefined") {

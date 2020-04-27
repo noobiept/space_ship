@@ -10,16 +10,17 @@ import { getRandomEnemy } from "../shared/utilities";
  */
 export default class EndlessMode implements MapType {
     CURRENT_MAP = 0;
-    next_enemy: number;
-    damage: number;
-    velocity: number;
-    decrease_next_enemy_step: number;
-    increase_damage_step: number;
-    increase_velocity_step: number;
-    count_next_enemy: number;
-    count_decrease_next_enemy: number;
-    count_increase_damage: number;
-    count_increase_velocity: number;
+
+    private next_enemy: number;
+    private damage: number;
+    private velocity: number;
+    private decrease_next_enemy_step: number;
+    private increase_damage_step: number;
+    private increase_velocity_step: number;
+    private count_next_enemy: number;
+    private count_decrease_next_enemy: number;
+    private count_increase_damage: number;
+    private count_increase_velocity: number;
 
     constructor() {
         // from how many ticks, until next enemy (the step)

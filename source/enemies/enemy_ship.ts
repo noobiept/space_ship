@@ -19,19 +19,21 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     static all: EnemyShip<EnemyShipArgs>[] = [];
     static all_spawning: EnemyShip<EnemyShipArgs>[] = [];
 
+    alreadyInCollision = false;
     type = CollisionID.enemy;
-    spawnTicks_int: number;
-    shape: createjs.Sprite;
     body: Box2D.Dynamics.b2Body;
     fixDef: Box2D.Dynamics.b2FixtureDef;
-    category_bits!: Category;
-    mask_bits!: Mask;
-    damage: number;
-    velocity: number;
-    width: number;
-    height: number;
-    alreadyInCollision = false;
     tick: (event: createjs.TickerEvent) => void; // this will point to spawningTick() or normalTick()
+
+    protected width: number;
+    protected height: number;
+    protected category_bits!: Category;
+    protected mask_bits!: Mask;
+    protected shape: createjs.Sprite;
+    protected damage: number;
+    protected velocity: number;
+
+    private spawnTicks_int: number;
 
     constructor(args: Args) {
         const { x, y, width, height, damage, velocity } = args;

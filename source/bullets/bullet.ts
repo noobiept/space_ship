@@ -31,18 +31,20 @@ export type AdditionalBulletArgs = {
 
 export default abstract class Bullet<Args extends BulletArgs>
     implements GameElement {
-    shape: createjs.Shape;
     type = CollisionID.bullet;
     body: Box2D.Dynamics.b2Body;
     fixDef: Box2D.Dynamics.b2FixtureDef;
-    damage: number;
-    removed: boolean;
-    width: number;
-    height: number;
-    color: string;
-    speed: number;
-    angleRotation: number;
     alreadyInCollision = false;
+
+    protected shape: createjs.Shape;
+    protected width: number;
+    protected color: string;
+    protected speed: number;
+    protected angleRotation: number;
+
+    private damage: number;
+    private removed: boolean;
+    private height: number;
 
     // all the bullets (from the enemies or the main ship)
     static all_bullets: Bullet<BulletArgs>[] = [];

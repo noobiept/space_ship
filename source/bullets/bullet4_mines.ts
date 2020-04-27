@@ -10,9 +10,9 @@ const ANGLE_TICK = 15;
 export type Bullet4_minesArgs = {} & BulletArgs;
 
 export default class Bullet4_mines extends Bullet<Bullet4_minesArgs> {
-    angle: number;
-    angleTick: number;
-    countTick: number;
+    private angle: number;
+    private angleTick: number;
+    private countTick: number;
 
     constructor(args: Bullet4_minesArgs) {
         super({

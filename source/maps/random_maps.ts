@@ -6,13 +6,13 @@ import { EnemyNames } from "../shared/constants";
 import { LevelInfo, LevelInfoDamage, LevelInfoVelocity } from "../shared/types";
 
 export default class RandomMaps extends Maps {
-    map_length: number;
-    how_many_min: number;
-    how_many_max: number;
-    tick_min: number;
-    tick_max: number;
-    damage: number;
-    velocity: number;
+    private map_length: number;
+    private how_many_min: number;
+    private how_many_max: number;
+    private tick_min: number;
+    private tick_max: number;
+    private damage: number;
+    private velocity: number;
 
     constructor() {
         super();

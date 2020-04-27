@@ -18,13 +18,13 @@ export type SplashDamageArgs = {
     The splash damage starts with radius of 1, then expands until it reaches the maximum value, then back again until 1, before being removed
  */
 export default class SplashDamage extends Bullet<SplashDamageArgs> {
-    splashDuration: number;
-    radiusPerTick: number;
-    radius: number;
-    bodyDef!: Box2D.Dynamics.b2BodyDef; //TODO
-    countTick: number;
-    x: number;
-    y: number;
+    private splashDuration: number;
+    private radiusPerTick: number;
+    private radius: number;
+    private bodyDef!: Box2D.Dynamics.b2BodyDef; //TODO
+    private countTick: number;
+    private x: number;
+    private y: number;
 
     constructor(args: SplashDamageArgs) {
         const radius = 1;

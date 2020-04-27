@@ -20,8 +20,8 @@ export type FullEnemyRocksArgs = {
 export type EnemyRocksArgs = Omit<FullEnemyRocksArgs, "width" | "height">;
 
 export default class EnemyRocks extends EnemyShip<FullEnemyRocksArgs> {
-    scale = 1;
-    angleRadians!: number;
+    private scale = 1; //TODO
+    private angleRadians!: number;
 
     constructor(args: EnemyRocksArgs) {
         super({

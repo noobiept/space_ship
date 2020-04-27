@@ -23,8 +23,8 @@ export type EnemyRotateAroundArgs = Omit<
 export default class EnemyRotateAround extends EnemyShip<
     FullEnemyRotateAroundArgs
 > {
-    ticksUntilNextBullet: number;
-    countTicks: number;
+    private ticksUntilNextBullet: number;
+    private countTicks: number;
 
     constructor(args: EnemyRotateAroundArgs) {
         super({
@@ -116,8 +116,8 @@ export default class EnemyRotateAround extends EnemyShip<
         var currentY = this.shape.y;
 
         // make a triangle from the position the ship is in, relative to the enemy position
-        var triangleOppositeSide = MAIN_SHIP.shape.y - currentY;
-        var triangleAdjacentSide = currentX - MAIN_SHIP.shape.x;
+        var triangleOppositeSide = MAIN_SHIP.getY() - currentY;
+        var triangleAdjacentSide = currentX - MAIN_SHIP.getX();
 
         // find the angle, given the two sides (of a right triangle)
         var angleRadians = Math.atan2(
