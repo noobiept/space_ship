@@ -2,6 +2,10 @@
 
 # v2.1.0 - ../04/2020
 
+## Added
+
+-   A linter (eslint).
+
 ## Changed
 
 -   Replace the preload library being used to load the assets.
