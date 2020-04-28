@@ -63,10 +63,10 @@ export default class EnemyKamikaze extends EnemyShip<FullEnemyKamikazeArgs> {
     }
 
     setupPhysics() {
-        var width = this.width;
+        const width = this.width;
 
         // physics
-        var fixDef = new b2FixtureDef();
+        const fixDef = new b2FixtureDef();
 
         fixDef.density = 1;
         fixDef.friction = 0.5;
@@ -94,17 +94,16 @@ export default class EnemyKamikaze extends EnemyShip<FullEnemyKamikazeArgs> {
     }
 
     enemyBehaviour() {
-        var angle = calculateAngleBetweenObjects(this, MAIN_SHIP);
+        let angle = calculateAngleBetweenObjects(this, MAIN_SHIP);
 
         // we multiply by -1 because the .rotation property seems to have the angles in the other direction (not quite sure..)
         angle *= -1;
 
-        var radians = toRadians(angle);
+        const radians = toRadians(angle);
+        const velocity = this.velocity;
 
-        var velocity = this.velocity;
-
-        var x = Math.cos(radians) * velocity;
-        var y = Math.sin(radians) * velocity;
+        const x = Math.cos(radians) * velocity;
+        const y = Math.sin(radians) * velocity;
 
         this.body.SetLinearVelocity(new b2Vec2(x, y));
 
@@ -120,7 +119,7 @@ export default class EnemyKamikaze extends EnemyShip<FullEnemyKamikazeArgs> {
      */
     updateRotation() {
         // calculate the angle between the enemy and the ship
-        var angleDegrees = calculateAngleBetweenObjects(this, MAIN_SHIP);
+        const angleDegrees = calculateAngleBetweenObjects(this, MAIN_SHIP);
 
         // we multiply by -1 because the .rotation property seems to have the angles in the other direction
         this.rotate(-1 * angleDegrees);

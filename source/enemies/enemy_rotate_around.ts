@@ -77,10 +77,10 @@ export default class EnemyRotateAround extends EnemyShip<
     }
 
     setupPhysics() {
-        var width = this.width;
+        const width = this.width;
 
         // physics
-        var fixDef = new b2FixtureDef();
+        const fixDef = new b2FixtureDef();
 
         fixDef.density = 1;
         fixDef.friction = 0.5;
@@ -91,7 +91,7 @@ export default class EnemyRotateAround extends EnemyShip<
         this.category_bits = Category.enemy_spawning;
         this.mask_bits = Mask.enemy_spawning;
 
-        var bodyDef = new b2BodyDef();
+        const bodyDef = new b2BodyDef();
 
         bodyDef.type = b2Body.b2_dynamicBody;
 
@@ -112,21 +112,21 @@ export default class EnemyRotateAround extends EnemyShip<
     }
 
     enemyBehaviour() {
-        var currentX = this.shape.x;
-        var currentY = this.shape.y;
+        const currentX = this.shape.x;
+        const currentY = this.shape.y;
 
         // make a triangle from the position the ship is in, relative to the enemy position
-        var triangleOppositeSide = MAIN_SHIP.getY() - currentY;
-        var triangleAdjacentSide = currentX - MAIN_SHIP.getX();
+        const triangleOppositeSide = MAIN_SHIP.getY() - currentY;
+        const triangleAdjacentSide = currentX - MAIN_SHIP.getX();
 
         // find the angle, given the two sides (of a right triangle)
-        var angleRadians = Math.atan2(
+        const angleRadians = Math.atan2(
             triangleOppositeSide,
             triangleAdjacentSide
         );
 
-        var x = Math.sin(angleRadians) * this.velocity;
-        var y = Math.cos(angleRadians) * this.velocity;
+        const x = Math.sin(angleRadians) * this.velocity;
+        const y = Math.cos(angleRadians) * this.velocity;
 
         this.body.SetLinearVelocity(new b2Vec2(x, y));
     }
@@ -144,7 +144,7 @@ export default class EnemyRotateAround extends EnemyShip<
         if (this.countTicks >= this.ticksUntilNextBullet) {
             this.countTicks = 0;
 
-            var angleRotation = calculateAngleBetweenObjects(this, MAIN_SHIP);
+            let angleRotation = calculateAngleBetweenObjects(this, MAIN_SHIP);
 
             // we multiply by -1 because the .rotation property seems to have the angles in the other direction
             angleRotation *= -1;

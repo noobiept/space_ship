@@ -66,7 +66,7 @@ export default class EndlessMode implements MapType {
             const enemy = getRandomEnemy();
             const numberOfEnemies = 3;
 
-            for (var i = 0; i < numberOfEnemies; i++) {
+            for (let i = 0; i < numberOfEnemies; i++) {
                 const x = getRandomInt(0, GAME_WIDTH);
                 const y = getRandomInt(0, GAME_HEIGHT);
 

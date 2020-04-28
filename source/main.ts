@@ -24,26 +24,26 @@ import { b2DebugDraw, b2ContactListener, SCALE } from "./shared/constants";
 
 // global variables
 
-export var CANVAS: HTMLCanvasElement;
-var CANVAS_DEBUG;
+export let CANVAS: HTMLCanvasElement;
+let CANVAS_DEBUG;
 
-var DEBUG = false;
+const DEBUG = false;
 
 const MUSIC = new Music({
     songIDs: ["Audio-music1", "Audio-music2"],
 });
 
 // createjs
-export var STAGE: createjs.Stage;
+export let STAGE: createjs.Stage;
 
 // box2d physics
 export const WORLD = new World();
 
 // playable dimensions (the rest of the canvas is for menus/etc)
-export var GAME_WIDTH: number;
-export var GAME_HEIGHT: number;
+export let GAME_WIDTH: number;
+export let GAME_HEIGHT: number;
 
-export var MAIN_SHIP: Ship;
+export let MAIN_SHIP: Ship;
 
 let MAP_MODE: MapTypeClass | null = null;
 let GAME_OBJECT: MapType | null = null;
@@ -112,7 +112,7 @@ export function initGame() {
     });
 
     // so that .tick() of EnemyShip/Ship/... is called automatically
-    createjs.Ticker.on("tick", tick as (event: Object) => void);
+    createjs.Ticker.on("tick", tick as (event: any) => void);
 
     // call update on the stage to make it render the current display list to the canvas
     STAGE.update();
@@ -160,7 +160,7 @@ export function startGameMode(fromPreviousLevel?: boolean) {
         fromPreviousLevel = false;
     }
 
-    var startingLevel = 0;
+    let startingLevel = 0;
 
     if (GAME_OBJECT) {
         if (fromPreviousLevel) {

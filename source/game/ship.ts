@@ -132,10 +132,10 @@ export default class Ship extends EventDispatcher<ShipEvent>
     }
 
     setupPhysics() {
-        var width = this.width;
+        const width = this.width;
 
         // physics
-        var fixDef = new b2FixtureDef();
+        const fixDef = new b2FixtureDef();
 
         fixDef.density = 1;
         fixDef.friction = 0.5;
@@ -146,7 +146,7 @@ export default class Ship extends EventDispatcher<ShipEvent>
         this.category_bits = Category.ship;
         this.mask_bits = Mask.ship;
 
-        var bodyDef = new b2BodyDef();
+        const bodyDef = new b2BodyDef();
 
         bodyDef.type = b2Body.b2_staticBody;
 
@@ -187,7 +187,7 @@ export default class Ship extends EventDispatcher<ShipEvent>
         this.shape.x = x;
         this.shape.y = y;
 
-        var position = new b2Vec2(x / SCALE, y / SCALE);
+        const position = new b2Vec2(x / SCALE, y / SCALE);
 
         this.body.SetPosition(position);
     }
@@ -286,15 +286,15 @@ export default class Ship extends EventDispatcher<ShipEvent>
     }
 
     handleClick(event: MouseEvent) {
-        var weapons = [
+        const weapons = [
             Bullet1_laser,
             Bullet2_sniper,
             Bullet3_rocket,
             Bullet4_mines,
         ];
 
-        var weaponSelected = this.weaponSelected;
-        var bulletsLeft = this.bullets_left;
+        const weaponSelected = this.weaponSelected;
+        const bulletsLeft = this.bullets_left;
 
         if (bulletsLeft[weaponSelected] > 0) {
             new weapons[this.weaponSelected]({
@@ -317,8 +317,8 @@ export default class Ship extends EventDispatcher<ShipEvent>
     }
 
     updateAmmo() {
-        var tickCount = this.tick_count;
-        var bulletsLeft = this.bullets_left;
+        const tickCount = this.tick_count;
+        const bulletsLeft = this.bullets_left;
 
         for (let i = 0; i < AMMO_UPDATE_TICK.length; i++) {
             tickCount[i]--;
@@ -375,7 +375,7 @@ export default class Ship extends EventDispatcher<ShipEvent>
         STAGE.removeChild(this.shape);
         WORLD.destroyBody(this.body);
 
-        var position = Ship.all.indexOf(this);
+        const position = Ship.all.indexOf(this);
 
         Ship.all.splice(position, 1);
 
@@ -392,7 +392,7 @@ export default class Ship extends EventDispatcher<ShipEvent>
     }
 
     tick() {
-        var nextX, nextY;
+        let nextX, nextY;
 
         // top left
         if (KEYS_HELD.left && KEYS_HELD.up) {

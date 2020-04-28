@@ -83,12 +83,11 @@ export default abstract class Bullet<Args extends BulletArgs>
         Bullet.all_bullets.push(this);
 
         // fire from outside the main ship radius (so it doesn't collide immediately with it)
-        var shipRadius = MAIN_SHIP.width / 2;
+        const shipRadius = MAIN_SHIP.width / 2;
+        const radians = toRadians(angleRotation);
 
-        var radians = toRadians(angleRotation);
-
-        var addX = Math.cos(radians) * shipRadius;
-        var addY = Math.sin(radians) * shipRadius;
+        const addX = Math.cos(radians) * shipRadius;
+        const addY = Math.sin(radians) * shipRadius;
 
         this.rotate(angleRotation);
         this.moveTo(x + addX, y + addY);
@@ -206,7 +205,7 @@ export default abstract class Bullet<Args extends BulletArgs>
      * Remove all bullets.
      */
     static removeAllBullets() {
-        for (var a = Bullet.all_bullets.length - 1; a >= 0; a--) {
+        for (let a = Bullet.all_bullets.length - 1; a >= 0; a--) {
             Bullet.all_bullets[a].removeNow();
         }
 

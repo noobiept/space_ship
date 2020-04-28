@@ -77,11 +77,11 @@ export default class EnemyRocks extends EnemyShip<FullEnemyRocksArgs> {
     }
 
     setupPhysics() {
-        var width = this.width;
-        var height = this.height;
+        const width = this.width;
+        const height = this.height;
 
         // physics
-        var fixDef = new b2FixtureDef();
+        const fixDef = new b2FixtureDef();
 
         fixDef.density = 1;
         fixDef.friction = 0.5;
@@ -112,8 +112,8 @@ export default class EnemyRocks extends EnemyShip<FullEnemyRocksArgs> {
     }
 
     enemyBehaviour() {
-        var x = Math.sin(this.angleRadians) * this.velocity;
-        var y = Math.cos(this.angleRadians) * this.velocity;
+        const x = Math.sin(this.angleRadians) * this.velocity;
+        const y = Math.cos(this.angleRadians) * this.velocity;
 
         this.body.SetLinearVelocity(new b2Vec2(x, y));
 

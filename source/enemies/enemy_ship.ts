@@ -113,7 +113,7 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
         this.shape.x = x;
         this.shape.y = y;
 
-        var position = new b2Vec2(x / SCALE, y / SCALE);
+        const position = new b2Vec2(x / SCALE, y / SCALE);
 
         this.body.SetPosition(position);
     }
@@ -139,8 +139,8 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     }
 
     checkLimits() {
-        var x = this.getX();
-        var y = this.getY();
+        const x = this.getX();
+        const y = this.getY();
 
         if (x < 0) {
             this.moveTo(GAME_WIDTH, y);
@@ -160,7 +160,7 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
         STAGE.removeChild(this.shape);
         WORLD.destroyBody(this.body);
 
-        var position = EnemyShip.all.indexOf(this);
+        const position = EnemyShip.all.indexOf(this);
 
         EnemyShip.all.splice(position, 1);
 
@@ -183,7 +183,7 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
             STAGE.removeChild(ship.shape);
             WORLD.destroyBody(ship.body);
 
-            var position = EnemyShip.all_spawning.indexOf(ship);
+            const position = EnemyShip.all_spawning.indexOf(ship);
 
             EnemyShip.all_spawning.splice(position, 1);
         });
@@ -208,10 +208,10 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
             EnemyShip.all.push(this);
 
             // remove from the spawn array
-            var spawnIndex = EnemyShip.all_spawning.indexOf(this);
+            const spawnIndex = EnemyShip.all_spawning.indexOf(this);
             EnemyShip.all_spawning.splice(spawnIndex, 1);
 
-            var fixDef = this.fixDef;
+            const fixDef = this.fixDef;
 
             fixDef.filter.categoryBits = Category.enemy;
             fixDef.filter.maskBits = Mask.enemy;

@@ -85,7 +85,7 @@ function openOptions() {
 }
 
 function keyboardEvents(event: KeyboardEvent) {
-    var key = event.keyCode;
+    const key = event.keyCode;
 
     // start the game
     if (key === KEY_CODE.enter) {
@@ -101,7 +101,7 @@ function keyboardEvents(event: KeyboardEvent) {
  * Select the next entry on the menu (update the animation).
  */
 function selectNextEntry() {
-    var previousEntry = ENTRY_SELECTED;
+    const previousEntry = ENTRY_SELECTED;
 
     ENTRY_SELECTED++;
 
@@ -117,7 +117,7 @@ function selectNextEntry() {
  * Select the previous entry on the menu (update the animation).
  */
 function selectPreviousEntry() {
-    var previousEntry = ENTRY_SELECTED;
+    const previousEntry = ENTRY_SELECTED;
 
     ENTRY_SELECTED--;
 

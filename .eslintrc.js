@@ -12,7 +12,6 @@ module.exports = {
         node: true,
     },
     rules: {
-        "@typescript-eslint/ban-ts-ignore": 0,
         "@typescript-eslint/camelcase": 0,
         "@typescript-eslint/class-name-casing": 0,
         "@typescript-eslint/no-unused-vars": 0,
@@ -22,7 +21,5 @@ module.exports = {
         "@typescript-eslint/no-non-null-assertion": 0,
         "@typescript-eslint/no-use-before-define": 0,
         "@typescript-eslint/no-var-requires": 0,
-        "no-var": 0,
-        "@typescript-eslint/ban-types": 0,
     },
 };

@@ -114,14 +114,13 @@ export default class SplashDamage extends Bullet<SplashDamageConstructorArgs> {
 
         this.body.CreateFixture(this.fixDef);
 
-        var g = this.shape.graphics;
+        const g = this.shape.graphics;
 
         g.clear();
         g.beginFill(this.color);
         g.drawCircle(0, 0, radius);
 
         this.radius = radius;
-
         this.moveTo(this.x, this.y);
     }
 
@@ -134,7 +133,7 @@ export default class SplashDamage extends Bullet<SplashDamageConstructorArgs> {
 
         this.countTick++;
 
-        var isGrowing = true;
+        let isGrowing = true;
 
         if (this.countTick > this.splashDuration * 0.5) {
             isGrowing = false;

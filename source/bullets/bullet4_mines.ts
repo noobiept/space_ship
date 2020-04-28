@@ -60,11 +60,9 @@ export default class Bullet4_mines extends Bullet<Bullet4_minesArgs> {
             this.angle = 0;
         }
 
-        var mine = this.shape;
-
-        var g = mine.graphics;
-
-        var halfPoint = this.width / 2; // width is same as height
+        const mine = this.shape;
+        const g = mine.graphics;
+        const halfPoint = this.width / 2; // width is same as height
 
         g.clear();
         g.beginFill(this.color);
