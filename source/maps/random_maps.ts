@@ -107,8 +107,8 @@ export default class RandomMaps extends Maps {
     }
 
     /*
-    Never ending maps
- */
+     * Never ending maps.
+     */
     loadMap(mapNumber?: number) {
         if (typeof mapNumber == "undefined") {
             this.CURRENT_MAP++;

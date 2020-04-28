@@ -1,7 +1,7 @@
 import { STAGE } from "../main";
 
 /*
-    Keep these elements on top (last ones being added to stage)
+ * Keep these elements on top (last ones being added to stage).
  */
 const ELEMENTS: createjs.DisplayObject[] = [];
 
@@ -10,7 +10,7 @@ export function add(element: createjs.DisplayObject) {
 }
 
 /*
-    Remove an element (just from being pushed to the top, doesn't remove it from the Stage)
+ * Remove an element (just from being pushed to the top, doesn't remove it from the Stage).
  */
 export function remove(element: createjs.DisplayObject) {
     const position = ELEMENTS.indexOf(element);
@@ -18,7 +18,7 @@ export function remove(element: createjs.DisplayObject) {
 }
 
 /*
-    Remove everything
+ * Remove everything.
  */
 export function clear() {
     ELEMENTS.length = 0;

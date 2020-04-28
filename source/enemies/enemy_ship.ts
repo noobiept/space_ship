@@ -75,18 +75,18 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     enemyBehaviour() {}
 
     /*
-    Gets called once after the spawn phase ended, and is going to the normal phase
- */
+     * Gets called once after the spawn phase ended, and is going to the normal phase.
+     */
     afterSpawn() {}
 
     /*
-    Its called right before the enemy is added to the Stage
- */
+     * Its called right before the enemy is added to the Stage.
+     */
     beforeAddToStage() {}
 
     /*
-    Updates the shape position to match the physic body
- */
+     * Updates the shape position to match the physic body.
+     */
     updateShape() {
         this.shape.rotation = this.body.GetAngle() * (180 / Math.PI);
 
@@ -154,8 +154,8 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     }
 
     /*
-    Remove the enemy ship, and update the game statistics
- */
+     * Remove the enemy ship, and update the game statistics.
+     */
     remove() {
         STAGE.removeChild(this.shape);
         WORLD.destroyBody(this.body);
@@ -172,8 +172,8 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     }
 
     /*
-    Remove everything
- */
+     * Remove everything.
+     */
     static removeAll() {
         EnemyShip.all.forEach((ship) => {
             ship.remove();
@@ -190,9 +190,9 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     }
 
     /*
-    The idea here is to have a time when the enemy ship can't do damage (or receive), since its still spawning.
-    This prevents problems like a ship spawning right under the main ship (and so taking damage without any chance to prevent it)
- */
+     * The idea here is to have a time when the enemy ship can't do damage (or receive), since its still spawning.
+     * This prevents problems like a ship spawning right under the main ship (and so taking damage without any chance to prevent it).
+     */
     spawningTick(event: createjs.TickerEvent) {
         if (event.paused) {
             return;

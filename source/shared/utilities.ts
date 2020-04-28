@@ -30,7 +30,7 @@ export function centerElement(element: HTMLElement, refElement?: HTMLElement) {
 }
 
 /**
- *  Center the canvas in the middle of window.
+ * Center the canvas in the middle of window.
  */
 export function centerCanvas(canvasElement: HTMLCanvasElement) {
     const left = window.innerWidth / 2 - canvasElement.width / 2;

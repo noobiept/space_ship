@@ -121,8 +121,8 @@ export default class EnemyRocks extends EnemyShip<FullEnemyRocksArgs> {
     }
 
     /*
-    When it takes damage, create new smaller rocks
- */
+     * When it takes damage, create new smaller rocks.
+     */
     tookDamage() {
         if (this.width >= 50) {
             for (let i = 0; i < 3; i++) {

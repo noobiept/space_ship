@@ -51,9 +51,8 @@ export default class Bullet4_mines extends Bullet<Bullet4_minesArgs> {
     }
 
     /*
-    Have an animation of the mine (rotates around itself)
- */
-
+     * Have an animation of the mine (rotates around itself).
+     */
     rotateMine() {
         this.angle += 45;
 
@@ -76,9 +75,8 @@ export default class Bullet4_mines extends Bullet<Bullet4_minesArgs> {
     }
 
     /*
-    What to do to the bullet when a collision is detected
- */
-
+     * What to do to the bullet when a collision is detected.
+     */
     collisionResponse() {
         this.remove();
 

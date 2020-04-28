@@ -57,10 +57,8 @@ export default class Maps implements MapType {
     }
 
     /*
-    Arguments:
-
-        level (int) : which map/level to load (if not provided, load the next map)
- */
+     * `mapNumber`: which map/level to load (if not provided, load the next map).
+     */
     loadMap(mapNumber?: number) {
         // load the next map
         if (typeof mapNumber == "undefined") {
@@ -91,8 +89,8 @@ export default class Maps implements MapType {
     }
 
     /*
-    All levels completed, show a message and then go to the MainMenu
- */
+     * All levels completed, show a message and then go to the MainMenu.
+     */
     noMoreLevels() {
         new Message({
             text: "Congratulations, you finished the game!<br />Too easy huh?",

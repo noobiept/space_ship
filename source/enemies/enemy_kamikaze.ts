@@ -116,8 +116,8 @@ export default class EnemyKamikaze extends EnemyShip<FullEnemyKamikazeArgs> {
     }
 
     /*
-    Updates the rotation property so that the enemy ship points at the main ship
- */
+     * Updates the rotation property so that the enemy ship points at the main ship.
+     */
     updateRotation() {
         // calculate the angle between the enemy and the ship
         var angleDegrees = calculateAngleBetweenObjects(this, MAIN_SHIP);

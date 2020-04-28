@@ -172,8 +172,8 @@ export default class Ship extends EventDispatcher<ShipEvent>
     }
 
     /*
-    Updates the shape position to match the physic body
- */
+     * Updates the shape position to match the physic body.
+     */
     updateShape() {
         this.shape.rotation = this.body.GetAngle() * (180 / Math.PI);
 
@@ -254,11 +254,8 @@ export default class Ship extends EventDispatcher<ShipEvent>
     }
 
     /*
-    Arguments:
-
-        event : (MouseEvent -- easelJS)
-        ship  : (Ship object)
- */
+     * Rotate the ship on mouse move.
+     */
     handleMouseMove(event: MouseEvent) {
         const canvasPosition = CANVAS.getBoundingClientRect();
 
@@ -342,15 +339,15 @@ export default class Ship extends EventDispatcher<ShipEvent>
     }
 
     /*
-    Returns the number of bullets left from a particular weapon (zero-based)
- */
+     * Returns the number of bullets left from a particular weapon (zero-based).
+     */
     getBulletsLeft(weapon: number) {
         return this.bullets_left[weapon];
     }
 
     /*
-    Adds the ammo of all the weapons back to half of the maximum ammo, or if the ammo is already at half or more, keep whatever value it has
- */
+     * Adds the ammo of all the weapons back to half of the maximum ammo, or if the ammo is already at half or more, keep whatever value it has.
+     */
     refreshAmmo() {
         const bulletsLeft = this.bullets_left;
 
@@ -372,7 +369,7 @@ export default class Ship extends EventDispatcher<ShipEvent>
     }
 
     /*
-     *  Remove this ship
+     * Remove this ship.
      */
     remove() {
         STAGE.removeChild(this.shape);

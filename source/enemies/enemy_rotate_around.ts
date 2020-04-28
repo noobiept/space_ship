@@ -132,10 +132,9 @@ export default class EnemyRotateAround extends EnemyShip<
     }
 
     /*
-    Gets called in the base class .tick() function
-
-    Shoots the bullets
- */
+     * Gets called in the base class .tick() function.
+     * Shoots the bullets.
+     */
     normalTick(event: createjs.TickerEvent) {
         super.normalTick(event);
 

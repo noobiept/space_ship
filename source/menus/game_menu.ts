@@ -139,7 +139,7 @@ function toggleSubMenu(forceState?: boolean) {
 }
 
 /*
-    number is zero-based
+ * `number` is zero-based.
  */
 export function selectWeapon(number: number) {
     if (number !== WEAPON_SELECTED) {
@@ -154,7 +154,7 @@ export function selectWeapon(number: number) {
 }
 
 /*
-    Updates the number of bullets left (zero-based)
+ * Updates the number of bullets left (zero-based).
  */
 export function updateBulletsLeft(weapon: number, bulletsLeft: number) {
     const bulletsElement = BULLETS_LEFT_ELEMENTS[weapon];

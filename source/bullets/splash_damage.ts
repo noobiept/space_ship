@@ -19,7 +19,7 @@ export type SplashDamageConstructorArgs = {
 } & SplashDamageArgs;
 
 /*
-    The splash damage starts with radius of 1, then expands until it reaches the maximum value, then back again until 1, before being removed
+ * The splash damage starts with radius of 1, then expands until it reaches the maximum value, then back again until 1, before being removed.
  */
 export default class SplashDamage extends Bullet<SplashDamageConstructorArgs> {
     private splashDuration: number;

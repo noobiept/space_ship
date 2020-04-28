@@ -153,7 +153,7 @@ function gameOver(ship: Ship) {
 }
 
 /**
-    @param {Boolean} [fromPreviousLevel=false] restarting the game, starting at same level it was before
+ * Start a new game on the same map mode.
  */
 export function startGameMode(fromPreviousLevel?: boolean) {
     if (typeof fromPreviousLevel == "undefined") {

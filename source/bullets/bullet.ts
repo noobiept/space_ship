@@ -158,15 +158,15 @@ export default abstract class Bullet<Args extends BulletArgs>
     }
 
     /*
-    How much damage the bullets gives to the ship when it hits
- */
+     * How much damage the bullets gives to the ship when it hits.
+     */
     damageGiven() {
         return this.damage;
     }
 
     /*
-    What to do to the bullet when a collision is detected
- */
+     * What to do to the bullet when a collision is detected.
+     */
     collisionResponse() {
         // default is to remove the bullet, but you can override this function to do something else
         this.remove();
@@ -178,8 +178,8 @@ export default abstract class Bullet<Args extends BulletArgs>
     }
 
     /*
-    Remove the bullet from the stage
- */
+     * Mark the bullet as removed from the stage.
+     */
     remove() {
         this.removed = true;
     }
@@ -203,8 +203,8 @@ export default abstract class Bullet<Args extends BulletArgs>
     }
 
     /*
-    Remove all bullets.
- */
+     * Remove all bullets.
+     */
     static removeAllBullets() {
         for (var a = Bullet.all_bullets.length - 1; a >= 0; a--) {
             Bullet.all_bullets[a].removeNow();

@@ -98,7 +98,7 @@ function keyboardEvents(event: KeyboardEvent) {
 }
 
 /*
-    Select the next entry on the menu (update the animation)
+ * Select the next entry on the menu (update the animation).
  */
 function selectNextEntry() {
     var previousEntry = ENTRY_SELECTED;
@@ -114,7 +114,7 @@ function selectNextEntry() {
 }
 
 /*
-    Select the previous entry on the menu (update the animation)
+ * Select the previous entry on the menu (update the animation).
  */
 function selectPreviousEntry() {
     var previousEntry = ENTRY_SELECTED;
@@ -133,7 +133,7 @@ function selectPreviousEntry() {
 }
 
 /*
-    Call when moving away from the MainMenu
+ * Call when moving away from the MainMenu.
  */
 function cleanUp() {
     hideElement("MainMenu");

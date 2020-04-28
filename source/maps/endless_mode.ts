@@ -4,9 +4,8 @@ import { MapType } from "../shared/types";
 import { getRandomEnemy } from "../shared/utilities";
 
 /*
-    Doesn't have levels/maps
-
-    Difficulty increases with time
+ * Doesn't have levels/maps.
+ * Difficulty increases with time.
  */
 export default class EndlessMode implements MapType {
     CURRENT_MAP = 0;
@@ -49,9 +48,8 @@ export default class EndlessMode implements MapType {
     }
 
     /*
-    Gets called after the main tick()
- */
-
+     * Gets called after the main tick().
+     */
     tick(event: createjs.TickerEvent) {
         if (event.paused) {
             return;
