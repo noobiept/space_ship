@@ -23,8 +23,6 @@ module.exports = {
         "@typescript-eslint/no-use-before-define": 0,
         "@typescript-eslint/no-var-requires": 0,
         "no-var": 0,
-        "prefer-const": 0,
-        "no-prototype-builtins": 0,
         "@typescript-eslint/ban-types": 0,
     },
 };
