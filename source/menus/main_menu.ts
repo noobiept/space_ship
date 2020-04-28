@@ -1,5 +1,5 @@
 import { KEY_CODE } from "@drk4/utilities";
-import { CANVAS, resetStuff, startGameMode, STAGE, setMapMode } from "../main";
+import { CANVAS, resetStuff, startGameMode, setMapMode } from "../main";
 import * as Options from "../shared/options";
 import { hideElement, showElement } from "../shared/utilities";
 import RandomMaps from "../maps/random_maps";
@@ -59,7 +59,6 @@ export function open() {
     predefinedMaps.classList.add("MainMenu-entrySelected");
 
     document.onkeyup = keyboardEvents;
-    STAGE.update(); //HERE
 }
 
 function openPredefinedMaps() {

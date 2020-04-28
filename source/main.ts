@@ -172,11 +172,7 @@ export function startGameMode(fromPreviousLevel?: boolean) {
 
     showElement(CANVAS);
     GAME_OBJECT = new MAP_MODE!();
-
-    //HERE
-    if (GAME_OBJECT.loadMap) {
-        GAME_OBJECT.loadMap(startingLevel);
-    }
+    GAME_OBJECT.loadMap?.(startingLevel);
 }
 
 export function pause() {
