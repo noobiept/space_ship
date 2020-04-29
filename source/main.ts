@@ -5,6 +5,7 @@ import * as MainMenu from "./menus/main_menu";
 import * as AppStorage from "./app_storage";
 import * as GameMenu from "./menus/game_menu";
 import * as Assets from "./shared/assets";
+import * as Canvas from "./game/canvas";
 import Message from "./shared/message";
 import Music from "./game/music";
 import Ship from "./game/ship";
@@ -17,15 +18,10 @@ import {
 import EnemyShip from "./enemies/enemy_ship";
 import Bullet from "./bullets/bullet";
 import { MapType, AppData, MapTypeClass } from "./shared/types";
-import { hideElement, showElement, centerCanvas } from "./shared/utilities";
+import { hideElement, showElement } from "./shared/utilities";
 import * as CollisionDetection from "./game/collision_detection";
 import World from "./game/world";
-import { b2DebugDraw, b2ContactListener, SCALE } from "./shared/constants";
-
-// global variables
-
-export let CANVAS: HTMLCanvasElement;
-let CANVAS_DEBUG;
+import { b2ContactListener } from "./shared/constants";
 
 const DEBUG = false;
 
@@ -33,16 +29,8 @@ const MUSIC = new Music({
     songIDs: ["Audio-music1", "Audio-music2"],
 });
 
-// createjs
 export let STAGE: createjs.Stage;
-
-// box2d physics
 export const WORLD = new World();
-
-// playable dimensions (the rest of the canvas is for menus/etc)
-export let GAME_WIDTH: number;
-export let GAME_HEIGHT: number;
-
 export let MAIN_SHIP: Ship;
 
 let MAP_MODE: MapTypeClass | null = null;
@@ -57,33 +45,12 @@ function initApp(data: AppData) {
     MainMenu.init();
     GameMenu.init();
 
-    // get a reference to the canvas we'll be working with
-    CANVAS = document.getElementById("MainCanvas") as HTMLCanvasElement;
-
-    // canvas for debugging the physics
-    CANVAS_DEBUG = document.getElementById("DebugCanvas") as HTMLCanvasElement;
+    const canvas = Canvas.init(DEBUG);
 
     // create a stage object to work with the canvas. This is the top level node in the display list
-    STAGE = new createjs.Stage(CANVAS);
+    STAGE = new createjs.Stage(canvas);
 
     createjs.Ticker.interval = 50;
-
-    if (DEBUG) {
-        showElement(CANVAS_DEBUG);
-        centerCanvas(CANVAS_DEBUG);
-
-        // setup debug draw
-        const debugDraw = new b2DebugDraw();
-        const debugContext = CANVAS_DEBUG.getContext("2d")!;
-
-        debugDraw.SetSprite(debugContext);
-        debugDraw.SetDrawScale(SCALE);
-        debugDraw.SetFillAlpha(0.4);
-        debugDraw.SetLineThickness(1);
-        debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
-
-        WORLD.setDebugDraw(debugDraw);
-    }
 
     const loading = new Message({ text: "Loading", centerWindow: true });
 
@@ -101,10 +68,7 @@ function initApp(data: AppData) {
 export function initGame() {
     resetStuff();
 
-    GameStatistics.start(CANVAS, STAGE);
-
-    GAME_WIDTH = CANVAS.width;
-    GAME_HEIGHT = CANVAS.height;
+    GameStatistics.start(STAGE);
 
     MAIN_SHIP = new Ship();
     MAIN_SHIP.addEventListener("dead", () => {
@@ -170,7 +134,7 @@ export function startGameMode(fromPreviousLevel?: boolean) {
 
     resetStuff();
 
-    showElement(CANVAS);
+    Canvas.showCanvas();
     GAME_OBJECT = new MAP_MODE!();
     GAME_OBJECT.loadMap?.(startingLevel);
 }

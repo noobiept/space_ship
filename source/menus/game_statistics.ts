@@ -1,4 +1,5 @@
 import * as ZIndex from "../game/z_index";
+import * as Canvas from "../game/canvas";
 
 let SCORE = 0;
 let SCORE_TEXT: createjs.Text;
@@ -9,7 +10,7 @@ let ENERGY_TEXT: createjs.Text;
 let NUMBER_OF_ENEMIES = 0;
 let NUMBER_OF_ENEMIES_TEXT: createjs.Text;
 
-export function start(canvas: HTMLCanvasElement, stage: createjs.Stage) {
+export function start(stage: createjs.Stage) {
     SCORE = 0;
     ENERGY = 100;
     NUMBER_OF_ENEMIES = 0;
@@ -26,7 +27,9 @@ export function start(canvas: HTMLCanvasElement, stage: createjs.Stage) {
     ZIndex.add(SCORE_TEXT);
 
     // position the text on screen, relative to the stage coordinates
-    SCORE_TEXT.x = canvas.width - 100;
+    const dimensions = Canvas.getDimensions();
+
+    SCORE_TEXT.x = dimensions.width - 100;
     SCORE_TEXT.y = 10;
 
     // :: Energy :: //

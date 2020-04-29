@@ -1,4 +1,5 @@
-import { STAGE, WORLD, GAME_WIDTH, GAME_HEIGHT } from "../main";
+import { STAGE, WORLD } from "../main";
+import * as Canvas from "../game/canvas";
 import * as ZIndex from "../game/z_index";
 import * as GameStatistics from "../menus/game_statistics";
 import { CollisionID, Category, Mask } from "../game/collision_detection";
@@ -141,14 +142,15 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     checkLimits() {
         const x = this.getX();
         const y = this.getY();
+        const { width, height } = Canvas.getDimensions();
 
         if (x < 0) {
-            this.moveTo(GAME_WIDTH, y);
-        } else if (x > GAME_WIDTH) {
+            this.moveTo(width, y);
+        } else if (x > width) {
             this.moveTo(0, y);
         } else if (y < 0) {
-            this.moveTo(x, GAME_HEIGHT);
-        } else if (y > GAME_HEIGHT) {
+            this.moveTo(x, height);
+        } else if (y > height) {
             this.moveTo(x, 0);
         }
     }

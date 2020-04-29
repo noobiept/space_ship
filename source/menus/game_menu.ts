@@ -1,5 +1,6 @@
 import * as MainMenu from "./main_menu";
-import { MAIN_SHIP, startGameMode, resume, pause, CANVAS } from "../main";
+import * as Canvas from "../game/canvas";
+import { MAIN_SHIP, startGameMode, resume, pause } from "../main";
 import Message from "../shared/message";
 import { hideElement, showElement } from "../shared/utilities";
 
@@ -95,7 +96,9 @@ export function reset() {
 
     // :: Position the menu :: //
     const menu = document.getElementById("GameMenu")!;
-    menu.style.width = CANVAS.width + "px";
+    const { width } = Canvas.getDimensions();
+
+    menu.style.width = width + "px";
     showElement(menu);
 
     toggleSubMenu(false);

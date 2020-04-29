@@ -4,7 +4,7 @@ import {
     toDegrees,
     getRandomInt,
 } from "@drk4/utilities";
-import { CANVAS } from "../main";
+import * as Canvas from "../game/canvas";
 import { b2Vec2, EnemyClasses, EnemyNames } from "./constants";
 import { GameElement } from "./types";
 import { getMusicVolume } from "./options";
@@ -14,7 +14,7 @@ import { getMusicVolume } from "./options";
  * If 'refElement' isn't given, its assumed to be the 'CANVAS'.
  */
 export function centerElement(element: HTMLElement, refElement?: HTMLElement) {
-    const reference = refElement ?? CANVAS;
+    const reference = refElement ?? Canvas.getReference();
 
     // the reference element may not be starting at 0,0 position, so we need to account for that
     const refRect = reference.getBoundingClientRect();
@@ -89,9 +89,7 @@ export function calculateAngleBetweenObjects(
 }
 
 export function outOfBounds(object: GameElement) {
-    const width = CANVAS.width;
-    const height = CANVAS.height;
-
+    const { width, height } = Canvas.getDimensions();
     const x = object.getX();
     const y = object.getY();
 

@@ -1,10 +1,11 @@
 import { EventDispatcher } from "@drk4/utilities";
-import { GAME_WIDTH, GAME_HEIGHT, STAGE, CANVAS, WORLD } from "../main";
+import { STAGE, WORLD } from "../main";
 import { KEYS_HELD } from "../keyboard_events";
 import Bullet1_laser from "../bullets/bullet1_laser";
 import Bullet2_sniper from "../bullets/bullet2_sniper";
 import Bullet3_rocket from "../bullets/bullet3_rocket";
 import Bullet4_mines from "../bullets/bullet4_mines";
+import * as Canvas from "./canvas";
 import * as GameStatistics from "../menus/game_statistics";
 import * as ZIndex from "./z_index";
 import * as GameMenu from "../menus/game_menu";
@@ -80,7 +81,8 @@ export default class Ship extends EventDispatcher<ShipEvent>
 
         Ship.all.push(this);
 
-        this.moveTo(GAME_WIDTH / 2, GAME_HEIGHT / 2);
+        const { width, height } = Canvas.getDimensions();
+        this.moveTo(width / 2, height / 2);
 
         STAGE.addChild(this.shape);
         ZIndex.add(this.shape);
@@ -221,7 +223,9 @@ export default class Ship extends EventDispatcher<ShipEvent>
     }
 
     static inRightLimit(x: number) {
-        if (x > GAME_WIDTH) {
+        const { width } = Canvas.getDimensions();
+
+        if (x > width) {
             return true;
         }
 
@@ -229,7 +233,9 @@ export default class Ship extends EventDispatcher<ShipEvent>
     }
 
     static inBottomLimit(y: number) {
-        if (y > GAME_HEIGHT) {
+        const { height } = Canvas.getDimensions();
+
+        if (y > height) {
             return true;
         }
 
@@ -257,7 +263,7 @@ export default class Ship extends EventDispatcher<ShipEvent>
      * Rotate the ship on mouse move.
      */
     handleMouseMove(event: MouseEvent) {
-        const canvasPosition = CANVAS.getBoundingClientRect();
+        const canvasPosition = Canvas.getReference().getBoundingClientRect();
 
         // mouse position in the canvas (assume origin point in top/left of canvas element)
         const mouseX = event.pageX - canvasPosition.left;

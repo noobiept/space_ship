@@ -1,13 +1,9 @@
 import { getRandomInt } from "@drk4/utilities";
-import {
-    initGame,
-    GAME_WIDTH,
-    GAME_HEIGHT,
-    MAIN_SHIP,
-    nextSong,
-} from "../main";
-import Message from "../shared/message";
+
 import * as MainMenu from "../menus/main_menu";
+import * as Canvas from "../game/canvas";
+import { initGame, MAIN_SHIP, nextSong } from "../main";
+import Message from "../shared/message";
 import EnemyShip from "../enemies/enemy_ship";
 import { MapType, LevelInfo, LevelInfoPhase } from "../shared/types";
 import { EnemyMapping } from "../shared/constants";
@@ -109,11 +105,12 @@ export default class Maps implements MapType {
         const howMany = phase.howMany;
         const damage = map.damage[phase.enemyType];
         const velocity = map.velocity[phase.enemyType];
+        const { width, height } = Canvas.getDimensions();
 
         // get the x/y and create the enemy
         for (let i = 0; i < howMany; i++) {
-            const x = getRandomInt(0, GAME_WIDTH);
-            const y = getRandomInt(0, GAME_HEIGHT);
+            const x = getRandomInt(0, width);
+            const y = getRandomInt(0, height);
 
             new enemyType({
                 x: x,

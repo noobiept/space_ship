@@ -1,5 +1,6 @@
 import { getRandomInt } from "@drk4/utilities";
-import { initGame, GAME_WIDTH, GAME_HEIGHT } from "../main";
+import * as Canvas from "../game/canvas";
+import { initGame } from "../main";
 import { MapType } from "../shared/types";
 import { getRandomEnemy } from "../shared/utilities";
 
@@ -65,10 +66,11 @@ export default class EndlessMode implements MapType {
 
             const enemy = getRandomEnemy();
             const numberOfEnemies = 3;
+            const { width, height } = Canvas.getDimensions();
 
             for (let i = 0; i < numberOfEnemies; i++) {
-                const x = getRandomInt(0, GAME_WIDTH);
-                const y = getRandomInt(0, GAME_HEIGHT);
+                const x = getRandomInt(0, width);
+                const y = getRandomInt(0, height);
 
                 new enemy.class({
                     x: x,

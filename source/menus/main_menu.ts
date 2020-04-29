@@ -1,5 +1,6 @@
 import { KEY_CODE } from "@drk4/utilities";
-import { CANVAS, resetStuff, startGameMode, setMapMode } from "../main";
+import { resetStuff, startGameMode, setMapMode } from "../main";
+import * as Canvas from "../game/canvas";
 import * as Options from "../shared/options";
 import { hideElement, showElement } from "../shared/utilities";
 import RandomMaps from "../maps/random_maps";
@@ -47,7 +48,7 @@ export function init() {
 }
 
 export function open() {
-    hideElement(CANVAS);
+    Canvas.hideCanvas();
     resetStuff();
     cleanUp();
 
