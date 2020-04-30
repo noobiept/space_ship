@@ -14,6 +14,7 @@ export type MessageArgs = {
 
 export default class Message {
     private message: HTMLElement;
+    private timeoutID?: number;
 
     constructor({
         x,
@@ -48,7 +49,7 @@ export default class Message {
         }
 
         if (typeof timeOut !== "undefined") {
-            window.setTimeout(() => {
+            this.timeoutID = window.setTimeout(() => {
                 this.remove();
 
                 if (onTimeout) {
@@ -67,6 +68,9 @@ export default class Message {
     }
 
     remove(removeFromAll = true) {
+        window.clearTimeout(this.timeoutID);
+        this.timeoutID = undefined;
+
         const container = this.message.parentElement;
         container?.removeChild(this.message);
 
