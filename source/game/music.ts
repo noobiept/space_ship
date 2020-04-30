@@ -8,7 +8,8 @@ export default class Music {
     private songIDs: string[];
     private currentSong = 0;
     private isPlaying = false;
-    private intervalID = -1;
+    private playIntervalID?: number;
+    private stopIntervalID?: number;
 
     constructor({ songIDs }: MusicArgs) {
         this.songIDs = songIDs;
@@ -18,7 +19,9 @@ export default class Music {
      * Position (0 based) from the given IDs list in the constructor, which tells the song to play.
      */
     play(songPosition: number) {
-        this.stop();
+        if (this.currentSong !== songPosition) {
+            this.stop(false);
+        }
 
         if (songPosition < 0 || songPosition >= this.songIDs.length) {
             songPosition = 0;
@@ -37,14 +40,12 @@ export default class Music {
         this.isPlaying = true;
 
         // keep raising the volume
-        this.startInterval(music, 0, volume, () => {
+        this.playIntervalID = this.startInterval(music, 0, volume, () => {
             music.volume = volume;
         });
     }
 
     next() {
-        this.stop();
-
         let nextPosition = this.currentSong + 1;
 
         if (nextPosition >= this.songIDs.length) {
@@ -54,19 +55,33 @@ export default class Music {
         this.play(nextPosition);
     }
 
-    stop() {
+    stop(immediately = true) {
         if (!this.isPlaying) {
             return;
         }
+
+        // stop any previous interval that might be running
+        window.clearInterval(this.playIntervalID);
+        window.clearInterval(this.stopIntervalID);
 
         const music = document.getElementById(
             this.songIDs[this.currentSong]
         ) as HTMLAudioElement;
 
         this.isPlaying = false;
-        this.startInterval(music, music.volume, 0, () => {
+
+        if (immediately) {
             music.pause();
-        });
+        } else {
+            this.stopIntervalID = this.startInterval(
+                music,
+                music.volume,
+                0,
+                () => {
+                    music.pause();
+                }
+            );
+        }
     }
 
     /**
@@ -78,16 +93,13 @@ export default class Music {
         endVolume: number,
         onEnd: () => void
     ) {
-        // stop any previous interval that might be running
-        window.clearInterval(this.intervalID);
-
         let count = 0;
         const ticks = 5; // number of updates to the volume
         const duration = 1000;
         const delta = duration / ticks;
         const changeEachTick = (endVolume - startVolume) / ticks;
 
-        this.intervalID = window.setInterval(() => {
+        const interval = window.setInterval(() => {
             let newVolume = element.volume + changeEachTick;
             if (newVolume < 0) {
                 newVolume = 0;
@@ -99,9 +111,11 @@ export default class Music {
             count += delta;
 
             if (count >= duration) {
-                window.clearInterval(this.intervalID);
+                window.clearInterval(interval);
                 onEnd();
             }
         }, delta);
+
+        return interval;
     }
 }
