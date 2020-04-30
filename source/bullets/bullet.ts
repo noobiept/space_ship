@@ -183,14 +183,15 @@ export default abstract class Bullet<Args extends BulletArgs>
         this.removed = true;
     }
 
-    removeNow() {
-        const all = Bullet.all_bullets;
-
+    removeNow(removeFromAll = true) {
         STAGE.removeChild(this.shape);
         WORLD.destroyBody(this.body);
 
-        const position = all.indexOf(this);
-        all.splice(position, 1);
+        if (removeFromAll) {
+            const all = Bullet.all_bullets;
+            const position = all.indexOf(this);
+            all.splice(position, 1);
+        }
     }
 
     tick(event: createjs.TickerEvent) {
@@ -206,7 +207,7 @@ export default abstract class Bullet<Args extends BulletArgs>
      */
     static removeAllBullets() {
         for (let a = Bullet.all_bullets.length - 1; a >= 0; a--) {
-            Bullet.all_bullets[a].removeNow();
+            Bullet.all_bullets[a].removeNow(false);
         }
 
         Bullet.all_bullets.length = 0;

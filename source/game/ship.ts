@@ -377,24 +377,26 @@ export default class Ship extends EventDispatcher<ShipEvent>
     /*
      * Remove this ship.
      */
-    remove() {
+    remove(removeFromAll = true) {
         STAGE.removeChild(this.shape);
         WORLD.destroyBody(this.body);
 
-        const position = Ship.all.indexOf(this);
-
-        Ship.all.splice(position, 1);
+        if (removeFromAll) {
+            const position = Ship.all.indexOf(this);
+            Ship.all.splice(position, 1);
+        }
 
         this.clearEvents();
     }
 
     /*
-     * Remove all the ships
+     * Remove all the ships.
      */
     static removeAll() {
         Ship.all.forEach((ship) => {
-            ship.remove();
+            ship.remove(false);
         });
+        Ship.all.length = 0;
     }
 
     tick() {

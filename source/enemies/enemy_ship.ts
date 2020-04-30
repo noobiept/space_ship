@@ -158,13 +158,14 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     /*
      * Remove the enemy ship, and update the game statistics.
      */
-    remove() {
+    remove(removeFromAll = true) {
         STAGE.removeChild(this.shape);
         WORLD.destroyBody(this.body);
 
-        const position = EnemyShip.all.indexOf(this);
-
-        EnemyShip.all.splice(position, 1);
+        if (removeFromAll) {
+            const position = EnemyShip.all.indexOf(this);
+            EnemyShip.all.splice(position, 1);
+        }
 
         GameStatistics.updateNumberOfEnemies(
             GameStatistics.getNumberOfEnemies() - 1
@@ -178,17 +179,15 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
      */
     static removeAll() {
         EnemyShip.all.forEach((ship) => {
-            ship.remove();
+            ship.remove(false);
         });
+        EnemyShip.all.length = 0;
 
         EnemyShip.all_spawning.forEach((ship) => {
             STAGE.removeChild(ship.shape);
             WORLD.destroyBody(ship.body);
-
-            const position = EnemyShip.all_spawning.indexOf(ship);
-
-            EnemyShip.all_spawning.splice(position, 1);
         });
+        EnemyShip.all_spawning.length = 0;
     }
 
     /*

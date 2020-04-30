@@ -107,7 +107,7 @@ function gameOver(ship: Ship) {
     window.onclick = null; // so that you can't fire anymore
 
     const endMessage = new Message({
-        text: "Game Over: Press enter to restart",
+        text: "Game Over!<br/>Press enter to restart",
     });
 
     document.onkeyup = gameOverShortcuts(() => {

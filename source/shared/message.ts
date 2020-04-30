@@ -66,19 +66,18 @@ export default class Message {
         this.message.innerHTML = text;
     }
 
-    remove() {
+    remove(removeFromAll = true) {
         const container = this.message.parentElement;
         container?.removeChild(this.message);
 
-        const position = ALL_MESSAGES.indexOf(this);
-        ALL_MESSAGES.splice(position, 1);
+        if (removeFromAll) {
+            const position = ALL_MESSAGES.indexOf(this);
+            ALL_MESSAGES.splice(position, 1);
+        }
     }
 
     static removeAll() {
-        for (let i = 0; i < ALL_MESSAGES.length; i++) {
-            ALL_MESSAGES[i].remove();
-
-            i--;
-        }
+        ALL_MESSAGES.forEach((message) => message.remove(false));
+        ALL_MESSAGES.length = 0;
     }
 }
