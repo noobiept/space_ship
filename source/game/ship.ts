@@ -318,7 +318,7 @@ export default class Ship extends EventDispatcher<ShipEvent>
                 this.getBulletsLeft(weaponSelected)
             );
         } else {
-            playSound("Audio-dryFire");
+            playSound("Audio-dryFire", 0.3);
         }
     }
 

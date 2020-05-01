@@ -121,12 +121,13 @@ export function hideElement(elementOrID: HTMLElement | string) {
 
 /**
  * Play a sound from an existing audio element.
+ * You can reduce the volume being played (a percentage of the current set global volume).
  */
-export function playSound(id: string) {
+export function playSound(id: string, volumeAttenuation = 1) {
     const volume = getMusicVolume();
     const music = document.getElementById(id) as HTMLAudioElement;
     music.currentTime = 0;
-    music.volume = volume;
+    music.volume = volume * volumeAttenuation;
     music.play();
 }
 
