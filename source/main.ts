@@ -215,3 +215,10 @@ function tick(event: createjs.TickerEvent) {
 export function nextSong() {
     MUSIC.next();
 }
+
+/**
+ * To know if we're on debug mode or not.
+ */
+export function inDebugMode() {
+    return DEBUG;
+}

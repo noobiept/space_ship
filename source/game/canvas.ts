@@ -1,6 +1,6 @@
-import { showElement, centerCanvas, hideElement } from "../shared/utilities";
+import { showElement, hideElement } from "../shared/utilities";
 import { b2DebugDraw, SCALE } from "../shared/constants";
-import { WORLD } from "../main";
+import { WORLD, inDebugMode } from "../main";
 
 let CANVAS: HTMLCanvasElement;
 let CANVAS_DEBUG: HTMLCanvasElement;
@@ -13,9 +13,6 @@ export function init(debug: boolean) {
     CANVAS_DEBUG = document.getElementById("DebugCanvas") as HTMLCanvasElement;
 
     if (debug) {
-        showElement(CANVAS_DEBUG);
-        centerCanvas(CANVAS_DEBUG);
-
         // setup debug draw
         const debugDraw = new b2DebugDraw();
         const debugContext = CANVAS_DEBUG.getContext("2d")!;
@@ -41,10 +38,18 @@ export function getDimensions() {
 
 export function showCanvas() {
     showElement(CANVAS);
+
+    if (inDebugMode()) {
+        showElement(CANVAS_DEBUG);
+    }
 }
 
 export function hideCanvas() {
     hideElement(CANVAS);
+
+    if (inDebugMode()) {
+        hideElement(CANVAS_DEBUG);
+    }
 }
 
 export function getReference() {

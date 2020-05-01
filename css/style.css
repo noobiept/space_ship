@@ -18,14 +18,6 @@ body {
     user-select: none;
 }
 
-#DebugCanvas {
-    position: absolute;
-}
-
-#MainCanvas {
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
 .Message {
     position: absolute;
     font-size: 1.5em;
@@ -45,6 +37,22 @@ body {
 
 .hidden {
     display: none !important;
+}
+
+/* Canvas elements */
+
+#CanvasContainer {
+    position: relative;
+}
+
+#DebugCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#MainCanvas {
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* z-index */

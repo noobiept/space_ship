@@ -30,17 +30,6 @@ export function centerElement(element: HTMLElement, refElement?: HTMLElement) {
 }
 
 /**
- * Center the canvas in the middle of window.
- */
-export function centerCanvas(canvasElement: HTMLCanvasElement) {
-    const left = window.innerWidth / 2 - canvasElement.width / 2;
-    const top = window.innerHeight / 2 - canvasElement.height / 2;
-
-    canvasElement.style.left = left + "px";
-    canvasElement.style.top = top + "px";
-}
-
-/**
  * Applies an impulse to a body (box2d).
  */
 export function applyImpulse(
