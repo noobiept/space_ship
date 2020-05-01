@@ -1,6 +1,6 @@
 import { getRandomFloat } from "@drk4/utilities";
 import EnemyShip, { EnemyShipArgs } from "./enemy_ship";
-import { PRELOAD, WORLD } from "../main";
+import { WORLD } from "../main";
 import { Category, Mask } from "../game/collision_detection";
 import {
     b2FixtureDef,
@@ -10,6 +10,7 @@ import {
     b2Vec2,
     SCALE,
 } from "../shared/constants";
+import { getAsset } from "../shared/assets";
 
 export type FullEnemyRocksArgs = {
     scale?: number; // scale the original image (1 -> 100%, no scaling)
@@ -19,8 +20,7 @@ export type FullEnemyRocksArgs = {
 export type EnemyRocksArgs = Omit<FullEnemyRocksArgs, "width" | "height">;
 
 export default class EnemyRocks extends EnemyShip<FullEnemyRocksArgs> {
-    scale = 1;
-    angleRadians!: number;
+    private angleRadians!: number;
 
     constructor(args: EnemyRocksArgs) {
         super({
@@ -51,7 +51,7 @@ export default class EnemyRocks extends EnemyShip<FullEnemyRocksArgs> {
                 width,
                 height,
             },
-            images: [PRELOAD.getResult("enemy_rocks")],
+            images: [getAsset("enemy_rocks")],
         };
 
         const sprite = new createjs.SpriteSheet(spriteConfig);
@@ -67,7 +67,6 @@ export default class EnemyRocks extends EnemyShip<FullEnemyRocksArgs> {
         // don't update these variables before the scaling (they're are used in the config above, and the scaling is applied later)
         this.width *= scale;
         this.height *= scale;
-        this.scale = scale;
 
         // it moves
         this.angleRadians = getRandomFloat(0, 2 * Math.PI);
@@ -78,11 +77,11 @@ export default class EnemyRocks extends EnemyShip<FullEnemyRocksArgs> {
     }
 
     setupPhysics() {
-        var width = this.width;
-        var height = this.height;
+        const width = this.width;
+        const height = this.height;
 
         // physics
-        var fixDef = new b2FixtureDef();
+        const fixDef = new b2FixtureDef();
 
         fixDef.density = 1;
         fixDef.friction = 0.5;
@@ -113,8 +112,8 @@ export default class EnemyRocks extends EnemyShip<FullEnemyRocksArgs> {
     }
 
     enemyBehaviour() {
-        var x = Math.sin(this.angleRadians) * this.velocity;
-        var y = Math.cos(this.angleRadians) * this.velocity;
+        const x = Math.sin(this.angleRadians) * this.velocity;
+        const y = Math.cos(this.angleRadians) * this.velocity;
 
         this.body.SetLinearVelocity(new b2Vec2(x, y));
 
@@ -122,8 +121,8 @@ export default class EnemyRocks extends EnemyShip<FullEnemyRocksArgs> {
     }
 
     /*
-    When it takes damage, create new smaller rocks
- */
+     * When it takes damage, create new smaller rocks.
+     */
     tookDamage() {
         if (this.width >= 50) {
             for (let i = 0; i < 3; i++) {

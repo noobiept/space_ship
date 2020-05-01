@@ -1,17 +1,17 @@
 import * as MainMenu from "./main_menu";
-import { MAIN_SHIP, startGameMode, resume, pause, CANVAS } from "../main";
+import * as Canvas from "../game/canvas";
+import { MAIN_SHIP, startGameMode, resume, pause } from "../main";
 import Message from "../shared/message";
 import { hideElement, showElement } from "../shared/utilities";
 
 let WEAPON_SELECTED = 0;
+let SUB_MENU_OPENED = false;
+let PAUSED_MESSAGE: Message | null = null;
+
 const WEAPON_ELEMENTS: HTMLElement[] = [];
 const BULLETS_LEFT_ELEMENTS: HTMLElement[] = [];
 
 export function init() {
-    clear();
-
-    const menu = document.getElementById("GameMenu")!;
-
     // :: Weapons Selection :: //
     const weapon1 = document.getElementById("GameMenu-weapon1")!;
     const weapon2 = document.getElementById("GameMenu-weapon2")!;
@@ -21,7 +21,7 @@ export function init() {
     WEAPON_ELEMENTS.push(weapon1, weapon2, weapon3, weapon4);
 
     WEAPON_SELECTED = 0;
-    $(weapon1).addClass("WeaponsSelected");
+    weapon1.classList.add("WeaponsSelected");
 
     weapon1.onclick = function () {
         MAIN_SHIP.selectWeapon(0);
@@ -53,11 +53,9 @@ export function init() {
         bulletsLeft4
     );
 
-    updateAllBulletsLeft();
-
     // :: Restart :: //
 
-    var restart = document.getElementById("GameMenu-restart")!;
+    const restart = document.getElementById("GameMenu-restart")!;
 
     restart.onclick = function (event) {
         startGameMode(true);
@@ -82,67 +80,88 @@ export function init() {
 
     const openMenu = document.getElementById("GameMenu-openMenu")!;
 
-    $(openMenu).text("Menu");
-
-    let isOpened = false;
-    let pausedMessage: Message | null = null;
-
-    openMenu.onclick = function (event) {
-        if (isOpened) {
-            isOpened = false;
-            pausedMessage?.remove();
-
-            $(openMenu).text("Menu");
-
-            hideElement(quit);
-            hideElement(restart);
-
-            resume();
-        } else {
-            isOpened = true;
-
-            pausedMessage = new Message({
-                text: "Paused",
-                cssClass: "GamePausedMessage",
-            });
-
-            $(openMenu).text("Back");
-
-            showElement(quit);
-            showElement(restart);
-
-            pause();
-        }
-
+    openMenu.innerText = "Menu";
+    openMenu.onclick = (event) => {
+        toggleSubMenu();
         event.stopPropagation();
     };
+}
+
+/**
+ * Reset the menu to the initial values.
+ */
+export function reset() {
+    selectWeapon(0);
+    updateAllBulletsLeft();
 
     // :: Position the menu :: //
-    menu.style.width = CANVAS.width + "px";
+    const menu = document.getElementById("GameMenu")!;
+    const { width } = Canvas.getDimensions();
+
+    menu.style.width = width + "px";
     showElement(menu);
+
+    toggleSubMenu(false);
+}
+
+function toggleSubMenu(forceState?: boolean) {
+    const openMenu = document.getElementById("GameMenu-openMenu")!;
+    const quit = document.getElementById("GameMenu-quit")!;
+    const restart = document.getElementById("GameMenu-restart")!;
+
+    let open = !SUB_MENU_OPENED;
+    if (typeof forceState === "boolean") {
+        open = forceState;
+    }
+
+    if (open) {
+        PAUSED_MESSAGE = new Message({
+            text: "Paused",
+            cssClass: "GamePausedMessage",
+        });
+
+        openMenu.innerText = "Back";
+
+        showElement(quit);
+        showElement(restart);
+
+        pause();
+    } else {
+        PAUSED_MESSAGE?.remove();
+        PAUSED_MESSAGE = null;
+
+        openMenu.innerText = "Menu";
+
+        hideElement(quit);
+        hideElement(restart);
+
+        resume();
+    }
+
+    SUB_MENU_OPENED = open;
 }
 
 /*
-    number is zero-based
+ * `number` is zero-based.
  */
 export function selectWeapon(number: number) {
     if (number !== WEAPON_SELECTED) {
         // remove the css class from the previous element
-        $(WEAPON_ELEMENTS[WEAPON_SELECTED]).removeClass("WeaponsSelected");
+        WEAPON_ELEMENTS[WEAPON_SELECTED].classList.remove("WeaponsSelected");
 
         WEAPON_SELECTED = number;
 
         // add to the new
-        $(WEAPON_ELEMENTS[WEAPON_SELECTED]).addClass("WeaponsSelected");
+        WEAPON_ELEMENTS[WEAPON_SELECTED].classList.add("WeaponsSelected");
     }
 }
 
 /*
-    Updates the number of bullets left (zero-based)
+ * Updates the number of bullets left (zero-based).
  */
 export function updateBulletsLeft(weapon: number, bulletsLeft: number) {
     const bulletsElement = BULLETS_LEFT_ELEMENTS[weapon];
-    $(bulletsElement).text(bulletsLeft);
+    bulletsElement.innerText = bulletsLeft.toString();
 }
 
 export function updateAllBulletsLeft() {
@@ -152,7 +171,7 @@ export function updateAllBulletsLeft() {
 }
 
 export function clear() {
-    $(WEAPON_ELEMENTS[WEAPON_SELECTED]).removeClass("WeaponsSelected");
+    WEAPON_ELEMENTS[WEAPON_SELECTED].classList.remove("WeaponsSelected");
 
     WEAPON_ELEMENTS.length = 0;
     BULLETS_LEFT_ELEMENTS.length = 0;

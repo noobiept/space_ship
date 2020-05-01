@@ -41,9 +41,8 @@ export default class Bullet3_rocket extends Bullet<Bullet3_rocketArgs> {
     }
 
     /*
-    What to do to the bullet when a collision is detected
- */
-
+     * What to do to the bullet when a collision is detected.
+     */
     collisionResponse() {
         this.remove();
 

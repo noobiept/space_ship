@@ -14,6 +14,7 @@ export type MessageArgs = {
 
 export default class Message {
     private message: HTMLElement;
+    private timeoutID?: number;
 
     constructor({
         x,
@@ -28,8 +29,8 @@ export default class Message {
         const message = document.createElement("div");
 
         message.className = "Message";
+        message.innerHTML = text;
 
-        $(message).html(text);
         container.appendChild(message);
 
         if (typeof x === "undefined") {
@@ -39,16 +40,16 @@ export default class Message {
                 centerElement(message);
             }
         } else {
-            $(message).css("left", x + "px");
-            $(message).css("top", y + "px");
+            message.style.left = x + "px";
+            message.style.top = y + "px";
         }
 
         if (typeof cssClass != "undefined") {
-            $(message).addClass(cssClass);
+            message.classList.add(cssClass);
         }
 
         if (typeof timeOut !== "undefined") {
-            window.setTimeout(() => {
+            this.timeoutID = window.setTimeout(() => {
                 this.remove();
 
                 if (onTimeout) {
@@ -63,22 +64,24 @@ export default class Message {
     }
 
     setText(text: string) {
-        $(this.message).html(text);
+        this.message.innerHTML = text;
     }
 
-    remove() {
-        $(this.message).remove();
+    remove(removeFromAll = true) {
+        window.clearTimeout(this.timeoutID);
+        this.timeoutID = undefined;
 
-        var position = ALL_MESSAGES.indexOf(this);
+        const container = this.message.parentElement;
+        container?.removeChild(this.message);
 
-        ALL_MESSAGES.splice(position, 1);
+        if (removeFromAll) {
+            const position = ALL_MESSAGES.indexOf(this);
+            ALL_MESSAGES.splice(position, 1);
+        }
     }
 
     static removeAll() {
-        for (var i = 0; i < ALL_MESSAGES.length; i++) {
-            ALL_MESSAGES[i].remove();
-
-            i--;
-        }
+        ALL_MESSAGES.forEach((message) => message.remove(false));
+        ALL_MESSAGES.length = 0;
     }
 }

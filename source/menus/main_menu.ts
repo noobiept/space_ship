@@ -1,12 +1,6 @@
 import { KEY_CODE } from "@drk4/utilities";
-import {
-    CANVAS,
-    resetStuff,
-    startGameMode,
-    STAGE,
-    setMapMode,
-    removeLoadingMessage,
-} from "../main";
+import { resetStuff, startGameMode, setMapMode } from "../main";
+import * as Canvas from "../game/canvas";
 import * as Options from "../shared/options";
 import { hideElement, showElement } from "../shared/utilities";
 import RandomMaps from "../maps/random_maps";
@@ -49,12 +43,12 @@ export function init() {
     randomMaps.onclick = listener(openRandomMaps);
     endlessMode.onclick = listener(openEndlessMode);
     options.onclick = listener(openOptions);
+
+    initOptions();
 }
 
 export function open() {
-    removeLoadingMessage();
-    hideElement(CANVAS);
-
+    Canvas.hideCanvas();
     resetStuff();
     cleanUp();
 
@@ -66,7 +60,6 @@ export function open() {
     predefinedMaps.classList.add("MainMenu-entrySelected");
 
     document.onkeyup = keyboardEvents;
-    STAGE.update(); //HERE
 }
 
 function openPredefinedMaps() {
@@ -89,41 +82,11 @@ function openEndlessMode() {
 
 function openOptions() {
     cleanUp();
-
-    // :: Music Volume :: //
-
-    const musicVolume = document.getElementById("Options-musicVolume")!;
-    const musicVolumeSpan = musicVolume.querySelector("span")!;
-
-    const musicVolumeValue = Math.round(Options.getMusicVolume() * 100);
-    $(musicVolumeSpan).text(musicVolumeValue + "%");
-
-    const musicVolumeSlider = musicVolume.querySelector(
-        "#Options-musicVolume-slider"
-    )!;
-    $(musicVolumeSlider).slider({
-        min: 0,
-        max: 100,
-        step: 1,
-        value: musicVolumeValue,
-        range: "min",
-        slide: function (event, ui) {
-            $(musicVolumeSpan).text(ui.value + "%");
-            Options.setMusicVolume(ui.value! / 100);
-        },
-    });
-
-    const back = document.getElementById("Options-back")!;
-    back.onclick = function () {
-        Options.save();
-        open();
-    };
-
     showElement("Options");
 }
 
 function keyboardEvents(event: KeyboardEvent) {
-    var key = event.keyCode;
+    const key = event.keyCode;
 
     // start the game
     if (key === KEY_CODE.enter) {
@@ -136,10 +99,10 @@ function keyboardEvents(event: KeyboardEvent) {
 }
 
 /*
-    Select the next entry on the menu (update the animation)
+ * Select the next entry on the menu (update the animation).
  */
 function selectNextEntry() {
-    var previousEntry = ENTRY_SELECTED;
+    const previousEntry = ENTRY_SELECTED;
 
     ENTRY_SELECTED++;
 
@@ -147,15 +110,15 @@ function selectNextEntry() {
         ENTRY_SELECTED = 0;
     }
 
-    $(ENTRIES_ELEMENTS[previousEntry]).removeClass("MainMenu-entrySelected");
-    $(ENTRIES_ELEMENTS[ENTRY_SELECTED]).addClass("MainMenu-entrySelected");
+    ENTRIES_ELEMENTS[previousEntry].classList.remove("MainMenu-entrySelected");
+    ENTRIES_ELEMENTS[ENTRY_SELECTED].classList.add("MainMenu-entrySelected");
 }
 
 /*
-    Select the previous entry on the menu (update the animation)
+ * Select the previous entry on the menu (update the animation).
  */
 function selectPreviousEntry() {
-    var previousEntry = ENTRY_SELECTED;
+    const previousEntry = ENTRY_SELECTED;
 
     ENTRY_SELECTED--;
 
@@ -171,7 +134,7 @@ function selectPreviousEntry() {
 }
 
 /*
-    Call when moving away from the MainMenu
+ * Call when moving away from the MainMenu.
  */
 function cleanUp() {
     hideElement("MainMenu");
@@ -183,4 +146,28 @@ function cleanUp() {
     selected.classList.remove("MainMenu-entrySelected");
 
     ENTRY_SELECTED = 0;
+}
+
+function initOptions() {
+    const musicVolumeValue = Math.round(Options.getMusicVolume() * 100);
+    const musicVolume = document.getElementById("Options-musicVolume")!;
+    const volume = document.getElementById(
+        "Options-RangeInput"
+    ) as HTMLInputElement;
+
+    volume.value = musicVolumeValue.toString();
+    musicVolume.innerText = musicVolumeValue + "%";
+
+    volume.oninput = () => {
+        const value = volume.value;
+
+        musicVolume.innerText = value + "%";
+        Options.setMusicVolume(parseInt(value) / 100);
+    };
+
+    const back = document.getElementById("Options-back")!;
+    back.onclick = function () {
+        Options.save();
+        open();
+    };
 }

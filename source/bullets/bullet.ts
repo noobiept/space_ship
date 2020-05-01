@@ -31,18 +31,20 @@ export type AdditionalBulletArgs = {
 
 export default abstract class Bullet<Args extends BulletArgs>
     implements GameElement {
-    shape: createjs.Shape;
     type = CollisionID.bullet;
     body: Box2D.Dynamics.b2Body;
     fixDef: Box2D.Dynamics.b2FixtureDef;
-    damage: number;
-    removed: boolean;
-    width: number;
-    height: number;
-    color: string;
-    speed: number;
-    angleRotation: number;
     alreadyInCollision = false;
+
+    protected shape: createjs.Shape;
+    protected width: number;
+    protected color: string;
+    protected speed: number;
+    protected angleRotation: number;
+
+    private damage: number;
+    private removed: boolean;
+    private height: number;
 
     // all the bullets (from the enemies or the main ship)
     static all_bullets: Bullet<BulletArgs>[] = [];
@@ -81,12 +83,11 @@ export default abstract class Bullet<Args extends BulletArgs>
         Bullet.all_bullets.push(this);
 
         // fire from outside the main ship radius (so it doesn't collide immediately with it)
-        var shipRadius = MAIN_SHIP.width / 2;
+        const shipRadius = MAIN_SHIP.width / 2;
+        const radians = toRadians(angleRotation);
 
-        var radians = toRadians(angleRotation);
-
-        var addX = Math.cos(radians) * shipRadius;
-        var addY = Math.sin(radians) * shipRadius;
+        const addX = Math.cos(radians) * shipRadius;
+        const addY = Math.sin(radians) * shipRadius;
 
         this.rotate(angleRotation);
         this.moveTo(x + addX, y + addY);
@@ -156,15 +157,15 @@ export default abstract class Bullet<Args extends BulletArgs>
     }
 
     /*
-    How much damage the bullets gives to the ship when it hits
- */
+     * How much damage the bullets gives to the ship when it hits.
+     */
     damageGiven() {
         return this.damage;
     }
 
     /*
-    What to do to the bullet when a collision is detected
- */
+     * What to do to the bullet when a collision is detected.
+     */
     collisionResponse() {
         // default is to remove the bullet, but you can override this function to do something else
         this.remove();
@@ -176,20 +177,21 @@ export default abstract class Bullet<Args extends BulletArgs>
     }
 
     /*
-    Remove the bullet from the stage
- */
+     * Mark the bullet as removed from the stage.
+     */
     remove() {
         this.removed = true;
     }
 
-    removeNow() {
-        const all = Bullet.all_bullets;
-
+    removeNow(removeFromAll = true) {
         STAGE.removeChild(this.shape);
         WORLD.destroyBody(this.body);
 
-        const position = all.indexOf(this);
-        all.splice(position, 1);
+        if (removeFromAll) {
+            const all = Bullet.all_bullets;
+            const position = all.indexOf(this);
+            all.splice(position, 1);
+        }
     }
 
     tick(event: createjs.TickerEvent) {
@@ -201,11 +203,11 @@ export default abstract class Bullet<Args extends BulletArgs>
     }
 
     /*
-    Remove all bullets.
- */
+     * Remove all bullets.
+     */
     static removeAllBullets() {
-        for (var a = Bullet.all_bullets.length - 1; a >= 0; a--) {
-            Bullet.all_bullets[a].removeNow();
+        for (let a = Bullet.all_bullets.length - 1; a >= 0; a--) {
+            Bullet.all_bullets[a].removeNow(false);
         }
 
         Bullet.all_bullets.length = 0;

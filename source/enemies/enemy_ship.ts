@@ -1,4 +1,5 @@
-import { STAGE, WORLD, GAME_WIDTH, GAME_HEIGHT } from "../main";
+import { STAGE, WORLD } from "../main";
+import * as Canvas from "../game/canvas";
 import * as ZIndex from "../game/z_index";
 import * as GameStatistics from "../menus/game_statistics";
 import { CollisionID, Category, Mask } from "../game/collision_detection";
@@ -19,25 +20,27 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     static all: EnemyShip<EnemyShipArgs>[] = [];
     static all_spawning: EnemyShip<EnemyShipArgs>[] = [];
 
+    alreadyInCollision = false;
     type = CollisionID.enemy;
-    spawnTicks_int: number;
-    shape: createjs.Sprite;
     body: Box2D.Dynamics.b2Body;
     fixDef: Box2D.Dynamics.b2FixtureDef;
-    category_bits!: Category;
-    mask_bits!: Mask;
-    damage: number;
-    velocity: number;
-    width: number;
-    height: number;
-    alreadyInCollision = false;
     tick: (event: createjs.TickerEvent) => void; // this will point to spawningTick() or normalTick()
+
+    protected width: number;
+    protected height: number;
+    protected category_bits!: Category;
+    protected mask_bits!: Mask;
+    protected shape: createjs.Sprite;
+    protected damage: number;
+    protected velocity: number;
+
+    private spawnTicks: number;
 
     constructor(args: Args) {
         const { x, y, width, height, damage, velocity } = args;
 
         // the number of ticks it takes until the enemy can start moving/firing/being killed
-        this.spawnTicks_int = 20;
+        this.spawnTicks = 20;
         this.width = width;
         this.height = height;
         this.damage = damage;
@@ -73,18 +76,18 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     enemyBehaviour() {}
 
     /*
-    Gets called once after the spawn phase ended, and is going to the normal phase
- */
+     * Gets called once after the spawn phase ended, and is going to the normal phase.
+     */
     afterSpawn() {}
 
     /*
-    Its called right before the enemy is added to the Stage
- */
+     * Its called right before the enemy is added to the Stage.
+     */
     beforeAddToStage() {}
 
     /*
-    Updates the shape position to match the physic body
- */
+     * Updates the shape position to match the physic body.
+     */
     updateShape() {
         this.shape.rotation = this.body.GetAngle() * (180 / Math.PI);
 
@@ -111,7 +114,7 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
         this.shape.x = x;
         this.shape.y = y;
 
-        var position = new b2Vec2(x / SCALE, y / SCALE);
+        const position = new b2Vec2(x / SCALE, y / SCALE);
 
         this.body.SetPosition(position);
     }
@@ -137,30 +140,32 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     }
 
     checkLimits() {
-        var x = this.getX();
-        var y = this.getY();
+        const x = this.getX();
+        const y = this.getY();
+        const { width, height } = Canvas.getDimensions();
 
         if (x < 0) {
-            this.moveTo(GAME_WIDTH, y);
-        } else if (x > GAME_WIDTH) {
+            this.moveTo(width, y);
+        } else if (x > width) {
             this.moveTo(0, y);
         } else if (y < 0) {
-            this.moveTo(x, GAME_HEIGHT);
-        } else if (y > GAME_HEIGHT) {
+            this.moveTo(x, height);
+        } else if (y > height) {
             this.moveTo(x, 0);
         }
     }
 
     /*
-    Remove the enemy ship, and update the game statistics
- */
-    remove() {
+     * Remove the enemy ship, and update the game statistics.
+     */
+    remove(removeFromAll = true) {
         STAGE.removeChild(this.shape);
         WORLD.destroyBody(this.body);
 
-        var position = EnemyShip.all.indexOf(this);
-
-        EnemyShip.all.splice(position, 1);
+        if (removeFromAll) {
+            const position = EnemyShip.all.indexOf(this);
+            EnemyShip.all.splice(position, 1);
+        }
 
         GameStatistics.updateNumberOfEnemies(
             GameStatistics.getNumberOfEnemies() - 1
@@ -170,35 +175,33 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
     }
 
     /*
-    Remove everything
- */
+     * Remove everything.
+     */
     static removeAll() {
         EnemyShip.all.forEach((ship) => {
-            ship.remove();
+            ship.remove(false);
         });
+        EnemyShip.all.length = 0;
 
         EnemyShip.all_spawning.forEach((ship) => {
             STAGE.removeChild(ship.shape);
             WORLD.destroyBody(ship.body);
-
-            var position = EnemyShip.all_spawning.indexOf(ship);
-
-            EnemyShip.all_spawning.splice(position, 1);
         });
+        EnemyShip.all_spawning.length = 0;
     }
 
     /*
-    The idea here is to have a time when the enemy ship can't do damage (or receive), since its still spawning.
-    This prevents problems like a ship spawning right under the main ship (and so taking damage without any chance to prevent it)
- */
+     * The idea here is to have a time when the enemy ship can't do damage (or receive), since its still spawning.
+     * This prevents problems like a ship spawning right under the main ship (and so taking damage without any chance to prevent it).
+     */
     spawningTick(event: createjs.TickerEvent) {
         if (event.paused) {
             return;
         }
 
-        this.spawnTicks_int--;
+        this.spawnTicks--;
 
-        if (this.spawnTicks_int < 0) {
+        if (this.spawnTicks < 0) {
             // play the main animation
             this.shape.gotoAndPlay("main");
 
@@ -206,10 +209,10 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
             EnemyShip.all.push(this);
 
             // remove from the spawn array
-            var spawnIndex = EnemyShip.all_spawning.indexOf(this);
+            const spawnIndex = EnemyShip.all_spawning.indexOf(this);
             EnemyShip.all_spawning.splice(spawnIndex, 1);
 
-            var fixDef = this.fixDef;
+            const fixDef = this.fixDef;
 
             fixDef.filter.categoryBits = Category.enemy;
             fixDef.filter.maskBits = Mask.enemy;
@@ -230,7 +233,6 @@ export default abstract class EnemyShip<Args extends EnemyShipArgs>
         }
 
         this.enemyBehaviour();
-
         this.updateShape();
 
         // the limits of the canvas

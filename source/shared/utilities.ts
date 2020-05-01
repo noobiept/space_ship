@@ -4,7 +4,7 @@ import {
     toDegrees,
     getRandomInt,
 } from "@drk4/utilities";
-import { CANVAS } from "../main";
+import * as Canvas from "../game/canvas";
 import { b2Vec2, EnemyClasses, EnemyNames } from "./constants";
 import { GameElement } from "./types";
 import { getMusicVolume } from "./options";
@@ -14,32 +14,19 @@ import { getMusicVolume } from "./options";
  * If 'refElement' isn't given, its assumed to be the 'CANVAS'.
  */
 export function centerElement(element: HTMLElement, refElement?: HTMLElement) {
-    const reference = refElement ?? CANVAS;
-
-    const width = $(reference).width()!;
-    const height = $(reference).height()!;
+    const reference = refElement ?? Canvas.getReference();
 
     // the reference element may not be starting at 0,0 position, so we need to account for that
-    const canvasPosition = $(reference).position();
+    const refRect = reference.getBoundingClientRect();
+    const elementRect = element.getBoundingClientRect();
+    const width = refRect.width;
+    const height = refRect.height;
 
-    const left = width / 2 - $(element).width()! / 2 + canvasPosition.left;
-    const top = height / 2 - $(element).height()! / 2 + canvasPosition.top;
+    const left = width / 2 - elementRect.width / 2 + refRect.left;
+    const top = height / 2 - elementRect.height / 2 + refRect.top;
 
-    $(element).css({
-        top: top + "px",
-        left: left + "px",
-    });
-}
-
-/**
- *  Center the canvas in the middle of window.
- */
-export function centerCanvas(canvasElement: HTMLCanvasElement) {
-    var left = window.innerWidth / 2 - canvasElement.width / 2;
-    var top = window.innerHeight / 2 - canvasElement.height / 2;
-
-    $(canvasElement).css("left", left + "px");
-    $(canvasElement).css("top", top + "px");
+    element.style.top = top + "px";
+    element.style.left = left + "px";
 }
 
 /**
@@ -91,9 +78,7 @@ export function calculateAngleBetweenObjects(
 }
 
 export function outOfBounds(object: GameElement) {
-    const width = CANVAS.width;
-    const height = CANVAS.height;
-
+    const { width, height } = Canvas.getDimensions();
     const x = object.getX();
     const y = object.getY();
 
@@ -136,12 +121,13 @@ export function hideElement(elementOrID: HTMLElement | string) {
 
 /**
  * Play a sound from an existing audio element.
+ * You can reduce the volume being played (a percentage of the current set global volume).
  */
-export function playSound(id: string) {
+export function playSound(id: string, volumeAttenuation = 1) {
     const volume = getMusicVolume();
     const music = document.getElementById(id) as HTMLAudioElement;
     music.currentTime = 0;
-    music.volume = volume;
+    music.volume = volume * volumeAttenuation;
     music.play();
 }
 

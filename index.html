@@ -5,32 +5,10 @@
         <title>Space Ship</title>
 
         <!-- styling -->
-        <link
-            rel="stylesheet"
-            type="text/css"
-            href="libraries/jquery-ui.min.css"
-        />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
 
         <!-- libraries -->
-        <script
-            type="text/javascript"
-            src="libraries/jquery-2.2.4.min.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="libraries/jquery-ui.min.js"
-        ></script>
-
-        <script
-            type="text/javascript"
-            src="libraries/easeljs-0.8.2.min.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="libraries/preloadjs-0.6.2.min.js"
-        ></script>
-
+        <script type="text/javascript" src="libraries/easeljs.min.js"></script>
         <script
             type="text/javascript"
             src="libraries/Box2dWeb-2.1.a.3.min.js"
@@ -40,18 +18,20 @@
         <script type="text/javascript" src="bundle.js"></script>
     </head>
     <body>
-        <canvas
-            id="mainCanvas"
-            class="hidden"
-            width="800"
-            height="400"
-        ></canvas>
-        <canvas
-            id="debugCanvas"
-            class="hidden"
-            width="800"
-            height="400"
-        ></canvas>
+        <div id="CanvasContainer">
+            <canvas
+                id="MainCanvas"
+                class="hidden"
+                width="800"
+                height="400"
+            ></canvas>
+            <canvas
+                id="DebugCanvas"
+                class="hidden"
+                width="800"
+                height="400"
+            ></canvas>
+        </div>
 
         <div id="MainMenu" class="hidden">
             <div
@@ -66,10 +46,14 @@
 
         <div id="Options" class="hidden">
             <div id="Options-container">
-                <div id="Options-musicVolume"
-                    >Music Volume: <span></span>
-                    <div id="Options-musicVolume-slider"></div
-                ></div>
+                <div>Music Volume: <span id="Options-musicVolume"></span></div>
+                <input
+                    id="Options-RangeInput"
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="1"
+                />
             </div>
 
             <br />

@@ -1,5 +1,5 @@
 import EnemyShip, { EnemyShipArgs } from "./enemy_ship";
-import { PRELOAD, WORLD } from "../main";
+import { WORLD } from "../main";
 import { Category, Mask } from "../game/collision_detection";
 import {
     b2FixtureDef,
@@ -9,6 +9,7 @@ import {
     b2Vec2,
     SCALE,
 } from "../shared/constants";
+import { getAsset } from "../shared/assets";
 
 export type FullEnemyMoveHorizontallyArgs = {} & EnemyShipArgs;
 
@@ -31,9 +32,8 @@ export default class EnemyMoveHorizontally extends EnemyShip<
     }
 
     makeShape({ width, height }: FullEnemyMoveHorizontallyArgs) {
-        var speed = 0.2;
-
-        var spriteSheet = {
+        const speed = 0.2;
+        const spriteSheet = {
             animations: {
                 spawn: {
                     frames: [0, 1, 2],
@@ -53,7 +53,7 @@ export default class EnemyMoveHorizontally extends EnemyShip<
                 height,
             },
 
-            images: [PRELOAD.getResult("enemy_move_horizontally")],
+            images: [getAsset("enemy_move_horizontally")],
         };
 
         const ss = new createjs.SpriteSheet(spriteSheet);
@@ -69,11 +69,11 @@ export default class EnemyMoveHorizontally extends EnemyShip<
     }
 
     setupPhysics() {
-        var width = this.width;
-        var height = this.height;
+        const width = this.width;
+        const height = this.height;
 
         // physics
-        var fixDef = new b2FixtureDef();
+        const fixDef = new b2FixtureDef();
 
         fixDef.density = 1;
         fixDef.friction = 0.5;
@@ -84,7 +84,7 @@ export default class EnemyMoveHorizontally extends EnemyShip<
         this.category_bits = Category.enemy_spawning;
         this.mask_bits = Mask.enemy_spawning;
 
-        var bodyDef = new b2BodyDef();
+        const bodyDef = new b2BodyDef();
 
         bodyDef.type = b2Body.b2_dynamicBody;
 

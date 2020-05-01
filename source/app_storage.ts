@@ -20,16 +20,10 @@ export function getData(
 }
 
 /**
- * Sets the given key/value into `localStorage`. Calls the `callback` when its done.
- * Converts the value to string (with json).
+ * Saves the given key/value into `localStorage`.
  */
 export function setData(items: AppData) {
-    for (let key in items) {
-        if (items.hasOwnProperty(key)) {
-            localStorage.setItem(
-                key,
-                JSON.stringify(items[key as keyof AppData])
-            );
-        }
-    }
+    Object.entries(items).forEach(([key, value]) => {
+        localStorage.setItem(key, JSON.stringify(value));
+    });
 }

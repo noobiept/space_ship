@@ -1,5 +1,5 @@
 import EnemyShip, { EnemyShipArgs } from "./enemy_ship";
-import { PRELOAD, WORLD, MAIN_SHIP } from "../main";
+import { WORLD, MAIN_SHIP } from "../main";
 import { calculateAngleBetweenObjects } from "../shared/utilities";
 import Bullet1_laser from "../bullets/bullet1_laser";
 import { Category, Mask } from "../game/collision_detection";
@@ -11,6 +11,7 @@ import {
     b2Vec2,
     SCALE,
 } from "../shared/constants";
+import { getAsset } from "../shared/assets";
 
 export type FullEnemyRotateAroundArgs = {} & EnemyShipArgs;
 
@@ -22,8 +23,8 @@ export type EnemyRotateAroundArgs = Omit<
 export default class EnemyRotateAround extends EnemyShip<
     FullEnemyRotateAroundArgs
 > {
-    ticksUntilNextBullet: number;
-    countTicks: number;
+    private ticksUntilNextBullet: number;
+    private countTicks: number;
 
     constructor(args: EnemyRotateAroundArgs) {
         super({
@@ -60,7 +61,7 @@ export default class EnemyRotateAround extends EnemyShip<
                 height,
             },
 
-            images: [PRELOAD.getResult("enemy_rotate_around")],
+            images: [getAsset("enemy_rotate_around")],
         };
 
         const ss = new createjs.SpriteSheet(spriteSheet);
@@ -76,10 +77,10 @@ export default class EnemyRotateAround extends EnemyShip<
     }
 
     setupPhysics() {
-        var width = this.width;
+        const width = this.width;
 
         // physics
-        var fixDef = new b2FixtureDef();
+        const fixDef = new b2FixtureDef();
 
         fixDef.density = 1;
         fixDef.friction = 0.5;
@@ -90,7 +91,7 @@ export default class EnemyRotateAround extends EnemyShip<
         this.category_bits = Category.enemy_spawning;
         this.mask_bits = Mask.enemy_spawning;
 
-        var bodyDef = new b2BodyDef();
+        const bodyDef = new b2BodyDef();
 
         bodyDef.type = b2Body.b2_dynamicBody;
 
@@ -111,30 +112,29 @@ export default class EnemyRotateAround extends EnemyShip<
     }
 
     enemyBehaviour() {
-        var currentX = this.shape.x;
-        var currentY = this.shape.y;
+        const currentX = this.shape.x;
+        const currentY = this.shape.y;
 
         // make a triangle from the position the ship is in, relative to the enemy position
-        var triangleOppositeSide = MAIN_SHIP.shape.y - currentY;
-        var triangleAdjacentSide = currentX - MAIN_SHIP.shape.x;
+        const triangleOppositeSide = MAIN_SHIP.getY() - currentY;
+        const triangleAdjacentSide = currentX - MAIN_SHIP.getX();
 
         // find the angle, given the two sides (of a right triangle)
-        var angleRadians = Math.atan2(
+        const angleRadians = Math.atan2(
             triangleOppositeSide,
             triangleAdjacentSide
         );
 
-        var x = Math.sin(angleRadians) * this.velocity;
-        var y = Math.cos(angleRadians) * this.velocity;
+        const x = Math.sin(angleRadians) * this.velocity;
+        const y = Math.cos(angleRadians) * this.velocity;
 
         this.body.SetLinearVelocity(new b2Vec2(x, y));
     }
 
     /*
-    Gets called in the base class .tick() function
-
-    Shoots the bullets
- */
+     * Gets called in the base class .tick() function.
+     * Shoots the bullets.
+     */
     normalTick(event: createjs.TickerEvent) {
         super.normalTick(event);
 
@@ -144,7 +144,7 @@ export default class EnemyRotateAround extends EnemyShip<
         if (this.countTicks >= this.ticksUntilNextBullet) {
             this.countTicks = 0;
 
-            var angleRotation = calculateAngleBetweenObjects(this, MAIN_SHIP);
+            let angleRotation = calculateAngleBetweenObjects(this, MAIN_SHIP);
 
             // we multiply by -1 because the .rotation property seems to have the angles in the other direction
             angleRotation *= -1;

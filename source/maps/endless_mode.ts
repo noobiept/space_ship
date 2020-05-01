@@ -1,25 +1,26 @@
 import { getRandomInt } from "@drk4/utilities";
-import { initGame, GAME_WIDTH, GAME_HEIGHT } from "../main";
+import * as Canvas from "../game/canvas";
+import { initGame } from "../main";
 import { MapType } from "../shared/types";
 import { getRandomEnemy } from "../shared/utilities";
 
 /*
-    Doesn't have levels/maps
-
-    Difficulty increases with time
+ * Doesn't have levels/maps.
+ * Difficulty increases with time.
  */
 export default class EndlessMode implements MapType {
     CURRENT_MAP = 0;
-    next_enemy: number;
-    damage: number;
-    velocity: number;
-    decrease_next_enemy_step: number;
-    increase_damage_step: number;
-    increase_velocity_step: number;
-    count_next_enemy: number;
-    count_decrease_next_enemy: number;
-    count_increase_damage: number;
-    count_increase_velocity: number;
+
+    private next_enemy: number;
+    private damage: number;
+    private velocity: number;
+    private decrease_next_enemy_step: number;
+    private increase_damage_step: number;
+    private increase_velocity_step: number;
+    private count_next_enemy: number;
+    private count_decrease_next_enemy: number;
+    private count_increase_damage: number;
+    private count_increase_velocity: number;
 
     constructor() {
         // from how many ticks, until next enemy (the step)
@@ -48,9 +49,8 @@ export default class EndlessMode implements MapType {
     }
 
     /*
-    Gets called after the main tick()
- */
-
+     * Gets called after the main tick().
+     */
     tick(event: createjs.TickerEvent) {
         if (event.paused) {
             return;
@@ -66,10 +66,11 @@ export default class EndlessMode implements MapType {
 
             const enemy = getRandomEnemy();
             const numberOfEnemies = 3;
+            const { width, height } = Canvas.getDimensions();
 
-            for (var i = 0; i < numberOfEnemies; i++) {
-                const x = getRandomInt(0, GAME_WIDTH);
-                const y = getRandomInt(0, GAME_HEIGHT);
+            for (let i = 0; i < numberOfEnemies; i++) {
+                const x = getRandomInt(0, width);
+                const y = getRandomInt(0, height);
 
                 new enemy.class({
                     x: x,

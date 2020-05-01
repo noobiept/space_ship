@@ -18,14 +18,6 @@ body {
     user-select: none;
 }
 
-#debugCanvas {
-    position: absolute;
-}
-
-#mainCanvas {
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
 .Message {
     position: absolute;
     font-size: 1.5em;
@@ -47,13 +39,29 @@ body {
     display: none !important;
 }
 
+/* Canvas elements */
+
+#CanvasContainer {
+    position: relative;
+}
+
+#DebugCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#MainCanvas {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
 /* z-index */
 
-#mainCanvas {
+#MainCanvas {
     z-index: 100;
 }
 
-#debugCanvas {
+#DebugCanvas {
     z-index: 50;
 }
 
@@ -142,4 +150,43 @@ body {
 
 .GamePausedMessage {
     font-size: 2em;
+}
+
+/* Music Volume Range Input */
+
+#Options-RangeInput {
+    -webkit-appearance: none;
+    appearance: none;
+    background: white;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+    border-radius: 5px;
+    width: 100%;
+    height: 25px;
+    margin: 10px 0;
+    outline: none;
+}
+
+#Options-RangeInput:hover {
+    opacity: 1;
+}
+
+#Options-RangeInput::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    background: rgb(140, 185, 220);
+    border-radius: 5px;
+}
+
+#Options-RangeInput::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    background: rgb(140, 185, 220);
+    border-radius: 5px;
 }

@@ -6,13 +6,13 @@ import { EnemyNames } from "../shared/constants";
 import { LevelInfo, LevelInfoDamage, LevelInfoVelocity } from "../shared/types";
 
 export default class RandomMaps extends Maps {
-    map_length: number;
-    how_many_min: number;
-    how_many_max: number;
-    tick_min: number;
-    tick_max: number;
-    damage: number;
-    velocity: number;
+    private map_length: number;
+    private how_many_min: number;
+    private how_many_max: number;
+    private tick_min: number;
+    private tick_max: number;
+    private damage: number;
+    private velocity: number;
 
     constructor() {
         super();
@@ -42,15 +42,15 @@ export default class RandomMaps extends Maps {
     generateMap(): LevelInfo {
         this.increaseDifficulty();
 
-        var map = [];
+        const map = [];
 
         // number of times where enemies are added
-        var length = this.map_length;
+        const length = this.map_length;
 
         // the game tick, from the start of the map
-        var tick = 0;
+        let tick = 0;
 
-        for (var i = 0; i < length; i++) {
+        for (let i = 0; i < length; i++) {
             tick += getRandomInt(this.tick_min, this.tick_max);
 
             const howMany = getRandomInt(this.how_many_min, this.how_many_max);
@@ -107,8 +107,8 @@ export default class RandomMaps extends Maps {
     }
 
     /*
-    Never ending maps
- */
+     * Never ending maps.
+     */
     loadMap(mapNumber?: number) {
         if (typeof mapNumber == "undefined") {
             this.CURRENT_MAP++;
@@ -122,7 +122,7 @@ export default class RandomMaps extends Maps {
             }
         }
 
-        var newMap = this.generateMap();
+        const newMap = this.generateMap();
 
         this.MAPS.push(newMap);
 

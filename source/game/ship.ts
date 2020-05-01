@@ -1,19 +1,11 @@
-import { KEY_CODE } from "@drk4/utilities";
-import {
-    GAME_WIDTH,
-    GAME_HEIGHT,
-    STAGE,
-    startGameMode,
-    CANVAS,
-    PRELOAD,
-    WORLD,
-} from "../main";
+import { EventDispatcher } from "@drk4/utilities";
+import { STAGE, WORLD } from "../main";
 import { KEYS_HELD } from "../keyboard_events";
-import Message from "../shared/message";
 import Bullet1_laser from "../bullets/bullet1_laser";
 import Bullet2_sniper from "../bullets/bullet2_sniper";
 import Bullet3_rocket from "../bullets/bullet3_rocket";
 import Bullet4_mines from "../bullets/bullet4_mines";
+import * as Canvas from "./canvas";
 import * as GameStatistics from "../menus/game_statistics";
 import * as ZIndex from "./z_index";
 import * as GameMenu from "../menus/game_menu";
@@ -28,6 +20,9 @@ import {
 } from "../shared/constants";
 import { GameElement } from "../shared/types";
 import { playSound } from "../shared/utilities";
+import { getAsset } from "../shared/assets";
+
+type ShipEvent = "dead";
 
 const VELOCITY = 5;
 
@@ -38,25 +33,31 @@ const AMMO_UPDATE_TICK = [10, 28, 11, 21];
 // maximum number of bullets per weapon
 const MAX_AMMO = [50, 10, 25, 20];
 
-export default class Ship implements GameElement {
-    shape: createjs.DisplayObject;
-    width = 10;
-    height = 10;
-    color: string;
+export default class Ship extends EventDispatcher<ShipEvent>
+    implements GameElement {
     type = CollisionID.ship;
-    weaponSelected: number;
-    tick_count: [number, number, number, number];
-    bullets_left: [number, number, number, number];
-    category_bits!: Category;
-    mask_bits!: Mask;
-    body: Box2D.Dynamics.b2Body;
     alreadyInCollision = false;
-    onClick!: (e: MouseEvent) => void;
-    onMouseMove!: (e: MouseEvent) => void;
+
+    readonly width = 10;
+    readonly height = 10;
+
+    private shape: createjs.DisplayObject;
+    private color: string;
+    private weaponSelected: number;
+    private tick_count: [number, number, number, number];
+    private bullets_left: [number, number, number, number];
+    private category_bits!: Category;
+    private mask_bits!: Mask;
+    private body: Box2D.Dynamics.b2Body;
+    private onClick: (e: MouseEvent) => void;
+    private onMouseMove: (e: MouseEvent) => void;
+    private disabled = false;
 
     static all: Ship[] = [];
 
     constructor() {
+        super();
+
         this.color = "rgb(81, 139, 255)";
         this.weaponSelected = 0;
         this.shape = this.makeShape();
@@ -80,12 +81,30 @@ export default class Ship implements GameElement {
 
         Ship.all.push(this);
 
-        this.moveTo(GAME_WIDTH / 2, GAME_HEIGHT / 2);
+        const { width, height } = Canvas.getDimensions();
+        this.moveTo(width / 2, height / 2);
 
         STAGE.addChild(this.shape);
         ZIndex.add(this.shape);
 
-        this.setEvents();
+        // add the event listeners
+        this.onClick = () => {
+            if (this.disabled) {
+                return;
+            }
+
+            this.handleClick();
+        };
+        this.onMouseMove = (event) => {
+            if (this.disabled) {
+                return;
+            }
+
+            this.handleMouseMove(event);
+        };
+
+        window.addEventListener("click", this.onClick, false);
+        window.addEventListener("mousemove", this.onMouseMove, false);
     }
 
     makeShape() {
@@ -100,7 +119,7 @@ export default class Ship implements GameElement {
                 width: 10,
                 height: 10,
             },
-            images: [PRELOAD.getResult("ship")],
+            images: [getAsset("ship")],
         };
         const ss = new createjs.SpriteSheet(spriteSheet);
         const ship = new createjs.Sprite(ss);
@@ -115,10 +134,10 @@ export default class Ship implements GameElement {
     }
 
     setupPhysics() {
-        var width = this.width;
+        const width = this.width;
 
         // physics
-        var fixDef = new b2FixtureDef();
+        const fixDef = new b2FixtureDef();
 
         fixDef.density = 1;
         fixDef.friction = 0.5;
@@ -129,7 +148,7 @@ export default class Ship implements GameElement {
         this.category_bits = Category.ship;
         this.mask_bits = Mask.ship;
 
-        var bodyDef = new b2BodyDef();
+        const bodyDef = new b2BodyDef();
 
         bodyDef.type = b2Body.b2_staticBody;
 
@@ -147,31 +166,16 @@ export default class Ship implements GameElement {
     }
 
     /*
-    Sets Ship's events, that handle the firing of the weapons (click event) and the rotation of the ship (mousemove event)
- */
-    setEvents() {
-        this.onClick = (event) => {
-            this.handleClick(event);
-        };
-        this.onMouseMove = (event) => {
-            this.handleMouseMove(event);
-        };
-
-        window.addEventListener("click", this.onClick, false);
-        window.addEventListener("mousemove", this.onMouseMove, false);
-    }
-
-    /*
-    Clear the events of the Ship, call .setEvents() later to set them back
- */
+     * Clear the events of the Ship, call .setEvents() later to set them back
+     */
     clearEvents() {
         window.removeEventListener("click", this.onClick);
         window.removeEventListener("mousemove", this.onMouseMove);
     }
 
     /*
-    Updates the shape position to match the physic body
- */
+     * Updates the shape position to match the physic body.
+     */
     updateShape() {
         this.shape.rotation = this.body.GetAngle() * (180 / Math.PI);
 
@@ -185,7 +189,7 @@ export default class Ship implements GameElement {
         this.shape.x = x;
         this.shape.y = y;
 
-        var position = new b2Vec2(x / SCALE, y / SCALE);
+        const position = new b2Vec2(x / SCALE, y / SCALE);
 
         this.body.SetPosition(position);
     }
@@ -219,7 +223,9 @@ export default class Ship implements GameElement {
     }
 
     static inRightLimit(x: number) {
-        if (x > GAME_WIDTH) {
+        const { width } = Canvas.getDimensions();
+
+        if (x > width) {
             return true;
         }
 
@@ -227,7 +233,9 @@ export default class Ship implements GameElement {
     }
 
     static inBottomLimit(y: number) {
-        if (y > GAME_HEIGHT) {
+        const { height } = Canvas.getDimensions();
+
+        if (y > height) {
             return true;
         }
 
@@ -241,22 +249,7 @@ export default class Ship implements GameElement {
 
         // you loose
         if (energy <= 0) {
-            this.remove();
-
-            createjs.Ticker.removeAllEventListeners();
-            window.onclick = null; // so that you can't fire anymore
-
-            const endMessage = new Message({
-                text: "Game Over: Press enter to restart",
-            });
-
-            $(document).bind("keyup", function (event) {
-                if (event.keyCode === KEY_CODE.enter) {
-                    endMessage.remove();
-
-                    startGameMode(true);
-                }
-            });
+            this.dispatchEvent("dead");
         }
     }
 
@@ -267,30 +260,27 @@ export default class Ship implements GameElement {
     }
 
     /*
-    Arguments:
-
-        event : (MouseEvent -- easelJS)
-        ship  : (Ship object)
- */
+     * Rotate the ship on mouse move.
+     */
     handleMouseMove(event: MouseEvent) {
-        var canvasPosition = $(CANVAS).position();
+        const canvasPosition = Canvas.getReference().getBoundingClientRect();
 
         // mouse position in the canvas (assume origin point in top/left of canvas element)
-        var mouseX = event.pageX - canvasPosition.left;
-        var mouseY = event.pageY - canvasPosition.top;
+        const mouseX = event.pageX - canvasPosition.left;
+        const mouseY = event.pageY - canvasPosition.top;
 
         // make a triangle from the position the ship is in, relative to the mouse position
-        var triangleOppositeSide = this.shape.y - mouseY;
-        var triangleAdjacentSide = mouseX - this.shape.x;
+        const triangleOppositeSide = this.shape.y - mouseY;
+        const triangleAdjacentSide = mouseX - this.shape.x;
 
         // find the angle, given the two sides (of a right triangle)
-        var angleRadians = Math.atan2(
+        const angleRadians = Math.atan2(
             triangleOppositeSide,
             triangleAdjacentSide
         );
 
         // convert to degrees
-        var angleDegrees = (angleRadians * 180) / Math.PI;
+        const angleDegrees = (angleRadians * 180) / Math.PI;
 
         // we multiply by -1 because the .rotation property seems to have the angles in the other direction
         this.rotate(-1 * angleDegrees);
@@ -301,16 +291,16 @@ export default class Ship implements GameElement {
         this.body.SetAngle((degrees * Math.PI) / 180);
     }
 
-    handleClick(event: MouseEvent) {
-        var weapons = [
+    handleClick() {
+        const weapons = [
             Bullet1_laser,
             Bullet2_sniper,
             Bullet3_rocket,
             Bullet4_mines,
         ];
 
-        var weaponSelected = this.weaponSelected;
-        var bulletsLeft = this.bullets_left;
+        const weaponSelected = this.weaponSelected;
+        const bulletsLeft = this.bullets_left;
 
         if (bulletsLeft[weaponSelected] > 0) {
             new weapons[this.weaponSelected]({
@@ -323,18 +313,20 @@ export default class Ship implements GameElement {
             });
 
             bulletsLeft[weaponSelected]--;
-            GameStatistics.updateBulletsLeft(weaponSelected);
+            GameMenu.updateBulletsLeft(
+                weaponSelected,
+                this.getBulletsLeft(weaponSelected)
+            );
         } else {
-            playSound("Audio-dryFire");
+            playSound("Audio-dryFire", 0.3);
         }
     }
 
     updateAmmo() {
-        var i;
-        var tickCount = this.tick_count;
-        var bulletsLeft = this.bullets_left;
+        const tickCount = this.tick_count;
+        const bulletsLeft = this.bullets_left;
 
-        for (i = 0; i < AMMO_UPDATE_TICK.length; i++) {
+        for (let i = 0; i < AMMO_UPDATE_TICK.length; i++) {
             tickCount[i]--;
 
             if (tickCount[i] <= 0) {
@@ -346,22 +338,22 @@ export default class Ship implements GameElement {
                     // increase the number of bullets available
                     bulletsLeft[i]++;
 
-                    GameStatistics.updateBulletsLeft(i);
+                    GameMenu.updateBulletsLeft(i, this.getBulletsLeft(i));
                 }
             }
         }
     }
 
     /*
-    Returns the number of bullets left from a particular weapon (zero-based)
- */
+     * Returns the number of bullets left from a particular weapon (zero-based).
+     */
     getBulletsLeft(weapon: number) {
         return this.bullets_left[weapon];
     }
 
     /*
-    Adds the ammo of all the weapons back to half of the maximum ammo, or if the ammo is already at half or more, keep whatever value it has
- */
+     * Adds the ammo of all the weapons back to half of the maximum ammo, or if the ammo is already at half or more, keep whatever value it has.
+     */
     refreshAmmo() {
         const bulletsLeft = this.bullets_left;
 
@@ -374,32 +366,41 @@ export default class Ship implements GameElement {
         }
     }
 
+    /**
+     * Disable/enable the ship.
+     * When disabled the player's inputs don't have an effect (ie. can't fire a bullet).
+     */
+    setDisabled(state: boolean) {
+        this.disabled = state;
+    }
+
     /*
-    Remove this ship
- */
-    remove() {
+     * Remove this ship.
+     */
+    remove(removeFromAll = true) {
         STAGE.removeChild(this.shape);
         WORLD.destroyBody(this.body);
 
-        var position = Ship.all.indexOf(this);
+        if (removeFromAll) {
+            const position = Ship.all.indexOf(this);
+            Ship.all.splice(position, 1);
+        }
 
-        Ship.all.splice(position, 1);
-
-        $(this).unbind();
         this.clearEvents();
     }
 
     /*
-    Remove all the ships
- */
+     * Remove all the ships.
+     */
     static removeAll() {
         Ship.all.forEach((ship) => {
-            ship.remove();
+            ship.remove(false);
         });
+        Ship.all.length = 0;
     }
 
     tick() {
-        var nextX, nextY;
+        let nextX, nextY;
 
         // top left
         if (KEYS_HELD.left && KEYS_HELD.up) {

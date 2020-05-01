@@ -1,5 +1,18 @@
 # Unreleased
 
+# v2.1.0 - 01/05/2020
+
+## Added
+
+-   A linter (eslint).
+
+## Changed
+
+-   Replace the preload library being used to load the assets.
+-   Rework the options page.
+-   Remove jquery and jqueryui.
+-   Refactor parts of the codebase.
+
 # v2.0.0 - 12/04/2020
 
 ## Added

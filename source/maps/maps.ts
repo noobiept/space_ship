@@ -1,13 +1,9 @@
 import { getRandomInt } from "@drk4/utilities";
-import {
-    initGame,
-    GAME_WIDTH,
-    GAME_HEIGHT,
-    MAIN_SHIP,
-    nextSong,
-} from "../main";
-import Message from "../shared/message";
+
 import * as MainMenu from "../menus/main_menu";
+import * as Canvas from "../game/canvas";
+import { initGame, MAIN_SHIP, nextSong } from "../main";
+import Message from "../shared/message";
 import EnemyShip from "../enemies/enemy_ship";
 import { MapType, LevelInfo, LevelInfoPhase } from "../shared/types";
 import { EnemyMapping } from "../shared/constants";
@@ -17,12 +13,13 @@ export type MapsArgs = {
 };
 
 export default class Maps implements MapType {
-    NUMBER_OF_MAPS: number;
-    MAPS: LevelInfo[];
     CURRENT_MAP: number;
-    CURRENT_MAP_TICK: number;
-    CURRENT_MAP_PHASE: number;
-    NO_MORE_PHASES: boolean;
+
+    private NUMBER_OF_MAPS: number;
+    protected MAPS: LevelInfo[];
+    protected CURRENT_MAP_TICK: number;
+    protected CURRENT_MAP_PHASE: number;
+    protected NO_MORE_PHASES: boolean;
 
     constructor(args: MapsArgs = {}) {
         if (typeof args.maps == "undefined") {
@@ -56,10 +53,8 @@ export default class Maps implements MapType {
     }
 
     /*
-    Arguments:
-
-        level (int) : which map/level to load (if not provided, load the next map)
- */
+     * `mapNumber`: which map/level to load (if not provided, load the next map).
+     */
     loadMap(mapNumber?: number) {
         // load the next map
         if (typeof mapNumber == "undefined") {
@@ -90,8 +85,8 @@ export default class Maps implements MapType {
     }
 
     /*
-    All levels completed, show a message and then go to the MainMenu
- */
+     * All levels completed, show a message and then go to the MainMenu.
+     */
     noMoreLevels() {
         new Message({
             text: "Congratulations, you finished the game!<br />Too easy huh?",
@@ -110,11 +105,12 @@ export default class Maps implements MapType {
         const howMany = phase.howMany;
         const damage = map.damage[phase.enemyType];
         const velocity = map.velocity[phase.enemyType];
+        const { width, height } = Canvas.getDimensions();
 
         // get the x/y and create the enemy
         for (let i = 0; i < howMany; i++) {
-            const x = getRandomInt(0, GAME_WIDTH);
-            const y = getRandomInt(0, GAME_HEIGHT);
+            const x = getRandomInt(0, width);
+            const y = getRandomInt(0, height);
 
             new enemyType({
                 x: x,

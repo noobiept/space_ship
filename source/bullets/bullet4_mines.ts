@@ -10,9 +10,9 @@ const ANGLE_TICK = 15;
 export type Bullet4_minesArgs = {} & BulletArgs;
 
 export default class Bullet4_mines extends Bullet<Bullet4_minesArgs> {
-    angle: number;
-    angleTick: number;
-    countTick: number;
+    private angle: number;
+    private angleTick: number;
+    private countTick: number;
 
     constructor(args: Bullet4_minesArgs) {
         super({
@@ -51,9 +51,8 @@ export default class Bullet4_mines extends Bullet<Bullet4_minesArgs> {
     }
 
     /*
-    Have an animation of the mine (rotates around itself)
- */
-
+     * Have an animation of the mine (rotates around itself).
+     */
     rotateMine() {
         this.angle += 45;
 
@@ -61,11 +60,9 @@ export default class Bullet4_mines extends Bullet<Bullet4_minesArgs> {
             this.angle = 0;
         }
 
-        var mine = this.shape;
-
-        var g = mine.graphics;
-
-        var halfPoint = this.width / 2; // width is same as height
+        const mine = this.shape;
+        const g = mine.graphics;
+        const halfPoint = this.width / 2; // width is same as height
 
         g.clear();
         g.beginFill(this.color);
@@ -76,9 +73,8 @@ export default class Bullet4_mines extends Bullet<Bullet4_minesArgs> {
     }
 
     /*
-    What to do to the bullet when a collision is detected
- */
-
+     * What to do to the bullet when a collision is detected.
+     */
     collisionResponse() {
         this.remove();
 
