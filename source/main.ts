@@ -18,7 +18,7 @@ import {
 import EnemyShip from "./enemies/enemy_ship";
 import Bullet from "./bullets/bullet";
 import { MapType, AppData, MapTypeClass } from "./shared/types";
-import { hideElement, showElement } from "./shared/utilities";
+import { hideElement } from "./shared/utilities";
 import * as CollisionDetection from "./game/collision_detection";
 import World from "./game/world";
 import { b2ContactListener } from "./shared/constants";

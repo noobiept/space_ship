@@ -88,12 +88,12 @@ export default class Ship extends EventDispatcher<ShipEvent>
         ZIndex.add(this.shape);
 
         // add the event listeners
-        this.onClick = (event) => {
+        this.onClick = () => {
             if (this.disabled) {
                 return;
             }
 
-            this.handleClick(event);
+            this.handleClick();
         };
         this.onMouseMove = (event) => {
             if (this.disabled) {
@@ -291,7 +291,7 @@ export default class Ship extends EventDispatcher<ShipEvent>
         this.body.SetAngle((degrees * Math.PI) / 180);
     }
 
-    handleClick(event: MouseEvent) {
+    handleClick() {
         const weapons = [
             Bullet1_laser,
             Bullet2_sniper,
